@@ -10,6 +10,7 @@ using xNose.Core.Reporters;
 using xNose.Core.Smells;
 using xNose.Core.Visitors;
 using xNose.Core.ResultAnalysis;
+using xNose.Core.FileReader;
 
 namespace xNose.Core
 {
@@ -19,7 +20,7 @@ namespace xNose.Core
         {
 
             // Attempt to set the version of MSBuild.
-            Console.WriteLine(args.ToString());
+           // Console.WriteLine(args.ToString());
 
             var visualStudioInstances = MSBuildLocator.QueryVisualStudioInstances().ToArray();
             var instance = visualStudioInstances.Length == 1
@@ -34,13 +35,14 @@ namespace xNose.Core
             //       before calling MSBuildWorkspace.Create()
             //       otherwise, MSBuildWorkspace won't MEF compose.
             MSBuildLocator.RegisterInstance(instance);
-
-            using (var workspace = MSBuildWorkspace.Create())
+            var results = JsonFileReader.ReadResultFile("E:/workstation/xnose-repo-crawler/results.json");
+           foreach(var result in results)
             {
+                using var workspace = MSBuildWorkspace.Create();
                 // Print message for WorkspaceFailed event to help diagnosing project load failures.
                 workspace.WorkspaceFailed += (o, e) => Console.WriteLine(e.Diagnostic.Message);
 
-                var solutionPath = args[0];
+                var solutionPath = result.Path;
 
                 Console.WriteLine($"Loading solution '{solutionPath}'");
 
@@ -55,25 +57,27 @@ namespace xNose.Core
                 int testClassCount = 0, testMethodCount = 0;
                 foreach (var project in projects)
                 {
-                    if (counter.Contains(project.FilePath.ToString()))
+                    try 
                     {
-                        continue;
-                    }
-                    Console.WriteLine(project.AssemblyName.ToString());
-                    Console.WriteLine(project.DefaultNamespace.ToString());
-                    counter.Add(project.FilePath.ToString());
+                        if (counter.Contains(project.FilePath.ToString()))
+                        {
+                            continue;
+                        }
+                        Console.WriteLine(project.AssemblyName.ToString());
+                        Console.WriteLine(project.DefaultNamespace.ToString());
+                        counter.Add(project.FilePath.ToString());
 
-                    var compilation = await project.GetCompilationAsync();
+                        var compilation = await project.GetCompilationAsync();
 
-                    var classVisitor = new ClassVirtualizationVisitor();
+                        var classVisitor = new ClassVirtualizationVisitor();
 
-                    foreach (var syntaxTree in compilation.SyntaxTrees)
-                    {
-                        classVisitor.Visit(syntaxTree.GetRoot());
-                    }
+                        foreach (var syntaxTree in compilation.SyntaxTrees)
+                        {
+                            classVisitor.Visit(syntaxTree.GetRoot());
+                        }
 
 
-                    var testSmells = new List<ASmell> {
+                        var testSmells = new List<ASmell> {
                                         new EmptyTestSmell(),
                                         new ConditionalTestSmell(),
                                         new CyclomaticComplexityTestSmell(),
@@ -92,83 +96,88 @@ namespace xNose.Core
                                         new ConstructorInitializationTestSmell(),
                                         new ObscureInLineSetUpSmell()
                                     };
-                    Dictionary<string, Dictionary<string, bool>> otherMethodTestSmell = new Dictionary<string, Dictionary<string, bool>>();
-                    foreach (var (classDeclaration, methodDeclarations) in classVisitor.ClassWithOtherMethods)
-                    {
-                        foreach (var methodDeclaration in methodDeclarations)
+                        Dictionary<string, Dictionary<string, bool>> otherMethodTestSmell = new Dictionary<string, Dictionary<string, bool>>();
+                        foreach (var (classDeclaration, methodDeclarations) in classVisitor.ClassWithOtherMethods)
                         {
-                            if (methodDeclaration.Body == null)
-                                continue;
-                            if (!otherMethodTestSmell.ContainsKey(methodDeclaration.Identifier.Text))
-                                otherMethodTestSmell[methodDeclaration.Identifier.Text] = new Dictionary<string, bool>();
-                            foreach (var smell in testSmells)
+                            foreach (var methodDeclaration in methodDeclarations)
                             {
-                                smell.Node = methodDeclaration;
+                                if (methodDeclaration.Body == null)
+                                    continue;
+                                if (!otherMethodTestSmell.ContainsKey(methodDeclaration.Identifier.Text))
+                                    otherMethodTestSmell[methodDeclaration.Identifier.Text] = new Dictionary<string, bool>();
+                                foreach (var smell in testSmells)
+                                {
+                                    smell.Node = methodDeclaration;
 
-                                otherMethodTestSmell[methodDeclaration.Identifier.Text][smell.Name()] = smell.HasSmell();
+                                    otherMethodTestSmell[methodDeclaration.Identifier.Text][smell.Name()] = smell.HasSmell();
+                                }
+
                             }
-
                         }
-                    }
-                    Console.WriteLine("Break");
-                    foreach (var smell in testSmells)
-                    {
-                        smell.otherMethodTestSmell = otherMethodTestSmell;
-                    }
-                    foreach (var (classDeclaration, methodDeclarations) in classVisitor.ClassWithMethods)
-                    {
-                        List<string> methodBodyCollection = new List<string>();
-                        var classReporter = new ClassReporter
+                        Console.WriteLine("Break");
+                        foreach (var smell in testSmells)
                         {
-                            Name = classDeclaration.Identifier.ValueText
-                        };
-                        testClassCount++;
-                        testMethodCount += methodDeclarations.Count;
-                        Console.WriteLine($"Analysis started for class: {classReporter.Name}, ProjectName: {project.Name.ToString()}");
-                        foreach (var methodDeclaration in methodDeclarations)
+                            smell.otherMethodTestSmell = otherMethodTestSmell;
+                        }
+                        foreach (var (classDeclaration, methodDeclarations) in classVisitor.ClassWithMethods)
                         {
-                            if (methodDeclaration.Body == null)
+                            List<string> methodBodyCollection = new List<string>();
+                            var classReporter = new ClassReporter
                             {
-                                string errorLine = $"Could not load the body for function: {methodDeclaration.Identifier.Text} in class: {classReporter.Name}";
-                                Console.WriteLine(errorLine);
-                                var tempMethodReporter = new MethodReporter
+                                Name = classDeclaration.Identifier.ValueText
+                            };
+                            testClassCount++;
+                            testMethodCount += methodDeclarations.Count;
+                            Console.WriteLine($"Analysis started for class: {classReporter.Name}, ProjectName: {project.Name.ToString()}");
+                            foreach (var methodDeclaration in methodDeclarations)
+                            {
+                                if (methodDeclaration.Body == null)
+                                {
+                                    string errorLine = $"Could not load the body for function: {methodDeclaration.Identifier.Text} in class: {classReporter.Name}";
+                                    Console.WriteLine(errorLine);
+                                    var tempMethodReporter = new MethodReporter
+                                    {
+                                        Name = methodDeclaration.Identifier.Text,
+                                        Body = errorLine
+                                    };
+                                    classReporter.AddMethodReport(tempMethodReporter);
+                                    continue;
+                                }
+                                var methodReporter = new MethodReporter
                                 {
                                     Name = methodDeclaration.Identifier.Text,
-                                    Body = errorLine
+                                    Body = methodDeclaration.Body.NormalizeWhitespace().ToFullString()
                                 };
-                                classReporter.AddMethodReport(tempMethodReporter);
-                                continue;
-                            }
-                            var methodReporter = new MethodReporter
-                            {
-                                Name = methodDeclaration.Identifier.Text,
-                                Body = methodDeclaration.Body.NormalizeWhitespace().ToFullString()
-                            };
-                            methodBodyCollection.Add(methodReporter.Body);
-                            foreach (var smell in testSmells)
-                            {
-                                smell.Node = methodDeclaration;
-                                var message = new MethodReporterMessage
+                                methodBodyCollection.Add(methodReporter.Body);
+                                foreach (var smell in testSmells)
                                 {
-                                    Name = smell.Name(),
-                                    Status = smell.HasSmell() ? "Found" : "Not Found"
-                                };
-                                methodReporter.AddMessage(message);
+                                    smell.Node = methodDeclaration;
+                                    var message = new MethodReporterMessage
+                                    {
+                                        Name = smell.Name(),
+                                        Status = smell.HasSmell() ? "Found" : "Not Found"
+                                    };
+                                    methodReporter.AddMessage(message);
+                                }
+                                classReporter.AddMethodReport(methodReporter);
                             }
-                            classReporter.AddMethodReport(methodReporter);
-                        }
-                        if (HasLackOfCohesion(methodBodyCollection))
-                        {
-                            classReporter.Message = "This class has Lack of Cohesion of Test Cases";
-                        }
+                            if (HasLackOfCohesion(methodBodyCollection))
+                            {
+                                classReporter.Message = "This class has Lack of Cohesion of Test Cases";
+                            }
 
-                        reporter.AddClassReporter(classReporter);
-                        Console.WriteLine($"Analysis ended for class: {classReporter.Name}");
+                            reporter.AddClassReporter(classReporter);
+                            Console.WriteLine($"Analysis ended for class: {classReporter.Name}");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        continue;
                     }
                 }
                 Console.WriteLine($"Total Test projects: {counter.Count()}, testClassCount: {testClassCount}, testMethodCount: {testMethodCount}");
                 await reporter.SaveReportAsync();
-                //}
             }
         }
         private static bool HasLackOfCohesion(List<string> methodBodyCollection)
