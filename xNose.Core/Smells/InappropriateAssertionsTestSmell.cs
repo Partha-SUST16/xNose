@@ -4,7 +4,7 @@ using xNose.Core.Walkers;
 
 namespace xNose.Core.Smells
 {
-	public class EqualInAssertSmell : ASmell
+	public class InappropriateAssertionsTestSmell : ASmell
     {
 
         public override bool HasSmell()
@@ -21,12 +21,23 @@ namespace xNose.Core.Smells
                 if (invocation.ArgumentList.Arguments.ToString().Contains('='))
                     return true;
             }
+            invocations = methodBodyWalker.Invocations
+                 .Where(x => x.Expression.ToString().Contains("Assert.Equal", StringComparison.InvariantCultureIgnoreCase));
+
+            foreach (var invocation in invocations)
+            {
+                var arguments = invocation.ArgumentList;
+                var firstArgumentParsed = bool.TryParse(arguments.Arguments[0].ToString(), out var _);
+                var secondArgumentParsed = bool.TryParse(arguments.Arguments[1].ToString(), out var _);
+                if (firstArgumentParsed || secondArgumentParsed)
+                    return true;
+            }
             return false;
         }
 
         public override string Name()
         {
-            return nameof(EqualInAssertSmell);
+            return nameof(InappropriateAssertionsTestSmell);
         }
     }
 }

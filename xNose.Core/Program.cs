@@ -87,8 +87,7 @@ namespace xNose.Core
                                         new DuplicateAssertionTestSmell(),
                                         new MagicNumberTestSmell(),
                                         new EagerTestSmell(),
-                                        new BoolInAssertEqualSmell(),
-                                        new EqualInAssertSmell(),
+                                        new InappropriateAssertionsTestSmell(),
                                         new SensitiveEqualitySmell(),
                                         new ConstructorInitializationTestSmell(),
                                         new ObscureInLineSetUpSmell()
