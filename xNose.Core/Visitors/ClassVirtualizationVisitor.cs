@@ -26,7 +26,7 @@ namespace xNose.Core.Visitors
 				var root = node.SyntaxTree.GetRoot();
                 var methods = root.DescendantNodes()
                     .OfType<MethodDeclarationSyntax>()
-                    .Where(m => m.AttributeLists.SelectMany(a => a.Attributes).Select(b => b.Name.ToString()).Any(c=>(c.Equals("Fact", StringComparison.InvariantCultureIgnoreCase))))
+                    .Where(m => m.AttributeLists.SelectMany(a => a.Attributes).Select(b => b.Name.ToString()).Any(c=>(c.Equals("Fact", StringComparison.InvariantCultureIgnoreCase) || c.Equals("Theory", StringComparison.InvariantCultureIgnoreCase))))
                     .ToList();
                 var otherMethods = root.DescendantNodes()
                     .OfType<MethodDeclarationSyntax>().Except(methods).ToList();
