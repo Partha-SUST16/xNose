@@ -22,13 +22,19 @@ namespace xNose.Core.ResultAnalysis
         private void LoadDataFromJson(List<string> jsonFileLocations)
         {
             classes = new List<ClassReporter>();
-
+            int emptyRepos = 0, totalRepos = 0;
             foreach (var fileLocation in jsonFileLocations)
             {
                 try
                 {
                     string jsonContent = File.ReadAllText(fileLocation);
                     var classReporters = JsonConvert.DeserializeObject<List<ClassReporter>>(jsonContent);
+                    if (classReporters == null || classReporters.Count == 0)
+                    {
+                        emptyRepos++;
+                        continue;
+                    }
+                    totalRepos++;
                     classes.AddRange(classReporters);
                 }
                 catch (Exception ex)
@@ -36,6 +42,7 @@ namespace xNose.Core.ResultAnalysis
                     Console.WriteLine($"Error loading JSON file '{fileLocation}': {ex.Message}");
                 }
             }
+            Console.WriteLine($"Total Analyzed Repo: {totalRepos}, empty repo: {emptyRepos}, totalClass:{classes.Count}");
         }
 
         private void CalculateTestSuiteSmelliness()
