@@ -10,6 +10,7 @@ using xNose.Core.Reporters;
 using xNose.Core.Smells;
 using xNose.Core.Visitors;
 using xNose.Core.FileReader;
+using xNose.Core.ResultAnalysis;
 
 namespace xNose.Core
 {
@@ -36,8 +37,10 @@ namespace xNose.Core
             MSBuildLocator.RegisterInstance(instance);
             var results = JsonFileReader.ReadResultFile("E:/workstation/xnose-repo-crawler/results.json");
             var filePaths = GetReportPaths(results);
-            await ResultAnalysis.ResultAnalysis.AnalysisResult(filePaths);
-            foreach(var result in new List<Result>())
+            var resultAnalyzer = new TestSmellAnalyzer();
+            resultAnalyzer.AnalyzeTestSmells(filePaths);
+            //await ResultAnalysis.ResultAnalysis.AnalysisResult(filePaths);
+            foreach (var result in new List<Result>())
             {
                 using var workspace = MSBuildWorkspace.Create();
                 // Print message for WorkspaceFailed event to help diagnosing project load failures.
