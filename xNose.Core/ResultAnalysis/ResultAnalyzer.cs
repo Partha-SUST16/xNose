@@ -20,8 +20,12 @@ namespace xNose.Core.ResultAnalysis
         {
             List<TestSmellDistribution> distributions = new List<TestSmellDistribution>();
             int totalClasses = 0,
-                totalProjects = 0, emptyRepos = 0;
-            Dictionary<string, int[]> afftectedSmellsCount = new();
+                totalProjects = 0,
+                totalTestCases = 0,
+                emptyRepos = 0,
+                maxClassCount = 0,
+                maxTestCaseCount = 0;
+            Dictionary<string, int[]> affectedSmellsCount = new();
             List<string> distinctTestSmells = null;
             foreach (string fileLocation in jsonFileLocations)
             {
@@ -34,21 +38,26 @@ namespace xNose.Core.ResultAnalysis
                         emptyRepos++;
                         continue;
                     }
+
+                    maxClassCount = Math.Max(maxClassCount, classReporters.Count);
                     totalClasses += classReporters.Count;
                     totalProjects += classReporters.Select(c => c.ProjectName).Distinct().Count();
-                    distinctTestSmells = distinctTestSmells==null? GetDistinctTestSmells(classReporters):distinctTestSmells;
+                    var testCases = classReporters.Sum(c => c.Methods.Count);
+                    maxTestCaseCount = Math.Max(maxTestCaseCount, testCases);
+                    totalTestCases += testCases;
+                    distinctTestSmells ??= GetDistinctTestSmells(classReporters);
                     foreach(var testSmell in distinctTestSmells)
                     {
                         int classCount = classReporters.Count(c => c.Methods.Any(m => m.Smells.Any(s => s.Name == testSmell && s.Status=="Found")));
                         int projectCount = classReporters.Select(c => c.ProjectName).Distinct()
                             .Count(p => classReporters.Any(c => c.ProjectName == p && c.Methods.Any(m => m.Smells.Any(s => s.Name == testSmell && s.Status == "Found"))));
 
-                        if (!afftectedSmellsCount.ContainsKey(testSmell))
+                        if (!affectedSmellsCount.ContainsKey(testSmell))
                         {
-                            afftectedSmellsCount[testSmell] = new int[2];
+                            affectedSmellsCount[testSmell] = new int[2];
                         }
-                        afftectedSmellsCount[testSmell][0] += projectCount;
-                        afftectedSmellsCount[testSmell][1] += classCount;
+                        affectedSmellsCount[testSmell][0] += projectCount;
+                        affectedSmellsCount[testSmell][1] += classCount;
                     }
                 }
                 catch (Exception ex)
@@ -58,8 +67,8 @@ namespace xNose.Core.ResultAnalysis
             }
             foreach (var testSmell in distinctTestSmells)
             {
-                int classCount = afftectedSmellsCount[testSmell][1];
-                int projectCount = afftectedSmellsCount[testSmell][0];
+                int classCount = affectedSmellsCount[testSmell][1];
+                int projectCount = affectedSmellsCount[testSmell][0];
                 double classDistribution = (double)classCount * 100 / totalClasses;
                 double projectDistribution = (double)projectCount * 100 / totalProjects;
                 TestSmellDistribution distribution = new TestSmellDistribution
@@ -72,7 +81,11 @@ namespace xNose.Core.ResultAnalysis
             }
             Console.WriteLine($"*******************************************");
             Console.WriteLine($"{JsonConvert.SerializeObject(distributions)}");
-
+            Console.WriteLine($"*******************************************");
+            Console.WriteLine($"{(distributions).ToString()}");
+            Console.WriteLine($"*******************************************");
+            Console.WriteLine($"TotalProjects: {totalProjects}, TotalTestSuits: {totalClasses},TotalTestCase: {totalTestCases}");
+            Console.WriteLine($"MaxTestClass: {maxClassCount}, MaxTestCase: {maxTestCaseCount}");
         }
 
 
