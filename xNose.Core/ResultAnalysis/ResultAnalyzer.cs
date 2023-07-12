@@ -14,6 +14,7 @@ namespace xNose.Core.ResultAnalysis
         public double ClassDistribution { get; set; }
         public double ProjectDistribution { get; set; }
     }
+
     public class TestSmellAnalyzer
     {
         public void AnalyzeTestSmells(List<string> jsonFileLocations)
@@ -46,16 +47,20 @@ namespace xNose.Core.ResultAnalysis
                     maxTestCaseCount = Math.Max(maxTestCaseCount, testCases);
                     totalTestCases += testCases;
                     distinctTestSmells ??= GetDistinctTestSmells(classReporters);
-                    foreach(var testSmell in distinctTestSmells)
+                    foreach (var testSmell in distinctTestSmells)
                     {
-                        int classCount = classReporters.Count(c => c.Methods.Any(m => m.Smells.Any(s => s.Name == testSmell && s.Status=="Found")));
+                        int classCount = classReporters.Count(c =>
+                            c.Methods.Any(m => m.Smells.Any(s => s.Name == testSmell && s.Status == "Found")));
                         int projectCount = classReporters.Select(c => c.ProjectName).Distinct()
-                            .Count(p => classReporters.Any(c => c.ProjectName == p && c.Methods.Any(m => m.Smells.Any(s => s.Name == testSmell && s.Status == "Found"))));
+                            .Count(p => classReporters.Any(c =>
+                                c.ProjectName == p && c.Methods.Any(m =>
+                                    m.Smells.Any(s => s.Name == testSmell && s.Status == "Found"))));
 
                         if (!affectedSmellsCount.ContainsKey(testSmell))
                         {
                             affectedSmellsCount[testSmell] = new int[2];
                         }
+
                         affectedSmellsCount[testSmell][0] += projectCount;
                         affectedSmellsCount[testSmell][1] += classCount;
                     }
@@ -65,6 +70,7 @@ namespace xNose.Core.ResultAnalysis
                     Console.WriteLine(ex.Message);
                 }
             }
+
             foreach (var testSmell in distinctTestSmells)
             {
                 int classCount = affectedSmellsCount[testSmell][1];
@@ -79,72 +85,70 @@ namespace xNose.Core.ResultAnalysis
                 };
                 distributions.Add(distribution);
             }
+
             Console.WriteLine($"*******************************************");
             Console.WriteLine($"{JsonConvert.SerializeObject(distributions)}");
             Console.WriteLine($"*******************************************");
             Console.WriteLine($"{(distributions).ToString()}");
             Console.WriteLine($"*******************************************");
-            Console.WriteLine($"TotalProjects: {totalProjects}, TotalTestSuits: {totalClasses},TotalTestCase: {totalTestCases}");
+            Console.WriteLine(
+                $"TotalProjects: {totalProjects}, TotalTestSuits: {totalClasses},TotalTestCase: {totalTestCases}");
             Console.WriteLine($"MaxTestClass: {maxClassCount}, MaxTestCase: {maxTestCaseCount}");
         }
 
 
-       
-            /*public List<TestSmellDistribution> CalculateDistribution(JsonFileReporter report)
+        /*public List<TestSmellDistribution> CalculateDistribution(JsonFileReporter report)
+        {
+            List<TestSmellDistribution> distributions = new List<TestSmellDistribution>();
+
+            // Calculate the count of test classes and projects
+            int totalClasses = report.Classes.Count;
+            int totalProjects = report.Classes.Select(c => c.ProjectName).Distinct().Count();
+
+            // Iterate through each test smell
+            foreach (var testSmell in GetDistinctTestSmells(report))
             {
-                List<TestSmellDistribution> distributions = new List<TestSmellDistribution>();
+                // Count test classes and projects with the current test smell
+                int classCount = report.Classes.Count(c => c.Methods.Any(m => m.Smells.Any(s => s.Name == testSmell)));
+                int projectCount = report.Classes.Select(c => c.ProjectName).Distinct()
+                    .Count(p => report.Classes.Any(c => c.ProjectName == p && c.Methods.Any(m => m.Smells.Any(s => s.Name == testSmell))));
 
-                // Calculate the count of test classes and projects
-                int totalClasses = report.Classes.Count;
-                int totalProjects = report.Classes.Select(c => c.ProjectName).Distinct().Count();
+                // Calculate the distributions
+                double classDistribution = (double)classCount * 100 / totalClasses;
+                double projectDistribution = (double)projectCount * 100 / totalProjects;
 
-                // Iterate through each test smell
-                foreach (var testSmell in GetDistinctTestSmells(report))
+                // Create and add the distribution object
+                TestSmellDistribution distribution = new TestSmellDistribution
                 {
-                    // Count test classes and projects with the current test smell
-                    int classCount = report.Classes.Count(c => c.Methods.Any(m => m.Smells.Any(s => s.Name == testSmell)));
-                    int projectCount = report.Classes.Select(c => c.ProjectName).Distinct()
-                        .Count(p => report.Classes.Any(c => c.ProjectName == p && c.Methods.Any(m => m.Smells.Any(s => s.Name == testSmell))));
+                    TestSmellName = testSmell,
+                    ClassDistribution = classDistribution,
+                    ProjectDistribution = projectDistribution
+                };
+                distributions.Add(distribution);
+            }
 
-                    // Calculate the distributions
-                    double classDistribution = (double)classCount * 100 / totalClasses;
-                    double projectDistribution = (double)projectCount * 100 / totalProjects;
+            return distributions;
+        }*/
 
-                    // Create and add the distribution object
-                    TestSmellDistribution distribution = new TestSmellDistribution
-                    {
-                        TestSmellName = testSmell,
-                        ClassDistribution = classDistribution,
-                        ProjectDistribution = projectDistribution
-                    };
-                    distributions.Add(distribution);
-                }
+        private List<string> GetDistinctTestSmells(List<ClassReporter> report)
+        {
+            List<string> testSmells = new List<string>();
 
-                return distributions;
-            }*/
-
-            private List<string> GetDistinctTestSmells(List<ClassReporter> report)
+            foreach (var testClass in report)
             {
-                List<string> testSmells = new List<string>();
-
-                foreach (var testClass in report)
+                foreach (var method in testClass.Methods)
                 {
-                    foreach (var method in testClass.Methods)
+                    foreach (var smell in method.Smells)
                     {
-                        foreach (var smell in method.Smells)
+                        if (!testSmells.Contains(smell.Name))
                         {
-                            if (!testSmells.Contains(smell.Name))
-                            {
-                                testSmells.Add(smell.Name);
-                            }
+                            testSmells.Add(smell.Name);
                         }
                     }
                 }
-
-                return testSmells;
             }
+
+            return testSmells;
         }
-
-    
-
+    }
 }

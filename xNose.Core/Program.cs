@@ -18,9 +18,8 @@ namespace xNose.Core
     {
         static async Task Main(string[] args)
         {
-
             // Attempt to set the version of MSBuild.
-           // Console.WriteLine(args.ToString());
+            // Console.WriteLine(args.ToString());
 
             var visualStudioInstances = MSBuildLocator.QueryVisualStudioInstances().ToArray();
             var instance = visualStudioInstances.Length == 1
@@ -56,7 +55,8 @@ namespace xNose.Core
                     Console.WriteLine($"Finished loading solution '{solutionPath}'");
 
                     // TODO: Do analysis on the projects in the loaded solution
-                    var projects = solution.Projects.Select(p => p).Where(p => p.Name.Contains("Test", StringComparison.InvariantCultureIgnoreCase));
+                    var projects = solution.Projects.Select(p => p).Where(p =>
+                        p.Name.Contains("Test", StringComparison.InvariantCultureIgnoreCase));
                     List<string> counter = new List<string>();
                     var reporter = new JsonFileReporter(solutionPath);
                     int testClassCount = 0, testMethodCount = 0;
@@ -68,6 +68,7 @@ namespace xNose.Core
                             {
                                 continue;
                             }
+
                             Console.WriteLine(project.AssemblyName.ToString());
                             Console.WriteLine(project.DefaultNamespace?.ToString());
                             counter.Add(project.FilePath.ToString());
@@ -82,25 +83,27 @@ namespace xNose.Core
                             }
 
 
-                            var testSmells = new List<ASmell> {
-                                        new EmptyTestSmell(),
-                                        new ConditionalTestSmell(),
-                                        new ExpectedExceptionTestSmell(),
-                                        new AssertionRouletteTestSmell(),
-                                        new UnknownTestSmell(),
-                                        new RedundantPrintTestSmell(),
-                                        new SleepyTestSmell(),
-                                        new IgnoreTestSmell(),
-                                        new RedundantAssertionTestSmell(),
-                                        new DuplicateAssertionTestSmell(),
-                                        new MagicNumberTestSmell(),
-                                        new EagerTestSmell(),
-                                        new InappropriateAssertionsTestSmell(),
-                                        new SensitiveEqualitySmell(),
-                                        new ConstructorInitializationTestSmell(),
-                                        new ObscureInLineSetUpSmell()
-                                    };
-                            Dictionary<string, Dictionary<string, bool>> otherMethodTestSmell = new Dictionary<string, Dictionary<string, bool>>();
+                            var testSmells = new List<ASmell>
+                            {
+                                new EmptyTestSmell(),
+                                new ConditionalTestSmell(),
+                                new ExpectedExceptionTestSmell(),
+                                new AssertionRouletteTestSmell(),
+                                new UnknownTestSmell(),
+                                new RedundantPrintTestSmell(),
+                                new SleepyTestSmell(),
+                                new IgnoreTestSmell(),
+                                new RedundantAssertionTestSmell(),
+                                new DuplicateAssertionTestSmell(),
+                                new MagicNumberTestSmell(),
+                                new EagerTestSmell(),
+                                new InappropriateAssertionsTestSmell(),
+                                new SensitiveEqualitySmell(),
+                                new ConstructorInitializationTestSmell(),
+                                new ObscureInLineSetUpSmell()
+                            };
+                            Dictionary<string, Dictionary<string, bool>> otherMethodTestSmell =
+                                new Dictionary<string, Dictionary<string, bool>>();
                             foreach (var (classDeclaration, methodDeclarations) in classVisitor.ClassWithOtherMethods)
                             {
                                 foreach (var methodDeclaration in methodDeclarations)
@@ -108,20 +111,23 @@ namespace xNose.Core
                                     if (methodDeclaration.Body == null)
                                         continue;
                                     if (!otherMethodTestSmell.ContainsKey(methodDeclaration.Identifier.Text))
-                                        otherMethodTestSmell[methodDeclaration.Identifier.Text] = new Dictionary<string, bool>();
+                                        otherMethodTestSmell[methodDeclaration.Identifier.Text] =
+                                            new Dictionary<string, bool>();
                                     foreach (var smell in testSmells)
                                     {
                                         smell.Node = methodDeclaration;
 
-                                        otherMethodTestSmell[methodDeclaration.Identifier.Text][smell.Name()] = smell.HasSmell();
+                                        otherMethodTestSmell[methodDeclaration.Identifier.Text][smell.Name()] =
+                                            smell.HasSmell();
                                     }
-
                                 }
                             }
+
                             foreach (var smell in testSmells)
                             {
                                 smell.otherMethodTestSmell = otherMethodTestSmell;
                             }
+
                             foreach (var (classDeclaration, methodDeclarations) in classVisitor.ClassWithMethods)
                             {
                                 List<string> methodBodyCollection = new List<string>();
@@ -132,12 +138,14 @@ namespace xNose.Core
                                 };
                                 testClassCount++;
                                 testMethodCount += methodDeclarations.Count;
-                                Console.WriteLine($"Analysis started for class: {classReporter.Name}, ProjectName: {project.Name.ToString()}");
+                                Console.WriteLine(
+                                    $"Analysis started for class: {classReporter.Name}, ProjectName: {project.Name.ToString()}");
                                 foreach (var methodDeclaration in methodDeclarations)
                                 {
                                     if (methodDeclaration.Body == null)
                                     {
-                                        string errorLine = $"Could not load the body for function: {methodDeclaration.Identifier.Text} in class: {classReporter.Name}";
+                                        string errorLine =
+                                            $"Could not load the body for function: {methodDeclaration.Identifier.Text} in class: {classReporter.Name}";
                                         Console.WriteLine(errorLine);
                                         var tempMethodReporter = new MethodReporter
                                         {
@@ -147,6 +155,7 @@ namespace xNose.Core
                                         classReporter.AddMethodReport(tempMethodReporter);
                                         continue;
                                     }
+
                                     var methodReporter = new MethodReporter
                                     {
                                         Name = methodDeclaration.Identifier.Text,
@@ -163,8 +172,10 @@ namespace xNose.Core
                                         };
                                         methodReporter.AddMessage(message);
                                     }
+
                                     classReporter.AddMethodReport(methodReporter);
                                 }
+
                                 if (HasLackOfCohesion(methodBodyCollection))
                                 {
                                     classReporter.Message = "This class has Lack of Cohesion of Test Cases";
@@ -172,7 +183,8 @@ namespace xNose.Core
                                     {
                                         Name = "LackOfCohesion"
                                     };
-                                    methodRe.AddMessage(new MethodReporterMessage { Name = "LackOfCohesion", Status = "Found" });
+                                    methodRe.AddMessage(new MethodReporterMessage
+                                        { Name = "LackOfCohesion", Status = "Found" });
                                     classReporter.AddMethodReport(methodRe);
                                 }
 
@@ -186,17 +198,19 @@ namespace xNose.Core
                             continue;
                         }
                     }
-                    Console.WriteLine($"Total Test projects: {counter.Count()}, testClassCount: {testClassCount}, testMethodCount: {testMethodCount}");
+
+                    Console.WriteLine(
+                        $"Total Test projects: {counter.Count()}, testClassCount: {testClassCount}, testMethodCount: {testMethodCount}");
                     await reporter.SaveReportAsync();
                 }
-                catch (Exception ex )
+                catch (Exception ex)
                 {
                     Console.WriteLine(ex.ToString());
                     continue;
                 }
-                
             }
         }
+
         private static List<string> GetReportPaths(List<Result> results)
         {
             List<string> reportPaths = new();
@@ -205,10 +219,11 @@ namespace xNose.Core
                 var currentPath = result.Path;
                 var index = currentPath.IndexOf(".sln");
                 reportPaths.Add(currentPath.Substring(0, index) + "_test_smell_reports.json");
-
             }
+
             return reportPaths;
         }
+
         private static bool HasLackOfCohesion(List<string> methodBodyCollection)
         {
             var cosineInstance = new Cosine();
@@ -225,13 +240,15 @@ namespace xNose.Core
                     }
                 }
             }
+
             if (pairCount <= 0)
                 return false;
 
             var testClassCohesionScore = cosineScoreSum / (double)pairCount;
             Console.WriteLine(testClassCohesionScore);
-            return ((1.0 - testClassCohesionScore) >= 0.6);//from paper
+            return ((1.0 - testClassCohesionScore) >= 0.6); //from paper
         }
+
         private static VisualStudioInstance SelectVisualStudioInstance(VisualStudioInstance[] visualStudioInstances)
         {
             Console.WriteLine("Multiple installs of MSBuild detected please select one:");
@@ -252,6 +269,7 @@ namespace xNose.Core
                 {
                     return visualStudioInstances[instanceNumber - 1];
                 }
+
                 Console.WriteLine("Input not accepted, try again.");
             }
         }
