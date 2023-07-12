@@ -1,29 +1,29 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Composition;
 using System.IO;
 using System.Linq;
 using xNose.Core.Reporters;
 
 namespace xNose.Core.ResultAnalysis
 {
+    public class TestSmellDistribution
+    {
+        public string TestSmellName { get; set; }
+        public double ClassDistribution { get; set; }
+        public double ProjectDistribution { get; set; }
+    }
     public class TestSmellAnalyzer
     {
-        private List<ClassReporter> classes;
-
         public void AnalyzeTestSmells(List<string> jsonFileLocations)
         {
-            LoadDataFromJson(jsonFileLocations);
-            CalculateTestSuiteSmelliness();
-            CalculateTestSmellDistribution();
-            CalculateTestSmellCorrelation();
-        }
-
-        private void LoadDataFromJson(List<string> jsonFileLocations)
-        {
-            classes = new List<ClassReporter>();
-            int emptyRepos = 0, totalRepos = 0;
-            foreach (var fileLocation in jsonFileLocations)
+            List<TestSmellDistribution> distributions = new List<TestSmellDistribution>();
+            int totalClasses = 0,
+                totalProjects = 0, emptyRepos = 0;
+            Dictionary<string, int[]> afftectedSmellsCount = new();
+            List<string> distinctTestSmells = null;
+            foreach (string fileLocation in jsonFileLocations)
             {
                 try
                 {
@@ -34,131 +34,104 @@ namespace xNose.Core.ResultAnalysis
                         emptyRepos++;
                         continue;
                     }
-                    totalRepos++;
-                    classes.AddRange(classReporters);
+                    totalClasses += classReporters.Count;
+                    totalProjects += classReporters.Select(c => c.ProjectName).Distinct().Count();
+                    distinctTestSmells = distinctTestSmells==null? GetDistinctTestSmells(classReporters):distinctTestSmells;
+                    foreach(var testSmell in distinctTestSmells)
+                    {
+                        int classCount = classReporters.Count(c => c.Methods.Any(m => m.Smells.Any(s => s.Name == testSmell && s.Status=="Found")));
+                        int projectCount = classReporters.Select(c => c.ProjectName).Distinct()
+                            .Count(p => classReporters.Any(c => c.ProjectName == p && c.Methods.Any(m => m.Smells.Any(s => s.Name == testSmell && s.Status == "Found"))));
+
+                        if (!afftectedSmellsCount.ContainsKey(testSmell))
+                        {
+                            afftectedSmellsCount[testSmell] = new int[2];
+                        }
+                        afftectedSmellsCount[testSmell][0] += projectCount;
+                        afftectedSmellsCount[testSmell][1] += classCount;
+                    }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Error loading JSON file '{fileLocation}': {ex.Message}");
+                    Console.WriteLine(ex.Message);
                 }
             }
-            Console.WriteLine($"Total Analyzed Repo: {totalRepos}, empty repo: {emptyRepos}, totalClass:{classes.Count}");
+            foreach (var testSmell in distinctTestSmells)
+            {
+                int classCount = afftectedSmellsCount[testSmell][1];
+                int projectCount = afftectedSmellsCount[testSmell][0];
+                double classDistribution = (double)classCount * 100 / totalClasses;
+                double projectDistribution = (double)projectCount * 100 / totalProjects;
+                TestSmellDistribution distribution = new TestSmellDistribution
+                {
+                    TestSmellName = testSmell,
+                    ClassDistribution = classDistribution,
+                    ProjectDistribution = projectDistribution
+                };
+                distributions.Add(distribution);
+            }
+            Console.WriteLine($"*******************************************");
+            Console.WriteLine($"{JsonConvert.SerializeObject(distributions)}");
+
         }
 
-        private void CalculateTestSuiteSmelliness()
-        {
-            var testSuiteSmelliness = new Dictionary<string, int>();
-            testSuiteSmelliness["Lack of cohesion"] = 0;
-            foreach (var cls in classes)
+
+       
+            /*public List<TestSmellDistribution> CalculateDistribution(JsonFileReporter report)
             {
-                if (string.IsNullOrWhiteSpace(cls.Message) == false)
+                List<TestSmellDistribution> distributions = new List<TestSmellDistribution>();
+
+                // Calculate the count of test classes and projects
+                int totalClasses = report.Classes.Count;
+                int totalProjects = report.Classes.Select(c => c.ProjectName).Distinct().Count();
+
+                // Iterate through each test smell
+                foreach (var testSmell in GetDistinctTestSmells(report))
                 {
-                    testSuiteSmelliness["Lack of cohesion"]++;
-                }
-                foreach (var method in cls.Methods)
-                {
-                    int smellCount = method.Smells.Count;
-                    foreach (var smell in method.Smells)
+                    // Count test classes and projects with the current test smell
+                    int classCount = report.Classes.Count(c => c.Methods.Any(m => m.Smells.Any(s => s.Name == testSmell)));
+                    int projectCount = report.Classes.Select(c => c.ProjectName).Distinct()
+                        .Count(p => report.Classes.Any(c => c.ProjectName == p && c.Methods.Any(m => m.Smells.Any(s => s.Name == testSmell))));
+
+                    // Calculate the distributions
+                    double classDistribution = (double)classCount * 100 / totalClasses;
+                    double projectDistribution = (double)projectCount * 100 / totalProjects;
+
+                    // Create and add the distribution object
+                    TestSmellDistribution distribution = new TestSmellDistribution
                     {
-                        if (!testSuiteSmelliness.ContainsKey(smell.Name))
-                        {
-                            testSuiteSmelliness[smell.Name] = 0;
-                        }
-                        if (smell.Status == "Found")
-                        {
-                            testSuiteSmelliness[smell.Name]++;
-                        }
-                    }
+                        TestSmellName = testSmell,
+                        ClassDistribution = classDistribution,
+                        ProjectDistribution = projectDistribution
+                    };
+                    distributions.Add(distribution);
                 }
-            }
 
-            Console.WriteLine("\nTest Suite Smelliness:");
-            foreach (var smellCount in testSuiteSmelliness.Keys)
-            {
-                double percentage = (double)testSuiteSmelliness[smellCount] / classes.Sum(c => c.Methods.Count) * 100;
-                Console.WriteLine($"{smellCount} test smells: {percentage}%");
-            }
-        }
+                return distributions;
+            }*/
 
-        private void CalculateTestSmellDistribution()
-        {
-            var testSmellDistribution = new Dictionary<string, double>();
-            testSmellDistribution["Lack of cohesion"] = 0;
-            foreach (var cls in classes)
+            private List<string> GetDistinctTestSmells(List<ClassReporter> report)
             {
-                if (string.IsNullOrWhiteSpace(cls.Message) == false)
+                List<string> testSmells = new List<string>();
+
+                foreach (var testClass in report)
                 {
-                    testSmellDistribution["Lack of cohesion"]++;
-                }
-                foreach (var method in cls.Methods)
-                {
-                    foreach (var smell in method.Smells)
+                    foreach (var method in testClass.Methods)
                     {
-                        if (!testSmellDistribution.ContainsKey(smell.Name))
+                        foreach (var smell in method.Smells)
                         {
-                            testSmellDistribution[smell.Name] = 0;
-                        }
-
-                        if (smell.Status == "Found")
-                        {
-                            testSmellDistribution[smell.Name]++;
-                        }
-                    }
-                }
-            }
-
-            Console.WriteLine("\nTest Smell Distribution:");
-            foreach (var smellName in testSmellDistribution.Keys)
-            {
-                double percentage = (double)testSmellDistribution[smellName] / classes.Sum(c => c.Methods.Sum(m => m.Smells.Where(smel => smel.Status == "Found").ToList().Count)) * 100;
-                Console.WriteLine($"{smellName}: {percentage}%");
-            }
-        }
-
-        private void CalculateTestSmellCorrelation()
-        {
-            var smellCorrelations = new Dictionary<string, Dictionary<string, double>>();
-
-            foreach (var cls in classes)
-            {
-                foreach (var method in cls.Methods)
-                {
-                    var smells = method.Smells.Select(s => s.Name).ToList();
-                    foreach (var smell in method.Smells)
-                    {
-                        if (!smellCorrelations.ContainsKey(smell.Name))
-                        {
-                            smellCorrelations[smell.Name] = new Dictionary<string, double>();
-                        }
-                        foreach (var smell1 in method.Smells)
-                        {
-                            if (smell.Name != smell1.Name)
+                            if (!testSmells.Contains(smell.Name))
                             {
-                                if (!smellCorrelations[smell.Name].ContainsKey(smell1.Name))
-                                {
-                                    smellCorrelations[smell.Name][smell1.Name] = 0;
-                                }
-                                if (smell1.Status == "Found")
-                                {
-                                    smellCorrelations[smell.Name][smell1.Name]++;
-                                }
+                                testSmells.Add(smell.Name);
                             }
                         }
                     }
-                   
                 }
-            }
 
-            Console.WriteLine("\nTest Smell Correlation:");
-            foreach (var smell1 in smellCorrelations.Keys)
-            {
-                foreach (var smell2 in smellCorrelations[smell1].Keys)
-                {
-                    double percentage = (double)smellCorrelations[smell1][smell2] / smellCorrelations[smell1].Values.Sum() * 100;
-                    Console.WriteLine($"{smell1} -> {smell2}: {percentage}%");
-                }
+                return testSmells;
             }
         }
-    }
+
+    
 
 }

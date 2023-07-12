@@ -38,9 +38,9 @@ namespace xNose.Core
             var results = JsonFileReader.ReadResultFile("E:/workstation/xnose-repo-crawler/results.json");
             var filePaths = GetReportPaths(results);
             var resultAnalyzer = new TestSmellAnalyzer();
-            resultAnalyzer.AnalyzeTestSmells(filePaths);
+            //resultAnalyzer.AnalyzeTestSmells(filePaths);
             //await ResultAnalysis.ResultAnalysis.AnalysisResult(filePaths);
-            foreach (var result in new List<Result>())
+            foreach (var result in results)
             {
                 using var workspace = MSBuildWorkspace.Create();
                 // Print message for WorkspaceFailed event to help diagnosing project load failures.
@@ -127,7 +127,8 @@ namespace xNose.Core
                                 List<string> methodBodyCollection = new List<string>();
                                 var classReporter = new ClassReporter
                                 {
-                                    Name = classDeclaration.Identifier.ValueText
+                                    Name = classDeclaration.Identifier.ValueText,
+                                    ProjectName = project.Name.Trim()
                                 };
                                 testClassCount++;
                                 testMethodCount += methodDeclarations.Count;
@@ -167,6 +168,12 @@ namespace xNose.Core
                                 if (HasLackOfCohesion(methodBodyCollection))
                                 {
                                     classReporter.Message = "This class has Lack of Cohesion of Test Cases";
+                                    var methodRe = new MethodReporter
+                                    {
+                                        Name = "LackOfCohesion"
+                                    };
+                                    methodRe.AddMessage(new MethodReporterMessage { Name = "LackOfCohesion", Status = "Found" });
+                                    classReporter.AddMethodReport(methodRe);
                                 }
 
                                 reporter.AddClassReporter(classReporter);

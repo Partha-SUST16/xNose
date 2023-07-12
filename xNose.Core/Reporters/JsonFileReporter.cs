@@ -31,6 +31,7 @@ namespace xNose.Core.Reporters
     {
         public string Name { get; set; }
         public string Message { get; set; }
+        public string ProjectName { get; set; }
         public List<MethodReporter> Methods { get; private set; } = new List<MethodReporter>();
         public void AddMethodReport(MethodReporter reporter)
         {
