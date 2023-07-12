@@ -47,7 +47,13 @@ Otherwise, you can run the `xNose.sln` file with your visual studio. You have to
             {
                 "Name":***,
                 "Body":***,
-                "Smells":[]
+                "Smells": [
+                    {
+                        "Name": ***,
+                        "Status": "Found"/"Not Found"
+                    },
+                    ...
+                ]
             },
             ...
         ]
