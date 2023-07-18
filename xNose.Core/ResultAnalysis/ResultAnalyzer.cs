@@ -89,11 +89,55 @@ namespace xNose.Core.ResultAnalysis
             Console.WriteLine($"*******************************************");
             Console.WriteLine($"{JsonConvert.SerializeObject(distributions)}");
             Console.WriteLine($"*******************************************");
-            Console.WriteLine($"{(distributions).ToString()}");
             Console.WriteLine($"*******************************************");
             Console.WriteLine(
                 $"TotalProjects: {totalProjects}, TotalTestSuits: {totalClasses},TotalTestCase: {totalTestCases}");
             Console.WriteLine($"MaxTestClass: {maxClassCount}, MaxTestCase: {maxTestCaseCount}");
+        }
+        public void AnalyzeTestUniqueSmells(List<string> jsonFileLocations)
+        {
+            int totalClasses = 0;
+            Dictionary<int, int> affectedSmellsCount = new();
+            List<string> distinctTestSmells = null;
+            foreach (string fileLocation in jsonFileLocations)
+            {
+                try
+                {
+                    string jsonContent = File.ReadAllText(fileLocation);
+                    var classReporters = JsonConvert.DeserializeObject<List<ClassReporter>>(jsonContent);
+                    totalClasses += classReporters.Count;
+
+                    foreach (var classReporter in classReporters)
+                    {
+                        HashSet<string> testSmellNames = new();
+                        foreach (var methodReporter in classReporter.Methods)
+                        {
+                            var smellNames = methodReporter.Smells.Where(item => item.Status == "Found").Select(item=>item.Name);
+                            foreach (var VARIABLE in smellNames)
+                            {
+                                testSmellNames.Add(VARIABLE);
+                            }
+                        }
+
+                        if (!affectedSmellsCount.ContainsKey(testSmellNames.Count))
+                        {
+                            affectedSmellsCount.Add(testSmellNames.Count, 1);
+                        }
+                        else
+                            affectedSmellsCount[testSmellNames.Count]++;
+                    }
+                    
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
+                foreach (KeyValuePair<int,int> pair in affectedSmellsCount)
+                {
+                    Console.WriteLine($"Unique test smell count: {pair.Key} ---------------> Distribution: {(pair.Value*100.0/totalClasses)}");
+                }
+            }
         }
 
 
