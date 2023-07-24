@@ -16,25 +16,23 @@ Currently, we support the following test smells:
 13. Sleepy Test Smell
 14. Sensitive Equality Test Smell
 15. Unknown Test Smell
-16. Equal in Assert Test Smell (C# specific)
-17. Bool in Assert Equal Test Smell (C# specific)
-18. Cyclomatic Complexity Test Smell (C# specific)
+16. Inappropriate Assertion
 
 ## Setup
-To run this tool you have to download this repository in your local device.
+To run this tool, you must download this repository in your local device.
 Then follow the steps to run it with command line(CMD).
 > ** Prerequisite: You have already installed C# environment in your pc and it's already associated with your command line. **
 
 1. Go to the xNose directory
-2. Open terminal and type the following command
+2. Open the terminal and type the following command
 
 > ``dotnet run --project xNose.Core/xNose.Core.csproj   "<solution_path>"``
 
-Here the `solution_path` is the path to your C# project solution file.
+The `solution_path` is the path to your C# project solution file.
 
 This will generate a `JSON` file of the given project to the root path of that project. This `JSON` file will have the info about test smells of the given project.
 
-Otherwise, you can run the `xNose.sln` file with your visual studio. You have to provide the solution path of the desired project in the argument section.
+Otherwise, you can run the `xNose.sln` file with your Visual Studio. You have to provide the solution path of the desired project in the argument section.
  
 ## JSON File Format
 
