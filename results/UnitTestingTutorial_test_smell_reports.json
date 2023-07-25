@@ -1,0 +1,509 @@
+[
+  {
+    "Name": "BankAccountTests",
+    "Message": null,
+    "ProjectName": "BankXUnitTests",
+    "Methods": [
+      {
+        "Name": "Adding_Funds_Updates_Balance",
+        "Body": "{\r\n    // ARRANGE\r\n    var account = new BankAccount(1000);\r\n    // ACT\r\n    account.Add(100);\r\n    // ASSERT\r\n    Assert.Equal(1100, account.Balance);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Adding_Negative_Funds_Throws",
+        "Body": "{\r\n    // ARRANGE\r\n    var account = new BankAccount(1000);\r\n    // ACT \u002B ASSERT\r\n    Assert.Throws\u003CArgumentOutOfRangeException\u003E(() =\u003E account.Add(-100));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Withdrawing_Funds_Updates_Balance",
+        "Body": "{\r\n    // ARRANGE\r\n    var account = new BankAccount(1000);\r\n    // ACT\r\n    account.Withdraw(100);\r\n    // ASSERT\r\n    Assert.Equal(900, account.Balance);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Withdrawing_Negative_Funds_Throws",
+        "Body": "{\r\n    // ARRANGE\r\n    var account = new BankAccount(1000);\r\n    // ACT \u002B ASSERT\r\n    Assert.Throws\u003CArgumentOutOfRangeException\u003E(() =\u003E account.Withdraw(-100));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Withdrawing_More_Than_Funds_Throws",
+        "Body": "{\r\n    // ARRANGE\r\n    var account = new BankAccount(1000);\r\n    // ACT \u002B ASSERT\r\n    Assert.Throws\u003CArgumentOutOfRangeException\u003E(() =\u003E account.Withdraw(2000));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Transfering_Funds_Updates_Both_Accounts",
+        "Body": "{\r\n    // ARRANGE\r\n    var account = new BankAccount(1000);\r\n    var otherAccount = new BankAccount();\r\n    // ACT\r\n    account.TransferFundsTo(otherAccount, 500);\r\n    // ASSERT\r\n    Assert.Equal(500, account.Balance);\r\n    Assert.Equal(500, otherAccount.Balance);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TransferFundsTo_Non_Existing_Account_Throws",
+        "Body": "{\r\n    // ARRANGE\r\n    var account = new BankAccount(1000);\r\n    // ACT \u002B ASSERT\r\n    Assert.Throws\u003CArgumentNullException\u003E(() =\u003E account.TransferFundsTo(null, 2000));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

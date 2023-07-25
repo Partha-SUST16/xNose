@@ -1,0 +1,1644 @@
+[
+  {
+    "Name": "LeagueControllerTests",
+    "Message": null,
+    "ProjectName": "MockingUnitTestsDemoApp.Tests",
+    "Methods": [
+      {
+        "Name": "LeagueController_Index_LeaguesExist",
+        "Body": "{\r\n    //Arrange\r\n    var mockLeagues = new List\u003CLeague\u003E()\r\n    {\r\n        new League()\r\n        {\r\n            ID = 1,\r\n            FoundingDate = new DateTime(1933, 5, 3)\r\n        }\r\n    };\r\n    var mockLeagueService = new MockLeagueService().MockGetAll(mockLeagues);\r\n    var controller = new LeagueController(mockLeagueService.Object);\r\n    //Act\r\n    var result = controller.Index();\r\n    //Assert\r\n    Assert.IsAssignableFrom\u003CViewResult\u003E(result);\r\n    mockLeagueService.VerifyGetAll(Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LeagueController_Index_NoLeagues",
+        "Body": "{\r\n    //Arrange\r\n    var mockLeagueService = new MockLeagueService().MockGetAll(new List\u003CLeague\u003E());\r\n    var controller = new LeagueController(mockLeagueService.Object);\r\n    //Act\r\n    var result = controller.Index();\r\n    //Assert\r\n    Assert.IsAssignableFrom\u003CViewResult\u003E(result);\r\n    mockLeagueService.VerifyGetAll(Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "PlayerControllerTests",
+    "Message": null,
+    "ProjectName": "MockingUnitTestsDemoApp.Tests",
+    "Methods": [
+      {
+        "Name": "PlayerController_Index_Valid",
+        "Body": "{\r\n    //Arrange\r\n    var mockPlayer = new Player()\r\n    {\r\n        ID = 1\r\n    };\r\n    var mockPlayerService = new MockPlayerService().MockGetByID(mockPlayer);\r\n    var controller = new PlayerController(new MockLeagueService().Object, mockPlayerService.Object);\r\n    //Act\r\n    var result = controller.Index(1);\r\n    //Assert\r\n    Assert.IsAssignableFrom\u003CViewResult\u003E(result);\r\n    mockPlayerService.VerifyGetByID(Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "PlayerController_Index_Invalid",
+        "Body": "{\r\n    //Arrange\r\n    var mockPlayerService = new MockPlayerService().MockGetByIDInvalid();\r\n    var controller = new PlayerController(new MockLeagueService().Object, mockPlayerService.Object);\r\n    //Act\r\n    var result = controller.Index(1);\r\n    //Assert\r\n    Assert.IsAssignableFrom\u003CRedirectToActionResult\u003E(result);\r\n    mockPlayerService.VerifyGetByID(Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "PlayerController_League_Valid",
+        "Body": "{\r\n    //Arrange\r\n    var mockPlayers = new List\u003CPlayer\u003E()\r\n    {\r\n        new Player()\r\n        {\r\n            ID = 1\r\n        }\r\n    };\r\n    var mockLeagueService = new MockLeagueService().MockIsValid(true);\r\n    var mockPlayerService = new MockPlayerService().MockGetForLeague(mockPlayers);\r\n    var controller = new PlayerController(mockLeagueService.Object, mockPlayerService.Object);\r\n    //Act\r\n    var result = controller.League(1);\r\n    //Assert\r\n    Assert.IsAssignableFrom\u003CViewResult\u003E(result);\r\n    mockPlayerService.VerifyGetForLeague(Times.Once());\r\n    mockLeagueService.VerifyIsValid(Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "PlayerController_League_Invalid",
+        "Body": "{\r\n    //Arrange\r\n    var mockLeagueService = new MockLeagueService().MockIsValid(false);\r\n    var mockPlayerService = new MockPlayerService().MockGetForLeague(new List\u003CPlayer\u003E());\r\n    var controller = new PlayerController(mockLeagueService.Object, mockPlayerService.Object);\r\n    //Act\r\n    var result = controller.League(1);\r\n    //Assert\r\n    Assert.IsAssignableFrom\u003CRedirectToActionResult\u003E(result);\r\n    mockPlayerService.VerifyGetForLeague(Times.Never());\r\n    mockLeagueService.VerifyIsValid(Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "TeamControllerTests",
+    "Message": null,
+    "ProjectName": "MockingUnitTestsDemoApp.Tests",
+    "Methods": [
+      {
+        "Name": "TeamController_Search_Get_Valid",
+        "Body": "{\r\n    //Arrange\r\n    var teamResults = new List\u003CTeam\u003E()\r\n    {\r\n        new Team()\r\n        {\r\n            ID = 1\r\n        }\r\n    };\r\n    var mockTeamService = new MockTeamService().MockSearch(teamResults);\r\n    var controller = new TeamController(mockTeamService.Object);\r\n    //Act\r\n    var result = controller.Search();\r\n    //Assert \r\n    Assert.IsAssignableFrom\u003CViewResult\u003E(result);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TeamController_Search_Post_Valid",
+        "Body": "{\r\n    //Arrange\r\n    var teamResults = new List\u003CTeam\u003E()\r\n    {\r\n        new Team()\r\n        {\r\n            ID = 1\r\n        }\r\n    };\r\n    var mockTeamService = new MockTeamService().MockSearch(teamResults);\r\n    var controller = new TeamController(mockTeamService.Object);\r\n    //Act\r\n    var result = controller.Search(new TeamSearch());\r\n    //Assert\r\n    Assert.IsAssignableFrom\u003CViewResult\u003E(result);\r\n    mockTeamService.VerifySearch(Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TeamController_Search_Post_ModelStateInvalid",
+        "Body": "{\r\n    //Arrange\r\n    var teamResults = new List\u003CTeam\u003E()\r\n    {\r\n        new Team()\r\n        {\r\n            ID = 1\r\n        }\r\n    };\r\n    var mockTeamService = new MockTeamService().MockSearch(teamResults);\r\n    var controller = new TeamController(mockTeamService.Object);\r\n    controller.ModelState.AddModelError(\u0022Test\u0022, \u0022Test\u0022);\r\n    //Act\r\n    var result = controller.Search(new TeamSearch());\r\n    //Assert\r\n    Assert.IsAssignableFrom\u003CRedirectToActionResult\u003E(result);\r\n    mockTeamService.VerifySearch(Times.Never());\r\n    var redirectToAction = (RedirectToActionResult)result;\r\n    Assert.Equal(\u0022Search\u0022, redirectToAction.ActionName);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TeamController_Search_Post_NoResults",
+        "Body": "{\r\n    //Arrange\r\n    var mockTeamService = new MockTeamService().MockSearch(new List\u003CTeam\u003E());\r\n    var controller = new TeamController(mockTeamService.Object);\r\n    //Act\r\n    var result = controller.Search(new TeamSearch());\r\n    //Assert\r\n    Assert.IsAssignableFrom\u003CRedirectToActionResult\u003E(result);\r\n    mockTeamService.VerifySearch(Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "StringExtensionsTests",
+    "Message": null,
+    "ProjectName": "MockingUnitTestsDemoApp.Tests",
+    "Methods": [
+      {
+        "Name": "StringExtensions_CIEquals_TrueCases",
+        "Body": "{\r\n    var result = first.CIEquals(second);\r\n    Assert.True(result);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "StringExtensions_CIEquals_FalseCases",
+        "Body": "{\r\n    var result = first.CIEquals(second);\r\n    Assert.False(result);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "StringExtensions_CIEquals_NullEqualsEmpty_TrueCases",
+        "Body": "{\r\n    var result = first.CIEquals(second, CIEqualsOption.NullEqualsEmpty);\r\n    Assert.True(result);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "PlayerServiceTests",
+    "Message": null,
+    "ProjectName": "MockingUnitTestsDemoApp.Tests",
+    "Methods": [
+      {
+        "Name": "PlayerService_GetForLeague_ValidCompleteLeague",
+        "Body": "{\r\n    //Arrange\r\n    var mockLeagueRepo = new MockLeagueRepository().MockIsValid(true);\r\n    var mockPlayers = new List\u003CPlayer\u003E()\r\n    {\r\n        new Player()\r\n        {\r\n            ID = 1\r\n        }\r\n    };\r\n    var mockPlayerRepo = new MockPlayerRepository().MockGetForTeam(mockPlayers);\r\n    var mockTeams = new List\u003CTeam\u003E()\r\n    {\r\n        new Team()\r\n        {\r\n            ID = 1\r\n        }\r\n    };\r\n    var mockTeamRepo = new MockTeamRepository().MockGetForLeague(mockTeams);\r\n    var playerService = new PlayerService(mockPlayerRepo.Object, mockTeamRepo.Object, mockLeagueRepo.Object);\r\n    //Act\r\n    var allPlayers = playerService.GetForLeague(1);\r\n    //Assert\r\n    Assert.NotEmpty(allPlayers);\r\n    mockPlayerRepo.VerifyGetForTeam(Times.AtLeastOnce());\r\n    mockTeamRepo.VerifyGetForLeague(Times.Once());\r\n    mockLeagueRepo.VerifyIsValid(Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "PlayerService_GetForLeague_ValidLeagueNoPlayers",
+        "Body": "{\r\n    //Arrange\r\n    var mockLeagueRepo = new MockLeagueRepository().MockIsValid(true);\r\n    var mockPlayerRepo = new MockPlayerRepository().MockGetForTeam(new List\u003CPlayer\u003E());\r\n    var mockTeams = new List\u003CTeam\u003E()\r\n    {\r\n        new Team()\r\n        {\r\n            ID = 1\r\n        }\r\n    };\r\n    var mockTeamRepo = new MockTeamRepository().MockGetForLeague(mockTeams);\r\n    var playerService = new PlayerService(mockPlayerRepo.Object, mockTeamRepo.Object, mockLeagueRepo.Object);\r\n    //Act\r\n    var allPlayers = playerService.GetForLeague(1);\r\n    //Assert\r\n    Assert.Empty(allPlayers);\r\n    mockPlayerRepo.VerifyGetForTeam(Times.AtLeastOnce());\r\n    mockTeamRepo.VerifyGetForLeague(Times.Once());\r\n    mockLeagueRepo.VerifyIsValid(Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "PlayerService_GetForLeague_ValidLeagueNoTeams",
+        "Body": "{\r\n    //Arrange\r\n    var mockLeagueRepo = new MockLeagueRepository().MockIsValid(true);\r\n    var mockPlayerRepo = new MockPlayerRepository();\r\n    var mockTeamRepo = new MockTeamRepository().MockGetForLeague(new List\u003CTeam\u003E());\r\n    var playerService = new PlayerService(mockPlayerRepo.Object, mockTeamRepo.Object, mockLeagueRepo.Object);\r\n    //Act\r\n    var allPlayers = playerService.GetForLeague(1);\r\n    //Assert\r\n    Assert.Empty(allPlayers);\r\n    mockPlayerRepo.VerifyGetForTeam(Times.Never());\r\n    mockTeamRepo.VerifyGetForLeague(Times.Once());\r\n    mockLeagueRepo.VerifyIsValid(Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "PlayerService_GetForLeague_InvalidLeague",
+        "Body": "{\r\n    //Arrange\r\n    var mockLeagueRepo = new MockLeagueRepository().MockIsValid(false);\r\n    var playerService = new PlayerService(new MockPlayerRepository().Object, new MockTeamRepository().Object, mockLeagueRepo.Object);\r\n    //Act\r\n    var allPlayers = playerService.GetForLeague(1);\r\n    //Assert\r\n    Assert.Empty(allPlayers);\r\n    mockLeagueRepo.VerifyIsValid(Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "TeamServiceTests",
+    "Message": null,
+    "ProjectName": "MockingUnitTestsDemoApp.Tests",
+    "Methods": [
+      {
+        "Name": "TeamService_Search_OlderThan_Valid",
+        "Body": "{\r\n    var mockTeams = GetMockTeams();\r\n    var mockTeamRepo = new MockTeamRepository().MockGetForLeague(mockTeams);\r\n    var mockLeagueRepo = new MockLeagueRepository().MockIsValid(true);\r\n    var teamService = new TeamService(mockTeamRepo.Object, mockLeagueRepo.Object);\r\n    var searchParams = new TeamSearch()\r\n    {\r\n        LeagueID = 1,\r\n        FoundingDate = new DateTime(2013, 1, 1),\r\n        Direction = SearchDateDirection.OlderThan\r\n    };\r\n    //Act\r\n    var results = teamService.Search(searchParams);\r\n    Assert.NotEmpty(results);\r\n    mockLeagueRepo.VerifyIsValid(Times.Once());\r\n    mockTeamRepo.VerifyGetForLeague(Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TeamService_Search_NewerThan_Valid",
+        "Body": "{\r\n    var mockTeams = GetMockTeams();\r\n    var mockTeamRepo = new MockTeamRepository().MockGetForLeague(mockTeams);\r\n    var mockLeagueRepo = new MockLeagueRepository().MockIsValid(true);\r\n    var teamService = new TeamService(mockTeamRepo.Object, mockLeagueRepo.Object);\r\n    var searchParams = new TeamSearch()\r\n    {\r\n        LeagueID = 1,\r\n        FoundingDate = new DateTime(1969, 1, 1),\r\n        Direction = SearchDateDirection.NewerThan\r\n    };\r\n    //Act\r\n    var results = teamService.Search(searchParams);\r\n    Assert.NotEmpty(results);\r\n    mockLeagueRepo.VerifyIsValid(Times.Once());\r\n    mockTeamRepo.VerifyGetForLeague(Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TeamService_Search_OlderThan_Invalid",
+        "Body": "{\r\n    var mockTeams = GetMockTeams();\r\n    var mockTeamRepo = new MockTeamRepository().MockGetForLeague(mockTeams);\r\n    var mockLeagueRepo = new MockLeagueRepository().MockIsValid(true);\r\n    var teamService = new TeamService(mockTeamRepo.Object, mockLeagueRepo.Object);\r\n    var searchParams = new TeamSearch()\r\n    {\r\n        LeagueID = 1,\r\n        FoundingDate = new DateTime(1966, 1, 1),\r\n        Direction = SearchDateDirection.OlderThan\r\n    };\r\n    //Act\r\n    var results = teamService.Search(searchParams);\r\n    Assert.Empty(results);\r\n    mockLeagueRepo.VerifyIsValid(Times.Once());\r\n    mockTeamRepo.VerifyGetForLeague(Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TeamService_Search_NewerThan_Invalid",
+        "Body": "{\r\n    var mockTeams = GetMockTeams();\r\n    var mockTeamRepo = new MockTeamRepository().MockGetForLeague(mockTeams);\r\n    var mockLeagueRepo = new MockLeagueRepository().MockIsValid(true);\r\n    var teamService = new TeamService(mockTeamRepo.Object, mockLeagueRepo.Object);\r\n    var searchParams = new TeamSearch()\r\n    {\r\n        LeagueID = 1,\r\n        FoundingDate = new DateTime(2017, 1, 1),\r\n        Direction = SearchDateDirection.NewerThan\r\n    };\r\n    //Act\r\n    var results = teamService.Search(searchParams);\r\n    Assert.Empty(results);\r\n    mockLeagueRepo.VerifyIsValid(Times.Once());\r\n    mockTeamRepo.VerifyGetForLeague(Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TeamService_Search_InvalidLeague",
+        "Body": "{\r\n    var mockTeams = GetMockTeams();\r\n    var mockTeamRepo = new MockTeamRepository().MockGetForLeague(mockTeams);\r\n    var mockLeagueRepo = new MockLeagueRepository().MockIsValid(false);\r\n    var teamService = new TeamService(mockTeamRepo.Object, mockLeagueRepo.Object);\r\n    var searchParams = new TeamSearch()\r\n    {\r\n        LeagueID = 1,\r\n        FoundingDate = new DateTime(1997, 1, 1),\r\n        Direction = SearchDateDirection.NewerThan\r\n    };\r\n    //Act\r\n    var results = teamService.Search(searchParams);\r\n    Assert.Empty(results);\r\n    mockLeagueRepo.VerifyIsValid(Times.Once());\r\n    mockTeamRepo.VerifyGetForLeague(Times.Never());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

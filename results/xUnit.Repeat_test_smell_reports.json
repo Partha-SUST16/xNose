@@ -1,0 +1,840 @@
+[
+  {
+    "Name": "IntegrationTests",
+    "Message": "This class has Lack of Cohesion of Test Cases",
+    "ProjectName": "Xunit.Repeat.Tests",
+    "Methods": [
+      {
+        "Name": "It_should_repeat_the_test",
+        "Body": "{\r\n    \u002B\u002Bcounter;\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "It_should_have_repeated_the_test",
+        "Body": "{\r\n    counter.Should().Be(_repeatCount);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "With_Repeat_Count_Lower_Or_Equal_To_Zero",
+    "Message": null,
+    "ProjectName": "Xunit.Repeat.Tests",
+    "Methods": [
+      {
+        "Name": "It_should_throw_ArgumentException",
+        "Body": "{\r\n    // Arrange/Act\r\n    Action act = () =\u003E new RepeatAttribute(count: count);\r\n    // Assert\r\n    act.Should().Throw\u003CArgumentOutOfRangeException\u003E(because: \u0022count is equal or lower than zero\u0022);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "It_should_have_expected_count",
+        "Body": "{\r\n    // Arrange\r\n    const int count = 2;\r\n    var sut = new RepeatAttribute(count: count);\r\n    // Act\r\n    var iterationNumbers = sut.GetData(testMethod: null);\r\n    // Assert\r\n    iterationNumbers.Should().HaveCount(expected: count);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "It_should_have_all_iteration_numbers",
+        "Body": "{\r\n    // Arrange\r\n    const int count = 2;\r\n    var sut = new RepeatAttribute(count: count);\r\n    var iterations = new List\u003Cobject[]\u003E\r\n    {\r\n        new object[]\r\n        {\r\n            1\r\n        },\r\n        new object[]\r\n        {\r\n            2\r\n        }\r\n    };\r\n    // Act\r\n    var iterationNumbers = sut.GetData(testMethod: null);\r\n    // Assert\r\n    iterationNumbers.Should().BeEquivalentTo(iterations);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "With_Repeat_Count_Bigger_Than_Zero",
+    "Message": null,
+    "ProjectName": "Xunit.Repeat.Tests",
+    "Methods": [
+      {
+        "Name": "It_should_throw_ArgumentException",
+        "Body": "{\r\n    // Arrange/Act\r\n    Action act = () =\u003E new RepeatAttribute(count: count);\r\n    // Assert\r\n    act.Should().Throw\u003CArgumentOutOfRangeException\u003E(because: \u0022count is equal or lower than zero\u0022);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "It_should_have_expected_count",
+        "Body": "{\r\n    // Arrange\r\n    const int count = 2;\r\n    var sut = new RepeatAttribute(count: count);\r\n    // Act\r\n    var iterationNumbers = sut.GetData(testMethod: null);\r\n    // Assert\r\n    iterationNumbers.Should().HaveCount(expected: count);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "It_should_have_all_iteration_numbers",
+        "Body": "{\r\n    // Arrange\r\n    const int count = 2;\r\n    var sut = new RepeatAttribute(count: count);\r\n    var iterations = new List\u003Cobject[]\u003E\r\n    {\r\n        new object[]\r\n        {\r\n            1\r\n        },\r\n        new object[]\r\n        {\r\n            2\r\n        }\r\n    };\r\n    // Act\r\n    var iterationNumbers = sut.GetData(testMethod: null);\r\n    // Assert\r\n    iterationNumbers.Should().BeEquivalentTo(iterations);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "When_Using_Repeat_Attribute",
+    "Message": null,
+    "ProjectName": "Xunit.Repeat.Tests",
+    "Methods": [
+      {
+        "Name": "It_should_throw_ArgumentException",
+        "Body": "{\r\n    // Arrange/Act\r\n    Action act = () =\u003E new RepeatAttribute(count: count);\r\n    // Assert\r\n    act.Should().Throw\u003CArgumentOutOfRangeException\u003E(because: \u0022count is equal or lower than zero\u0022);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "It_should_have_expected_count",
+        "Body": "{\r\n    // Arrange\r\n    const int count = 2;\r\n    var sut = new RepeatAttribute(count: count);\r\n    // Act\r\n    var iterationNumbers = sut.GetData(testMethod: null);\r\n    // Assert\r\n    iterationNumbers.Should().HaveCount(expected: count);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "It_should_have_all_iteration_numbers",
+        "Body": "{\r\n    // Arrange\r\n    const int count = 2;\r\n    var sut = new RepeatAttribute(count: count);\r\n    var iterations = new List\u003Cobject[]\u003E\r\n    {\r\n        new object[]\r\n        {\r\n            1\r\n        },\r\n        new object[]\r\n        {\r\n            2\r\n        }\r\n    };\r\n    // Act\r\n    var iterationNumbers = sut.GetData(testMethod: null);\r\n    // Assert\r\n    iterationNumbers.Should().BeEquivalentTo(iterations);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

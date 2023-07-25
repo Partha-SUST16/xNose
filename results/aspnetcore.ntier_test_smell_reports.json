@@ -1,0 +1,1294 @@
+[
+  {
+    "Name": "UserControllerTests",
+    "Message": null,
+    "ProjectName": "aspnetcore.ntier.Test",
+    "Methods": [
+      {
+        "Name": "GetUsers_WhenAuthTokenIsNotProvided_ReturnsSuccess",
+        "Body": "{\r\n    // Arrange\r\n    using (var scope = _factory.Services.CreateScope())\r\n    {\r\n        var scopedServices = scope.ServiceProvider;\r\n        var db = scopedServices.GetRequiredService\u003CAspNetCoreNTierDbContext\u003E();\r\n        db.Database.EnsureCreated();\r\n    }\r\n\r\n    // Act\r\n    var response = await _client.GetAsync(\u0022api/v1/User/getusers\u0022);\r\n    var users = JArray.Parse(await response.Content.ReadAsStringAsync());\r\n    // Assert\r\n    Assert.Equal(HttpStatusCode.OK, response.StatusCode);\r\n    Assert.NotEmpty(users);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "UserControllerTests",
+    "Message": null,
+    "ProjectName": "aspnetcore.ntier.Test",
+    "Methods": [
+      {
+        "Name": "GetUsers_WhenAuthTokenIsNotProvided_ReturnsUnauthorized",
+        "Body": "{\r\n    // Arrange\r\n    using (var scope = _factory.Services.CreateScope())\r\n    {\r\n        var scopedServices = scope.ServiceProvider;\r\n        var db = scopedServices.GetRequiredService\u003CAspNetCoreNTierDbContext\u003E();\r\n        db.Database.EnsureCreated();\r\n    }\r\n\r\n    // Act\r\n    var response = await _client.GetAsync(\u0022api/v2/User/getusers\u0022);\r\n    // Assert\r\n    Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "AuthServiceTests",
+    "Message": null,
+    "ProjectName": "aspnetcore.ntier.Test",
+    "Methods": [
+      {
+        "Name": "LoginAsync_WhenSuccess_ReturnsUserToReturnDTOWithToken",
+        "Body": "{\r\n    //Arrange\r\n    _userRepository.Setup(repo =\u003E repo.GetAsync(It.IsAny\u003CExpression\u003CFunc\u003CUser, bool\u003E\u003E\u003E(), CancellationToken.None)).ReturnsAsync(_userEntity);\r\n    //Act\r\n    var result = await _authService.LoginAsync(_userToLoginDTO);\r\n    //Assert\r\n    Assert.IsType\u003CUserToReturnDTO\u003E(result);\r\n    Assert.Equal(_userEntity.UserId, result.UserId);\r\n    Assert.NotEmpty(result.Token);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LoginAsync_WhenUserDoesNotExist_ThrowsUserNotFoundException",
+        "Body": "{\r\n    //Arrange\r\n    _userRepository.Setup(repo =\u003E repo.GetAsync(It.IsAny\u003CExpression\u003CFunc\u003CUser, bool\u003E\u003E\u003E(), CancellationToken.None)).ReturnsAsync((User)null !);\r\n    //Act \u0026 Assert\r\n    await Assert.ThrowsAsync\u003CUserNotFoundException\u003E(() =\u003E _authService.LoginAsync(_userToLoginDTO));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "RegisterAsync_WhenSuccess_RegistersUserThenReturnsUserToReturnDTOWithToken",
+        "Body": "{\r\n    //Arrange\r\n    _userRepository.Setup(repo =\u003E repo.AddAsync(It.IsAny\u003CUser\u003E())).ReturnsAsync(_userEntity);\r\n    //Act\r\n    var result = await _authService.RegisterAsync(_userToRegisterDTO);\r\n    //Assert\r\n    Assert.IsType\u003CUserToReturnDTO\u003E(result);\r\n    Assert.Equal(_userEntity.UserId, result.UserId);\r\n    Assert.NotEmpty(result.Token);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "UserServiceTests",
+    "Message": null,
+    "ProjectName": "aspnetcore.ntier.Test",
+    "Methods": [
+      {
+        "Name": "GetUsersAsync_WhenSuccess_ReturnsUserDTOList",
+        "Body": "{\r\n    //Arrange\r\n    var userEntityList = new List\u003CUser\u003E()\r\n    {\r\n        _userEntity,\r\n        _userEntity\r\n    };\r\n    _userRepository.Setup(repo =\u003E repo.GetListAsync(null !, CancellationToken.None)).ReturnsAsync(userEntityList);\r\n    //Act\r\n    var result = await _userService.GetUsersAsync();\r\n    //Assert\r\n    Assert.Equal(2, result.Count);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GetUserAsync_WhenSuccess_ReturnsUserDTOList",
+        "Body": "{\r\n    //Act\r\n    var result = await _userService.GetUserAsync(UserId);\r\n    //Assert\r\n    Assert.NotNull(result);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GetUserAsync_WhenUserDoesNotExist_ThrowsUserNotFoundException",
+        "Body": "{\r\n    //Arrange\r\n    _userRepository.Setup(repo =\u003E repo.GetAsync(It.IsAny\u003CExpression\u003CFunc\u003CUser, bool\u003E\u003E\u003E(), CancellationToken.None)).ReturnsAsync((User)null !);\r\n    //Act \u0026 Assert\r\n    await Assert.ThrowsAsync\u003CUserNotFoundException\u003E(() =\u003E _userService.GetUserAsync(UserId));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "AddUserAsync_WhenSuccess_AddsThenReturnsUserDTO",
+        "Body": "{\r\n    //Arrange\r\n    _userRepository.Setup(repo =\u003E repo.AddAsync(It.IsAny\u003CUser\u003E())).ReturnsAsync(_userEntity);\r\n    //Act\r\n    var result = await _userService.AddUserAsync(_userToAddDTO);\r\n    //Assert\r\n    Assert.IsType\u003CUserDTO\u003E(result);\r\n    Assert.Equal(_userEntity.UserId, result.UserId);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "UpdateUserAsync_WhenSuccess_UpdatesThenReturnsUserDTO",
+        "Body": "{\r\n    //Arrange\r\n    _userRepository.Setup(repo =\u003E repo.UpdateUserAsync(It.IsAny\u003CUser\u003E())).ReturnsAsync(_userEntity);\r\n    //Act\r\n    var result = await _userService.UpdateUserAsync(_userToUpdateDTO);\r\n    //Assert\r\n    Assert.IsType\u003CUserDTO\u003E(result);\r\n    Assert.NotNull(result);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "UpdateUserAsync_WhenUserDoesNotExist_ThrowsUserNotFoundException",
+        "Body": "{\r\n    //Arrange\r\n    _userRepository.Setup(repo =\u003E repo.GetAsync(It.IsAny\u003CExpression\u003CFunc\u003CUser, bool\u003E\u003E\u003E(), CancellationToken.None)).ReturnsAsync((User)null !);\r\n    //Act \u0026 Assert\r\n    await Assert.ThrowsAsync\u003CUserNotFoundException\u003E(() =\u003E _userService.UpdateUserAsync(_userToUpdateDTO));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "DeleteUserAsync_WhenSuccess_CallsRepositoryDelete",
+        "Body": "{\r\n    //Act\r\n    await _userService.DeleteUserAsync(UserId);\r\n    //Assert\r\n    _userRepository.Verify(x =\u003E x.DeleteAsync(It.IsAny\u003CUser\u003E()), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "DeleteUserAsync_WhenUserDoesNotExist_ThrowsUserNotFoundException",
+        "Body": "{\r\n    //Arrange\r\n    _userRepository.Setup(repo =\u003E repo.GetAsync(It.IsAny\u003CExpression\u003CFunc\u003CUser, bool\u003E\u003E\u003E(), CancellationToken.None)).ReturnsAsync((User)null !);\r\n    //Act \u0026 Assert\r\n    await Assert.ThrowsAsync\u003CUserNotFoundException\u003E(() =\u003E _userService.DeleteUserAsync(UserId));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "UserToLoginDTOValidatorTests",
+    "Message": null,
+    "ProjectName": "aspnetcore.ntier.Test",
+    "Methods": [
+      {
+        "Name": "Validate_WhenUsernameOrPasswordOrBothEmpty_ThrowsValidationError",
+        "Body": "{\r\n    var userToLoginDTO = new UserToLoginDTO\r\n    {\r\n        Username = username,\r\n        Password = password\r\n    };\r\n    var result = _userToLoginDTOValidator.TestValidate(userToLoginDTO);\r\n    result.ShouldHaveAnyValidationError();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Validate_WhenUsernameAndPasswordNotEmpty_ShouldNotThrowValidationError",
+        "Body": "{\r\n    var userToLoginDTO = new UserToLoginDTO\r\n    {\r\n        Username = \u0022username\u0022,\r\n        Password = \u0022password\u0022\r\n    };\r\n    var result = _userToLoginDTOValidator.TestValidate(userToLoginDTO);\r\n    result.ShouldNotHaveAnyValidationErrors();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "UserToRegisterDTOValidatorTests",
+    "Message": null,
+    "ProjectName": "aspnetcore.ntier.Test",
+    "Methods": [
+      {
+        "Name": "Validate_WhenUsernameOrPasswordOrBothEmpty_ThrowsValidationError",
+        "Body": "{\r\n    var userToRegisterDTO = new UserToRegisterDTO\r\n    {\r\n        Username = username,\r\n        Password = password,\r\n        Name = \u0022\u0022,\r\n        Surname = \u0022\u0022\r\n    };\r\n    var result = _userToRegisterDTOValidator.TestValidate(userToRegisterDTO);\r\n    result.ShouldHaveAnyValidationError();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Validate_WhenUsernameAndPasswordNotEmpty_ShouldNotThrowValidationError",
+        "Body": "{\r\n    var userToRegisterDTO = new UserToRegisterDTO\r\n    {\r\n        Username = \u0022username\u0022,\r\n        Password = \u0022password\u0022,\r\n        Name = \u0022\u0022,\r\n        Surname = \u0022\u0022\r\n    };\r\n    var result = _userToRegisterDTOValidator.TestValidate(userToRegisterDTO);\r\n    result.ShouldNotHaveAnyValidationErrors();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

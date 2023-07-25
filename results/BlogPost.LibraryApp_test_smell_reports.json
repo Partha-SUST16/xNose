@@ -1,0 +1,456 @@
+[
+  {
+    "Name": "GenericRepositoryTest",
+    "Message": null,
+    "ProjectName": "Library.UnitTests",
+    "Methods": [
+      {
+        "Name": "SaveAsync_Book_RightRecord",
+        "Body": "{\r\n    var helper = new TestHelper();\r\n    // Repositories with InMemory Database\r\n    var readyRepo = helper.GetInMemoryReadRepository();\r\n    var writeRepo = helper.GetInMemoryWriteRepository();\r\n    // use Write Repository to add mock data\r\n    writeRepo.AddAsync(new Book() { BookName = \u0022Hamlet\u0022, Author = new Author() { FirstName = \u0022William\u0022, LastName = \u0022Shakespear\u0022 }, Category = new Category() { CategoryName = \u0022Drama\u0022 } });\r\n    // Commit insert\r\n    writeRepo.SaveAsyn().GetAwaiter();\r\n    // use Specification in Read Repository and get data\r\n    var result = readyRepo.GetAsync(new BookWithAuthorAndCategorySpecification()).Result;\r\n    // Assert\r\n    Assert.NotNull(result);\r\n    Assert.Equal(\u0022Hamlet\u0022, result.BookName);\r\n    Assert.Equal(\u0022William\u0022, result.Author.FirstName);\r\n    Assert.Equal(\u0022Shakespear\u0022, result.Author.LastName);\r\n    Assert.Equal(\u0022Drama\u0022, result.Category.CategoryName);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GetAll_Authors_Count",
+        "Body": "{\r\n    var helper = new TestHelper();\r\n    var readyRepo = helper.GetInMemoryReadRepository();\r\n    var writeRepo = helper.GetInMemoryWriteRepository();\r\n    var authors = helper.GetMockAuthors();\r\n    writeRepo.InsertAsync(authors).GetAwaiter();\r\n    var result = readyRepo.GetAll(new AuthorSpecification()).ToList();\r\n    Assert.Equal(3, result.Count);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GetAsync_Authors_Find",
+        "Body": "{\r\n    var helper = new TestHelper();\r\n    var readyRepo = helper.GetInMemoryReadRepository();\r\n    var writeRepo = helper.GetInMemoryWriteRepository();\r\n    var authors = helper.GetMockAuthors();\r\n    writeRepo.InsertAsync(authors).GetAwaiter();\r\n    var result = readyRepo.GetAsync(new AuthorSpecification(\u0022William\u0022)).Result;\r\n    Assert.Equal(\u0022Shakespear\u0022, result.LastName);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GetByIdAsync_Books_RightName",
+        "Body": "{\r\n    var helper = new TestHelper();\r\n    var readyRepo = helper.GetInMemoryReadRepository();\r\n    var writeRepo = helper.GetInMemoryWriteRepository();\r\n    var books = helper.GetMockBooks();\r\n    writeRepo.InsertAsync(books).GetAwaiter();\r\n    var result = readyRepo.GetByIdAsync\u003CBook\u003E(2).Result;\r\n    Assert.Contains(\u0022Oliver\u0022, result.BookName);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "SpecificationTests",
+    "Message": null,
+    "ProjectName": "Library.UnitTests",
+    "Methods": [
+      {
+        "Name": "BookWithAuthorAndCategorySpecification_UseSpec",
+        "Body": "{\r\n    var helper = new TestHelper();\r\n    var mockBooks = helper.GetMockBooks().AsQueryable();\r\n    var spec = new BookWithAuthorAndCategorySpecification(\u0022Bleak\u0022);\r\n    var result = mockBooks.FirstOrDefault(spec.Criteria);\r\n    Assert.NotNull(result);\r\n    Assert.Equal(\u0022Bleak House\u0022, result.BookName);\r\n    Assert.Equal(\u0022Charles\u0022, result.Author.FirstName);\r\n    Assert.Equal(\u0022Novel\u0022, result.Category.CategoryName);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "AuthorSpecification_UseSpec",
+        "Body": "{\r\n    var helper = new TestHelper();\r\n    var mockAuthors = helper.GetMockAuthors().AsQueryable();\r\n    var spec = new AuthorSpecification(\u0022William\u0022);\r\n    var result = mockAuthors.FirstOrDefault(spec.Criteria);\r\n    Assert.NotNull(result);\r\n    Assert.Equal(\u0022William\u0022, result.FirstName);\r\n    Assert.Equal(\u0022Shakespear\u0022, result.LastName);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,1905 @@
+[
+  {
+    "Name": "AddBookingCommandHandlerTest",
+    "Message": null,
+    "ProjectName": "HotelCalifornia.UnitTests",
+    "Methods": [
+      {
+        "Name": "GivenAllDataProvided_WhenAddBooking_ShouldAddEntity",
+        "Body": "{\r\n    // Arrange\r\n    var LAddBookingCommand = new AddBookingCommand\r\n    {\r\n        GuestFullName = StringProvider.GetRandomString(),\r\n        GuestPhoneNumber = StringProvider.GetRandomString(),\r\n        BedroomsNumber = 1,\r\n        DateFrom = FDateTimeService.Now.AddDays(5),\r\n        DateTo = FDateTimeService.Now.AddDays(15)\r\n    };\r\n    var LDatabaseContext = GetTestDatabaseContext();\r\n    await RoomsFactory(10, LDatabaseContext);\r\n    var LAddBookingCommandHandler = new AddBookingCommandHandler(LDatabaseContext);\r\n    // Act\r\n    await LAddBookingCommandHandler.Handle(LAddBookingCommand, CancellationToken.None);\r\n    // Assert\r\n    var LBookingEntity = LDatabaseContext.Bookings.ToList();\r\n    LBookingEntity.Should().HaveCount(1);\r\n    LBookingEntity[0].GuestFullName.Should().Be(LAddBookingCommand.GuestFullName);\r\n    LBookingEntity[0].GuestPhoneNumber.Should().Be(LAddBookingCommand.GuestPhoneNumber);\r\n    LBookingEntity[0].DateFrom.Should().BeSameDateAs(LAddBookingCommand.DateFrom);\r\n    LBookingEntity[0].DateTo.Should().BeSameDateAs(LAddBookingCommand.DateTo);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GetAllBookingsQueryHandlerTest",
+    "Message": null,
+    "ProjectName": "HotelCalifornia.UnitTests",
+    "Methods": [
+      {
+        "Name": "WhenGetAllBookings_ShouldReturnsCollection",
+        "Body": "{\r\n    // Arrange\r\n    var LDatabaseContext = GetTestDatabaseContext();\r\n    var LGetAllBookingsQueryHandler = new GetAllBookingsQueryHandler(LDatabaseContext);\r\n    var LRoom = new Rooms\r\n    {\r\n        RoomNumber = 101,\r\n        Bedrooms = 3\r\n    };\r\n    await LDatabaseContext.Rooms.AddAsync(LRoom);\r\n    await LDatabaseContext.SaveChangesAsync();\r\n    var LBookings = new List\u003CBookings\u003E\r\n    {\r\n        new()\r\n        {\r\n            RoomId = LRoom.Id,\r\n            GuestFullName = StringProvider.GetRandomString(),\r\n            GuestPhoneNumber = StringProvider.GetRandomString(9),\r\n            DateFrom = FDateTimeService.Now.AddDays(5),\r\n            DateTo = FDateTimeService.Now.AddDays(15)\r\n        },\r\n        new()\r\n        {\r\n            RoomId = LRoom.Id,\r\n            GuestFullName = StringProvider.GetRandomString(),\r\n            GuestPhoneNumber = StringProvider.GetRandomString(9),\r\n            DateFrom = FDateTimeService.Now.AddDays(1),\r\n            DateTo = FDateTimeService.Now.AddDays(3)\r\n        }\r\n    };\r\n    await LDatabaseContext.Bookings.AddRangeAsync(LBookings);\r\n    await LDatabaseContext.SaveChangesAsync();\r\n    // Act\r\n    var LResults = (await LGetAllBookingsQueryHandler.Handle(new GetAllBookingsQuery(), CancellationToken.None)).ToList();\r\n    // Assert\r\n    LResults.Should().NotBeNull();\r\n    LResults.Should().HaveCount(2);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "RemoveBookingCommandHandlerTest",
+    "Message": null,
+    "ProjectName": "HotelCalifornia.UnitTests",
+    "Methods": [
+      {
+        "Name": "GivenCorrectId_WhenRemoveBooking_ShouldSucceed",
+        "Body": "{\r\n    // Arrange\r\n    var LDatabaseContext = GetTestDatabaseContext();\r\n    var LRemoveBookingCommandHandler = new RemoveBookingCommandHandler(LDatabaseContext);\r\n    var LRoom = new Rooms\r\n    {\r\n        RoomNumber = 101,\r\n        Bedrooms = 3\r\n    };\r\n    await LDatabaseContext.Rooms.AddAsync(LRoom);\r\n    await LDatabaseContext.SaveChangesAsync();\r\n    var LBookings = new List\u003CBookings\u003E\r\n    {\r\n        new()\r\n        {\r\n            RoomId = LRoom.Id,\r\n            GuestFullName = StringProvider.GetRandomString(),\r\n            GuestPhoneNumber = StringProvider.GetRandomString(9),\r\n            DateFrom = FDateTimeService.Now.AddDays(5),\r\n            DateTo = FDateTimeService.Now.AddDays(15)\r\n        },\r\n        new()\r\n        {\r\n            RoomId = LRoom.Id,\r\n            GuestFullName = StringProvider.GetRandomString(),\r\n            GuestPhoneNumber = StringProvider.GetRandomString(9),\r\n            DateFrom = FDateTimeService.Now.AddDays(1),\r\n            DateTo = FDateTimeService.Now.AddDays(3)\r\n        }\r\n    };\r\n    await LDatabaseContext.Bookings.AddRangeAsync(LBookings);\r\n    await LDatabaseContext.SaveChangesAsync();\r\n    var LBookingOne = LBookings[0].Id;\r\n    var LBookingTwo = LBookings[1].Id;\r\n    // Act\r\n    await LRemoveBookingCommandHandler.Handle(new RemoveBookingCommand { Id = LBookingTwo }, CancellationToken.None);\r\n    // Assert\r\n    var LAssertDbContext = GetTestDatabaseContext();\r\n    var LArticlesEntity = await LAssertDbContext.Bookings.FindAsync(LBookingTwo);\r\n    LArticlesEntity.Should().BeNull();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GetRoomsInfoQueryHandlerTest",
+    "Message": null,
+    "ProjectName": "HotelCalifornia.UnitTests",
+    "Methods": [
+      {
+        "Name": "WhenGetRoomsInfo_ShouldReturnsCollection",
+        "Body": "{\r\n    // Arrange\r\n    var LDatabaseContext = GetTestDatabaseContext();\r\n    var LGetRoomsInfoQueryHandler = new GetRoomsInfoQueryHandler(LDatabaseContext);\r\n    var LRoom = new Rooms\r\n    {\r\n        RoomNumber = 101,\r\n        Bedrooms = 3\r\n    };\r\n    await LDatabaseContext.Rooms.AddAsync(LRoom);\r\n    await LDatabaseContext.SaveChangesAsync();\r\n    var LBookings = new List\u003CBookings\u003E\r\n    {\r\n        new()\r\n        {\r\n            RoomId = LRoom.Id,\r\n            GuestFullName = StringProvider.GetRandomString(),\r\n            GuestPhoneNumber = StringProvider.GetRandomString(9),\r\n            DateFrom = FDateTimeService.Now.AddDays(5),\r\n            DateTo = FDateTimeService.Now.AddDays(15)\r\n        },\r\n        new()\r\n        {\r\n            RoomId = LRoom.Id,\r\n            GuestFullName = StringProvider.GetRandomString(),\r\n            GuestPhoneNumber = StringProvider.GetRandomString(9),\r\n            DateFrom = FDateTimeService.Now.AddDays(1),\r\n            DateTo = FDateTimeService.Now.AddDays(3)\r\n        }\r\n    };\r\n    await LDatabaseContext.Bookings.AddRangeAsync(LBookings);\r\n    await LDatabaseContext.SaveChangesAsync();\r\n    // Act\r\n    var LResults = (await LGetRoomsInfoQueryHandler.Handle(new GetRoomsInfoQuery(), CancellationToken.None)).ToList();\r\n    // Assert\r\n    LResults.Should().NotBeNull();\r\n    LResults.Should().HaveCount(1);\r\n    LResults[0].Info.Should().Be(\u00221 room with 3 bedrooms.\u0022);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "DateTimeTestCases",
+    "Message": null,
+    "ProjectName": "HotelCalifornia.UnitTests",
+    "Methods": [
+      {
+        "Name": "GivenAllFieldsAreCorrect_WhenAddBooking_ShouldSucceed",
+        "Body": "{\r\n    // Arrange\r\n    var LAddBookingCommand = new AddBookingCommand\r\n    {\r\n        GuestFullName = StringProvider.GetRandomString(),\r\n        GuestPhoneNumber = StringProvider.GetRandomString(9),\r\n        BedroomsNumber = 1,\r\n        DateFrom = FDateTimeService.Now.AddDays(10),\r\n        DateTo = FDateTimeService.Now.AddDays(20)\r\n    };\r\n    // Act\r\n    var LValidator = new AddBookingCommandValidator(FDateTimeService);\r\n    var LResult = LValidator.Validate(LAddBookingCommand);\r\n    // Assert\r\n    LResult.Errors.Should().BeEmpty();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GivenNoGuestFullNameAndPhoneNumberProvided_WhenAddBooking_ShouldThrowError",
+        "Body": "{\r\n    // Arrange\r\n    var LAddBookingCommand = new AddBookingCommand\r\n    {\r\n        GuestFullName = null,\r\n        GuestPhoneNumber = null,\r\n        BedroomsNumber = 1,\r\n        DateFrom = FDateTimeService.Now.AddDays(10),\r\n        DateTo = FDateTimeService.Now.AddDays(20)\r\n    };\r\n    // Act\r\n    var LValidator = new AddBookingCommandValidator(FDateTimeService);\r\n    var LResult = LValidator.Validate(LAddBookingCommand);\r\n    // Assert\r\n    LResult.Errors.Count.Should().Be(2);\r\n    LResult.Errors[0].ErrorCode.Should().Be(nameof(ValidationCodes.REQUIRED));\r\n    LResult.Errors[1].ErrorCode.Should().Be(nameof(ValidationCodes.REQUIRED));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GivenGuestFullNameTooLong_WhenAddBooking_ShouldThrowError",
+        "Body": "{\r\n    // Arrange\r\n    var LAddBookingCommand = new AddBookingCommand\r\n    {\r\n        GuestFullName = StringProvider.GetRandomString(300),\r\n        GuestPhoneNumber = StringProvider.GetRandomString(9),\r\n        BedroomsNumber = 1,\r\n        DateFrom = FDateTimeService.Now.AddDays(10),\r\n        DateTo = FDateTimeService.Now.AddDays(20)\r\n    };\r\n    // Act\r\n    var LValidator = new AddBookingCommandValidator(FDateTimeService);\r\n    var LResult = LValidator.Validate(LAddBookingCommand);\r\n    // Assert\r\n    LResult.Errors.Count.Should().Be(1);\r\n    LResult.Errors[0].ErrorCode.Should().Be(nameof(ValidationCodes.GUEST_NAME_TOO_LONG));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GivenGuestPhoneNumberTooLong_WhenAddBooking_ShouldThrowError",
+        "Body": "{\r\n    // Arrange\r\n    var LAddBookingCommand = new AddBookingCommand\r\n    {\r\n        GuestFullName = StringProvider.GetRandomString(),\r\n        GuestPhoneNumber = StringProvider.GetRandomString(15),\r\n        BedroomsNumber = 1,\r\n        DateFrom = FDateTimeService.Now.AddDays(10),\r\n        DateTo = FDateTimeService.Now.AddDays(20)\r\n    };\r\n    // Act\r\n    var LValidator = new AddBookingCommandValidator(FDateTimeService);\r\n    var LResult = LValidator.Validate(LAddBookingCommand);\r\n    // Assert\r\n    LResult.Errors.Count.Should().Be(1);\r\n    LResult.Errors[0].ErrorCode.Should().Be(nameof(ValidationCodes.PHONE_NUMBER_TOO_LONG));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GivenBedroomsNumberIsWrong_WhenAddBooking_ShouldThrowError",
+        "Body": "{\r\n    // Arrange\r\n    var LAddBookingCommand = new AddBookingCommand\r\n    {\r\n        GuestFullName = StringProvider.GetRandomString(),\r\n        GuestPhoneNumber = StringProvider.GetRandomString(9),\r\n        BedroomsNumber = -10,\r\n        DateFrom = FDateTimeService.Now.AddDays(10),\r\n        DateTo = FDateTimeService.Now.AddDays(20)\r\n    };\r\n    // Act\r\n    var LValidator = new AddBookingCommandValidator(FDateTimeService);\r\n    var LResult = LValidator.Validate(LAddBookingCommand);\r\n    // Assert\r\n    LResult.Errors.Count.Should().Be(1);\r\n    LResult.Errors[0].ErrorCode.Should().Be(nameof(ValidationCodes.LESS_THAN_ZERO));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GivenDateFromAndDateToAreSame_WhenAddBooking_ShouldThrowError",
+        "Body": "{\r\n    // Arrange\r\n    var LAddBookingCommand = new AddBookingCommand\r\n    {\r\n        GuestFullName = StringProvider.GetRandomString(),\r\n        GuestPhoneNumber = StringProvider.GetRandomString(9),\r\n        BedroomsNumber = 1,\r\n        DateFrom = ADateFrom,\r\n        DateTo = ADateTo\r\n    };\r\n    // Act\r\n    var LValidator = new AddBookingCommandValidator(FDateTimeService);\r\n    var LResult = LValidator.Validate(LAddBookingCommand);\r\n    // Assert\r\n    if (ACase is TestCaseDays.Present or TestCaseDays.Future)\r\n    {\r\n        LResult.Errors.Count.Should().Be(1);\r\n        LResult.Errors[0].ErrorCode.Should().Be(nameof(ValidationCodes.START_DATE_AND_END_DATE_CANNOT_BE_SAME));\r\n    }\r\n    else\r\n    {\r\n        LResult.Errors.Count.Should().Be(3);\r\n        LResult.Errors[0].ErrorCode.Should().Be(nameof(ValidationCodes.START_DATE_CANNOT_BE_EARLIER_THAN_TODAY));\r\n        LResult.Errors[1].ErrorCode.Should().Be(nameof(ValidationCodes.END_DATE_CANNOT_BE_EARLIER_THAN_TODAY));\r\n        LResult.Errors[2].ErrorCode.Should().Be(nameof(ValidationCodes.START_DATE_AND_END_DATE_CANNOT_BE_SAME));\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GivenDateToIsEarlierThanDateFrom_WhenAddBooking_ShouldThrowError",
+        "Body": "{\r\n    // Arrange\r\n    var LAddBookingCommand = new AddBookingCommand\r\n    {\r\n        GuestFullName = StringProvider.GetRandomString(),\r\n        GuestPhoneNumber = StringProvider.GetRandomString(9),\r\n        BedroomsNumber = 1,\r\n        DateFrom = FDateTimeService.Now.AddDays(1),\r\n        DateTo = FDateTimeService.Now.AddDays(-10)\r\n    };\r\n    // Act\r\n    var LValidator = new AddBookingCommandValidator(FDateTimeService);\r\n    var LResult = LValidator.Validate(LAddBookingCommand);\r\n    // Assert\r\n    LResult.Errors.Count.Should().Be(2);\r\n    LResult.Errors[0].ErrorCode.Should().Be(nameof(ValidationCodes.END_DATE_CANNOT_BE_EARLIER_THAN_TODAY));\r\n    LResult.Errors[1].ErrorCode.Should().Be(nameof(ValidationCodes.END_DATE_CANNOT_BE_EARLIER_THAN_STAR_DATE));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "AddBookingCommandValidatorTest",
+    "Message": null,
+    "ProjectName": "HotelCalifornia.UnitTests",
+    "Methods": [
+      {
+        "Name": "GivenAllFieldsAreCorrect_WhenAddBooking_ShouldSucceed",
+        "Body": "{\r\n    // Arrange\r\n    var LAddBookingCommand = new AddBookingCommand\r\n    {\r\n        GuestFullName = StringProvider.GetRandomString(),\r\n        GuestPhoneNumber = StringProvider.GetRandomString(9),\r\n        BedroomsNumber = 1,\r\n        DateFrom = FDateTimeService.Now.AddDays(10),\r\n        DateTo = FDateTimeService.Now.AddDays(20)\r\n    };\r\n    // Act\r\n    var LValidator = new AddBookingCommandValidator(FDateTimeService);\r\n    var LResult = LValidator.Validate(LAddBookingCommand);\r\n    // Assert\r\n    LResult.Errors.Should().BeEmpty();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GivenNoGuestFullNameAndPhoneNumberProvided_WhenAddBooking_ShouldThrowError",
+        "Body": "{\r\n    // Arrange\r\n    var LAddBookingCommand = new AddBookingCommand\r\n    {\r\n        GuestFullName = null,\r\n        GuestPhoneNumber = null,\r\n        BedroomsNumber = 1,\r\n        DateFrom = FDateTimeService.Now.AddDays(10),\r\n        DateTo = FDateTimeService.Now.AddDays(20)\r\n    };\r\n    // Act\r\n    var LValidator = new AddBookingCommandValidator(FDateTimeService);\r\n    var LResult = LValidator.Validate(LAddBookingCommand);\r\n    // Assert\r\n    LResult.Errors.Count.Should().Be(2);\r\n    LResult.Errors[0].ErrorCode.Should().Be(nameof(ValidationCodes.REQUIRED));\r\n    LResult.Errors[1].ErrorCode.Should().Be(nameof(ValidationCodes.REQUIRED));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GivenGuestFullNameTooLong_WhenAddBooking_ShouldThrowError",
+        "Body": "{\r\n    // Arrange\r\n    var LAddBookingCommand = new AddBookingCommand\r\n    {\r\n        GuestFullName = StringProvider.GetRandomString(300),\r\n        GuestPhoneNumber = StringProvider.GetRandomString(9),\r\n        BedroomsNumber = 1,\r\n        DateFrom = FDateTimeService.Now.AddDays(10),\r\n        DateTo = FDateTimeService.Now.AddDays(20)\r\n    };\r\n    // Act\r\n    var LValidator = new AddBookingCommandValidator(FDateTimeService);\r\n    var LResult = LValidator.Validate(LAddBookingCommand);\r\n    // Assert\r\n    LResult.Errors.Count.Should().Be(1);\r\n    LResult.Errors[0].ErrorCode.Should().Be(nameof(ValidationCodes.GUEST_NAME_TOO_LONG));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GivenGuestPhoneNumberTooLong_WhenAddBooking_ShouldThrowError",
+        "Body": "{\r\n    // Arrange\r\n    var LAddBookingCommand = new AddBookingCommand\r\n    {\r\n        GuestFullName = StringProvider.GetRandomString(),\r\n        GuestPhoneNumber = StringProvider.GetRandomString(15),\r\n        BedroomsNumber = 1,\r\n        DateFrom = FDateTimeService.Now.AddDays(10),\r\n        DateTo = FDateTimeService.Now.AddDays(20)\r\n    };\r\n    // Act\r\n    var LValidator = new AddBookingCommandValidator(FDateTimeService);\r\n    var LResult = LValidator.Validate(LAddBookingCommand);\r\n    // Assert\r\n    LResult.Errors.Count.Should().Be(1);\r\n    LResult.Errors[0].ErrorCode.Should().Be(nameof(ValidationCodes.PHONE_NUMBER_TOO_LONG));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GivenBedroomsNumberIsWrong_WhenAddBooking_ShouldThrowError",
+        "Body": "{\r\n    // Arrange\r\n    var LAddBookingCommand = new AddBookingCommand\r\n    {\r\n        GuestFullName = StringProvider.GetRandomString(),\r\n        GuestPhoneNumber = StringProvider.GetRandomString(9),\r\n        BedroomsNumber = -10,\r\n        DateFrom = FDateTimeService.Now.AddDays(10),\r\n        DateTo = FDateTimeService.Now.AddDays(20)\r\n    };\r\n    // Act\r\n    var LValidator = new AddBookingCommandValidator(FDateTimeService);\r\n    var LResult = LValidator.Validate(LAddBookingCommand);\r\n    // Assert\r\n    LResult.Errors.Count.Should().Be(1);\r\n    LResult.Errors[0].ErrorCode.Should().Be(nameof(ValidationCodes.LESS_THAN_ZERO));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GivenDateFromAndDateToAreSame_WhenAddBooking_ShouldThrowError",
+        "Body": "{\r\n    // Arrange\r\n    var LAddBookingCommand = new AddBookingCommand\r\n    {\r\n        GuestFullName = StringProvider.GetRandomString(),\r\n        GuestPhoneNumber = StringProvider.GetRandomString(9),\r\n        BedroomsNumber = 1,\r\n        DateFrom = ADateFrom,\r\n        DateTo = ADateTo\r\n    };\r\n    // Act\r\n    var LValidator = new AddBookingCommandValidator(FDateTimeService);\r\n    var LResult = LValidator.Validate(LAddBookingCommand);\r\n    // Assert\r\n    if (ACase is TestCaseDays.Present or TestCaseDays.Future)\r\n    {\r\n        LResult.Errors.Count.Should().Be(1);\r\n        LResult.Errors[0].ErrorCode.Should().Be(nameof(ValidationCodes.START_DATE_AND_END_DATE_CANNOT_BE_SAME));\r\n    }\r\n    else\r\n    {\r\n        LResult.Errors.Count.Should().Be(3);\r\n        LResult.Errors[0].ErrorCode.Should().Be(nameof(ValidationCodes.START_DATE_CANNOT_BE_EARLIER_THAN_TODAY));\r\n        LResult.Errors[1].ErrorCode.Should().Be(nameof(ValidationCodes.END_DATE_CANNOT_BE_EARLIER_THAN_TODAY));\r\n        LResult.Errors[2].ErrorCode.Should().Be(nameof(ValidationCodes.START_DATE_AND_END_DATE_CANNOT_BE_SAME));\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GivenDateToIsEarlierThanDateFrom_WhenAddBooking_ShouldThrowError",
+        "Body": "{\r\n    // Arrange\r\n    var LAddBookingCommand = new AddBookingCommand\r\n    {\r\n        GuestFullName = StringProvider.GetRandomString(),\r\n        GuestPhoneNumber = StringProvider.GetRandomString(9),\r\n        BedroomsNumber = 1,\r\n        DateFrom = FDateTimeService.Now.AddDays(1),\r\n        DateTo = FDateTimeService.Now.AddDays(-10)\r\n    };\r\n    // Act\r\n    var LValidator = new AddBookingCommandValidator(FDateTimeService);\r\n    var LResult = LValidator.Validate(LAddBookingCommand);\r\n    // Assert\r\n    LResult.Errors.Count.Should().Be(2);\r\n    LResult.Errors[0].ErrorCode.Should().Be(nameof(ValidationCodes.END_DATE_CANNOT_BE_EARLIER_THAN_TODAY));\r\n    LResult.Errors[1].ErrorCode.Should().Be(nameof(ValidationCodes.END_DATE_CANNOT_BE_EARLIER_THAN_STAR_DATE));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "RemoveBookingCommandHandlerTest",
+    "Message": null,
+    "ProjectName": "HotelCalifornia.UnitTests",
+    "Methods": [
+      {
+        "Name": "GivenCorrectId_WhenRemoveArticle_ShouldFinishSuccessfully",
+        "Body": "{\r\n    // Arrange\r\n    var LRemoveBookingCommand = new RemoveBookingCommand\r\n    {\r\n        Id = Guid.NewGuid()\r\n    };\r\n    // Act\r\n    var LValidator = new RemoveBookingCommandValidator();\r\n    var LResult = LValidator.Validate(LRemoveBookingCommand);\r\n    // Assert\r\n    LResult.Errors.Should().BeEmpty();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GivenIncorrectId_WhenRemoveArticle_ShouldThrowError",
+        "Body": "{\r\n    // Arrange\r\n    var LRemoveArticleCommand = new RemoveBookingCommand\r\n    {\r\n        Id = Guid.Empty\r\n    };\r\n    // Act\r\n    var LValidator = new RemoveBookingCommandValidator();\r\n    var LResult = LValidator.Validate(LRemoveArticleCommand);\r\n    // Assert\r\n    LResult.Errors.Count.Should().Be(1);\r\n    LResult.Errors[0].ErrorCode.Should().Be(nameof(ValidationCodes.REQUIRED));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "BookingControllerTest",
+    "Message": null,
+    "ProjectName": "HotelCalifornia.IntegrationTests",
+    "Methods": [
+      {
+        "Name": "WhenGetAllBookings_ShouldReturnEntityAsJsonObject",
+        "Body": "{\r\n    // Arrange\r\n    const string REQUEST = \u0022/api/v1/booking/getallbookings/\u0022;\r\n    // Act\r\n    var LHttpClient = FWebAppFactory.CreateClient();\r\n    var LResponse = await LHttpClient.GetAsync(REQUEST);\r\n    // Assert\r\n    LResponse.EnsureSuccessStatusCode();\r\n    var LContent = await LResponse.Content.ReadAsStringAsync();\r\n    LContent.Should().NotBeNullOrEmpty();\r\n    var LDeserialized = JsonConvert.DeserializeObject\u003CIEnumerable\u003CGetAllBookingsQueryResult\u003E\u003E(LContent).ToList();\r\n    LDeserialized.Should().NotBeNull();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GivenCorrectData_WhenAddBooking_ShouldReturnNewGuidAndRoomNumber",
+        "Body": "{\r\n    // Arrange\r\n    const string REQUEST = \u0022/api/v1/booking/addbooking/\u0022;\r\n    var LNewRequest = new HttpRequestMessage(HttpMethod.Post, REQUEST);\r\n    var LPayLoad = new AddBookingDto\r\n    {\r\n        GuestFullName = StringProvider.GetRandomString(),\r\n        GuestPhoneNumber = \u002248111222333\u0022,\r\n        BedroomsNumber = NumberProvider.GetRandomInteger(1, 3),\r\n        DateFrom = FDateTimeService.Now,\r\n        DateTo = FDateTimeService.Now.AddDays(1)\r\n    };\r\n    LNewRequest.Content = new StringContent(JsonConvert.SerializeObject(LPayLoad), System.Text.Encoding.Default, \u0022application/json\u0022);\r\n    // Act\r\n    var LHttpClient = FWebAppFactory.CreateClient();\r\n    var LResponse = await LHttpClient.SendAsync(LNewRequest);\r\n    // Assert\r\n    LResponse.EnsureSuccessStatusCode();\r\n    var LContent = await LResponse.Content.ReadAsStringAsync();\r\n    LContent.Should().NotBeNullOrEmpty();\r\n    var LDeserialized = JsonConvert.DeserializeObject\u003CAddBookingCommandResult\u003E(LContent);\r\n    LDeserialized.RoomNumber.Should().BeGreaterThan(0);\r\n    LDeserialized.Id.ToString().IsGuid().Should().BeTrue();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GivenTooManyBedrooms_WhenAddBooking_ShouldThrowError",
+        "Body": "{\r\n    // Arrange\r\n    const string REQUEST = \u0022/api/v1/booking/addbooking/\u0022;\r\n    var LNewRequest = new HttpRequestMessage(HttpMethod.Post, REQUEST);\r\n    var LPayLoad = new AddBookingDto\r\n    {\r\n        GuestFullName = StringProvider.GetRandomString(),\r\n        GuestPhoneNumber = \u002248111222333\u0022,\r\n        BedroomsNumber = NumberProvider.GetRandomInteger(10, 100),\r\n        DateFrom = FDateTimeService.Now,\r\n        DateTo = FDateTimeService.Now.AddDays(1)\r\n    };\r\n    LNewRequest.Content = new StringContent(JsonConvert.SerializeObject(LPayLoad), System.Text.Encoding.Default, \u0022application/json\u0022);\r\n    // Act\r\n    var LHttpClient = FWebAppFactory.CreateClient();\r\n    var LResponse = await LHttpClient.SendAsync(LNewRequest);\r\n    // Assert\r\n    LResponse.StatusCode.Should().Be(HttpStatusCode.BadRequest);\r\n    var LContent = await LResponse.Content.ReadAsStringAsync();\r\n    LContent.Should().NotBeNullOrEmpty();\r\n    LContent.Should().Contain(ErrorCodes.REQUESTED_BEDROOMS_UNAVAILABLE);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GivenNonExistingBookingId_WhenRemoveBooking_ShouldThrowError",
+        "Body": "{\r\n    // Arrange\r\n    const string REQUEST = \u0022/api/v1/booking/removebooking/\u0022;\r\n    var LNewRequest = new HttpRequestMessage(HttpMethod.Post, REQUEST);\r\n    var LPayLoad = new RemoveBookingDto\r\n    {\r\n        BookingId = Guid.NewGuid()\r\n    };\r\n    LNewRequest.Content = new StringContent(JsonConvert.SerializeObject(LPayLoad), System.Text.Encoding.Default, \u0022application/json\u0022);\r\n    // Act\r\n    var LHttpClient = FWebAppFactory.CreateClient();\r\n    var LResponse = await LHttpClient.SendAsync(LNewRequest);\r\n    // Assert\r\n    LResponse.StatusCode.Should().Be(HttpStatusCode.BadRequest);\r\n    var LContent = await LResponse.Content.ReadAsStringAsync();\r\n    LContent.Should().NotBeNullOrEmpty();\r\n    LContent.Should().Contain(ErrorCodes.BOOKING_DOES_NOT_EXISTS);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "RoomControllerTest",
+    "Message": null,
+    "ProjectName": "HotelCalifornia.IntegrationTests",
+    "Methods": [
+      {
+        "Name": "WhenGetRoomInfo_ShouldReturnEntityAsJsonObject",
+        "Body": "{\r\n    // Arrange\r\n    const string REQUEST = \u0022/api/v1/room/getroomsinfo/\u0022;\r\n    // Act\r\n    var LHttpClient = FWebAppFactory.CreateClient();\r\n    var LResponse = await LHttpClient.GetAsync(REQUEST);\r\n    // Assert\r\n    LResponse.EnsureSuccessStatusCode();\r\n    var LContent = await LResponse.Content.ReadAsStringAsync();\r\n    LContent.Should().NotBeNullOrEmpty();\r\n    var LDeserialized = JsonConvert.DeserializeObject\u003CIEnumerable\u003CGetRoomsInfoQueryResult\u003E\u003E(LContent).ToList();\r\n    LDeserialized.Should().HaveCount(3);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

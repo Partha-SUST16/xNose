@@ -1,0 +1,263 @@
+[
+  {
+    "Name": "APIKeysServiceTest",
+    "Message": null,
+    "ProjectName": "UnitTest",
+    "Methods": [
+      {
+        "Name": "IsApiKeyServiceCreatingValidCrptoKeys",
+        "Body": "{\r\n    string APIKey = string.Empty;\r\n    using (var cryptoProvider = new RNGCryptoServiceProvider())\r\n    {\r\n        byte[] secretKeyByteArray = new byte[32]; //256 bit\r\n        cryptoProvider.GetBytes(secretKeyByteArray);\r\n        APIKey = Convert.ToBase64String(secretKeyByteArray);\r\n    }\r\n\r\n    //create a api key\r\n    //how do we sign this to match the machine/person who owns the key\r\n    var result = APIKeysService.CreateKeys();\r\n    // Begin Test\r\n    // hard to test can\u0027t fake RNGCryptoServiceProvider\r\n    // will test for base64 instead \r\n    // can this be improved ?\r\n    Assert.NotEmpty(result);\r\n    Assert.IsType\u003Cstring\u003E(result);\r\n    // Regex validates is a base64 string\r\n    Assert.Matches(@\u0022^[a-zA-Z0-9\\\u002B/]*={0,2}$\u0022, result); //regex test for valid bas64\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "ClaimsFactoryTest",
+    "Message": null,
+    "ProjectName": "UnitTest",
+    "Methods": [
+      {
+        "Name": "IsClaimsFactoryCreatingValidClaims",
+        "Body": "{\r\n    ClaimsFactory ClaimsFactory = new ClaimsFactory();\r\n    var Roles = new List\u003Cstring\u003E\r\n    {\r\n        \u0022XunitRole\u0022\r\n    };\r\n    //Begin tests  \r\n    // create a claim\r\n    var Claims = ClaimsFactory.CreateJwtClaims(\u0022Xunit\u0022, Roles);\r\n    // test the type is Claim\r\n    Assert.IsType\u003CList\u003CClaim\u003E\u003E(Claims);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "TokenFactoryTest",
+    "Message": null,
+    "ProjectName": "UnitTest",
+    "Methods": [
+      {
+        "Name": "IsTokenFactoryCreatingValidTokens",
+        "Body": "{\r\n    // set up token validation rules get from startup\r\n    TokenValidationParameters validationParameters = new TokenValidationParameters\r\n    {\r\n        ValidateIssuer = false,\r\n        ValidateAudience = false,\r\n        ValidateLifetime = true,\r\n        ValidateIssuerSigningKey = false,\r\n        ClockSkew = TimeSpan.Zero,\r\n        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(\u0022fjboJU3s7rw2Oafzum5fBxZoZ5jihQRbpBZcxZFd/gY=\u0022))\r\n    };\r\n    // create some claims\r\n    var Claims = new List\u003CClaim\u003E\r\n    {\r\n        new Claim(ClaimTypes.Name, \u0022Xunit\u0022),\r\n        new Claim(ClaimTypes.Role, \u0022Dummy\u0022)\r\n    };\r\n    // get a new token from the factory\r\n    var Token = TokensFactory.CreateToken(Claims);\r\n    //Begin tests\r\n    // do we have a string ?\r\n    Assert.IsType\u003Cstring\u003E(Token);\r\n    //make sure it\u0027s not empty\r\n    Assert.NotEmpty(Token);\r\n    // validate token is an actual token using the validatin paramters from the setup token validation above\r\n    // it gives a claims prinicpal see https://stackoverflow.com/questions/29355384/when-is-jwtsecuritytokenhandler-validatetoken-actually-valid\r\n    var ClaimsPrinicpal = new JwtSecurityTokenHandler().ValidateToken(Token, validationParameters, out SecurityToken validatedToken);\r\n    // apparently if it returns a principal it means it\u0027s valid maybe\r\n    // test if the type is a claims principal\r\n    Assert.IsType\u003CClaimsPrincipal\u003E(ClaimsPrinicpal);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

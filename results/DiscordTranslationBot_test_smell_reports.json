@@ -1,0 +1,3776 @@
+[
+  {
+    "Name": "TranslationExtensionsTests",
+    "Message": null,
+    "ProjectName": "DiscordTranslationBot.Tests",
+    "Methods": [
+      {
+        "Name": "SerializeTranslationRequestContent_Single_Returns_Expected",
+        "Body": "{\r\n    // Arrange\r\n    const string text = \u0022\u306E\u0022;\r\n    const string expected = $@\u0022{{\u0022\u0022Text\u0022\u0022:\u0022\u0022{text}\u0022\u0022}}\u0022;\r\n    using var httpClient = new HttpClient();\r\n    var content = new TranslateRequest\r\n    {\r\n        Text = text\r\n    };\r\n    // Act\r\n    var result = httpClient.SerializeTranslationRequestContent(content);\r\n    // Assert\r\n    (await result.ReadAsStringAsync(CancellationToken.None)).Should().Be(expected);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "SerializeTranslationRequestContent_Many_Returns_Expected",
+        "Body": "{\r\n    // Arrange\r\n    const string text = \u0022\u306E\u0022;\r\n    const string expected = $@\u0022[{{\u0022\u0022Text\u0022\u0022:\u0022\u0022{text}\u0022\u0022}}]\u0022;\r\n    using var httpClient = new HttpClient();\r\n    var content = new List\u003CITranslateRequest\u003E\r\n    {\r\n        new TranslateRequest\r\n        {\r\n            Text = text\r\n        }\r\n    };\r\n    // Act\r\n    var result = httpClient.SerializeTranslationRequestContent(content);\r\n    // Assert\r\n    (await result.ReadAsStringAsync(CancellationToken.None)).Should().Be(expected);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "DeserializeTranslationResponseContentAsync_Returns_Expected",
+        "Body": "{\r\n    // Arrange\r\n    const string detectedLanguageCode = \u0022en\u0022;\r\n    const string translation = \u0022\u306E\u0022;\r\n    const string content = $@\u0022{{\u0022\u0022detectedLanguage\u0022\u0022:{{\u0022\u0022language\u0022\u0022:\u0022\u0022{detectedLanguageCode}\u0022\u0022,\u0022\u0022score\u0022\u0022:1.0}},\u0022\u0022translations\u0022\u0022:[{{\u0022\u0022text\u0022\u0022:\u0022\u0022{translation}\u0022\u0022,\u0022\u0022to\u0022\u0022:\u0022\u0022ja\u0022\u0022}}]}}\u0022;\r\n    using var httpResponseMessage = new HttpResponseMessage\r\n    {\r\n        Content = new StringContent(content, Encoding.UTF8, \u0022application/json\u0022)\r\n    };\r\n    var expected = new TranslateResult\r\n    {\r\n        DetectedLanguage = new DetectedLanguage\r\n        {\r\n            LanguageCode = detectedLanguageCode\r\n        },\r\n        Translations = new List\u003CTranslationData\u003E\r\n        {\r\n            new()\r\n            {\r\n                Text = translation\r\n            }\r\n        }\r\n    };\r\n    // Act\r\n    var result = await httpResponseMessage.Content.DeserializeTranslationResponseContentAsync\u003CTranslateResult\u003E(CancellationToken.None);\r\n    // Assert\r\n    result.Should().BeEquivalentTo(expected);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "DeserializeTranslationResponseContentsAsync_Returns_Expected",
+        "Body": "{\r\n    // Arrange\r\n    const string detectedLanguageCode = \u0022en\u0022;\r\n    const string translation = \u0022\u306E\u0022;\r\n    const string content = $@\u0022[{{\u0022\u0022detectedLanguage\u0022\u0022:{{\u0022\u0022language\u0022\u0022:\u0022\u0022{detectedLanguageCode}\u0022\u0022,\u0022\u0022score\u0022\u0022:1.0}},\u0022\u0022translations\u0022\u0022:[{{\u0022\u0022text\u0022\u0022:\u0022\u0022{translation}\u0022\u0022,\u0022\u0022to\u0022\u0022:\u0022\u0022ja\u0022\u0022}}]}}]\u0022;\r\n    using var httpResponseMessage = new HttpResponseMessage\r\n    {\r\n        Content = new StringContent(content, Encoding.UTF8, \u0022application/json\u0022)\r\n    };\r\n    var expected = new List\u003CTranslateResult\u003E\r\n    {\r\n        new()\r\n        {\r\n            DetectedLanguage = new DetectedLanguage\r\n            {\r\n                LanguageCode = detectedLanguageCode\r\n            },\r\n            Translations = new List\u003CTranslationData\u003E\r\n            {\r\n                new()\r\n                {\r\n                    Text = translation\r\n                }\r\n            }\r\n        }\r\n    };\r\n    // Act\r\n    var result = await httpResponseMessage.Content.DeserializeTranslationResponseContentsAsync\u003CTranslateResult\u003E(CancellationToken.None);\r\n    // Assert\r\n    result.Should().BeEquivalentTo(expected);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "JoinedGuildHandlerTests",
+    "Message": null,
+    "ProjectName": "DiscordTranslationBot.Tests",
+    "Methods": [
+      {
+        "Name": "Handle_ReadyNotification_Delegates_Success",
+        "Body": "{\r\n    // Arrange\r\n    var notification = new JoinedGuildNotification\r\n    {\r\n        Guild = Substitute.For\u003CIGuild\u003E()\r\n    };\r\n    // Act\r\n    await _sut.Handle(notification, CancellationToken.None);\r\n    // Assert\r\n    await _mediator.Received(1).Send(Arg.Is\u003CRegisterSlashCommands\u003E(x =\u003E x.Guild == notification.Guild), Arg.Any\u003CCancellationToken\u003E());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "LogHandlerTests",
+    "Message": null,
+    "ProjectName": "DiscordTranslationBot.Tests",
+    "Methods": [
+      {
+        "Name": "Handle_LogDiscordMessage_Success",
+        "Body": "{\r\n    // Arrange\r\n    _logger.IsEnabled(expectedLevel).Returns(true);\r\n    var command = new LogDiscordMessage\r\n    {\r\n        LogMessage = new LogMessage(severity, \u0022source\u0022, \u0022message\u0022, \r\n#pragma warning disable CA2201\r\n        new Exception(\u0022test\u0022)\r\n#pragma warning restore CA2201\r\n        )\r\n    };\r\n    // Act\r\n    await _sut.Handle(command, CancellationToken.None);\r\n    // Assert\r\n    var logArgs = _logger.ReceivedCalls().Single(call =\u003E call.GetMethodInfo().Name == nameof(ILogger.Log)).GetArguments();\r\n    logArgs[0].Should().Be(expectedLevel);\r\n    var logMessages = (IReadOnlyList\u003CKeyValuePair\u003Cstring, object\u003E\u003E)logArgs[2]!;\r\n    logMessages[0].Value.Should().Be(command.LogMessage.Source);\r\n    logMessages[1].Value.Should().Be(command.LogMessage.Message);\r\n    logArgs[3].Should().Be(command.LogMessage.Exception);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "MessageCommandExecutedHandlerTests",
+    "Message": null,
+    "ProjectName": "DiscordTranslationBot.Tests",
+    "Methods": [
+      {
+        "Name": "Handle_MessageCommandExecutedNotification_Success",
+        "Body": "{\r\n    // Arrange\r\n    var command = Substitute.For\u003CIMessageCommandInteraction\u003E();\r\n    command.Data.Name.Returns(MessageCommandConstants.TranslateCommandName);\r\n    var notification = new MessageCommandExecutedNotification\r\n    {\r\n        Command = command\r\n    };\r\n    // Act\r\n    await _sut.Handle(notification, CancellationToken.None);\r\n    // Assert\r\n    await _mediator.Received(1).Send(Arg.Any\u003CProcessTranslateMessageCommand\u003E(), Arg.Any\u003CCancellationToken\u003E());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_RegisterMessageCommands_Success",
+        "Body": "{\r\n    // Arrange\r\n    IReadOnlyList\u003CIGuild\u003E guilds = isSpecificGuild ? new List\u003CIGuild\u003E\r\n    {\r\n        Substitute.For\u003CIGuild\u003E()\r\n    }\r\n\r\n    : new List\u003CIGuild\u003E\r\n    {\r\n        Substitute.For\u003CIGuild\u003E(),\r\n        Substitute.For\u003CIGuild\u003E()\r\n    };\r\n    if (!isSpecificGuild)\r\n    {\r\n        _client.GetGuildsAsync(options: Arg.Any\u003CRequestOptions\u003E()).Returns(guilds);\r\n    }\r\n\r\n    var command = new RegisterMessageCommands\r\n    {\r\n        Guild = isSpecificGuild ? guilds[0] : null\r\n    };\r\n    // Act\r\n    await _sut.Handle(command, CancellationToken.None);\r\n    // Assert\r\n    if (!isSpecificGuild)\r\n    {\r\n        await _client.Received(1).GetGuildsAsync(options: Arg.Any\u003CRequestOptions\u003E());\r\n    }\r\n\r\n    foreach (var guild in guilds)\r\n    {\r\n        await guild.Received(1).CreateApplicationCommandAsync(Arg.Any\u003CApplicationCommandProperties\u003E(), Arg.Any\u003CRequestOptions\u003E());\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_RegisterMessageCommands_NoGuilds_Returns",
+        "Body": "{\r\n    // Arrange\r\n    _client.GetGuildsAsync(options: Arg.Any\u003CRequestOptions\u003E()).Returns(new List\u003CIGuild\u003E());\r\n    var command = new RegisterMessageCommands();\r\n    // Act\r\n    await _sut.Handle(command, CancellationToken.None);\r\n    // Assert\r\n    await _client.Received(1).GetGuildsAsync(options: Arg.Any\u003CRequestOptions\u003E());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_ProcessTranslateMessageCommand_Returns_WhenSanitizedMessageIsEmpty",
+        "Body": "{\r\n    // Arrange\r\n    _message.Content.Returns(string.Empty);\r\n    var command = new ProcessTranslateMessageCommand\r\n    {\r\n        Command = _messageCommand\r\n    };\r\n    // Act\r\n    await _sut.Handle(command, CancellationToken.None);\r\n    // Assert\r\n    _ = _translationProviders[0].DidNotReceive().SupportedLanguages;\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_ProcessTranslateMessageCommand_Success",
+        "Body": "{\r\n    // Arrange\r\n    _message.Content.Returns(\u0022text\u0022);\r\n    _messageCommand.UserLocale.Returns(\u0022en-US\u0022);\r\n    var supportedLanguage = new SupportedLanguage\r\n    {\r\n        LangCode = \u0022en\u0022,\r\n        Name = \u0022English\u0022\r\n    };\r\n    _translationProviders[0].SupportedLanguages.Returns(new HashSet\u003CSupportedLanguage\u003E { supportedLanguage });\r\n    _translationProviders[0].TranslateAsync(Arg.Any\u003CSupportedLanguage\u003E(), Arg.Any\u003Cstring\u003E(), Arg.Any\u003CCancellationToken\u003E()).Returns(new TranslationResult { DetectedLanguageCode = \u0022fr\u0022, DetectedLanguageName = \u0022French\u0022, TargetLanguageCode = supportedLanguage.LangCode, TargetLanguageName = supportedLanguage.Name, TranslatedText = \u0022translated text\u0022 });\r\n    var command = new ProcessTranslateMessageCommand\r\n    {\r\n        Command = _messageCommand\r\n    };\r\n    // Act\r\n    await _sut.Handle(command, CancellationToken.None);\r\n    // Assert\r\n    _ = _translationProviders[0].Received(2).SupportedLanguages;\r\n    await _messageCommand.Received(1).RespondAsync(embed: Arg.Is\u003CEmbed\u003E(x =\u003E x.Title == \u0022Translated Message\u0022), ephemeral: true, options: Arg.Any\u003CRequestOptions\u003E());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_ProcessTranslateMessageCommand_UsesNextTranslationProvider_Success",
+        "Body": "{\r\n    // Arrange\r\n    _message.Content.Returns(\u0022text\u0022);\r\n    _messageCommand.UserLocale.Returns(\u0022en\u0022);\r\n    var supportedLanguage = new SupportedLanguage\r\n    {\r\n        LangCode = \u0022en\u0022,\r\n        Name = \u0022English\u0022\r\n    };\r\n    _translationProviders[0].SupportedLanguages.Returns(new HashSet\u003CSupportedLanguage\u003E());\r\n    _translationProviders[0].TranslateAsync(Arg.Any\u003CSupportedLanguage\u003E(), Arg.Any\u003Cstring\u003E(), Arg.Any\u003CCancellationToken\u003E()).ThrowsAsync(new InvalidOperationException(\u0022test\u0022));\r\n    _translationProviders[1].SupportedLanguages.Returns(new HashSet\u003CSupportedLanguage\u003E { supportedLanguage });\r\n    _translationProviders[1].TranslateAsync(Arg.Any\u003CSupportedLanguage\u003E(), Arg.Any\u003Cstring\u003E(), Arg.Any\u003CCancellationToken\u003E()).Returns(new TranslationResult { DetectedLanguageCode = \u0022fr\u0022, DetectedLanguageName = \u0022French\u0022, TargetLanguageCode = supportedLanguage.LangCode, TargetLanguageName = supportedLanguage.Name, TranslatedText = \u0022translated text\u0022 });\r\n    var command = new ProcessTranslateMessageCommand\r\n    {\r\n        Command = _messageCommand\r\n    };\r\n    // Act\r\n    await _sut.Handle(command, CancellationToken.None);\r\n    // Assert\r\n    _ = _translationProviders[0].Received(1).SupportedLanguages;\r\n    _ = _translationProviders[1].Received(1).SupportedLanguages;\r\n    await _messageCommand.Received(1).RespondAsync(embed: Arg.Is\u003CEmbed\u003E(x =\u003E x.Title == \u0022Translated Message\u0022), ephemeral: true, options: Arg.Any\u003CRequestOptions\u003E());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_ProcessTranslateMessageCommand_Returns_WhenTranslatingBotMessage",
+        "Body": "{\r\n    // Arrange\r\n    _message.Author.Id.Returns(BotUserId);\r\n    var command = new ProcessTranslateMessageCommand\r\n    {\r\n        Command = _messageCommand\r\n    };\r\n    // Act\r\n    await _sut.Handle(command, CancellationToken.None);\r\n    // Assert\r\n    await _messageCommand.Received(1).RespondAsync(\u0022Translating this bot\u0027s messages isn\u0027t allowed.\u0022, ephemeral: true, options: Arg.Any\u003CRequestOptions\u003E());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_ProcessTranslateMessageCommand_Returns_IfNoProviderSupportsLocale",
+        "Body": "{\r\n    // Arrange\r\n    _message.Content.Returns(\u0022text\u0022);\r\n    const string userLocale = \u0022en-US\u0022;\r\n    _messageCommand.UserLocale.Returns(userLocale);\r\n    var supportedLanguage = new SupportedLanguage\r\n    {\r\n        LangCode = \u0022en\u0022,\r\n        Name = \u0022English\u0022\r\n    };\r\n    foreach (var translationProvider in _translationProviders)\r\n    {\r\n        translationProvider.SupportedLanguages.Returns(new HashSet\u003CSupportedLanguage\u003E { supportedLanguage });\r\n        translationProvider.TranslateAsync(Arg.Any\u003CSupportedLanguage\u003E(), Arg.Any\u003Cstring\u003E(), Arg.Any\u003CCancellationToken\u003E()).ThrowsAsync(new InvalidOperationException(\u0022test\u0022));\r\n    }\r\n\r\n    var command = new ProcessTranslateMessageCommand\r\n    {\r\n        Command = _messageCommand\r\n    };\r\n    // Act\r\n    await _sut.Handle(command, CancellationToken.None);\r\n    // Assert\r\n    _ = _translationProviders[0].Received(2).SupportedLanguages;\r\n    await _messageCommand.Received(1).RespondAsync($\u0022Your locale {userLocale} isn\u0027t supported for translation via this action.\u0022, ephemeral: true, options: Arg.Any\u003CRequestOptions\u003E());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_ProcessTranslateMessageCommand_Returns_WhenTranslatedTextIsSame",
+        "Body": "{\r\n    // Arrange\r\n    const string text = \u0022text\u0022;\r\n    _message.Content.Returns(text);\r\n    _messageCommand.UserLocale.Returns(\u0022en-US\u0022);\r\n    var supportedLanguage = new SupportedLanguage\r\n    {\r\n        LangCode = \u0022en\u0022,\r\n        Name = \u0022English\u0022\r\n    };\r\n    _translationProviders[0].SupportedLanguages.Returns(new HashSet\u003CSupportedLanguage\u003E { supportedLanguage });\r\n    _translationProviders[0].TranslateAsync(Arg.Any\u003CSupportedLanguage\u003E(), Arg.Any\u003Cstring\u003E(), Arg.Any\u003CCancellationToken\u003E()).Returns(new TranslationResult { DetectedLanguageCode = \u0022fr\u0022, DetectedLanguageName = \u0022French\u0022, TargetLanguageCode = supportedLanguage.LangCode, TargetLanguageName = supportedLanguage.Name, TranslatedText = text });\r\n    var command = new ProcessTranslateMessageCommand\r\n    {\r\n        Command = _messageCommand\r\n    };\r\n    // Act\r\n    await _sut.Handle(command, CancellationToken.None);\r\n    // Assert\r\n    _ = _translationProviders[0].Received(2).SupportedLanguages;\r\n    await _messageCommand.Received(1).RespondAsync(\u0022The message couldn\u0027t be translated. It might already be in your language or the translator failed to detect its source language.\u0022, ephemeral: true, options: Arg.Any\u003CRequestOptions\u003E());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "ReactionAddedHandlerTests",
+    "Message": null,
+    "ProjectName": "DiscordTranslationBot.Tests",
+    "Methods": [
+      {
+        "Name": "Handle_ReactionAddedNotification_Success",
+        "Body": "{\r\n    // Arrange\r\n    var notification = new ReactionAddedNotification\r\n    {\r\n        Message = _message,\r\n        Channel = _channel,\r\n        Reaction = new Reaction\r\n        {\r\n            UserId = 1UL,\r\n            Emote = new Discord.Emoji(Emoji.FlagUnitedStates.ToString())\r\n        }\r\n    };\r\n    _countryService.TryGetCountry(Arg.Any\u003Cstring\u003E(), out Arg.Any\u003CCountry?\u003E()).Returns(true);\r\n    // Act\r\n    await _sut.Handle(notification, CancellationToken.None);\r\n    // Assert\r\n    await _mediator.Received(1).Send(Arg.Any\u003CProcessFlagEmojiReaction\u003E(), Arg.Any\u003CCancellationToken\u003E());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_ReactionAddedNotification_Returns_IfNotEmoji",
+        "Body": "{\r\n    // Arrange\r\n    var notification = new ReactionAddedNotification\r\n    {\r\n        Message = _message,\r\n        Channel = _channel,\r\n        Reaction = new Reaction\r\n        {\r\n            UserId = 1UL,\r\n            Emote = new Discord.Emoji(\u0022not_an_emoji\u0022)\r\n        }\r\n    };\r\n    // Act\r\n    await _sut.Handle(notification, CancellationToken.None);\r\n    // Assert\r\n    _countryService.DidNotReceive().TryGetCountry(Arg.Any\u003Cstring\u003E(), out Arg.Any\u003CCountry?\u003E());\r\n    await _mediator.DidNotReceive().Send(Arg.Any\u003CProcessFlagEmojiReaction\u003E(), Arg.Any\u003CCancellationToken\u003E());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_ReactionAddedNotification_Returns_IfCountryNotFound",
+        "Body": "{\r\n    // Arrange\r\n    var notification = new ReactionAddedNotification\r\n    {\r\n        Message = _message,\r\n        Channel = _channel,\r\n        Reaction = new Reaction\r\n        {\r\n            UserId = 1UL,\r\n            Emote = new Discord.Emoji(Emoji.FlagUnitedStates.ToString())\r\n        }\r\n    };\r\n    _countryService.TryGetCountry(Arg.Any\u003Cstring\u003E(), out _).Returns(false);\r\n    // Act\r\n    await _sut.Handle(notification, CancellationToken.None);\r\n    // Assert\r\n    _countryService.Received(1).TryGetCountry(Arg.Any\u003Cstring\u003E(), out Arg.Any\u003CCountry?\u003E());\r\n    await _mediator.DidNotReceive().Send(Arg.Any\u003CProcessFlagEmojiReaction\u003E(), Arg.Any\u003CCancellationToken\u003E());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_ProcessFlagEmojiReaction_Returns_WhenTranslatingBotMessage",
+        "Body": "{\r\n    // Arrange\r\n    _message.Author.Id.Returns(BotUserId);\r\n    var country = new Country(Emoji.FlagFrance.ToString(), \u0022France\u0022)\r\n    {\r\n        LangCodes = new HashSet\u003Cstring\u003E(StringComparer.OrdinalIgnoreCase)\r\n        {\r\n            \u0022fr\u0022\r\n        }\r\n    };\r\n    var command = new ProcessFlagEmojiReaction\r\n    {\r\n        Message = _message,\r\n        Reaction = new Reaction\r\n        {\r\n            UserId = 1UL,\r\n            Emote = new Discord.Emoji(Emoji.FlagUnitedStates.ToString())\r\n        },\r\n        Country = country\r\n    };\r\n    // Act\r\n    await _sut.Handle(command, CancellationToken.None);\r\n    // Assert\r\n    await _message.Received(1).RemoveReactionAsync(Arg.Any\u003CIEmote\u003E(), Arg.Any\u003Culong\u003E(), Arg.Any\u003CRequestOptions\u003E());\r\n    await _translationProvider.DidNotReceive().TranslateByCountryAsync(Arg.Any\u003CCountry\u003E(), Arg.Any\u003Cstring\u003E(), Arg.Any\u003CCancellationToken\u003E());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_ProcessFlagEmojiReaction_Success",
+        "Body": "{\r\n    // Arrange\r\n    var country = new Country(Emoji.FlagFrance.ToString(), \u0022France\u0022)\r\n    {\r\n        LangCodes = new HashSet\u003Cstring\u003E(StringComparer.OrdinalIgnoreCase)\r\n        {\r\n            \u0022fr\u0022\r\n        }\r\n    };\r\n    var translationResult = new TranslationResult\r\n    {\r\n        DetectedLanguageCode = \u0022en\u0022,\r\n        TargetLanguageCode = \u0022fr\u0022,\r\n        TranslatedText = \u0022translated_text\u0022\r\n    };\r\n    _translationProvider.TranslateByCountryAsync(Arg.Any\u003CCountry\u003E(), ExpectedSanitizedMessage, Arg.Any\u003CCancellationToken\u003E()).Returns(translationResult);\r\n    var command = new ProcessFlagEmojiReaction\r\n    {\r\n        Message = _message,\r\n        Reaction = new Reaction\r\n        {\r\n            UserId = 1UL,\r\n            Emote = new Discord.Emoji(Emoji.FlagUnitedStates.ToString())\r\n        },\r\n        Country = country\r\n    };\r\n    // Act\r\n    await _sut.Handle(command, CancellationToken.None);\r\n    // Assert\r\n    await _translationProvider.Received(1).TranslateByCountryAsync(Arg.Any\u003CCountry\u003E(), ExpectedSanitizedMessage, Arg.Any\u003CCancellationToken\u003E());\r\n    _sut.Received(1).SendTempMessage(Arg.Any\u003Cstring\u003E(), Arg.Any\u003CReaction\u003E(), Arg.Any\u003CIMessageChannel\u003E(), Arg.Any\u003Culong\u003E(), Arg.Any\u003CCancellationToken\u003E(), Arg.Any\u003Cuint\u003E());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_ProcessFlagEmojiReaction_Returns_SanitizesMessageEmpty",
+        "Body": "{\r\n    // Arrange\r\n    var country = new Country(Emoji.FlagFrance.ToString(), \u0022France\u0022)\r\n    {\r\n        LangCodes = new HashSet\u003Cstring\u003E(StringComparer.OrdinalIgnoreCase)\r\n        {\r\n            \u0022fr\u0022\r\n        }\r\n    };\r\n    _message.Content.Returns(string.Empty);\r\n    var command = new ProcessFlagEmojiReaction\r\n    {\r\n        Message = _message,\r\n        Reaction = new Reaction\r\n        {\r\n            UserId = 1UL,\r\n            Emote = new Discord.Emoji(Emoji.FlagUnitedStates.ToString())\r\n        },\r\n        Country = country\r\n    };\r\n    // Act\r\n    await _sut.Handle(command, CancellationToken.None);\r\n    // Assert\r\n    await _translationProvider.DidNotReceive().TranslateByCountryAsync(Arg.Any\u003CCountry\u003E(), Arg.Any\u003Cstring\u003E(), Arg.Any\u003CCancellationToken\u003E());\r\n    await _message.Received(1).RemoveReactionAsync(Arg.Any\u003CIEmote\u003E(), Arg.Any\u003Culong\u003E(), Arg.Any\u003CRequestOptions\u003E());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_ProcessFlagEmojiReaction_NoTranslationResult",
+        "Body": "{\r\n    // Arrange\r\n    var country = new Country(Emoji.FlagFrance.ToString(), \u0022France\u0022)\r\n    {\r\n        LangCodes = new HashSet\u003Cstring\u003E(StringComparer.OrdinalIgnoreCase)\r\n        {\r\n            \u0022fr\u0022\r\n        }\r\n    };\r\n    _translationProvider.TranslateByCountryAsync(Arg.Any\u003CCountry\u003E(), Arg.Any\u003Cstring\u003E(), Arg.Any\u003CCancellationToken\u003E()).Returns((TranslationResult)null !);\r\n    var command = new ProcessFlagEmojiReaction\r\n    {\r\n        Message = _message,\r\n        Reaction = new Reaction\r\n        {\r\n            UserId = 1UL,\r\n            Emote = new Discord.Emoji(Emoji.FlagUnitedStates.ToString())\r\n        },\r\n        Country = country\r\n    };\r\n    // Act\r\n    await _sut.Handle(command, CancellationToken.None);\r\n    // Assert\r\n    _sut.DidNotReceiveWithAnyArgs().SendTempMessage(default !, default !, default !, default, default);\r\n    await _message.Received(1).RemoveReactionAsync(Arg.Any\u003CIEmote\u003E(), Arg.Any\u003Culong\u003E(), Arg.Any\u003CRequestOptions\u003E());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_ProcessFlagEmojiReaction_TempMessageSent_WhenUnsupportedCountryExceptionIsThrown_ForLastTranslationProvider",
+        "Body": "{\r\n    // Arrange\r\n    var country = new Country(Emoji.FlagFrance.ToString(), \u0022France\u0022)\r\n    {\r\n        LangCodes = new HashSet\u003Cstring\u003E(StringComparer.OrdinalIgnoreCase)\r\n        {\r\n            \u0022fr\u0022\r\n        }\r\n    };\r\n    const string exMessage = \u0022exception message\u0022;\r\n    _translationProvider.TranslateByCountryAsync(Arg.Any\u003CCountry\u003E(), ExpectedSanitizedMessage, Arg.Any\u003CCancellationToken\u003E()).ThrowsAsync(new UnsupportedCountryException(exMessage));\r\n    var command = new ProcessFlagEmojiReaction\r\n    {\r\n        Message = _message,\r\n        Reaction = new Reaction\r\n        {\r\n            UserId = 1UL,\r\n            Emote = new Discord.Emoji(Emoji.FlagUnitedStates.ToString())\r\n        },\r\n        Country = country\r\n    };\r\n    // Act\r\n    await _sut.Handle(command, CancellationToken.None);\r\n    // Assert\r\n    await _translationProvider.Received(1).TranslateByCountryAsync(Arg.Any\u003CCountry\u003E(), ExpectedSanitizedMessage, Arg.Any\u003CCancellationToken\u003E());\r\n    _sut.Received(1).SendTempMessage(exMessage, Arg.Any\u003CReaction\u003E(), Arg.Any\u003CIMessageChannel\u003E(), Arg.Any\u003Culong\u003E(), Arg.Any\u003CCancellationToken\u003E(), Arg.Any\u003Cuint\u003E());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_ProcessFlagEmojiReaction_TempMessageSent_OnFailureToDetectSourceLanguage",
+        "Body": "{\r\n    // Arrange\r\n    var country = new Country(Emoji.FlagFrance.ToString(), \u0022France\u0022)\r\n    {\r\n        LangCodes = new HashSet\u003Cstring\u003E(StringComparer.OrdinalIgnoreCase)\r\n        {\r\n            \u0022fr\u0022\r\n        }\r\n    };\r\n    var translationResult = new TranslationResult\r\n    {\r\n        DetectedLanguageCode = \u0022en\u0022,\r\n        TargetLanguageCode = \u0022fr\u0022,\r\n        TranslatedText = ExpectedSanitizedMessage\r\n    };\r\n    _translationProvider.TranslateByCountryAsync(Arg.Any\u003CCountry\u003E(), ExpectedSanitizedMessage, Arg.Any\u003CCancellationToken\u003E()).Returns(translationResult);\r\n    var command = new ProcessFlagEmojiReaction\r\n    {\r\n        Message = _message,\r\n        Reaction = new Reaction\r\n        {\r\n            UserId = 1UL,\r\n            Emote = new Discord.Emoji(Emoji.FlagUnitedStates.ToString())\r\n        },\r\n        Country = country\r\n    };\r\n    // Act\r\n    await _sut.Handle(command, CancellationToken.None);\r\n    // Assert\r\n    await _translationProvider.Received(1).TranslateByCountryAsync(Arg.Any\u003CCountry\u003E(), ExpectedSanitizedMessage, Arg.Any\u003CCancellationToken\u003E());\r\n    _sut.Received(1).SendTempMessage(\u0022Couldn\u0027t detect the source language to translate from or the result is the same.\u0022, Arg.Any\u003CReaction\u003E(), Arg.Any\u003CIMessageChannel\u003E(), Arg.Any\u003Culong\u003E(), Arg.Any\u003CCancellationToken\u003E(), Arg.Any\u003Cuint\u003E());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "ReadyHandlerTests",
+    "Message": null,
+    "ProjectName": "DiscordTranslationBot.Tests",
+    "Methods": [
+      {
+        "Name": "Handle_ReadyNotification_Delegates_Success",
+        "Body": "{\r\n    // Arrange\r\n    var notification = new ReadyNotification();\r\n    // Act\r\n    await _sut.Handle(notification, CancellationToken.None);\r\n    // Assert\r\n    await _mediator.Received(1).Send(Arg.Any\u003CRegisterSlashCommands\u003E(), Arg.Any\u003CCancellationToken\u003E());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "SlashCommandExecutedHandlerTests",
+    "Message": null,
+    "ProjectName": "DiscordTranslationBot.Tests",
+    "Methods": [
+      {
+        "Name": "Handle_SlashCommandExecutedNotification_Success",
+        "Body": "{\r\n    // Arrange\r\n    var data = Substitute.For\u003CIApplicationCommandInteractionData\u003E();\r\n    data.Name.Returns(SlashCommandConstants.TranslateCommandName);\r\n    var slashCommand = Substitute.For\u003CISlashCommandInteraction\u003E();\r\n    slashCommand.Data.Returns(data);\r\n    var notification = new SlashCommandExecutedNotification\r\n    {\r\n        Command = slashCommand\r\n    };\r\n    // Act\r\n    await _sut.Handle(notification, CancellationToken.None);\r\n    // Assert\r\n    await _mediator.Received(1).Send(Arg.Any\u003CProcessTranslateSlashCommand\u003E(), Arg.Any\u003CCancellationToken\u003E());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_RegisterSlashCommands_Returns_IfNoGuildsFound",
+        "Body": "{\r\n    // Arrange\r\n    _client.GetGuildsAsync().Returns(new List\u003CIGuild\u003E());\r\n    var command = new RegisterSlashCommands();\r\n    // Act\r\n    await _sut.Handle(command, CancellationToken.None);\r\n    // Assert\r\n    await _client.Received(1).GetGuildsAsync(Arg.Any\u003CCacheMode\u003E(), Arg.Any\u003CRequestOptions\u003E());\r\n    _ = _translationProvider.DidNotReceive().TranslateCommandLangCodes;\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_RegisterSlashCommands_Success",
+        "Body": "{\r\n    // Arrange\r\n    IReadOnlyList\u003CIGuild\u003E guilds = isSpecificGuild ? new List\u003CIGuild\u003E\r\n    {\r\n        Substitute.For\u003CIGuild\u003E()\r\n    }\r\n\r\n    : new List\u003CIGuild\u003E\r\n    {\r\n        Substitute.For\u003CIGuild\u003E(),\r\n        Substitute.For\u003CIGuild\u003E()\r\n    };\r\n    _translationProvider.TranslateCommandLangCodes.Returns(new HashSet\u003Cstring\u003E());\r\n    _translationProvider.SupportedLanguages.Returns(new HashSet\u003CSupportedLanguage\u003E { new() { LangCode = \u0022en\u0022, Name = \u0022English\u0022 } });\r\n    if (!isSpecificGuild)\r\n    {\r\n        _client.GetGuildsAsync(options: Arg.Any\u003CRequestOptions\u003E()).Returns(guilds);\r\n    }\r\n\r\n    var command = new RegisterSlashCommands\r\n    {\r\n        Guild = isSpecificGuild ? guilds[0] : null\r\n    };\r\n    // Act\r\n    await _sut.Handle(command, CancellationToken.None);\r\n    // Assert\r\n    foreach (var guild in guilds)\r\n    {\r\n        await guild.Received(1).CreateApplicationCommandAsync(Arg.Any\u003CApplicationCommandProperties\u003E(), Arg.Any\u003CRequestOptions\u003E());\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_RegisterSlashCommands_WithTranslateCommandLangCodes_Success",
+        "Body": "{\r\n    // Arrange\r\n    var guild = Substitute.For\u003CIGuild\u003E();\r\n    _translationProvider.TranslateCommandLangCodes.Returns(new HashSet\u003Cstring\u003E { \u0022en\u0022 });\r\n    _translationProvider.SupportedLanguages.Returns(new HashSet\u003CSupportedLanguage\u003E { new() { LangCode = \u0022en\u0022, Name = \u0022English\u0022 } });\r\n    var command = new RegisterSlashCommands\r\n    {\r\n        Guild = guild\r\n    };\r\n    // Act\r\n    await _sut.Handle(command, CancellationToken.None);\r\n    // Assert\r\n    _ = _translationProvider.Received(2).TranslateCommandLangCodes;\r\n    await guild.Received(1).CreateApplicationCommandAsync(Arg.Any\u003CApplicationCommandProperties\u003E(), Arg.Any\u003CRequestOptions\u003E());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_ProcessTranslateSlashCommand_Success",
+        "Body": "{\r\n    // Arrange\r\n    var targetLanguage = new SupportedLanguage\r\n    {\r\n        LangCode = \u0022fr\u0022,\r\n        Name = \u0022French\u0022\r\n    };\r\n    var sourceLanguage = new SupportedLanguage\r\n    {\r\n        LangCode = \u0022en\u0022,\r\n        Name = \u0022English\u0022\r\n    };\r\n    const string text = \u0022text\u0022;\r\n    var data = Substitute.For\u003CIApplicationCommandInteractionData\u003E();\r\n    var toOption = Substitute.For\u003CIApplicationCommandInteractionDataOption\u003E();\r\n    toOption.Name.Returns(SlashCommandConstants.TranslateCommandToOptionName);\r\n    toOption.Value.Returns(targetLanguage.LangCode);\r\n    var textOption = Substitute.For\u003CIApplicationCommandInteractionDataOption\u003E();\r\n    textOption.Name.Returns(SlashCommandConstants.TranslateCommandTextOptionName);\r\n    textOption.Value.Returns(text);\r\n    var fromOption = Substitute.For\u003CIApplicationCommandInteractionDataOption\u003E();\r\n    fromOption.Name.Returns(SlashCommandConstants.TranslateCommandFromOptionName);\r\n    fromOption.Value.Returns(sourceLanguage.LangCode);\r\n    data.Options.Returns(new List\u003CIApplicationCommandInteractionDataOption\u003E { toOption, textOption, fromOption });\r\n    var slashCommand = Substitute.For\u003CISlashCommandInteraction\u003E();\r\n    slashCommand.Data.Returns(data);\r\n    var user = Substitute.For\u003CIUser\u003E();\r\n    user.Id.Returns(1UL);\r\n    slashCommand.User.Returns(user);\r\n    _translationProvider.SupportedLanguages.Returns(new HashSet\u003CSupportedLanguage\u003E { sourceLanguage, targetLanguage });\r\n    _translationProvider.TranslateAsync(Arg.Is\u003CSupportedLanguage\u003E(x =\u003E x.LangCode == targetLanguage.LangCode), text, Arg.Any\u003CCancellationToken\u003E(), Arg.Is\u003CSupportedLanguage\u003E(x =\u003E x.LangCode == sourceLanguage.LangCode)).Returns(new TranslationResult { DetectedLanguageCode = null, DetectedLanguageName = null, TargetLanguageCode = targetLanguage.LangCode, TargetLanguageName = targetLanguage.Name, TranslatedText = \u0022translated text\u0022 });\r\n    var command = new ProcessTranslateSlashCommand\r\n    {\r\n        Command = slashCommand\r\n    };\r\n    // Act\r\n    await _sut.Handle(command, CancellationToken.None);\r\n    // Assert\r\n    await _translationProvider.Received(1).TranslateAsync(Arg.Is\u003CSupportedLanguage\u003E(x =\u003E x.LangCode == targetLanguage.LangCode), text, Arg.Any\u003CCancellationToken\u003E(), Arg.Is\u003CSupportedLanguage\u003E(x =\u003E x.LangCode == sourceLanguage.LangCode));\r\n    await slashCommand.Received(1).RespondAsync(Arg.Is\u003Cstring\u003E(text =\u003E text.Contains($\u0022translated text using {ProviderName} from\u0022)), options: Arg.Any\u003CRequestOptions\u003E());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_ProcessTranslateSlashCommand_Returns_SourceTextIsEmpty",
+        "Body": "{\r\n    // Arrange\r\n    var targetLanguage = new SupportedLanguage\r\n    {\r\n        LangCode = \u0022fr\u0022,\r\n        Name = \u0022French\u0022\r\n    };\r\n    var data = Substitute.For\u003CIApplicationCommandInteractionData\u003E();\r\n    var toOption = Substitute.For\u003CIApplicationCommandInteractionDataOption\u003E();\r\n    toOption.Name.Returns(SlashCommandConstants.TranslateCommandToOptionName);\r\n    toOption.Value.Returns(targetLanguage.LangCode);\r\n    var textOption = Substitute.For\u003CIApplicationCommandInteractionDataOption\u003E();\r\n    textOption.Name.Returns(SlashCommandConstants.TranslateCommandTextOptionName);\r\n    textOption.Value.Returns(string.Empty);\r\n    data.Options.Returns(new List\u003CIApplicationCommandInteractionDataOption\u003E { toOption, textOption });\r\n    var slashCommand = Substitute.For\u003CISlashCommandInteraction\u003E();\r\n    slashCommand.Data.Returns(data);\r\n    var command = new ProcessTranslateSlashCommand\r\n    {\r\n        Command = slashCommand\r\n    };\r\n    // Act\r\n    await _sut.Handle(command, CancellationToken.None);\r\n    // Assert\r\n    await slashCommand.Received(1).RespondAsync(\u0022Nothing to translate.\u0022, ephemeral: true, options: Arg.Any\u003CRequestOptions\u003E());\r\n    await _translationProvider.DidNotReceive().TranslateAsync(Arg.Any\u003CSupportedLanguage\u003E(), Arg.Any\u003Cstring\u003E(), Arg.Any\u003CCancellationToken\u003E(), Arg.Any\u003CSupportedLanguage\u003E());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_ProcessTranslateSlashCommand_Returns_OnFailuretoDetectSourceLanguage",
+        "Body": "{\r\n    // Arrange\r\n    var targetLanguage = new SupportedLanguage\r\n    {\r\n        LangCode = \u0022fr\u0022,\r\n        Name = \u0022French\u0022\r\n    };\r\n    var sourceLanguage = new SupportedLanguage\r\n    {\r\n        LangCode = \u0022en\u0022,\r\n        Name = \u0022English\u0022\r\n    };\r\n    const string text = \u0022text\u0022;\r\n    var data = Substitute.For\u003CIApplicationCommandInteractionData\u003E();\r\n    var toOption = Substitute.For\u003CIApplicationCommandInteractionDataOption\u003E();\r\n    toOption.Name.Returns(SlashCommandConstants.TranslateCommandToOptionName);\r\n    toOption.Value.Returns(targetLanguage.LangCode);\r\n    var textOption = Substitute.For\u003CIApplicationCommandInteractionDataOption\u003E();\r\n    textOption.Name.Returns(SlashCommandConstants.TranslateCommandTextOptionName);\r\n    textOption.Value.Returns(text);\r\n    var fromOption = Substitute.For\u003CIApplicationCommandInteractionDataOption\u003E();\r\n    fromOption.Name.Returns(SlashCommandConstants.TranslateCommandFromOptionName);\r\n    fromOption.Value.Returns(sourceLanguage.LangCode);\r\n    data.Options.Returns(new List\u003CIApplicationCommandInteractionDataOption\u003E { toOption, textOption, fromOption });\r\n    var slashCommand = Substitute.For\u003CISlashCommandInteraction\u003E();\r\n    slashCommand.Data.Returns(data);\r\n    var user = Substitute.For\u003CIUser\u003E();\r\n    user.Id.Returns(1UL);\r\n    slashCommand.User.Returns(user);\r\n    _translationProvider.SupportedLanguages.Returns(new HashSet\u003CSupportedLanguage\u003E { sourceLanguage, targetLanguage });\r\n    _translationProvider.TranslateAsync(Arg.Is\u003CSupportedLanguage\u003E(x =\u003E x.LangCode == targetLanguage.LangCode), text, Arg.Any\u003CCancellationToken\u003E(), Arg.Is\u003CSupportedLanguage\u003E(x =\u003E x.LangCode == sourceLanguage.LangCode)).Returns(new TranslationResult { DetectedLanguageCode = null, DetectedLanguageName = null, TargetLanguageCode = targetLanguage.LangCode, TargetLanguageName = targetLanguage.Name, TranslatedText = text });\r\n    var command = new ProcessTranslateSlashCommand\r\n    {\r\n        Command = slashCommand\r\n    };\r\n    // Act\r\n    await _sut.Handle(command, CancellationToken.None);\r\n    // Assert\r\n    await _translationProvider.Received(1).TranslateAsync(Arg.Is\u003CSupportedLanguage\u003E(x =\u003E x.LangCode == targetLanguage.LangCode), text, Arg.Any\u003CCancellationToken\u003E(), Arg.Is\u003CSupportedLanguage\u003E(x =\u003E x.LangCode == sourceLanguage.LangCode));\r\n    await slashCommand.Received(1).RespondAsync(\u0022Couldn\u0027t detect the source language to translate from or the result is the same.\u0022, ephemeral: true, options: Arg.Any\u003CRequestOptions\u003E());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "AzureTranslatorProviderTests",
+    "Message": null,
+    "ProjectName": "DiscordTranslationBot.Tests",
+    "Methods": [
+      {
+        "Name": "TranslateAsync_WithSourceLanguage_Returns_Expected",
+        "Body": "{\r\n    // Arrange\r\n    var targetLanguage = new SupportedLanguage\r\n    {\r\n        LangCode = \u0022fr\u0022,\r\n        Name = \u0022French\u0022\r\n    };\r\n    var sourceLanguage = new SupportedLanguage\r\n    {\r\n        LangCode = \u0022en\u0022,\r\n        Name = \u0022English\u0022\r\n    };\r\n    const string text = \u0022test\u0022;\r\n    var expected = new TranslationResult\r\n    {\r\n        DetectedLanguageCode = null,\r\n        DetectedLanguageName = null,\r\n        TargetLanguageCode = \u0022fr\u0022,\r\n        TargetLanguageName = \u0022French\u0022,\r\n        TranslatedText = \u0022translated\u0022\r\n    };\r\n    _httpClient.SendAsync(Arg.Is\u003CHttpRequestMessage\u003E(x =\u003E x.RequestUri!.AbsolutePath.EndsWith(\u0022translate\u0022) \u0026\u0026 x.RequestUri.Query.Contains($\u0022\u0026from={sourceLanguage.LangCode}\u0022)), Arg.Any\u003CCancellationToken\u003E()).Returns(_ =\u003E new HttpResponseMessage { StatusCode = HttpStatusCode.OK, Content = new StringContent($@\u0022[\n    {{\n        \u0022\u0022translations\u0022\u0022: [\n            {{\u0022\u0022text\u0022\u0022: \u0022\u0022{expected.TranslatedText}\u0022\u0022, \u0022\u0022to\u0022\u0022: \u0022\u0022{expected.TargetLanguageCode}\u0022\u0022}}\n        ]\n    }}\n]\u0022) });\r\n    // Act\r\n    var result = await Sut.TranslateAsync(targetLanguage, text, CancellationToken.None, sourceLanguage);\r\n    // Assert\r\n    result.Should().BeEquivalentTo(expected);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TranslateByCountryAsync_Returns_Expected",
+        "Body": "{\r\n    // Arrange\r\n    var country = new Country(Emoji.FlagFrance.ToString(), \u0022France\u0022)\r\n    {\r\n        LangCodes = new HashSet\u003Cstring\u003E(StringComparer.OrdinalIgnoreCase)\r\n        {\r\n            \u0022fr\u0022\r\n        }\r\n    };\r\n    const string text = \u0022test\u0022;\r\n    var expected = new TranslationResult\r\n    {\r\n        DetectedLanguageCode = \u0022en\u0022,\r\n        DetectedLanguageName = \u0022English\u0022,\r\n        TargetLanguageCode = \u0022fr\u0022,\r\n        TargetLanguageName = \u0022French\u0022,\r\n        TranslatedText = \u0022translated\u0022\r\n    };\r\n    IList\u003CTranslateRequest\u003E? requestContent = null;\r\n    _httpClient.SendAsync(Arg.Is\u003CHttpRequestMessage\u003E(x =\u003E x.RequestUri!.AbsolutePath.EndsWith(\u0022translate\u0022)), Arg.Any\u003CCancellationToken\u003E()).Returns(x =\u003E\r\n    {\r\n        requestContent = x.ArgAt\u003CHttpRequestMessage\u003E(0).Content!.ReadFromJsonAsync\u003CIList\u003CTranslateRequest\u003E\u003E(cancellationToken: x.ArgAt\u003CCancellationToken\u003E(1)).GetAwaiter().GetResult();\r\n        return new HttpResponseMessage\r\n        {\r\n            StatusCode = HttpStatusCode.OK,\r\n            Content = new StringContent($@\u0022[\n    {{\n        \u0022\u0022detectedLanguage\u0022\u0022: {{\u0022\u0022language\u0022\u0022: \u0022\u0022{expected.DetectedLanguageCode}\u0022\u0022, \u0022\u0022score\u0022\u0022: 1.0}},\n        \u0022\u0022translations\u0022\u0022: [\n            {{\u0022\u0022text\u0022\u0022: \u0022\u0022{expected.TranslatedText}\u0022\u0022, \u0022\u0022to\u0022\u0022: \u0022\u0022{expected.TargetLanguageCode}\u0022\u0022}}\n        ]\n    }}\n]\u0022)\r\n        };\r\n    });\r\n    // Act\r\n    var result = await Sut.TranslateByCountryAsync(country, text, CancellationToken.None);\r\n    // Assert\r\n    result.Should().BeEquivalentTo(expected);\r\n    requestContent![0].Text.Should().Be(text);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TranslateByCountryAsync_Throws_InvalidOperationException_WhenNoSupportedLanguageCodes",
+        "Body": "{\r\n    // Arrange\r\n    _httpClient.SendAsync(Arg.Is\u003CHttpRequestMessage\u003E(x =\u003E x.RequestUri!.AbsolutePath.EndsWith(\u0022languages\u0022)), Arg.Any\u003CCancellationToken\u003E()).Returns(_ =\u003E new HttpResponseMessage { StatusCode = HttpStatusCode.OK, Content = new StringContent(\u0022{}\u0022) });\r\n    // Create a new instance of the SUT as the constructor has already called InitializeSupportedLanguagesAsync on the class SUT.\r\n    var sut = new AzureTranslatorProvider(_httpClientFactory, _translationProvidersOptions, _logger);\r\n    // Act \u0026 Assert\r\n    await sut.Invoking(x =\u003E x.InitializeSupportedLanguagesAsync(CancellationToken.None)).Should().ThrowAsync\u003CInvalidOperationException\u003E().WithMessage(\u0022Languages endpoint returned no language codes.\u0022);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TranslateByCountryAsync_Throws_ArgumentException_TextExceedsCharacterLimit",
+        "Body": "{\r\n    // Arrange\r\n    var country = new Country(Emoji.FlagFrance.ToString(), \u0022France\u0022)\r\n    {\r\n        LangCodes = new HashSet\u003Cstring\u003E(StringComparer.OrdinalIgnoreCase)\r\n        {\r\n            \u0022fr\u0022\r\n        }\r\n    };\r\n    var text = new string (\u0027a\u0027, AzureTranslatorProvider.TextCharacterLimit);\r\n    // Act \u0026 Assert\r\n    await Sut.Invoking(x =\u003E x.TranslateByCountryAsync(country, text, CancellationToken.None)).Should().ThrowAsync\u003CArgumentException\u003E();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TranslateByCountryAsync_Throws_InvalidOperationException_WhenStatusCodeUnsuccessful",
+        "Body": "{\r\n    // Arrange\r\n    var country = new Country(Emoji.FlagFrance.ToString(), \u0022France\u0022)\r\n    {\r\n        LangCodes = new HashSet\u003Cstring\u003E(StringComparer.OrdinalIgnoreCase)\r\n        {\r\n            \u0022fr\u0022\r\n        }\r\n    };\r\n    const string text = \u0022test\u0022;\r\n    _httpClient.SendAsync(Arg.Is\u003CHttpRequestMessage\u003E(x =\u003E x.RequestUri!.AbsolutePath.EndsWith(\u0022translate\u0022)), Arg.Any\u003CCancellationToken\u003E()).Returns(_ =\u003E new HttpResponseMessage { StatusCode = statusCode });\r\n    // Act \u0026 Assert\r\n    await Sut.Invoking(x =\u003E x.TranslateByCountryAsync(country, text, CancellationToken.None)).Should().ThrowAsync\u003CInvalidOperationException\u003E();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TranslateByCountryAsync_Throws_InvalidOperationException_WhenNoTranslations",
+        "Body": "{\r\n    // Arrange\r\n    var country = new Country(Emoji.FlagFrance.ToString(), \u0022France\u0022)\r\n    {\r\n        LangCodes = new HashSet\u003Cstring\u003E(StringComparer.OrdinalIgnoreCase)\r\n        {\r\n            \u0022fr\u0022\r\n        }\r\n    };\r\n    const string text = \u0022test\u0022;\r\n    _httpClient.SendAsync(Arg.Is\u003CHttpRequestMessage\u003E(x =\u003E x.RequestUri!.AbsolutePath.EndsWith(\u0022translate\u0022)), Arg.Any\u003CCancellationToken\u003E()).Returns(_ =\u003E new HttpResponseMessage { StatusCode = HttpStatusCode.OK, Content = new StringContent(@\u0022[\n    {\n        \u0022\u0022detectedLanguage\u0022\u0022: {\u0022\u0022language\u0022\u0022: \u0022\u0022en\u0022\u0022, \u0022\u0022score\u0022\u0022: 1.0},\n        \u0022\u0022translations\u0022\u0022: []\n    }\n]\u0022) });\r\n    // Act \u0026 Assert\r\n    await Sut.Invoking(x =\u003E x.TranslateByCountryAsync(country, text, CancellationToken.None)).Should().ThrowAsync\u003CInvalidOperationException\u003E();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TranslateByCountryAsync_Throws_JsonException_OnFailureToDeserialize",
+        "Body": "{\r\n    // Arrange\r\n    var country = new Country(Emoji.FlagFrance.ToString(), \u0022France\u0022)\r\n    {\r\n        LangCodes = new HashSet\u003Cstring\u003E(StringComparer.OrdinalIgnoreCase)\r\n        {\r\n            \u0022fr\u0022\r\n        }\r\n    };\r\n    const string text = \u0022test\u0022;\r\n    _httpClient.SendAsync(Arg.Is\u003CHttpRequestMessage\u003E(x =\u003E x.RequestUri!.AbsolutePath.EndsWith(\u0022translate\u0022)), Arg.Any\u003CCancellationToken\u003E()).Returns(_ =\u003E new HttpResponseMessage { StatusCode = HttpStatusCode.OK, Content = new StringContent(\u0022invalid_json\u0022) });\r\n    // Act \u0026 Assert\r\n    await Sut.Invoking(x =\u003E x.TranslateByCountryAsync(country, text, CancellationToken.None)).Should().ThrowAsync\u003CJsonException\u003E();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TranslateByCountryAsync_Throws_HttpRequestException_OnFailureToSendRequest",
+        "Body": "{\r\n    // Arrange\r\n    var country = new Country(Emoji.FlagFrance.ToString(), \u0022France\u0022)\r\n    {\r\n        LangCodes = new HashSet\u003Cstring\u003E(StringComparer.OrdinalIgnoreCase)\r\n        {\r\n            \u0022fr\u0022\r\n        }\r\n    };\r\n    const string text = \u0022test\u0022;\r\n    _httpClient.SendAsync(Arg.Is\u003CHttpRequestMessage\u003E(x =\u003E x.RequestUri!.AbsolutePath.EndsWith(\u0022translate\u0022)), Arg.Any\u003CCancellationToken\u003E()).ThrowsAsync(new HttpRequestException());\r\n    // Act \u0026 Assert\r\n    await Sut.Invoking(x =\u003E x.TranslateByCountryAsync(country, text, CancellationToken.None)).Should().ThrowAsync\u003CHttpRequestException\u003E();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "LibreTranslateProviderTests",
+    "Message": null,
+    "ProjectName": "DiscordTranslationBot.Tests",
+    "Methods": [
+      {
+        "Name": "Translate_WithSourceLanguage_Returns_Expected",
+        "Body": "{\r\n    // Arrange\r\n    var targetLanguage = new SupportedLanguage\r\n    {\r\n        LangCode = \u0022fr\u0022,\r\n        Name = \u0022French\u0022\r\n    };\r\n    var sourceLanguage = new SupportedLanguage\r\n    {\r\n        LangCode = \u0022en\u0022,\r\n        Name = \u0022English\u0022\r\n    };\r\n    const string text = \u0022test\u0022;\r\n    var expected = new TranslationResult\r\n    {\r\n        DetectedLanguageCode = null,\r\n        DetectedLanguageName = null,\r\n        TargetLanguageCode = \u0022fr\u0022,\r\n        TargetLanguageName = \u0022French\u0022,\r\n        TranslatedText = \u0022translated\u0022\r\n    };\r\n    TranslateRequest? requestContent = null;\r\n    _httpClient.SendAsync(Arg.Is\u003CHttpRequestMessage\u003E(x =\u003E x.RequestUri!.AbsolutePath.EndsWith(\u0022translate\u0022)), Arg.Any\u003CCancellationToken\u003E()).Returns(x =\u003E\r\n    {\r\n        requestContent = x.ArgAt\u003CHttpRequestMessage\u003E(0).Content!.ReadFromJsonAsync\u003CTranslateRequest\u003E(cancellationToken: x.ArgAt\u003CCancellationToken\u003E(1)).GetAwaiter().GetResult();\r\n        return new HttpResponseMessage\r\n        {\r\n            StatusCode = HttpStatusCode.OK,\r\n            Content = new StringContent($@\u0022{{\n    \u0022\u0022translatedText\u0022\u0022: \u0022\u0022{expected.TranslatedText}\u0022\u0022\n}}\u0022)\r\n        };\r\n    });\r\n    // Act\r\n    var result = await Sut.TranslateAsync(targetLanguage, text, CancellationToken.None, sourceLanguage);\r\n    // Assert\r\n    result.Should().BeEquivalentTo(expected);\r\n    requestContent!.SourceLangCode.Should().Be(sourceLanguage.LangCode);\r\n    requestContent.TargetLangCode.Should().Be(targetLanguage.LangCode);\r\n    requestContent.Format.Should().Be(\u0022text\u0022);\r\n    requestContent.Text.Should().Be(text);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TranslateByCountryAsync_Returns_Expected",
+        "Body": "{\r\n    // Arrange\r\n    var country = new Country(Emoji.FlagFrance.ToString(), \u0022France\u0022)\r\n    {\r\n        LangCodes = new HashSet\u003Cstring\u003E(StringComparer.OrdinalIgnoreCase)\r\n        {\r\n            \u0022fr\u0022\r\n        }\r\n    };\r\n    const string text = \u0022test\u0022;\r\n    var expected = new TranslationResult\r\n    {\r\n        DetectedLanguageCode = \u0022en\u0022,\r\n        DetectedLanguageName = \u0022English\u0022,\r\n        TargetLanguageCode = \u0022fr\u0022,\r\n        TargetLanguageName = \u0022French\u0022,\r\n        TranslatedText = \u0022translated\u0022\r\n    };\r\n    TranslateRequest? requestContent = null;\r\n    _httpClient.SendAsync(Arg.Is\u003CHttpRequestMessage\u003E(x =\u003E x.RequestUri!.AbsolutePath.EndsWith(\u0022translate\u0022)), Arg.Any\u003CCancellationToken\u003E()).Returns(x =\u003E\r\n    {\r\n        requestContent = x.ArgAt\u003CHttpRequestMessage\u003E(0).Content!.ReadFromJsonAsync\u003CTranslateRequest\u003E(cancellationToken: x.ArgAt\u003CCancellationToken\u003E(1)).GetAwaiter().GetResult();\r\n        return new HttpResponseMessage\r\n        {\r\n            StatusCode = HttpStatusCode.OK,\r\n            Content = new StringContent($@\u0022{{\n    \u0022\u0022detectedLanguage\u0022\u0022: {{\u0022\u0022confidence\u0022\u0022: 100, \u0022\u0022language\u0022\u0022: \u0022\u0022{expected.DetectedLanguageCode}\u0022\u0022}},\n    \u0022\u0022translatedText\u0022\u0022: \u0022\u0022{expected.TranslatedText}\u0022\u0022\n}}\u0022)\r\n        };\r\n    });\r\n    // Act\r\n    var result = await Sut.TranslateByCountryAsync(country, text, CancellationToken.None);\r\n    // Assert\r\n    result.Should().BeEquivalentTo(expected);\r\n    requestContent!.SourceLangCode.Should().Be(\u0022auto\u0022);\r\n    requestContent.TargetLangCode.Should().Be(country.LangCodes.First());\r\n    requestContent.Format.Should().Be(\u0022text\u0022);\r\n    requestContent.Text.Should().Be(text);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TranslateByCountryAsync_Throws_InvalidOperationException_WhenNoSupportedLanguageCodes",
+        "Body": "{\r\n    // Arrange\r\n    _httpClient.SendAsync(Arg.Is\u003CHttpRequestMessage\u003E(x =\u003E x.RequestUri!.AbsolutePath.EndsWith(\u0022languages\u0022)), Arg.Any\u003CCancellationToken\u003E()).Returns(_ =\u003E new HttpResponseMessage { StatusCode = HttpStatusCode.OK, Content = new StringContent(\u0022[]\u0022) });\r\n    // Create a new instance of the SUT as the constructor has already called InitializeSupportedLanguagesAsync on the class SUT.\r\n    var sut = new LibreTranslateProvider(_httpClientFactory, _translationProvidersOptions, _logger);\r\n    // Act \u0026 Assert\r\n    await sut.Invoking(x =\u003E x.InitializeSupportedLanguagesAsync(CancellationToken.None)).Should().ThrowAsync\u003CInvalidOperationException\u003E().WithMessage(\u0022Languages endpoint returned no language codes.\u0022);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TranslateByCountryAsync_Throws_InvalidOperationException_WhenStatusCodeUnsuccessful",
+        "Body": "{\r\n    // Arrange\r\n    var country = new Country(Emoji.FlagFrance.ToString(), \u0022France\u0022)\r\n    {\r\n        LangCodes = new HashSet\u003Cstring\u003E(StringComparer.OrdinalIgnoreCase)\r\n        {\r\n            \u0022fr\u0022\r\n        }\r\n    };\r\n    const string text = \u0022test\u0022;\r\n    _httpClient.SendAsync(Arg.Is\u003CHttpRequestMessage\u003E(x =\u003E x.RequestUri!.AbsolutePath.EndsWith(\u0022translate\u0022)), Arg.Any\u003CCancellationToken\u003E()).Returns(_ =\u003E new HttpResponseMessage { StatusCode = statusCode });\r\n    // Act \u0026 Assert\r\n    await Sut.Invoking(x =\u003E x.TranslateByCountryAsync(country, text, CancellationToken.None)).Should().ThrowAsync\u003CInvalidOperationException\u003E();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TranslateByCountryAsync_Throws_InvalidOperationException_WhenNoTranslatedText",
+        "Body": "{\r\n    // Arrange\r\n    var country = new Country(Emoji.FlagFrance.ToString(), \u0022France\u0022)\r\n    {\r\n        LangCodes = new HashSet\u003Cstring\u003E(StringComparer.OrdinalIgnoreCase)\r\n        {\r\n            \u0022fr\u0022\r\n        }\r\n    };\r\n    const string text = \u0022test\u0022;\r\n    _httpClient.SendAsync(Arg.Is\u003CHttpRequestMessage\u003E(x =\u003E x.RequestUri!.AbsolutePath.EndsWith(\u0022translate\u0022)), Arg.Any\u003CCancellationToken\u003E()).Returns(_ =\u003E new HttpResponseMessage { StatusCode = HttpStatusCode.OK, Content = new StringContent(@\u0022{\n    \u0022\u0022detectedLanguage\u0022\u0022: {\u0022\u0022confidence\u0022\u0022: 0, \u0022\u0022language\u0022\u0022: \u0022\u0022de\u0022\u0022},\n    \u0022\u0022translatedText\u0022\u0022: \u0022\u0022\u0022\u0022\n}\u0022) });\r\n    // Act \u0026 Assert\r\n    await Sut.Invoking(x =\u003E x.TranslateByCountryAsync(country, text, CancellationToken.None)).Should().ThrowAsync\u003CInvalidOperationException\u003E();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TranslateByCountryAsync_Throws_JsonException_OnFailureToDeserialize",
+        "Body": "{\r\n    // Arrange\r\n    var country = new Country(Emoji.FlagFrance.ToString(), \u0022France\u0022)\r\n    {\r\n        LangCodes = new HashSet\u003Cstring\u003E(StringComparer.OrdinalIgnoreCase)\r\n        {\r\n            \u0022fr\u0022\r\n        }\r\n    };\r\n    const string text = \u0022test\u0022;\r\n    _httpClient.SendAsync(Arg.Is\u003CHttpRequestMessage\u003E(x =\u003E x.RequestUri!.AbsolutePath.EndsWith(\u0022translate\u0022)), Arg.Any\u003CCancellationToken\u003E()).Returns(_ =\u003E new HttpResponseMessage { StatusCode = HttpStatusCode.OK, Content = new StringContent(\u0022invalid_json\u0022) });\r\n    // Act \u0026 Assert\r\n    await Sut.Invoking(x =\u003E x.TranslateByCountryAsync(country, text, CancellationToken.None)).Should().ThrowAsync\u003CJsonException\u003E();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TranslateByCountryAsync_Throws_HttpRequestException_OnFailureToSendRequest",
+        "Body": "{\r\n    // Arrange\r\n    var country = new Country(Emoji.FlagFrance.ToString(), \u0022France\u0022)\r\n    {\r\n        LangCodes = new HashSet\u003Cstring\u003E(StringComparer.OrdinalIgnoreCase)\r\n        {\r\n            \u0022fr\u0022\r\n        }\r\n    };\r\n    const string text = \u0022test\u0022;\r\n    _httpClient.SendAsync(Arg.Is\u003CHttpRequestMessage\u003E(x =\u003E x.RequestUri!.AbsolutePath.EndsWith(\u0022translate\u0022)), Arg.Any\u003CCancellationToken\u003E()).ThrowsAsync(new HttpRequestException());\r\n    // Act \u0026 Assert\r\n    await Sut.Invoking(x =\u003E x.TranslateByCountryAsync(country, text, CancellationToken.None)).Should().ThrowAsync\u003CHttpRequestException\u003E();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "TranslationProviderBaseTests",
+    "Message": "This class has Lack of Cohesion of Test Cases",
+    "ProjectName": "DiscordTranslationBot.Tests",
+    "Methods": [
+      {
+        "Name": "ProviderName_IsNotEmpty",
+        "Body": "{\r\n    // Assert\r\n    Sut.ProviderName.Should().NotBeEmpty();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TranslateByCountryAsync_Throws_UnsupportedCountryException_IfLangCodeNotFound",
+        "Body": "{\r\n    // Arrange\r\n    var country = new Country(Emoji.FlagFrance.ToString(), \u0022unsupported_country\u0022)\r\n    {\r\n        LangCodes = new HashSet\u003Cstring\u003E(StringComparer.OrdinalIgnoreCase)\r\n    };\r\n    const string text = \u0022test\u0022;\r\n    // Act \u0026 Assert\r\n    await Sut.Invoking(x =\u003E x.TranslateByCountryAsync(country, text, CancellationToken.None)).Should().ThrowAsync\u003CUnsupportedCountryException\u003E();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "CountryServiceTests",
+    "Message": null,
+    "ProjectName": "DiscordTranslationBot.Tests",
+    "Methods": [
+      {
+        "Name": "TryGetCountry_Returns_Expected",
+        "Body": "{\r\n    // Act \u0026 Assert\r\n    _sut.TryGetCountry(emojiUnicode, out var result).Should().BeTrue();\r\n    result!.Name.Should().Be(expectedCountryName);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "FormatUtilityTests",
+    "Message": null,
+    "ProjectName": "DiscordTranslationBot.Tests",
+    "Methods": [
+      {
+        "Name": "SanitizeText_Returns_AsExpected",
+        "Body": "{\r\n    // Act\r\n    var result = FormatUtility.SanitizeText(text);\r\n    // Assert\r\n    result.Should().Be(expected);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,159 @@
+[
+  {
+    "Name": "CalculaJurosTest",
+    "Message": null,
+    "ProjectName": "SMTC.Tests",
+    "Methods": [
+      {
+        "Name": "Controller_Get_Calcula_Juros",
+        "Body": "{\r\n    //Arrange\r\n    var mockIDomainNotificationContext = new Mock\u003CIDomainNotificationContext\u003E();\r\n    var mockICalculaJurosService = new Mock\u003CICalculaJurosService\u003E();\r\n    mockICalculaJurosService.Setup(x =\u003E x.Calculo(100, 5)).ReturnsAsync(105.10);\r\n    var calculaJurosController = new CalculaJurosController(mockICalculaJurosService.Object, mockIDomainNotificationContext.Object);\r\n    //Act\r\n    var result = await calculaJurosController.Get(100, 5);\r\n    //Assert\r\n    Assert.IsAssignableFrom\u003Cdouble\u003E(result);\r\n    Assert.Equal(105.10, result);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Service_Get_Calcula_Juros",
+        "Body": "{\r\n    //Arrange\r\n    var mockITaxaJuros = new Mock\u003CITaxaJuros\u003E();\r\n    var taxaJuros = new Random().NextDouble();\r\n    mockITaxaJuros.Setup(x =\u003E x.GetTaxaJuros()).ReturnsAsync(taxaJuros);\r\n    var mockCalculaJurosService = new CalculaJurosService(mockITaxaJuros.Object);\r\n    //Act\r\n    var result = await mockCalculaJurosService.Calculo(valorInicial, meses);\r\n    var expected = Calculo(valorInicial, meses, taxaJuros);\r\n    //Assert\r\n    Assert.Equal(expected, result);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

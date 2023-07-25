@@ -1,0 +1,369 @@
+[
+  {
+    "Name": "ProtobufApiTests",
+    "Message": null,
+    "ProjectName": "AspNetCoreProtobuf.Tests",
+    "Methods": [
+      {
+        "Name": "GetProtobufDataAsString",
+        "Body": "{\r\n    await SetTokenAsync(_client);\r\n    _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(\u0022application/x-protobuf\u0022));\r\n    var response = await _client.GetAsync(\u0022/api/values/1\u0022);\r\n    response.EnsureSuccessStatusCode();\r\n    var responseString = System.Text.Encoding.UTF8.GetString(await response.Content.ReadAsByteArrayAsync());\r\n    // Assert\r\n    Assert.Equal(\u0022application/x-protobuf\u0022, response.Content.Headers.ContentType.MediaType);\r\n    Assert.Equal(\u0022\\b\\u0001\\u0012\\nHelloWorld\\u001a\\u001fMy first MVC 6 Protobuf service\u0022, responseString);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GetProtobufDataAndCheckProtobufContentTypeMediaType",
+        "Body": "{\r\n    await SetTokenAsync(_client);\r\n    _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(\u0022application/x-protobuf\u0022));\r\n    var response = await _client.GetAsync(\u0022/api/values/1\u0022);\r\n    response.EnsureSuccessStatusCode();\r\n    var result = ProtoBuf.Serializer.Deserialize\u003CProtobufModelDto\u003E(await response.Content.ReadAsStreamAsync());\r\n    // Assert\r\n    Assert.Equal(\u0022application/x-protobuf\u0022, response.Content.Headers.ContentType.MediaType);\r\n    Assert.Equal(\u0022My first MVC 6 Protobuf service\u0022, result.StringValue);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "PostProtobufDataAsync",
+        "Body": "{\r\n    await SetTokenAsync(_client);\r\n    _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(\u0022application/x-protobuf\u0022));\r\n    MemoryStream stream = new MemoryStream();\r\n    ProtoBuf.Serializer.Serialize\u003CProtobufModelDto\u003E(stream, new ProtobufModelDto { Id = 2, Name = \u0022lovely data\u0022, StringValue = \u0022amazing this ah\u0022 });\r\n    HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, \u0022api/Values\u0022)\r\n    {\r\n        Content = new StringContent(StreamToString(stream), Encoding.UTF8, \u0022application/x-protobuf\u0022) //CONTENT-TYPE header\r\n    };\r\n    var responseForPost = await _client.SendAsync(request);\r\n    Assert.True(responseForPost.IsSuccessStatusCode);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Get401ForNoToken",
+        "Body": "{\r\n    _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(\u0022application/x-protobuf\u0022));\r\n    var response = await _client.GetAsync(\u0022/api/values/1\u0022);\r\n    // Assert\r\n    Assert.Equal(\u0022Unauthorized\u0022, response.StatusCode.ToString());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Get401ForIncorrectToken",
+        "Body": "{\r\n    var access_token = await _tokenService.GetApiToken(\u0022ClientProtectedApi\u0022, \u0022dummy\u0022, \u0022apiprotoSecret\u0022);\r\n    _client.SetBearerToken(access_token);\r\n    // Act\r\n    _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(\u0022application/x-protobuf\u0022));\r\n    var response = await _client.GetAsync(\u0022/api/values/1\u0022);\r\n    // Assert\r\n    Assert.Equal(\u0022Unauthorized\u0022, response.StatusCode.ToString());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

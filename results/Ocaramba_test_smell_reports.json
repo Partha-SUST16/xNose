@@ -1,0 +1,246 @@
+[
+  {
+    "Name": "ExampleTest1",
+    "Message": "This class has Lack of Cohesion of Test Cases",
+    "ProjectName": "Ocaramba.Tests.Xunit(net472)",
+    "Methods": [
+      {
+        "Name": "TestMethod1",
+        "Body": "{\r\n    const string PageTitle = \u0022New Window\u0022;\r\n    var newWindowPage = new InternetPage(this.DriverContext).OpenHomePage().GoToMultipleWindowsPage().OpenNewWindowPage();\r\n    Assert.True(newWindowPage.IsPageTile(PageTitle));\r\n    Assert.True(newWindowPage.IsNewWindowH3TextVisible(PageTitle));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ContextMenuTest",
+        "Body": "{\r\n    const string H3Value = \u0022Context Menu\u0022;\r\n    var browser = BaseConfiguration.TestBrowser;\r\n    if (browser.Equals(BrowserType.Firefox))\r\n    {\r\n        var contextMenuPage = new InternetPage(this.DriverContext).OpenHomePage().GoToContextMenuPage().SelectTheInternetOptionFromContextMenu();\r\n        Assert.Equal(\u0022You selected a context menu\u0022, contextMenuPage.JavaScriptText);\r\n        Assert.True(contextMenuPage.ConfirmJavaScript().IsH3ElementEqualsToExpected(H3Value));\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "ExampleTest2",
+    "Message": null,
+    "ProjectName": "Ocaramba.Tests.Xunit(net472)",
+    "Methods": [
+      {
+        "Name": "NestedFramesTest",
+        "Body": "{\r\n    var nestedFramesPage = new InternetPage(this.DriverContext).OpenHomePage().GoToNestedFramesPage().SwitchToFrame(\u0022frame-top\u0022);\r\n    nestedFramesPage.SwitchToFrame(\u0022frame-left\u0022);\r\n    Assert.Equal(\u0022LEFT\u0022, nestedFramesPage.LeftBody);\r\n    nestedFramesPage.SwitchToParentFrame().SwitchToFrame(\u0022frame-middle\u0022);\r\n    Assert.Equal(\u0022MIDDLE\u0022, nestedFramesPage.MiddleBody);\r\n    nestedFramesPage.SwitchToParentFrame().SwitchToFrame(\u0022frame-right\u0022);\r\n    Assert.Equal(\u0022RIGHT\u0022, nestedFramesPage.RightBody);\r\n    nestedFramesPage.ReturnToDefaultContent().SwitchToFrame(\u0022frame-bottom\u0022);\r\n    Assert.Equal(\u0022BOTTOM\u0022, nestedFramesPage.BottomBody);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

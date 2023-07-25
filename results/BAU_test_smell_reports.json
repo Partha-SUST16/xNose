@@ -1,0 +1,3148 @@
+[
+  {
+    "Name": "ShiftControllerTest",
+    "Message": null,
+    "ProjectName": "BAU.Test",
+    "Methods": [
+      {
+        "Name": "ScheduleEngineersShift_Date_Weekend_Error",
+        "Body": "{\r\n    Mock\u003CIShiftService\u003E mockService = new Mock\u003CIShiftService\u003E(MockBehavior.Strict);\r\n    ShiftController controller = new ShiftController(mockService.Object);\r\n    var result = controller.ScheduleEngineersShift(new ShiftRequestModel { Count = 1, StartDate = new DateTime(2017, 12, 17) });\r\n    Assert.NotNull(result);\r\n    Assert.True(result.GetType() == typeof(BadRequestObjectResult));\r\n    Assert.Equal(\u0022Weekends are not valid working days.\u0022, (result as BadRequestObjectResult).Value);\r\n    mockService.Verify(m =\u003E m.ScheduleEngineerShift(It.IsAny\u003CShiftRequestModel\u003E()), Times.Never);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ScheduleEngineersShift_Date_Empty_Error",
+        "Body": "{\r\n    Mock\u003CIShiftService\u003E mockService = new Mock\u003CIShiftService\u003E(MockBehavior.Strict);\r\n    ShiftController controller = new ShiftController(mockService.Object);\r\n    var result = controller.ScheduleEngineersShift(new ShiftRequestModel { Count = 1 });\r\n    Assert.NotNull(result);\r\n    Assert.True(result.GetType() == typeof(BadRequestObjectResult));\r\n    Assert.Equal(\u0022Date value cannot be empty.\u0022, (result as BadRequestObjectResult).Value);\r\n    mockService.Verify(m =\u003E m.ScheduleEngineerShift(It.IsAny\u003CShiftRequestModel\u003E()), Times.Never);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ScheduleEngineersShift_Count_Empty_Error",
+        "Body": "{\r\n    Mock\u003CIShiftService\u003E mockService = new Mock\u003CIShiftService\u003E(MockBehavior.Strict);\r\n    ShiftController controller = new ShiftController(mockService.Object);\r\n    var result = controller.ScheduleEngineersShift(new ShiftRequestModel { StartDate = DateTime.Now.NextBusinessDay() });\r\n    Assert.NotNull(result);\r\n    Assert.True(result.GetType() == typeof(BadRequestObjectResult));\r\n    Assert.Equal(\u0022The number of support engineers is required.\u0022, (result as BadRequestObjectResult).Value);\r\n    mockService.Verify(m =\u003E m.ScheduleEngineerShift(It.IsAny\u003CShiftRequestModel\u003E()), Times.Never);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ScheduleEngineersShift_Exception",
+        "Body": "{\r\n    Mock\u003CIShiftService\u003E mockService = new Mock\u003CIShiftService\u003E(MockBehavior.Strict);\r\n    mockService.Setup(s =\u003E s.ScheduleEngineerShift(It.IsAny\u003CShiftRequestModel\u003E())).Throws(new InvalidOperationException(\u0022Testing controller exception handler\u0022));\r\n    ShiftController controller = new ShiftController(mockService.Object);\r\n    var result = controller.ScheduleEngineersShift(new ShiftRequestModel { Count = 1, StartDate = DateTime.Now.NextBusinessDay() });\r\n    Assert.NotNull(result);\r\n    Assert.True(result.GetType() == typeof(BadRequestObjectResult));\r\n    Assert.Equal(\u0022Testing controller exception handler\u0022, (result as BadRequestObjectResult).Value);\r\n    mockService.Verify(m =\u003E m.ScheduleEngineerShift(It.IsAny\u003CShiftRequestModel\u003E()), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ScheduleEngineersShift_AllValuesNull_Error",
+        "Body": "{\r\n    Mock\u003CIShiftService\u003E mockService = new Mock\u003CIShiftService\u003E(MockBehavior.Strict);\r\n    ShiftController controller = new ShiftController(mockService.Object);\r\n    var result = controller.ScheduleEngineersShift(null);\r\n    Assert.NotNull(result);\r\n    Assert.True(result.GetType() == typeof(BadRequestObjectResult));\r\n    Assert.Equal(\u0022All values must be informed.\u0022, (result as BadRequestObjectResult).Value);\r\n    mockService.Verify(m =\u003E m.ScheduleEngineerShift(It.IsAny\u003CShiftRequestModel\u003E()), Times.Never());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ScheduleEngineersShiftRange_EndDate_Error",
+        "Body": "{\r\n    Mock\u003CIShiftService\u003E mockService = new Mock\u003CIShiftService\u003E(MockBehavior.Strict);\r\n    mockService.Setup(s =\u003E s.ScheduleEngineerShiftRange(It.IsAny\u003CShiftRequestModel\u003E())); //.Returns(new List\u003CEngineerShiftModel\u003E());\r\n    ShiftController controller = new ShiftController(mockService.Object);\r\n    var date = DateTime.Now.NextDayOfWeek(DayOfWeek.Thursday);\r\n    var model = new ShiftRequestModel\r\n    {\r\n        Count = 2,\r\n        StartDate = date.NextDayOfWeek(DayOfWeek.Tuesday),\r\n        EndDate = date\r\n    };\r\n    var result = controller.ScheduleEngineersShiftRange(model);\r\n    Assert.NotNull(result);\r\n    Assert.True(result.GetType() == typeof(BadRequestObjectResult));\r\n    Assert.Equal(\u0022The final date must be greater than the initial date.\u0022, (result as BadRequestObjectResult).Value);\r\n    mockService.Verify(m =\u003E m.ScheduleEngineerShiftRange(It.IsAny\u003CShiftRequestModel\u003E()), Times.Never());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ScheduleEngineersShiftRange_Exception",
+        "Body": "{\r\n    Mock\u003CIShiftService\u003E mockService = new Mock\u003CIShiftService\u003E(MockBehavior.Strict);\r\n    mockService.Setup(s =\u003E s.ScheduleEngineerShiftRange(It.IsAny\u003CShiftRequestModel\u003E())).Throws(new InvalidOperationException(\u0022Testing controller exception handler\u0022));\r\n    ShiftController controller = new ShiftController(mockService.Object);\r\n    var date = DateTime.Now.NextDayOfWeek(DayOfWeek.Thursday);\r\n    var model = new ShiftRequestModel\r\n    {\r\n        Count = 2,\r\n        StartDate = date,\r\n        EndDate = date.NextDayOfWeek(DayOfWeek.Tuesday)\r\n    };\r\n    var result = controller.ScheduleEngineersShiftRange(model);\r\n    Assert.NotNull(result);\r\n    Assert.True(result.GetType() == typeof(BadRequestObjectResult));\r\n    Assert.Equal(\u0022Testing controller exception handler\u0022, (result as BadRequestObjectResult).Value);\r\n    mockService.Verify(m =\u003E m.ScheduleEngineerShiftRange(It.IsAny\u003CShiftRequestModel\u003E()), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ScheduleEngineersShiftRange_Success",
+        "Body": "{\r\n    Mapper.Initialize(cfg =\u003E\r\n    {\r\n        cfg.AddProfile\u003CBAUMappingProfile\u003E();\r\n    });\r\n    var date = DateTime.Now.NextDayOfWeek(DayOfWeek.Thursday);\r\n    Mock\u003CIShiftService\u003E mockService = new Mock\u003CIShiftService\u003E(MockBehavior.Strict);\r\n    mockService.Setup(s =\u003E s.ScheduleEngineerShiftRange(It.IsAny\u003CShiftRequestModel\u003E())).Returns(new List\u003CEngineerShiftModel\u003E { new EngineerShiftModel { Date = date, Duration = 4, Engineer = new EngineerModel { Id = 1, Name = \u0022Engineer 1\u0022 } }, new EngineerShiftModel { Date = date.NextDayOfWeek(DayOfWeek.Tuesday), Duration = 4, Engineer = new EngineerModel { Id = 2, Name = \u0022Engineer 2\u0022 } }, });\r\n    ShiftController controller = new ShiftController(mockService.Object);\r\n    var model = new ShiftRequestModel\r\n    {\r\n        Count = 2,\r\n        StartDate = date,\r\n        EndDate = date.NextDayOfWeek(DayOfWeek.Tuesday)\r\n    };\r\n    var result = controller.ScheduleEngineersShiftRange(model);\r\n    Assert.NotNull(result);\r\n    Assert.True(result.GetType() == typeof(OkObjectResult));\r\n    var expected = new List\u003CEngineerModel\u003E\r\n    {\r\n        new EngineerModel\r\n        {\r\n            Id = 1,\r\n            Name = \u0022Engineer 1\u0022\r\n        },\r\n        new EngineerModel\r\n        {\r\n            Id = 2,\r\n            Name = \u0022Engineer 2\u0022\r\n        },\r\n    };\r\n    Assert.Equal(expected, (result as OkObjectResult).Value);\r\n    mockService.Verify(m =\u003E m.ScheduleEngineerShiftRange(model), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ScheduleEngineersShift_Success",
+        "Body": "{\r\n    if (Mapper.Instance == null)\r\n    {\r\n        Mapper.Initialize(cfg =\u003E\r\n        {\r\n            cfg.AddProfile\u003CBAUMappingProfile\u003E();\r\n        });\r\n    }\r\n\r\n    Mock\u003CIShiftService\u003E mockService = new Mock\u003CIShiftService\u003E(MockBehavior.Strict);\r\n    mockService.Setup(s =\u003E s.ScheduleEngineerShift(It.IsAny\u003CShiftRequestModel\u003E())).Returns(new List\u003CEngineerShiftModel\u003E { new EngineerShiftModel { Date = DateTime.Now, Duration = 4, Engineer = new EngineerModel { Id = 1, Name = \u0022Engineer 1\u0022 } }, new EngineerShiftModel { Date = DateTime.Now, Duration = 4, Engineer = new EngineerModel { Id = 2, Name = \u0022Engineer 2\u0022 } }, });\r\n    ShiftController controller = new ShiftController(mockService.Object);\r\n    var result = controller.ScheduleEngineersShift(new ShiftRequestModel { Count = 1, StartDate = new DateTime(2017, 12, 18) });\r\n    Assert.NotNull(result);\r\n    Assert.True(result.GetType() == typeof(OkObjectResult));\r\n    var expected = new List\u003CEngineerModel\u003E\r\n    {\r\n        new EngineerModel\r\n        {\r\n            Id = 1,\r\n            Name = \u0022Engineer 1\u0022\r\n        },\r\n        new EngineerModel\r\n        {\r\n            Id = 2,\r\n            Name = \u0022Engineer 2\u0022\r\n        },\r\n    };\r\n    Assert.Equal(expected, (result as OkObjectResult).Value);\r\n    mockService.Verify(m =\u003E m.ScheduleEngineerShift(It.IsAny\u003CShiftRequestModel\u003E()), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "ShiftRepositoryTest",
+    "Message": null,
+    "ProjectName": "BAU.Test",
+    "Methods": [
+      {
+        "Name": "FindEngineersAvailableOn_MAX_SHIFT_SUM_HOURS_DURATION_Error",
+        "Body": "{\r\n    string contextName = \u0022FindEngineersAvailableOn_MAX_SHIFT_SUM_HOURS_DURATION_Error\u0022;\r\n    _contextNames.Add(contextName);\r\n    DbContextOptions\u003CBAUDbContext\u003E options = DbContextUtils.GetContextOptions(contextName);\r\n    using (var context = new BAUDbContext(options))\r\n    {\r\n        try\r\n        {\r\n            new ShiftRepository(context, ConfigurationTestBuilder.GetConfiguration(\u0022MAX_SHIFT_SUM_HOURS_DURATION\u0022));\r\n        }\r\n        catch (ArgumentNullException ex)\r\n        {\r\n            Assert.Equal(\u0022App:MAX_SHIFT_SUM_HOURS_DURATION\u0022, ex.ParamName);\r\n        }\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "FindEngineersAvailableOn_WEEK_SCAN_PERIOD_Error",
+        "Body": "{\r\n    string contextName = \u0022FindEngineersAvailableOn_WEEK_SCAN_PERIOD_Error\u0022;\r\n    _contextNames.Add(contextName);\r\n    DbContextOptions\u003CBAUDbContext\u003E options = DbContextUtils.GetContextOptions(contextName);\r\n    using (var context = new BAUDbContext(options))\r\n    {\r\n        try\r\n        {\r\n            new ShiftRepository(context, ConfigurationTestBuilder.GetConfiguration(\u0022WEEK_SCAN_PERIOD\u0022));\r\n        }\r\n        catch (ArgumentNullException ex)\r\n        {\r\n            Assert.Equal(\u0022App:WEEK_SCAN_PERIOD\u0022, ex.ParamName);\r\n        }\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "FindEngineersAvailableOn_Check_Consecutive_Days",
+        "Body": "{\r\n    string contextName = $\u0022FindEngineersAvailableOn_Check_Consecutive_Days\u0022;\r\n    _contextNames.Add(contextName);\r\n    DbContextOptions\u003CBAUDbContext\u003E options = DbContextUtils.GetContextOptions(contextName);\r\n    IShiftRepository repository = null;\r\n    const int shiftDuration = 4;\r\n    // fake data\r\n    using (BAUDbContext context = new BAUDbContext(options))\r\n    {\r\n        var engineer1 = new Engineer\r\n        {\r\n            Name = \u00221\u0022\r\n        };\r\n        var engineer2 = new Engineer\r\n        {\r\n            Name = \u00222\u0022\r\n        };\r\n        var engineer3 = new Engineer\r\n        {\r\n            Name = \u00223\u0022\r\n        };\r\n        var engineer4 = new Engineer\r\n        {\r\n            Name = \u00224\u0022\r\n        };\r\n        var engineer5 = new Engineer\r\n        {\r\n            Name = \u00225\u0022\r\n        };\r\n        var engineer6 = new Engineer\r\n        {\r\n            Name = \u00226\u0022\r\n        };\r\n        var engineer7 = new Engineer\r\n        {\r\n            Name = \u00227\u0022\r\n        };\r\n        var engineer8 = new Engineer\r\n        {\r\n            Name = \u00228\u0022\r\n        };\r\n        var engineer9 = new Engineer\r\n        {\r\n            Name = \u00229\u0022\r\n        };\r\n        var engineer10 = new Engineer\r\n        {\r\n            Name = \u002210\u0022\r\n        };\r\n        var engineersList = new List\u003CEngineer\u003E\r\n        {\r\n            engineer1,\r\n            engineer2,\r\n            engineer3,\r\n            engineer4,\r\n            engineer5,\r\n            engineer6,\r\n            engineer7,\r\n            engineer8,\r\n            engineer9,\r\n            engineer10,\r\n        };\r\n        context.Engineers.AddRange(engineersList);\r\n        var today = new DateTime(2017, 12, 11);\r\n        var shifts = new List\u003CEngineerShift\u003E\r\n        {\r\n            //first week\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date,\r\n                Duration = shiftDuration,\r\n                Engineer = engineer1\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date,\r\n                Duration = shiftDuration,\r\n                Engineer = engineer2\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(1),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer7\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(2),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer3\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(2),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer4\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(4),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer5\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(4),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer6\r\n            },\r\n        };\r\n        context.EngineersShifts.AddRange(shifts);\r\n        context.SaveChanges();\r\n    }\r\n\r\n    // test\r\n    using (var context = new BAUDbContext(options))\r\n    {\r\n        repository = new ShiftRepository(context, ConfigurationTestBuilder.GetConfiguration());\r\n        IList\u003CEngineer\u003E availableEngineers = repository.FindEngineersAvailableOn(date);\r\n        Assert.Equal(nEngineers, availableEngineers.Count);\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Found"
+          }
+        ]
+      },
+      {
+        "Name": "FindEngineersAvailableOn_Check_2HalfShifts",
+        "Body": "{\r\n    string contextName = $\u0022FindEngineersAvailableOn_Check_2HalfShifts\u0022;\r\n    _contextNames.Add(contextName);\r\n    DbContextOptions\u003CBAUDbContext\u003E options = DbContextUtils.GetContextOptions(contextName);\r\n    IShiftRepository repository = null;\r\n    const int shiftDuration = 4;\r\n    // fake data\r\n    using (BAUDbContext context = new BAUDbContext(options))\r\n    {\r\n        var engineer1 = new Engineer\r\n        {\r\n            Name = \u00221\u0022\r\n        };\r\n        var engineer2 = new Engineer\r\n        {\r\n            Name = \u00222\u0022\r\n        };\r\n        var engineer3 = new Engineer\r\n        {\r\n            Name = \u00223\u0022\r\n        };\r\n        var engineer4 = new Engineer\r\n        {\r\n            Name = \u00224\u0022\r\n        };\r\n        var engineer5 = new Engineer\r\n        {\r\n            Name = \u00225\u0022\r\n        };\r\n        var engineer6 = new Engineer\r\n        {\r\n            Name = \u00226\u0022\r\n        };\r\n        var engineer7 = new Engineer\r\n        {\r\n            Name = \u00227\u0022\r\n        };\r\n        var engineer8 = new Engineer\r\n        {\r\n            Name = \u00228\u0022\r\n        };\r\n        var engineer9 = new Engineer\r\n        {\r\n            Name = \u00229\u0022\r\n        };\r\n        var engineer10 = new Engineer\r\n        {\r\n            Name = \u002210\u0022\r\n        };\r\n        var engineersList = new List\u003CEngineer\u003E\r\n        {\r\n            engineer1,\r\n            engineer2,\r\n            engineer3,\r\n            engineer4,\r\n            engineer5,\r\n            engineer6,\r\n            engineer7,\r\n            engineer8,\r\n            engineer9,\r\n            engineer10,\r\n        };\r\n        context.Engineers.AddRange(engineersList);\r\n        var today = new DateTime(2017, 12, 11);\r\n        var shifts = new List\u003CEngineerShift\u003E\r\n        {\r\n            //first week\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date,\r\n                Duration = shiftDuration,\r\n                Engineer = engineer1\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date,\r\n                Duration = shiftDuration,\r\n                Engineer = engineer2\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(1),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer3\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(2),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer1\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(2),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer2\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(4),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer3\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(4),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer7\r\n            },\r\n        };\r\n        context.EngineersShifts.AddRange(shifts);\r\n        context.SaveChanges();\r\n    }\r\n\r\n    // test\r\n    using (var context = new BAUDbContext(options))\r\n    {\r\n        repository = new ShiftRepository(context, ConfigurationTestBuilder.GetConfiguration());\r\n        IList\u003CEngineer\u003E availableEngineers = repository.FindEngineersAvailableOn(date);\r\n        Assert.Equal(nEngineers, availableEngineers.Count);\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Found"
+          }
+        ]
+      },
+      {
+        "Name": "FindEngineersAvailableOn_Date",
+        "Body": "{\r\n    string contextName = $\u0022FindEngineersAvailableOn_Date\u0022;\r\n    _contextNames.Add(contextName);\r\n    DbContextOptions\u003CBAUDbContext\u003E options = DbContextUtils.GetContextOptions(contextName);\r\n    IShiftRepository repository = null;\r\n    const int shiftDuration = 4;\r\n    // fake data\r\n    using (BAUDbContext context = new BAUDbContext(options))\r\n    {\r\n        var engineer1 = new Engineer\r\n        {\r\n            Name = \u00221\u0022\r\n        };\r\n        var engineer2 = new Engineer\r\n        {\r\n            Name = \u00222\u0022\r\n        };\r\n        var engineer3 = new Engineer\r\n        {\r\n            Name = \u00223\u0022\r\n        };\r\n        var engineer4 = new Engineer\r\n        {\r\n            Name = \u00224\u0022\r\n        };\r\n        var engineer5 = new Engineer\r\n        {\r\n            Name = \u00225\u0022\r\n        };\r\n        var engineer6 = new Engineer\r\n        {\r\n            Name = \u00226\u0022\r\n        };\r\n        var engineer7 = new Engineer\r\n        {\r\n            Name = \u00227\u0022\r\n        };\r\n        var engineer8 = new Engineer\r\n        {\r\n            Name = \u00228\u0022\r\n        };\r\n        var engineer9 = new Engineer\r\n        {\r\n            Name = \u00229\u0022\r\n        };\r\n        var engineer10 = new Engineer\r\n        {\r\n            Name = \u002210\u0022\r\n        };\r\n        var engineersList = new List\u003CEngineer\u003E\r\n        {\r\n            engineer1,\r\n            engineer2,\r\n            engineer3,\r\n            engineer4,\r\n            engineer5,\r\n            engineer6,\r\n            engineer7,\r\n            engineer8,\r\n            engineer9,\r\n            engineer10,\r\n        };\r\n        context.Engineers.AddRange(engineersList);\r\n        var today = new DateTime(2017, 12, 11);\r\n        var shifts = new List\u003CEngineerShift\u003E\r\n        {\r\n            //first week\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date,\r\n                Duration = shiftDuration,\r\n                Engineer = engineer1\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date,\r\n                Duration = shiftDuration,\r\n                Engineer = engineer2\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(1),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer4\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(1),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer5\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(2),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer2\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(2),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer6\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(3),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer7\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(3),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer8\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(4),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer9\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(4),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer10\r\n            },\r\n        };\r\n        context.EngineersShifts.AddRange(shifts);\r\n        context.SaveChanges();\r\n    }\r\n\r\n    // test\r\n    using (var context = new BAUDbContext(options))\r\n    {\r\n        repository = new ShiftRepository(context, ConfigurationTestBuilder.GetConfiguration());\r\n        IList\u003CEngineer\u003E availableEngineers = repository.FindEngineersAvailableOn(date);\r\n        Assert.Equal(nEngineers, availableEngineers.Count);\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "FindEngineersAvailableOn_Date_Generator",
+    "Message": null,
+    "ProjectName": "BAU.Test",
+    "Methods": [
+      {
+        "Name": "FindEngineersAvailableOn_MAX_SHIFT_SUM_HOURS_DURATION_Error",
+        "Body": "{\r\n    string contextName = \u0022FindEngineersAvailableOn_MAX_SHIFT_SUM_HOURS_DURATION_Error\u0022;\r\n    _contextNames.Add(contextName);\r\n    DbContextOptions\u003CBAUDbContext\u003E options = DbContextUtils.GetContextOptions(contextName);\r\n    using (var context = new BAUDbContext(options))\r\n    {\r\n        try\r\n        {\r\n            new ShiftRepository(context, ConfigurationTestBuilder.GetConfiguration(\u0022MAX_SHIFT_SUM_HOURS_DURATION\u0022));\r\n        }\r\n        catch (ArgumentNullException ex)\r\n        {\r\n            Assert.Equal(\u0022App:MAX_SHIFT_SUM_HOURS_DURATION\u0022, ex.ParamName);\r\n        }\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "FindEngineersAvailableOn_WEEK_SCAN_PERIOD_Error",
+        "Body": "{\r\n    string contextName = \u0022FindEngineersAvailableOn_WEEK_SCAN_PERIOD_Error\u0022;\r\n    _contextNames.Add(contextName);\r\n    DbContextOptions\u003CBAUDbContext\u003E options = DbContextUtils.GetContextOptions(contextName);\r\n    using (var context = new BAUDbContext(options))\r\n    {\r\n        try\r\n        {\r\n            new ShiftRepository(context, ConfigurationTestBuilder.GetConfiguration(\u0022WEEK_SCAN_PERIOD\u0022));\r\n        }\r\n        catch (ArgumentNullException ex)\r\n        {\r\n            Assert.Equal(\u0022App:WEEK_SCAN_PERIOD\u0022, ex.ParamName);\r\n        }\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "FindEngineersAvailableOn_Check_Consecutive_Days",
+        "Body": "{\r\n    string contextName = $\u0022FindEngineersAvailableOn_Check_Consecutive_Days\u0022;\r\n    _contextNames.Add(contextName);\r\n    DbContextOptions\u003CBAUDbContext\u003E options = DbContextUtils.GetContextOptions(contextName);\r\n    IShiftRepository repository = null;\r\n    const int shiftDuration = 4;\r\n    // fake data\r\n    using (BAUDbContext context = new BAUDbContext(options))\r\n    {\r\n        var engineer1 = new Engineer\r\n        {\r\n            Name = \u00221\u0022\r\n        };\r\n        var engineer2 = new Engineer\r\n        {\r\n            Name = \u00222\u0022\r\n        };\r\n        var engineer3 = new Engineer\r\n        {\r\n            Name = \u00223\u0022\r\n        };\r\n        var engineer4 = new Engineer\r\n        {\r\n            Name = \u00224\u0022\r\n        };\r\n        var engineer5 = new Engineer\r\n        {\r\n            Name = \u00225\u0022\r\n        };\r\n        var engineer6 = new Engineer\r\n        {\r\n            Name = \u00226\u0022\r\n        };\r\n        var engineer7 = new Engineer\r\n        {\r\n            Name = \u00227\u0022\r\n        };\r\n        var engineer8 = new Engineer\r\n        {\r\n            Name = \u00228\u0022\r\n        };\r\n        var engineer9 = new Engineer\r\n        {\r\n            Name = \u00229\u0022\r\n        };\r\n        var engineer10 = new Engineer\r\n        {\r\n            Name = \u002210\u0022\r\n        };\r\n        var engineersList = new List\u003CEngineer\u003E\r\n        {\r\n            engineer1,\r\n            engineer2,\r\n            engineer3,\r\n            engineer4,\r\n            engineer5,\r\n            engineer6,\r\n            engineer7,\r\n            engineer8,\r\n            engineer9,\r\n            engineer10,\r\n        };\r\n        context.Engineers.AddRange(engineersList);\r\n        var today = new DateTime(2017, 12, 11);\r\n        var shifts = new List\u003CEngineerShift\u003E\r\n        {\r\n            //first week\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date,\r\n                Duration = shiftDuration,\r\n                Engineer = engineer1\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date,\r\n                Duration = shiftDuration,\r\n                Engineer = engineer2\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(1),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer7\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(2),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer3\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(2),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer4\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(4),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer5\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(4),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer6\r\n            },\r\n        };\r\n        context.EngineersShifts.AddRange(shifts);\r\n        context.SaveChanges();\r\n    }\r\n\r\n    // test\r\n    using (var context = new BAUDbContext(options))\r\n    {\r\n        repository = new ShiftRepository(context, ConfigurationTestBuilder.GetConfiguration());\r\n        IList\u003CEngineer\u003E availableEngineers = repository.FindEngineersAvailableOn(date);\r\n        Assert.Equal(nEngineers, availableEngineers.Count);\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Found"
+          }
+        ]
+      },
+      {
+        "Name": "FindEngineersAvailableOn_Check_2HalfShifts",
+        "Body": "{\r\n    string contextName = $\u0022FindEngineersAvailableOn_Check_2HalfShifts\u0022;\r\n    _contextNames.Add(contextName);\r\n    DbContextOptions\u003CBAUDbContext\u003E options = DbContextUtils.GetContextOptions(contextName);\r\n    IShiftRepository repository = null;\r\n    const int shiftDuration = 4;\r\n    // fake data\r\n    using (BAUDbContext context = new BAUDbContext(options))\r\n    {\r\n        var engineer1 = new Engineer\r\n        {\r\n            Name = \u00221\u0022\r\n        };\r\n        var engineer2 = new Engineer\r\n        {\r\n            Name = \u00222\u0022\r\n        };\r\n        var engineer3 = new Engineer\r\n        {\r\n            Name = \u00223\u0022\r\n        };\r\n        var engineer4 = new Engineer\r\n        {\r\n            Name = \u00224\u0022\r\n        };\r\n        var engineer5 = new Engineer\r\n        {\r\n            Name = \u00225\u0022\r\n        };\r\n        var engineer6 = new Engineer\r\n        {\r\n            Name = \u00226\u0022\r\n        };\r\n        var engineer7 = new Engineer\r\n        {\r\n            Name = \u00227\u0022\r\n        };\r\n        var engineer8 = new Engineer\r\n        {\r\n            Name = \u00228\u0022\r\n        };\r\n        var engineer9 = new Engineer\r\n        {\r\n            Name = \u00229\u0022\r\n        };\r\n        var engineer10 = new Engineer\r\n        {\r\n            Name = \u002210\u0022\r\n        };\r\n        var engineersList = new List\u003CEngineer\u003E\r\n        {\r\n            engineer1,\r\n            engineer2,\r\n            engineer3,\r\n            engineer4,\r\n            engineer5,\r\n            engineer6,\r\n            engineer7,\r\n            engineer8,\r\n            engineer9,\r\n            engineer10,\r\n        };\r\n        context.Engineers.AddRange(engineersList);\r\n        var today = new DateTime(2017, 12, 11);\r\n        var shifts = new List\u003CEngineerShift\u003E\r\n        {\r\n            //first week\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date,\r\n                Duration = shiftDuration,\r\n                Engineer = engineer1\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date,\r\n                Duration = shiftDuration,\r\n                Engineer = engineer2\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(1),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer3\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(2),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer1\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(2),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer2\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(4),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer3\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(4),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer7\r\n            },\r\n        };\r\n        context.EngineersShifts.AddRange(shifts);\r\n        context.SaveChanges();\r\n    }\r\n\r\n    // test\r\n    using (var context = new BAUDbContext(options))\r\n    {\r\n        repository = new ShiftRepository(context, ConfigurationTestBuilder.GetConfiguration());\r\n        IList\u003CEngineer\u003E availableEngineers = repository.FindEngineersAvailableOn(date);\r\n        Assert.Equal(nEngineers, availableEngineers.Count);\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Found"
+          }
+        ]
+      },
+      {
+        "Name": "FindEngineersAvailableOn_Date",
+        "Body": "{\r\n    string contextName = $\u0022FindEngineersAvailableOn_Date\u0022;\r\n    _contextNames.Add(contextName);\r\n    DbContextOptions\u003CBAUDbContext\u003E options = DbContextUtils.GetContextOptions(contextName);\r\n    IShiftRepository repository = null;\r\n    const int shiftDuration = 4;\r\n    // fake data\r\n    using (BAUDbContext context = new BAUDbContext(options))\r\n    {\r\n        var engineer1 = new Engineer\r\n        {\r\n            Name = \u00221\u0022\r\n        };\r\n        var engineer2 = new Engineer\r\n        {\r\n            Name = \u00222\u0022\r\n        };\r\n        var engineer3 = new Engineer\r\n        {\r\n            Name = \u00223\u0022\r\n        };\r\n        var engineer4 = new Engineer\r\n        {\r\n            Name = \u00224\u0022\r\n        };\r\n        var engineer5 = new Engineer\r\n        {\r\n            Name = \u00225\u0022\r\n        };\r\n        var engineer6 = new Engineer\r\n        {\r\n            Name = \u00226\u0022\r\n        };\r\n        var engineer7 = new Engineer\r\n        {\r\n            Name = \u00227\u0022\r\n        };\r\n        var engineer8 = new Engineer\r\n        {\r\n            Name = \u00228\u0022\r\n        };\r\n        var engineer9 = new Engineer\r\n        {\r\n            Name = \u00229\u0022\r\n        };\r\n        var engineer10 = new Engineer\r\n        {\r\n            Name = \u002210\u0022\r\n        };\r\n        var engineersList = new List\u003CEngineer\u003E\r\n        {\r\n            engineer1,\r\n            engineer2,\r\n            engineer3,\r\n            engineer4,\r\n            engineer5,\r\n            engineer6,\r\n            engineer7,\r\n            engineer8,\r\n            engineer9,\r\n            engineer10,\r\n        };\r\n        context.Engineers.AddRange(engineersList);\r\n        var today = new DateTime(2017, 12, 11);\r\n        var shifts = new List\u003CEngineerShift\u003E\r\n        {\r\n            //first week\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date,\r\n                Duration = shiftDuration,\r\n                Engineer = engineer1\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date,\r\n                Duration = shiftDuration,\r\n                Engineer = engineer2\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(1),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer4\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(1),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer5\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(2),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer2\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(2),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer6\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(3),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer7\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(3),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer8\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(4),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer9\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(4),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer10\r\n            },\r\n        };\r\n        context.EngineersShifts.AddRange(shifts);\r\n        context.SaveChanges();\r\n    }\r\n\r\n    // test\r\n    using (var context = new BAUDbContext(options))\r\n    {\r\n        repository = new ShiftRepository(context, ConfigurationTestBuilder.GetConfiguration());\r\n        IList\u003CEngineer\u003E availableEngineers = repository.FindEngineersAvailableOn(date);\r\n        Assert.Equal(nEngineers, availableEngineers.Count);\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "FindEngineersAvailableOn_Check_Consecutive_Days",
+    "Message": null,
+    "ProjectName": "BAU.Test",
+    "Methods": [
+      {
+        "Name": "FindEngineersAvailableOn_MAX_SHIFT_SUM_HOURS_DURATION_Error",
+        "Body": "{\r\n    string contextName = \u0022FindEngineersAvailableOn_MAX_SHIFT_SUM_HOURS_DURATION_Error\u0022;\r\n    _contextNames.Add(contextName);\r\n    DbContextOptions\u003CBAUDbContext\u003E options = DbContextUtils.GetContextOptions(contextName);\r\n    using (var context = new BAUDbContext(options))\r\n    {\r\n        try\r\n        {\r\n            new ShiftRepository(context, ConfigurationTestBuilder.GetConfiguration(\u0022MAX_SHIFT_SUM_HOURS_DURATION\u0022));\r\n        }\r\n        catch (ArgumentNullException ex)\r\n        {\r\n            Assert.Equal(\u0022App:MAX_SHIFT_SUM_HOURS_DURATION\u0022, ex.ParamName);\r\n        }\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "FindEngineersAvailableOn_WEEK_SCAN_PERIOD_Error",
+        "Body": "{\r\n    string contextName = \u0022FindEngineersAvailableOn_WEEK_SCAN_PERIOD_Error\u0022;\r\n    _contextNames.Add(contextName);\r\n    DbContextOptions\u003CBAUDbContext\u003E options = DbContextUtils.GetContextOptions(contextName);\r\n    using (var context = new BAUDbContext(options))\r\n    {\r\n        try\r\n        {\r\n            new ShiftRepository(context, ConfigurationTestBuilder.GetConfiguration(\u0022WEEK_SCAN_PERIOD\u0022));\r\n        }\r\n        catch (ArgumentNullException ex)\r\n        {\r\n            Assert.Equal(\u0022App:WEEK_SCAN_PERIOD\u0022, ex.ParamName);\r\n        }\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "FindEngineersAvailableOn_Check_Consecutive_Days",
+        "Body": "{\r\n    string contextName = $\u0022FindEngineersAvailableOn_Check_Consecutive_Days\u0022;\r\n    _contextNames.Add(contextName);\r\n    DbContextOptions\u003CBAUDbContext\u003E options = DbContextUtils.GetContextOptions(contextName);\r\n    IShiftRepository repository = null;\r\n    const int shiftDuration = 4;\r\n    // fake data\r\n    using (BAUDbContext context = new BAUDbContext(options))\r\n    {\r\n        var engineer1 = new Engineer\r\n        {\r\n            Name = \u00221\u0022\r\n        };\r\n        var engineer2 = new Engineer\r\n        {\r\n            Name = \u00222\u0022\r\n        };\r\n        var engineer3 = new Engineer\r\n        {\r\n            Name = \u00223\u0022\r\n        };\r\n        var engineer4 = new Engineer\r\n        {\r\n            Name = \u00224\u0022\r\n        };\r\n        var engineer5 = new Engineer\r\n        {\r\n            Name = \u00225\u0022\r\n        };\r\n        var engineer6 = new Engineer\r\n        {\r\n            Name = \u00226\u0022\r\n        };\r\n        var engineer7 = new Engineer\r\n        {\r\n            Name = \u00227\u0022\r\n        };\r\n        var engineer8 = new Engineer\r\n        {\r\n            Name = \u00228\u0022\r\n        };\r\n        var engineer9 = new Engineer\r\n        {\r\n            Name = \u00229\u0022\r\n        };\r\n        var engineer10 = new Engineer\r\n        {\r\n            Name = \u002210\u0022\r\n        };\r\n        var engineersList = new List\u003CEngineer\u003E\r\n        {\r\n            engineer1,\r\n            engineer2,\r\n            engineer3,\r\n            engineer4,\r\n            engineer5,\r\n            engineer6,\r\n            engineer7,\r\n            engineer8,\r\n            engineer9,\r\n            engineer10,\r\n        };\r\n        context.Engineers.AddRange(engineersList);\r\n        var today = new DateTime(2017, 12, 11);\r\n        var shifts = new List\u003CEngineerShift\u003E\r\n        {\r\n            //first week\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date,\r\n                Duration = shiftDuration,\r\n                Engineer = engineer1\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date,\r\n                Duration = shiftDuration,\r\n                Engineer = engineer2\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(1),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer7\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(2),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer3\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(2),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer4\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(4),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer5\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(4),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer6\r\n            },\r\n        };\r\n        context.EngineersShifts.AddRange(shifts);\r\n        context.SaveChanges();\r\n    }\r\n\r\n    // test\r\n    using (var context = new BAUDbContext(options))\r\n    {\r\n        repository = new ShiftRepository(context, ConfigurationTestBuilder.GetConfiguration());\r\n        IList\u003CEngineer\u003E availableEngineers = repository.FindEngineersAvailableOn(date);\r\n        Assert.Equal(nEngineers, availableEngineers.Count);\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Found"
+          }
+        ]
+      },
+      {
+        "Name": "FindEngineersAvailableOn_Check_2HalfShifts",
+        "Body": "{\r\n    string contextName = $\u0022FindEngineersAvailableOn_Check_2HalfShifts\u0022;\r\n    _contextNames.Add(contextName);\r\n    DbContextOptions\u003CBAUDbContext\u003E options = DbContextUtils.GetContextOptions(contextName);\r\n    IShiftRepository repository = null;\r\n    const int shiftDuration = 4;\r\n    // fake data\r\n    using (BAUDbContext context = new BAUDbContext(options))\r\n    {\r\n        var engineer1 = new Engineer\r\n        {\r\n            Name = \u00221\u0022\r\n        };\r\n        var engineer2 = new Engineer\r\n        {\r\n            Name = \u00222\u0022\r\n        };\r\n        var engineer3 = new Engineer\r\n        {\r\n            Name = \u00223\u0022\r\n        };\r\n        var engineer4 = new Engineer\r\n        {\r\n            Name = \u00224\u0022\r\n        };\r\n        var engineer5 = new Engineer\r\n        {\r\n            Name = \u00225\u0022\r\n        };\r\n        var engineer6 = new Engineer\r\n        {\r\n            Name = \u00226\u0022\r\n        };\r\n        var engineer7 = new Engineer\r\n        {\r\n            Name = \u00227\u0022\r\n        };\r\n        var engineer8 = new Engineer\r\n        {\r\n            Name = \u00228\u0022\r\n        };\r\n        var engineer9 = new Engineer\r\n        {\r\n            Name = \u00229\u0022\r\n        };\r\n        var engineer10 = new Engineer\r\n        {\r\n            Name = \u002210\u0022\r\n        };\r\n        var engineersList = new List\u003CEngineer\u003E\r\n        {\r\n            engineer1,\r\n            engineer2,\r\n            engineer3,\r\n            engineer4,\r\n            engineer5,\r\n            engineer6,\r\n            engineer7,\r\n            engineer8,\r\n            engineer9,\r\n            engineer10,\r\n        };\r\n        context.Engineers.AddRange(engineersList);\r\n        var today = new DateTime(2017, 12, 11);\r\n        var shifts = new List\u003CEngineerShift\u003E\r\n        {\r\n            //first week\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date,\r\n                Duration = shiftDuration,\r\n                Engineer = engineer1\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date,\r\n                Duration = shiftDuration,\r\n                Engineer = engineer2\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(1),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer3\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(2),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer1\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(2),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer2\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(4),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer3\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(4),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer7\r\n            },\r\n        };\r\n        context.EngineersShifts.AddRange(shifts);\r\n        context.SaveChanges();\r\n    }\r\n\r\n    // test\r\n    using (var context = new BAUDbContext(options))\r\n    {\r\n        repository = new ShiftRepository(context, ConfigurationTestBuilder.GetConfiguration());\r\n        IList\u003CEngineer\u003E availableEngineers = repository.FindEngineersAvailableOn(date);\r\n        Assert.Equal(nEngineers, availableEngineers.Count);\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Found"
+          }
+        ]
+      },
+      {
+        "Name": "FindEngineersAvailableOn_Date",
+        "Body": "{\r\n    string contextName = $\u0022FindEngineersAvailableOn_Date\u0022;\r\n    _contextNames.Add(contextName);\r\n    DbContextOptions\u003CBAUDbContext\u003E options = DbContextUtils.GetContextOptions(contextName);\r\n    IShiftRepository repository = null;\r\n    const int shiftDuration = 4;\r\n    // fake data\r\n    using (BAUDbContext context = new BAUDbContext(options))\r\n    {\r\n        var engineer1 = new Engineer\r\n        {\r\n            Name = \u00221\u0022\r\n        };\r\n        var engineer2 = new Engineer\r\n        {\r\n            Name = \u00222\u0022\r\n        };\r\n        var engineer3 = new Engineer\r\n        {\r\n            Name = \u00223\u0022\r\n        };\r\n        var engineer4 = new Engineer\r\n        {\r\n            Name = \u00224\u0022\r\n        };\r\n        var engineer5 = new Engineer\r\n        {\r\n            Name = \u00225\u0022\r\n        };\r\n        var engineer6 = new Engineer\r\n        {\r\n            Name = \u00226\u0022\r\n        };\r\n        var engineer7 = new Engineer\r\n        {\r\n            Name = \u00227\u0022\r\n        };\r\n        var engineer8 = new Engineer\r\n        {\r\n            Name = \u00228\u0022\r\n        };\r\n        var engineer9 = new Engineer\r\n        {\r\n            Name = \u00229\u0022\r\n        };\r\n        var engineer10 = new Engineer\r\n        {\r\n            Name = \u002210\u0022\r\n        };\r\n        var engineersList = new List\u003CEngineer\u003E\r\n        {\r\n            engineer1,\r\n            engineer2,\r\n            engineer3,\r\n            engineer4,\r\n            engineer5,\r\n            engineer6,\r\n            engineer7,\r\n            engineer8,\r\n            engineer9,\r\n            engineer10,\r\n        };\r\n        context.Engineers.AddRange(engineersList);\r\n        var today = new DateTime(2017, 12, 11);\r\n        var shifts = new List\u003CEngineerShift\u003E\r\n        {\r\n            //first week\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date,\r\n                Duration = shiftDuration,\r\n                Engineer = engineer1\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date,\r\n                Duration = shiftDuration,\r\n                Engineer = engineer2\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(1),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer4\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(1),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer5\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(2),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer2\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(2),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer6\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(3),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer7\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(3),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer8\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(4),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer9\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(4),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer10\r\n            },\r\n        };\r\n        context.EngineersShifts.AddRange(shifts);\r\n        context.SaveChanges();\r\n    }\r\n\r\n    // test\r\n    using (var context = new BAUDbContext(options))\r\n    {\r\n        repository = new ShiftRepository(context, ConfigurationTestBuilder.GetConfiguration());\r\n        IList\u003CEngineer\u003E availableEngineers = repository.FindEngineersAvailableOn(date);\r\n        Assert.Equal(nEngineers, availableEngineers.Count);\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "FindEngineersAvailableOn_Check_2HalfShifts",
+    "Message": null,
+    "ProjectName": "BAU.Test",
+    "Methods": [
+      {
+        "Name": "FindEngineersAvailableOn_MAX_SHIFT_SUM_HOURS_DURATION_Error",
+        "Body": "{\r\n    string contextName = \u0022FindEngineersAvailableOn_MAX_SHIFT_SUM_HOURS_DURATION_Error\u0022;\r\n    _contextNames.Add(contextName);\r\n    DbContextOptions\u003CBAUDbContext\u003E options = DbContextUtils.GetContextOptions(contextName);\r\n    using (var context = new BAUDbContext(options))\r\n    {\r\n        try\r\n        {\r\n            new ShiftRepository(context, ConfigurationTestBuilder.GetConfiguration(\u0022MAX_SHIFT_SUM_HOURS_DURATION\u0022));\r\n        }\r\n        catch (ArgumentNullException ex)\r\n        {\r\n            Assert.Equal(\u0022App:MAX_SHIFT_SUM_HOURS_DURATION\u0022, ex.ParamName);\r\n        }\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "FindEngineersAvailableOn_WEEK_SCAN_PERIOD_Error",
+        "Body": "{\r\n    string contextName = \u0022FindEngineersAvailableOn_WEEK_SCAN_PERIOD_Error\u0022;\r\n    _contextNames.Add(contextName);\r\n    DbContextOptions\u003CBAUDbContext\u003E options = DbContextUtils.GetContextOptions(contextName);\r\n    using (var context = new BAUDbContext(options))\r\n    {\r\n        try\r\n        {\r\n            new ShiftRepository(context, ConfigurationTestBuilder.GetConfiguration(\u0022WEEK_SCAN_PERIOD\u0022));\r\n        }\r\n        catch (ArgumentNullException ex)\r\n        {\r\n            Assert.Equal(\u0022App:WEEK_SCAN_PERIOD\u0022, ex.ParamName);\r\n        }\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "FindEngineersAvailableOn_Check_Consecutive_Days",
+        "Body": "{\r\n    string contextName = $\u0022FindEngineersAvailableOn_Check_Consecutive_Days\u0022;\r\n    _contextNames.Add(contextName);\r\n    DbContextOptions\u003CBAUDbContext\u003E options = DbContextUtils.GetContextOptions(contextName);\r\n    IShiftRepository repository = null;\r\n    const int shiftDuration = 4;\r\n    // fake data\r\n    using (BAUDbContext context = new BAUDbContext(options))\r\n    {\r\n        var engineer1 = new Engineer\r\n        {\r\n            Name = \u00221\u0022\r\n        };\r\n        var engineer2 = new Engineer\r\n        {\r\n            Name = \u00222\u0022\r\n        };\r\n        var engineer3 = new Engineer\r\n        {\r\n            Name = \u00223\u0022\r\n        };\r\n        var engineer4 = new Engineer\r\n        {\r\n            Name = \u00224\u0022\r\n        };\r\n        var engineer5 = new Engineer\r\n        {\r\n            Name = \u00225\u0022\r\n        };\r\n        var engineer6 = new Engineer\r\n        {\r\n            Name = \u00226\u0022\r\n        };\r\n        var engineer7 = new Engineer\r\n        {\r\n            Name = \u00227\u0022\r\n        };\r\n        var engineer8 = new Engineer\r\n        {\r\n            Name = \u00228\u0022\r\n        };\r\n        var engineer9 = new Engineer\r\n        {\r\n            Name = \u00229\u0022\r\n        };\r\n        var engineer10 = new Engineer\r\n        {\r\n            Name = \u002210\u0022\r\n        };\r\n        var engineersList = new List\u003CEngineer\u003E\r\n        {\r\n            engineer1,\r\n            engineer2,\r\n            engineer3,\r\n            engineer4,\r\n            engineer5,\r\n            engineer6,\r\n            engineer7,\r\n            engineer8,\r\n            engineer9,\r\n            engineer10,\r\n        };\r\n        context.Engineers.AddRange(engineersList);\r\n        var today = new DateTime(2017, 12, 11);\r\n        var shifts = new List\u003CEngineerShift\u003E\r\n        {\r\n            //first week\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date,\r\n                Duration = shiftDuration,\r\n                Engineer = engineer1\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date,\r\n                Duration = shiftDuration,\r\n                Engineer = engineer2\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(1),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer7\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(2),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer3\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(2),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer4\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(4),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer5\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(4),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer6\r\n            },\r\n        };\r\n        context.EngineersShifts.AddRange(shifts);\r\n        context.SaveChanges();\r\n    }\r\n\r\n    // test\r\n    using (var context = new BAUDbContext(options))\r\n    {\r\n        repository = new ShiftRepository(context, ConfigurationTestBuilder.GetConfiguration());\r\n        IList\u003CEngineer\u003E availableEngineers = repository.FindEngineersAvailableOn(date);\r\n        Assert.Equal(nEngineers, availableEngineers.Count);\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Found"
+          }
+        ]
+      },
+      {
+        "Name": "FindEngineersAvailableOn_Check_2HalfShifts",
+        "Body": "{\r\n    string contextName = $\u0022FindEngineersAvailableOn_Check_2HalfShifts\u0022;\r\n    _contextNames.Add(contextName);\r\n    DbContextOptions\u003CBAUDbContext\u003E options = DbContextUtils.GetContextOptions(contextName);\r\n    IShiftRepository repository = null;\r\n    const int shiftDuration = 4;\r\n    // fake data\r\n    using (BAUDbContext context = new BAUDbContext(options))\r\n    {\r\n        var engineer1 = new Engineer\r\n        {\r\n            Name = \u00221\u0022\r\n        };\r\n        var engineer2 = new Engineer\r\n        {\r\n            Name = \u00222\u0022\r\n        };\r\n        var engineer3 = new Engineer\r\n        {\r\n            Name = \u00223\u0022\r\n        };\r\n        var engineer4 = new Engineer\r\n        {\r\n            Name = \u00224\u0022\r\n        };\r\n        var engineer5 = new Engineer\r\n        {\r\n            Name = \u00225\u0022\r\n        };\r\n        var engineer6 = new Engineer\r\n        {\r\n            Name = \u00226\u0022\r\n        };\r\n        var engineer7 = new Engineer\r\n        {\r\n            Name = \u00227\u0022\r\n        };\r\n        var engineer8 = new Engineer\r\n        {\r\n            Name = \u00228\u0022\r\n        };\r\n        var engineer9 = new Engineer\r\n        {\r\n            Name = \u00229\u0022\r\n        };\r\n        var engineer10 = new Engineer\r\n        {\r\n            Name = \u002210\u0022\r\n        };\r\n        var engineersList = new List\u003CEngineer\u003E\r\n        {\r\n            engineer1,\r\n            engineer2,\r\n            engineer3,\r\n            engineer4,\r\n            engineer5,\r\n            engineer6,\r\n            engineer7,\r\n            engineer8,\r\n            engineer9,\r\n            engineer10,\r\n        };\r\n        context.Engineers.AddRange(engineersList);\r\n        var today = new DateTime(2017, 12, 11);\r\n        var shifts = new List\u003CEngineerShift\u003E\r\n        {\r\n            //first week\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date,\r\n                Duration = shiftDuration,\r\n                Engineer = engineer1\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date,\r\n                Duration = shiftDuration,\r\n                Engineer = engineer2\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(1),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer3\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(2),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer1\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(2),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer2\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(4),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer3\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(4),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer7\r\n            },\r\n        };\r\n        context.EngineersShifts.AddRange(shifts);\r\n        context.SaveChanges();\r\n    }\r\n\r\n    // test\r\n    using (var context = new BAUDbContext(options))\r\n    {\r\n        repository = new ShiftRepository(context, ConfigurationTestBuilder.GetConfiguration());\r\n        IList\u003CEngineer\u003E availableEngineers = repository.FindEngineersAvailableOn(date);\r\n        Assert.Equal(nEngineers, availableEngineers.Count);\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Found"
+          }
+        ]
+      },
+      {
+        "Name": "FindEngineersAvailableOn_Date",
+        "Body": "{\r\n    string contextName = $\u0022FindEngineersAvailableOn_Date\u0022;\r\n    _contextNames.Add(contextName);\r\n    DbContextOptions\u003CBAUDbContext\u003E options = DbContextUtils.GetContextOptions(contextName);\r\n    IShiftRepository repository = null;\r\n    const int shiftDuration = 4;\r\n    // fake data\r\n    using (BAUDbContext context = new BAUDbContext(options))\r\n    {\r\n        var engineer1 = new Engineer\r\n        {\r\n            Name = \u00221\u0022\r\n        };\r\n        var engineer2 = new Engineer\r\n        {\r\n            Name = \u00222\u0022\r\n        };\r\n        var engineer3 = new Engineer\r\n        {\r\n            Name = \u00223\u0022\r\n        };\r\n        var engineer4 = new Engineer\r\n        {\r\n            Name = \u00224\u0022\r\n        };\r\n        var engineer5 = new Engineer\r\n        {\r\n            Name = \u00225\u0022\r\n        };\r\n        var engineer6 = new Engineer\r\n        {\r\n            Name = \u00226\u0022\r\n        };\r\n        var engineer7 = new Engineer\r\n        {\r\n            Name = \u00227\u0022\r\n        };\r\n        var engineer8 = new Engineer\r\n        {\r\n            Name = \u00228\u0022\r\n        };\r\n        var engineer9 = new Engineer\r\n        {\r\n            Name = \u00229\u0022\r\n        };\r\n        var engineer10 = new Engineer\r\n        {\r\n            Name = \u002210\u0022\r\n        };\r\n        var engineersList = new List\u003CEngineer\u003E\r\n        {\r\n            engineer1,\r\n            engineer2,\r\n            engineer3,\r\n            engineer4,\r\n            engineer5,\r\n            engineer6,\r\n            engineer7,\r\n            engineer8,\r\n            engineer9,\r\n            engineer10,\r\n        };\r\n        context.Engineers.AddRange(engineersList);\r\n        var today = new DateTime(2017, 12, 11);\r\n        var shifts = new List\u003CEngineerShift\u003E\r\n        {\r\n            //first week\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date,\r\n                Duration = shiftDuration,\r\n                Engineer = engineer1\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date,\r\n                Duration = shiftDuration,\r\n                Engineer = engineer2\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(1),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer4\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(1),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer5\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(2),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer2\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(2),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer6\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(3),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer7\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(3),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer8\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(4),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer9\r\n            },\r\n            new EngineerShift\r\n            {\r\n                Date = today.Date.AddDays(4),\r\n                Duration = shiftDuration,\r\n                Engineer = engineer10\r\n            },\r\n        };\r\n        context.EngineersShifts.AddRange(shifts);\r\n        context.SaveChanges();\r\n    }\r\n\r\n    // test\r\n    using (var context = new BAUDbContext(options))\r\n    {\r\n        repository = new ShiftRepository(context, ConfigurationTestBuilder.GetConfiguration());\r\n        IList\u003CEngineer\u003E availableEngineers = repository.FindEngineersAvailableOn(date);\r\n        Assert.Equal(nEngineers, availableEngineers.Count);\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "ShiftServiceTest",
+    "Message": null,
+    "ProjectName": "BAU.Test",
+    "Methods": [
+      {
+        "Name": "ShiftService_SHIFT_DURATION_Error",
+        "Body": "{\r\n    Mock\u003CIShiftRepository\u003E mockRepository = new Mock\u003CIShiftRepository\u003E(MockBehavior.Strict);\r\n    ArgumentNullException exception = Assert.Throws\u003CArgumentNullException\u003E(() =\u003E new ShiftService(mockRepository.Object, Utils.ConfigurationTestBuilder.GetConfiguration(\u0022SHIFT_DURATION\u0022)));\r\n    Assert.Equal(\u0022App:SHIFT_DURATION\u0022, exception.ParamName);\r\n    Mapper.Reset();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ScheduleEngineerShift_Success",
+        "Body": "{\r\n    var engineers = new List\u003CEngineer\u003E\r\n    {\r\n        new Engineer\r\n        {\r\n            Name = \u00221\u0022,\r\n            Id = 1\r\n        },\r\n        new Engineer\r\n        {\r\n            Name = \u00222\u0022,\r\n            Id = 2\r\n        },\r\n        new Engineer\r\n        {\r\n            Name = \u00223\u0022,\r\n            Id = 3\r\n        },\r\n        new Engineer\r\n        {\r\n            Name = \u00224\u0022,\r\n            Id = 4\r\n        },\r\n        new Engineer\r\n        {\r\n            Name = \u00225\u0022,\r\n            Id = 5\r\n        },\r\n        new Engineer\r\n        {\r\n            Name = \u00226\u0022,\r\n            Id = 6\r\n        },\r\n        new Engineer\r\n        {\r\n            Name = \u00227\u0022,\r\n            Id = 7\r\n        },\r\n        new Engineer\r\n        {\r\n            Name = \u00228\u0022,\r\n            Id = 8\r\n        },\r\n        new Engineer\r\n        {\r\n            Name = \u00229\u0022,\r\n            Id = 9\r\n        },\r\n        new Engineer\r\n        {\r\n            Name = \u002210\u0022,\r\n            Id = 10\r\n        },\r\n    };\r\n    var savedShiftEngineers = new List\u003CEngineerShift\u003E\r\n    {\r\n        new EngineerShift\r\n        {\r\n            Engineer = engineers[0],\r\n            Date = DateTime.Today,\r\n            Duration = 4\r\n        },\r\n        new EngineerShift\r\n        {\r\n            Engineer = engineers[1],\r\n            Date = DateTime.Today,\r\n            Duration = 4\r\n        }\r\n    };\r\n    Mock\u003CIShiftRepository\u003E mockRepository = new Mock\u003CIShiftRepository\u003E(MockBehavior.Strict);\r\n    mockRepository.Setup(s =\u003E s.FindEngineersAvailableOn(DateTime.Today)).Returns(engineers);\r\n    mockRepository.Setup(s =\u003E s.ScheduleEngineerShift(It.IsAny\u003CList\u003CEngineerShift\u003E\u003E())).Returns(savedShiftEngineers);\r\n    IShiftService service = new ShiftService(mockRepository.Object, Utils.ConfigurationTestBuilder.GetConfiguration());\r\n    var result = service.ScheduleEngineerShift(new ShiftRequestModel { Count = 2, StartDate = DateTime.Today });\r\n    Assert.Equal(Mapper.Map\u003CList\u003CEngineerShiftModel\u003E\u003E(savedShiftEngineers), result);\r\n    mockRepository.Verify(m =\u003E m.ScheduleEngineerShift(It.IsAny\u003CList\u003CEngineerShift\u003E\u003E()), Times.Once());\r\n    Mapper.Reset();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ScheduleEngineerShift_NoMoreEngineers_Error",
+        "Body": "{\r\n    var engineers = new List\u003CEngineer\u003E\r\n    {\r\n        new Engineer\r\n        {\r\n            Name = \u00221\u0022,\r\n            Id = 1,\r\n            Shifts = new List\u003CEngineerShift\u003E\r\n            {\r\n                new EngineerShift\r\n                {\r\n                    Date = DateTime.Today\r\n                }\r\n            }\r\n        },\r\n    };\r\n    Mock\u003CIShiftRepository\u003E mockRepository = new Mock\u003CIShiftRepository\u003E(MockBehavior.Strict);\r\n    mockRepository.Setup(s =\u003E s.FindEngineersAvailableOn(DateTime.Today)).Returns(engineers);\r\n    IShiftService service = new ShiftService(mockRepository.Object, Utils.ConfigurationTestBuilder.GetConfiguration());\r\n    InvalidOperationException ex = Assert.Throws\u003CInvalidOperationException\u003E(() =\u003E service.ScheduleEngineerShift(new ShiftRequestModel { Count = 2, StartDate = DateTime.Today }));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u0022You requested 2 engineers but only 1 is available\u0022, ex.Message);\r\n    mockRepository.Verify(m =\u003E m.ScheduleEngineerShift(It.IsAny\u003CList\u003CEngineerShift\u003E\u003E()), Times.Never());\r\n    Mapper.Reset();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ScheduleEngineerShift_ConsecutiveDays_Before_Error",
+        "Body": "{\r\n    var engineers = new List\u003CEngineer\u003E\r\n    {\r\n        new Engineer\r\n        {\r\n            Name = \u00221\u0022,\r\n            Id = 1,\r\n            Shifts = new List\u003CEngineerShift\u003E\r\n            {\r\n                new EngineerShift\r\n                {\r\n                    Date = new DateTime(2017, 12, 13)\r\n                }\r\n            }\r\n        },\r\n        new Engineer\r\n        {\r\n            Name = \u00222\u0022,\r\n            Id = 2\r\n        },\r\n    };\r\n    Mock\u003CIShiftRepository\u003E mockRepository = new Mock\u003CIShiftRepository\u003E(MockBehavior.Strict);\r\n    mockRepository.Setup(s =\u003E s.FindEngineersAvailableOn(new DateTime(2017, 12, 12))).Returns(engineers);\r\n    IShiftService service = new ShiftService(mockRepository.Object, Utils.ConfigurationTestBuilder.GetConfiguration());\r\n    InvalidOperationException ex = Assert.Throws\u003CInvalidOperationException\u003E(() =\u003E service.ScheduleEngineerShift(new ShiftRequestModel { Count = 2, StartDate = new DateTime(2017, 12, 12) }));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u00221: An engineer cannot have half day shifts on consecutive days.\u0022, ex.Message);\r\n    mockRepository.Verify(m =\u003E m.ScheduleEngineerShift(It.IsAny\u003CList\u003CEngineerShift\u003E\u003E()), Times.Never());\r\n    Mapper.Reset();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ScheduleEngineerShift_ConsecutiveDays_After_Error",
+        "Body": "{\r\n    var engineers = new List\u003CEngineer\u003E\r\n    {\r\n        new Engineer\r\n        {\r\n            Name = \u00221\u0022,\r\n            Id = 1,\r\n            Shifts = new List\u003CEngineerShift\u003E\r\n            {\r\n                new EngineerShift\r\n                {\r\n                    Date = new DateTime(2017, 12, 13)\r\n                }\r\n            }\r\n        },\r\n        new Engineer\r\n        {\r\n            Name = \u00222\u0022,\r\n            Id = 2\r\n        },\r\n    };\r\n    Mock\u003CIShiftRepository\u003E mockRepository = new Mock\u003CIShiftRepository\u003E(MockBehavior.Strict);\r\n    mockRepository.Setup(s =\u003E s.FindEngineersAvailableOn(new DateTime(2017, 12, 12))).Returns(engineers);\r\n    IShiftService service = new ShiftService(mockRepository.Object, Utils.ConfigurationTestBuilder.GetConfiguration());\r\n    InvalidOperationException ex = Assert.Throws\u003CInvalidOperationException\u003E(() =\u003E service.ScheduleEngineerShift(new ShiftRequestModel { Count = 2, StartDate = new DateTime(2017, 12, 12) }));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u00221: An engineer cannot have half day shifts on consecutive days.\u0022, ex.Message);\r\n    mockRepository.Verify(m =\u003E m.ScheduleEngineerShift(It.IsAny\u003CList\u003CEngineerShift\u003E\u003E()), Times.Never());\r\n    Mapper.Reset();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ScheduleEngineerShift_ExceedDayShiftsLimit_Error",
+        "Body": "{\r\n    var engineers = new List\u003CEngineer\u003E\r\n    {\r\n        new Engineer\r\n        {\r\n            Name = \u00221\u0022,\r\n            Id = 1,\r\n            Shifts = new List\u003CEngineerShift\u003E\r\n            {\r\n                new EngineerShift\r\n                {\r\n                    Date = new DateTime(2017, 12, 12)\r\n                }\r\n            }\r\n        },\r\n        new Engineer\r\n        {\r\n            Name = \u00222\u0022,\r\n            Id = 2\r\n        },\r\n    };\r\n    Mock\u003CIShiftRepository\u003E mockRepository = new Mock\u003CIShiftRepository\u003E(MockBehavior.Strict);\r\n    mockRepository.Setup(s =\u003E s.FindEngineersAvailableOn(new DateTime(2017, 12, 12))).Returns(engineers);\r\n    IShiftService service = new ShiftService(mockRepository.Object, Utils.ConfigurationTestBuilder.GetConfiguration());\r\n    InvalidOperationException ex = Assert.Throws\u003CInvalidOperationException\u003E(() =\u003E service.ScheduleEngineerShift(new ShiftRequestModel { Count = 2, StartDate = new DateTime(2017, 12, 12) }));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u00221: An engineer can do at most one half day shift in a day.\u0022, ex.Message);\r\n    mockRepository.Verify(m =\u003E m.ScheduleEngineerShift(It.IsAny\u003CList\u003CEngineerShift\u003E\u003E()), Times.Never());\r\n    Mapper.Reset();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ScheduleEngineerShiftRange_Success",
+        "Body": "{\r\n    var engineers = new List\u003CEngineer\u003E\r\n    {\r\n        new Engineer\r\n        {\r\n            Name = \u00221\u0022,\r\n            Id = 1\r\n        },\r\n        new Engineer\r\n        {\r\n            Name = \u00222\u0022,\r\n            Id = 2\r\n        },\r\n    };\r\n    Mock\u003CIShiftRepository\u003E mockRepository = new Mock\u003CIShiftRepository\u003E(MockBehavior.Strict);\r\n    mockRepository.Setup(s =\u003E s.FindEngineersAvailableOn(It.IsAny\u003CDateTime\u003E())).Returns(engineers);\r\n    mockRepository.Setup(s =\u003E s.ScheduleEngineerShift(It.IsAny\u003CList\u003CEngineerShift\u003E\u003E())).Returns(new List\u003CEngineerShift\u003E());\r\n    IShiftService service = new ShiftService(mockRepository.Object, Utils.ConfigurationTestBuilder.GetConfiguration());\r\n    service.ScheduleEngineerShiftRange(new ShiftRequestModel { StartDate = new DateTime(2017, 12, 20), EndDate = new DateTime(2017, 12, 26), Count = 2 });\r\n    for (DateTime date = new DateTime(2017, 12, 20); date \u003C= new DateTime(2017, 12, 26); date = date.NextBusinessDay())\r\n    {\r\n        mockRepository.Verify(m =\u003E m.FindEngineersAvailableOn(date), Times.Once());\r\n    }\r\n\r\n    mockRepository.Verify(m =\u003E m.ScheduleEngineerShift(It.IsAny\u003CList\u003CEngineerShift\u003E\u003E()), Times.Exactly(5));\r\n    Mapper.Reset();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "UnitTest1",
+    "Message": null,
+    "ProjectName": "BAU.Test",
+    "Methods": [
+      {
+        "Name": "Test1",
+        "Body": "{\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "DataTimeExtensionsTest",
+    "Message": null,
+    "ProjectName": "BAU.Test",
+    "Methods": [
+      {
+        "Name": "NextDayOfWeek",
+        "Body": "{\r\n    DateTime monday = new DateTime(2017, 12, 11); //monday\r\n    DateTime expectedNextTuesday = monday.AddDays(1);\r\n    DateTime expectedNextWednesday = expectedNextTuesday.AddDays(1);\r\n    DateTime expectedNextThursday = expectedNextWednesday.AddDays(1);\r\n    DateTime expectedNextFriday = expectedNextThursday.AddDays(1);\r\n    DateTime expectedNextSaturday = expectedNextFriday.AddDays(1);\r\n    DateTime expectedNextSunday = expectedNextSaturday.AddDays(1);\r\n    DateTime expectedNextMonday = expectedNextSunday.AddDays(1);\r\n    Assert.Equal(expectedNextTuesday, monday.NextDayOfWeek(DayOfWeek.Tuesday));\r\n    Assert.Equal(expectedNextWednesday, monday.NextDayOfWeek(DayOfWeek.Wednesday));\r\n    Assert.Equal(expectedNextThursday, monday.NextDayOfWeek(DayOfWeek.Thursday));\r\n    Assert.Equal(expectedNextFriday, monday.NextDayOfWeek(DayOfWeek.Friday));\r\n    Assert.Equal(expectedNextSaturday, monday.NextDayOfWeek(DayOfWeek.Saturday));\r\n    Assert.Equal(expectedNextSunday, monday.NextDayOfWeek(DayOfWeek.Sunday));\r\n    Assert.Equal(expectedNextMonday, monday.NextDayOfWeek(DayOfWeek.Monday));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "NextDayOfWeek_NWeeksAhead",
+        "Body": "{\r\n    DateTime monday = new DateTime(2017, 12, 11); //monday\r\n    monday = monday.NextDayOfWeek(DayOfWeek.Monday, weeks); //monday.NextDayOfWeek(DayOfWeek.Monday).NextDayOfWeek(DayOfWeek.Monday);\r\n    DateTime expectedNextTuesday = monday.AddDays(1);\r\n    DateTime expectedNextWednesday = expectedNextTuesday.AddDays(1);\r\n    DateTime expectedNextThursday = expectedNextWednesday.AddDays(1);\r\n    DateTime expectedNextFriday = expectedNextThursday.AddDays(1);\r\n    DateTime expectedNextSaturday = expectedNextFriday.AddDays(1);\r\n    DateTime expectedNextSunday = expectedNextSaturday.AddDays(1);\r\n    DateTime expectedNextMonday = expectedNextSunday.AddDays(1);\r\n    Assert.Equal(expectedNextTuesday, monday.NextDayOfWeek(DayOfWeek.Tuesday));\r\n    Assert.Equal(expectedNextWednesday, monday.NextDayOfWeek(DayOfWeek.Wednesday));\r\n    Assert.Equal(expectedNextThursday, monday.NextDayOfWeek(DayOfWeek.Thursday));\r\n    Assert.Equal(expectedNextFriday, monday.NextDayOfWeek(DayOfWeek.Friday));\r\n    Assert.Equal(expectedNextSaturday, monday.NextDayOfWeek(DayOfWeek.Saturday));\r\n    Assert.Equal(expectedNextSunday, monday.NextDayOfWeek(DayOfWeek.Sunday));\r\n    Assert.Equal(expectedNextMonday, monday.NextDayOfWeek(DayOfWeek.Monday));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "PreviousDayOfWeek",
+        "Body": "{\r\n    DateTime monday = new DateTime(2017, 12, 11); //monday\r\n    DateTime expectedPreviousSunday = monday.AddDays(-1);\r\n    DateTime expectedPreviousSaturday = expectedPreviousSunday.AddDays(-1);\r\n    DateTime expectedPreviousFriday = expectedPreviousSaturday.AddDays(-1);\r\n    DateTime expectedPreviousThursday = expectedPreviousFriday.AddDays(-1);\r\n    DateTime expectedPreviousWednesday = expectedPreviousThursday.AddDays(-1);\r\n    DateTime expectedPreviousTuesday = expectedPreviousWednesday.AddDays(-1);\r\n    DateTime expectedPreviousMonday = expectedPreviousTuesday.AddDays(-1);\r\n    Assert.Equal(expectedPreviousSunday, monday.PreviousDayOfWeek(DayOfWeek.Sunday));\r\n    Assert.Equal(expectedPreviousSaturday, monday.PreviousDayOfWeek(DayOfWeek.Saturday));\r\n    Assert.Equal(expectedPreviousFriday, monday.PreviousDayOfWeek(DayOfWeek.Friday));\r\n    Assert.Equal(expectedPreviousThursday, monday.PreviousDayOfWeek(DayOfWeek.Thursday));\r\n    Assert.Equal(expectedPreviousWednesday, monday.PreviousDayOfWeek(DayOfWeek.Wednesday));\r\n    Assert.Equal(expectedPreviousTuesday, monday.PreviousDayOfWeek(DayOfWeek.Tuesday));\r\n    Assert.Equal(expectedPreviousMonday, monday.PreviousDayOfWeek(DayOfWeek.Monday));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "PreviousDayOfWeek_NWeeksBefore",
+        "Body": "{\r\n    DateTime monday = new DateTime(2017, 12, 11); //monday\r\n    monday = monday.PreviousDayOfWeek(DayOfWeek.Monday, weeks);\r\n    DateTime expectedPreviousSunday = monday.AddDays(-1);\r\n    DateTime expectedPreviousSaturday = expectedPreviousSunday.AddDays(-1);\r\n    DateTime expectedPreviousFriday = expectedPreviousSaturday.AddDays(-1);\r\n    DateTime expectedPreviousThursday = expectedPreviousFriday.AddDays(-1);\r\n    DateTime expectedPreviousWednesday = expectedPreviousThursday.AddDays(-1);\r\n    DateTime expectedPreviousTuesday = expectedPreviousWednesday.AddDays(-1);\r\n    DateTime expectedPreviousMonday = expectedPreviousTuesday.AddDays(-1);\r\n    Assert.Equal(expectedPreviousSunday, monday.PreviousDayOfWeek(DayOfWeek.Sunday));\r\n    Assert.Equal(expectedPreviousSaturday, monday.PreviousDayOfWeek(DayOfWeek.Saturday));\r\n    Assert.Equal(expectedPreviousFriday, monday.PreviousDayOfWeek(DayOfWeek.Friday));\r\n    Assert.Equal(expectedPreviousThursday, monday.PreviousDayOfWeek(DayOfWeek.Thursday));\r\n    Assert.Equal(expectedPreviousWednesday, monday.PreviousDayOfWeek(DayOfWeek.Wednesday));\r\n    Assert.Equal(expectedPreviousTuesday, monday.PreviousDayOfWeek(DayOfWeek.Tuesday));\r\n    Assert.Equal(expectedPreviousMonday, monday.PreviousDayOfWeek(DayOfWeek.Monday));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "NextBusinessDay",
+        "Body": "{\r\n    DateTime monday = new DateTime(2017, 12, 11);\r\n    DateTime nextMonday = monday.NextDayOfWeek(DayOfWeek.Monday);\r\n    DateTime friday = monday.NextDayOfWeek(DayOfWeek.Friday);\r\n    DateTime nextBusinessDay = monday.AddDays(1);\r\n    Assert.Equal(nextBusinessDay, monday.NextBusinessDay());\r\n    Assert.Equal(nextMonday, friday.NextBusinessDay());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "PreviousBusinessDay",
+        "Body": "{\r\n    DateTime monday = new DateTime(2017, 12, 11);\r\n    DateTime previousBusinessDay = monday.PreviousDayOfWeek(DayOfWeek.Friday);\r\n    DateTime previousThursday = previousBusinessDay.PreviousDayOfWeek(DayOfWeek.Thursday);\r\n    Assert.Equal(previousBusinessDay, monday.PreviousBusinessDay());\r\n    Assert.Equal(previousThursday, previousBusinessDay.PreviousBusinessDay());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

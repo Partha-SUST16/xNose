@@ -1,0 +1,369 @@
+[
+  {
+    "Name": "ServerHostTests",
+    "Message": "This class has Lack of Cohesion of Test Cases",
+    "ProjectName": "Tests.DotNetFramework",
+    "Methods": [
+      {
+        "Name": "LoadServerInNewAppDomain",
+        "Body": "{\r\n    string testName = \u0022LoadServerInNewAppDomain\u0022; // TestContext.TestName;\r\n    ServerHostHandle\u003CTestServer.Server\u003E serverHostHandle = ServerHost.LoadServerInNewAppDomain\u003CTestServer.Server\u003E(testName);\r\n    serverHostHandle.Should().NotBeNull(\u0022Null ServerHostHandle returned.\u0022);\r\n    serverHostHandle.ServerName.Should().Be(testName, \u0022ServerHostHandle.ServerName\u0022);\r\n    serverHostHandle.AppDomain.Should().NotBeNull(\u0022Null ServerHostHandle.AppDomain returned.\u0022);\r\n    serverHostHandle.Server.Should().NotBeNull(\u0022Null ServerHostHandle.Server returned.\u0022);\r\n    serverHostHandle.Server.Should().BeOfType\u003CTestServer.Server\u003E(\u0022Server instance type.\u0022);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "UnloadServerInAppDomain",
+        "Body": "{\r\n    ServerHost.LoadServerInNewAppDomain\u003CTestServer.Server\u003E(\u0022One\u0022);\r\n    ServerHost.LoadServerInNewAppDomain\u003CTestServer.Server\u003E(\u0022Two\u0022);\r\n    ServerHost.LoadServerInNewAppDomain\u003CTestServer.Server\u003E(\u0022Three\u0022);\r\n    var unload = Enumerable.Range(1, 10).Select(i =\u003E\r\n    {\r\n        return Task.Run(async () =\u003E\r\n        {\r\n            await Task.Delay(10 - i);\r\n            ServerHost.UnloadAllServers();\r\n        });\r\n    });\r\n    await Task.WhenAll(unload);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "UnloadAllAppDomainsTwice",
+        "Body": "{\r\n    ServerHost.LoadServerInNewAppDomain\u003CTestServer.Server\u003E(\u0022Four\u0022);\r\n    ServerHost.LoadServerInNewAppDomain\u003CTestServer.Server\u003E(\u0022Five\u0022);\r\n    ServerHost.LoadServerInNewAppDomain\u003CTestServer.Server\u003E(\u0022Six\u0022);\r\n    ServerHost.UnloadAllServers();\r\n    ServerHost.UnloadAllServers();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ServerHost_Version",
+        "Body": "{\r\n    _output.WriteLine(\u0022ServerHost library API version = {0}\u0022, LibraryVersionInfo.ApiVersion);\r\n    _output.WriteLine(\u0022ServerHost library file version = {0}\u0022, LibraryVersionInfo.FileVersion);\r\n    _output.WriteLine(\u0022ServerHost library full version info string = {0}\u0022, LibraryVersionInfo.Current);\r\n    string versionString = LibraryVersionInfo.FileVersion;\r\n    _output.WriteLine(\u0022ServerHost library version = {0}\u0022, versionString);\r\n    versionString.Should().NotBeNullOrEmpty(\u0022Version value should be returned\u0022);\r\n    versionString.Should().Contain(\u0022.\u0022, \u0022Version format = Major.Minor\u0022);\r\n    versionString.Should().NotStartWith(\u00221.0.0.0\u0022, \u0022Version should be specific.\u0022);\r\n    versionString.Should().NotStartWith(\u00220.0.0.0\u0022, \u0022Version should not be zero.\u0022);\r\n    versionString.Should().NotContain(\u0022*\u0022, \u0022Version should be explicit.\u0022);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ServerHost_ExecId",
+        "Body": "{\r\n    Guid execId = ExecId.Value;\r\n    _output.WriteLine(\u0022ExecId = {0}\u0022, execId);\r\n    execId.Should().NotBe(Guid.Empty, \u0022ExecId value should be populated.\u0022);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Found"
+          }
+        ]
+      }
+    ]
+  }
+]

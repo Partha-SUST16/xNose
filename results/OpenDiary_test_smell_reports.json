@@ -1,0 +1,5045 @@
+[
+  {
+    "Name": "CreateAuthorCommandTests",
+    "Message": null,
+    "ProjectName": "UnitTests",
+    "Methods": [
+      {
+        "Name": "Handler_ShouldAddAuthor",
+        "Body": "{\r\n    // Arrange\r\n    var author = new AuthorDTO\r\n    {\r\n        Id = 4,\r\n        UserId = \u0022QWERTY1234567890_test\u0022,\r\n        FirstName = \u0022FirstName_test\u0022,\r\n        LastName = \u0022LastName_test\u0022,\r\n        BirthDate = new DateTime(2004, 01, 01),\r\n        Email = \u0022test@gmail.com\u0022,\r\n    };\r\n    var command = new CreateAuthorCommand\r\n    {\r\n        Model = author\r\n    };\r\n    // Act\r\n    var handler = new CreateAuthorCommand.CreateAuthorCommandHandler(Context, Mapper);\r\n    await handler.Handle(command, CancellationToken.None);\r\n    var entity = Context.Authors.Find(author.Id);\r\n    // Assert\r\n    entity.ShouldNotBeNull();\r\n    entity.Id.ShouldBe(command.Model.Id);\r\n    entity.UserId.ShouldBe(command.Model.UserId);\r\n    entity.FirstName.ShouldBe(command.Model.FirstName);\r\n    entity.LastName.ShouldBe(command.Model.LastName);\r\n    entity.BirthDate.ShouldBe(command.Model.BirthDate);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "CreateCommentCommandTests",
+    "Message": null,
+    "ProjectName": "UnitTests",
+    "Methods": [
+      {
+        "Name": "Handler_ShouldAddComment",
+        "Body": "{\r\n    // Arrange\r\n    var comment = new CommentDTO\r\n    {\r\n        Id = 7,\r\n        PostId = 1,\r\n        Text = \u0022Comment_test\u0022,\r\n        AuthorId = 1,\r\n        Date = new DateTime(2020, 03, 01),\r\n    };\r\n    var command = new CreateCommentCommand\r\n    {\r\n        Model = comment\r\n    };\r\n    // Act\r\n    var handler = new CreateCommentCommand.CreateCommentCommandHandler(Mapper, Context);\r\n    await handler.Handle(command, CancellationToken.None);\r\n    var entity = Context.Comments.Find(comment.Id);\r\n    // Assert\r\n    entity.ShouldNotBeNull();\r\n    entity.Id.ShouldBe(command.Model.Id);\r\n    entity.PostId.ShouldBe(command.Model.PostId);\r\n    entity.Text.ShouldBe(command.Model.Text);\r\n    entity.AuthorId.ShouldBe(command.Model.AuthorId);\r\n    entity.Date.ShouldBe(command.Model.Date);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "CreatePostCommandTests",
+    "Message": null,
+    "ProjectName": "UnitTests",
+    "Methods": [
+      {
+        "Name": "Handler_ShouldAddPost",
+        "Body": "{\r\n    // Arrange\r\n    var post = new PostDTO\r\n    {\r\n        Id = 7,\r\n        Title = \u0022Title_test\u0022,\r\n        Text = \u0022Text_test\u0022,\r\n        TopicId = 1,\r\n        AuthorId = 1,\r\n        Date = new DateTime(2020, 03, 01),\r\n    };\r\n    var command = new CreatePostCommand\r\n    {\r\n        Model = post\r\n    };\r\n    // Act\r\n    var handler = new CreatePostCommand.CreatePostCommandHandler(Context, Mapper);\r\n    await handler.Handle(command, CancellationToken.None);\r\n    var entity = Context.Posts.Find(post.Id);\r\n    // Assert\r\n    entity.ShouldNotBeNull();\r\n    entity.Id.ShouldBe(command.Model.Id);\r\n    entity.Title.ShouldBe(command.Model.Title);\r\n    entity.Text.ShouldBe(command.Model.Text);\r\n    entity.TopicId.ShouldBe(command.Model.TopicId);\r\n    entity.AuthorId.ShouldBe(command.Model.AuthorId);\r\n    entity.Date.ShouldBe(command.Model.Date);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "CreateTopicCommandTests",
+    "Message": null,
+    "ProjectName": "UnitTests",
+    "Methods": [
+      {
+        "Name": "Handler_ShouldAddTopic",
+        "Body": "{\r\n    // Arrange\r\n    var topic = new TopicDTO\r\n    {\r\n        Id = 7,\r\n        Text = \u0022Topic_test\u0022,\r\n    };\r\n    var command = new CreateTopicCommand\r\n    {\r\n        Model = topic\r\n    };\r\n    // Act\r\n    var handler = new CreateTopicCommand.CreateTopicCommandHandler(Context, Mapper);\r\n    await handler.Handle(command, CancellationToken.None);\r\n    var entity = Context.Topics.Find(topic.Id);\r\n    // Assert\r\n    entity.ShouldNotBeNull();\r\n    entity.Id.ShouldBe(command.Model.Id);\r\n    entity.Text.ShouldBe(command.Model.Text);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "DeleteAuthorCommandTests",
+    "Message": null,
+    "ProjectName": "UnitTests",
+    "Methods": [
+      {
+        "Name": "Handler_GivenValidAuthorId_ShouldRemoveAuthor",
+        "Body": "{\r\n    // Arrange\r\n    var validAuthorId = 3;\r\n    // Act\r\n    var command = new DeleteAuthorCommand\r\n    {\r\n        Id = validAuthorId\r\n    };\r\n    var handler = new DeleteAuthorCommand.DeleteAuthorCommandHandler(Context);\r\n    await handler.Handle(command, CancellationToken.None);\r\n    // Assert\r\n    var entity = Context.Authors.Find(command.Id);\r\n    entity.ShouldBeNull();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handler_GivenInvalidAuthorId_ThrowsException",
+        "Body": "{\r\n    // Arrange\r\n    var invalidAuthorId = 99;\r\n    // Act\r\n    var command = new DeleteAuthorCommand\r\n    {\r\n        Id = invalidAuthorId\r\n    };\r\n    var handler = new DeleteAuthorCommand.DeleteAuthorCommandHandler(Context);\r\n    // Assert\r\n    Should.ThrowAsync\u003CNotFoundException\u003E(() =\u003E handler.Handle(command, CancellationToken.None));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "DeleteCommentCommandTests",
+    "Message": null,
+    "ProjectName": "UnitTests",
+    "Methods": [
+      {
+        "Name": "Handler_GivenValidCommentId_ShouldRemoveComment",
+        "Body": "{\r\n    // Arrange\r\n    var validCommentId = 3;\r\n    // Act\r\n    var command = new DeleteCommentCommand\r\n    {\r\n        Id = validCommentId\r\n    };\r\n    var handler = new DeleteCommentCommand.DeleteCommentCommandHandler(Context);\r\n    await handler.Handle(command, CancellationToken.None);\r\n    // Assert\r\n    var entity = Context.Comments.Find(command.Id);\r\n    entity.ShouldBeNull();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handler_GivenInvalidCommentId_ThrowsException",
+        "Body": "{\r\n    // Arrange\r\n    var invalidCommentId = 99;\r\n    // Act\r\n    var command = new DeleteCommentCommand\r\n    {\r\n        Id = invalidCommentId\r\n    };\r\n    var handler = new DeleteCommentCommand.DeleteCommentCommandHandler(Context);\r\n    // Assert\r\n    Should.ThrowAsync\u003CNotFoundException\u003E(() =\u003E handler.Handle(command, CancellationToken.None));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "DeletePostCommandTests",
+    "Message": null,
+    "ProjectName": "UnitTests",
+    "Methods": [
+      {
+        "Name": "Handler_GivenValidPostId_ShouldRemovePost",
+        "Body": "{\r\n    // Arrange\r\n    var validPostId = 2;\r\n    // Act\r\n    var command = new DeletePostCommand\r\n    {\r\n        Id = validPostId\r\n    };\r\n    var handler = new DeletePostCommand.DeletePostCommandHandler(Context);\r\n    await handler.Handle(command, CancellationToken.None);\r\n    // Assert\r\n    var entity = Context.Posts.Find(command.Id);\r\n    entity.ShouldBeNull();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handler_GivenInvalidPostId_ThrowsException",
+        "Body": "{\r\n    // Arrange\r\n    var invalidPostId = 99;\r\n    // Act\r\n    var command = new DeletePostCommand\r\n    {\r\n        Id = invalidPostId\r\n    };\r\n    var handler = new DeletePostCommand.DeletePostCommandHandler(Context);\r\n    // Assert\r\n    Should.ThrowAsync\u003CNotFoundException\u003E(() =\u003E handler.Handle(command, CancellationToken.None));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "DeleteTopicCommandTests",
+    "Message": null,
+    "ProjectName": "UnitTests",
+    "Methods": [
+      {
+        "Name": "Handler_GivenValidTopicId_ShouldRemovePost",
+        "Body": "{\r\n    // Arrange\r\n    var validTopicId = 1;\r\n    // Act\r\n    var command = new DeleteTopicCommand\r\n    {\r\n        Id = validTopicId\r\n    };\r\n    var handler = new DeleteTopicCommand.DeleteTopicCommandHandler(Context);\r\n    await handler.Handle(command, CancellationToken.None);\r\n    // Assert\r\n    var entity = Context.Topics.Find(command.Id);\r\n    entity.ShouldBeNull();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handler_GivenInvalidTopicId_ThrowsException",
+        "Body": "{\r\n    // Arrange\r\n    var invalidTopicId = 99;\r\n    // Act\r\n    var command = new DeleteTopicCommand\r\n    {\r\n        Id = invalidTopicId\r\n    };\r\n    var handler = new DeleteTopicCommand.DeleteTopicCommandHandler(Context);\r\n    // Assert\r\n    Should.ThrowAsync\u003CNotFoundException\u003E(() =\u003E handler.Handle(command, CancellationToken.None));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "UpdateAuthorCommandTests",
+    "Message": null,
+    "ProjectName": "UnitTests",
+    "Methods": [
+      {
+        "Name": "Handler_GivenValidData_ShouldUpdateAuthor",
+        "Body": "{\r\n    // Arrange\r\n    var author = new AuthorDTO\r\n    {\r\n        Id = 2,\r\n        UserId = \u0022QWERTY1234567890_new\u0022,\r\n        FirstName = \u0022FirstName_new\u0022,\r\n        LastName = \u0022LastName_new\u0022,\r\n        BirthDate = new DateTime(2000, 01, 01),\r\n        Email = \u0022new@gmail.com\u0022,\r\n    };\r\n    var command = new UpdateAuthorCommand\r\n    {\r\n        Model = author\r\n    };\r\n    // Act\r\n    var handler = new UpdateAuthorCommand.UpdateAuthorCommandHandler(Context);\r\n    await handler.Handle(command, CancellationToken.None);\r\n    var entity = Context.Authors.Find(author.Id);\r\n    // Assert\r\n    entity.ShouldNotBeNull();\r\n    entity.FirstName.ShouldBe(command.Model.FirstName);\r\n    entity.LastName.ShouldBe(command.Model.LastName);\r\n    entity.BirthDate.ShouldBe(command.Model.BirthDate);\r\n    entity.UserId.ShouldNotBe(command.Model.UserId);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_GivenInvalidAuthorData_ThrowsException",
+        "Body": "{\r\n    // Arrange\r\n    var author = new AuthorDTO\r\n    {\r\n        Id = 99,\r\n        UserId = \u0022QWERTY1234567890_new\u0022,\r\n        FirstName = \u0022FirstName_new\u0022,\r\n        LastName = \u0022LastName_new\u0022,\r\n        BirthDate = new DateTime(2000, 01, 01),\r\n        Email = \u0022new@gmail.com\u0022,\r\n    };\r\n    var command = new UpdateAuthorCommand\r\n    {\r\n        Model = author\r\n    };\r\n    // Act\r\n    var handler = new UpdateAuthorCommand.UpdateAuthorCommandHandler(Context);\r\n    // Assert\r\n    await Should.ThrowAsync\u003CNotFoundException\u003E(() =\u003E handler.Handle(command, CancellationToken.None));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "UpdateCommentCommandTests",
+    "Message": null,
+    "ProjectName": "UnitTests",
+    "Methods": [
+      {
+        "Name": "Handler_GivenValidData_ShouldUpdateComment",
+        "Body": "{\r\n    // Arrange\r\n    var comment = new CommentDTO\r\n    {\r\n        Id = 1,\r\n        PostId = 99,\r\n        Text = \u0022Comment_new\u0022,\r\n        AuthorId = 99,\r\n        Date = new DateTime(2020, 05, 01),\r\n    };\r\n    var command = new UpdateCommentCommand\r\n    {\r\n        Model = comment\r\n    };\r\n    // Act\r\n    var handler = new UpdateCommentCommand.UpdateCommentCommandHandler(Context);\r\n    await handler.Handle(command, CancellationToken.None);\r\n    var entity = Context.Comments.Find(comment.Id);\r\n    // Assert\r\n    entity.ShouldNotBeNull();\r\n    entity.Text.ShouldBe(command.Model.Text);\r\n    entity.PostId.ShouldNotBe(command.Model.PostId);\r\n    entity.AuthorId.ShouldNotBe(command.Model.AuthorId);\r\n    entity.Date.ShouldNotBe(command.Model.Date);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_GivenInvalidCommentData_ThrowsException",
+        "Body": "{\r\n    // Arrange\r\n    var comment = new CommentDTO\r\n    {\r\n        Id = 99,\r\n        PostId = 99,\r\n        Text = \u0022Comment_test\u0022,\r\n        AuthorId = 99,\r\n        Date = new DateTime(2020, 05, 01),\r\n    };\r\n    var command = new UpdateCommentCommand\r\n    {\r\n        Model = comment\r\n    };\r\n    // Act\r\n    var handler = new UpdateCommentCommand.UpdateCommentCommandHandler(Context);\r\n    // Assert\r\n    await Should.ThrowAsync\u003CNotFoundException\u003E(() =\u003E handler.Handle(command, CancellationToken.None));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "UpdatePostCommandTests",
+    "Message": null,
+    "ProjectName": "UnitTests",
+    "Methods": [
+      {
+        "Name": "Handler_GivenValidData_ShouldUpdatePost",
+        "Body": "{\r\n    // Arrange\r\n    var post = new PostDTO\r\n    {\r\n        Id = 2,\r\n        Title = \u0022Title_new\u0022,\r\n        Text = \u0022Text_new\u0022,\r\n        TopicId = 99,\r\n        AuthorId = 99,\r\n        Date = new DateTime(2020, 05, 01),\r\n    };\r\n    var command = new UpdatePostCommand\r\n    {\r\n        Model = post\r\n    };\r\n    // Act\r\n    var handler = new UpdatePostCommand.UpdatePostCommandHandler(Context);\r\n    await handler.Handle(command, CancellationToken.None);\r\n    var entity = Context.Posts.Find(post.Id);\r\n    // Assert\r\n    entity.ShouldNotBeNull();\r\n    entity.Title.ShouldBe(command.Model.Title);\r\n    entity.Text.ShouldBe(command.Model.Text);\r\n    entity.TopicId.ShouldNotBe(command.Model.TopicId);\r\n    entity.AuthorId.ShouldNotBe(command.Model.AuthorId);\r\n    entity.Date.ShouldNotBe(command.Model.Date);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_GivenInvalidPostData_ThrowsException",
+        "Body": "{\r\n    // Arrange\r\n    var post = new PostDTO\r\n    {\r\n        Id = 99,\r\n        Title = \u0022Title_new\u0022,\r\n        Text = \u0022Text_new\u0022,\r\n        TopicId = 2,\r\n        AuthorId = 2,\r\n        Date = new DateTime(2020, 05, 01),\r\n    };\r\n    var command = new UpdatePostCommand\r\n    {\r\n        Model = post\r\n    };\r\n    // Act\r\n    var handler = new UpdatePostCommand.UpdatePostCommandHandler(Context);\r\n    // Assert\r\n    await Should.ThrowAsync\u003CNotFoundException\u003E(() =\u003E handler.Handle(command, CancellationToken.None));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "UpdateTopicCommandTests",
+    "Message": null,
+    "ProjectName": "UnitTests",
+    "Methods": [
+      {
+        "Name": "Handler_GivenValidData_ShouldUpdateTopic",
+        "Body": "{\r\n    // Arrange\r\n    var topic = new TopicDTO\r\n    {\r\n        Id = 1,\r\n        Text = \u0022Topic_new\u0022,\r\n    };\r\n    var command = new UpdateTopicCommand\r\n    {\r\n        Model = topic\r\n    };\r\n    // Act\r\n    var handler = new UpdateTopicCommand.UpdateTopicCommandHandler(Context);\r\n    await handler.Handle(command, CancellationToken.None);\r\n    var entity = Context.Topics.Find(topic.Id);\r\n    // Assert\r\n    entity.ShouldNotBeNull();\r\n    entity.Text.ShouldBe(command.Model.Text);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_GivenInvalidTopicData_ThrowsException",
+        "Body": "{\r\n    // Arrange\r\n    var topic = new TopicDTO\r\n    {\r\n        Id = 99,\r\n        Text = \u0022Topic_new\u0022,\r\n    };\r\n    var command = new UpdateTopicCommand\r\n    {\r\n        Model = topic\r\n    };\r\n    // Act\r\n    var handler = new UpdateTopicCommand.UpdateTopicCommandHandler(Context);\r\n    // Assert\r\n    await Should.ThrowAsync\u003CNotFoundException\u003E(() =\u003E handler.Handle(command, CancellationToken.None));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "AgeTests",
+    "Message": null,
+    "ProjectName": "UnitTests",
+    "Methods": [
+      {
+        "Name": "Age_ShouldSupportCalculatingAge",
+        "Body": "{\r\n    //Arrange\r\n    var date = DateTime.Parse(dateString);\r\n    //Act\r\n    (var age, var ageUnits) = date.Age();\r\n    //Assert\r\n    age.GetType().ShouldBe(typeof(int));\r\n    ageUnits.GetType().ShouldBe(typeof(AgeUnits));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Age_WhenDateGreaterThenNow_Return_Exseption",
+        "Body": "{\r\n    //Arrange\r\n    var date = DateTime.Now.AddDays(5);\r\n    //Act\r\n    //Assert\r\n    Assert.Throws\u003CArgumentOutOfRangeException\u003E(() =\u003E date.Age());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "AgeWithUnits_ShouldSupportCalculatingAgeInSpecificUnits",
+        "Body": "{\r\n    //Arrange\r\n    var date = DateTime.Now;\r\n    //Act\r\n    var age = date.Age(units);\r\n    //Assert\r\n    age.GetType().ShouldBe(typeof(int));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "AgeWithUnits_WhenDateGreaterThenNow_Return_Exseption",
+        "Body": "{\r\n    //Arrange\r\n    var date = DateTime.Now.AddDays(5);\r\n    var units = AgeUnits.Day;\r\n    //Act\r\n    //Assert\r\n    Assert.Throws\u003CArgumentOutOfRangeException\u003E(() =\u003E date.Age(units));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "MappingTests",
+    "Message": "This class has Lack of Cohesion of Test Cases",
+    "ProjectName": "UnitTests",
+    "Methods": [
+      {
+        "Name": "Mapper_ShouldHaveValidConfiguration",
+        "Body": "{\r\n    _configuration.AssertConfigurationIsValid();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Mapper_ShouldSupportMappingFromSourceToDestination",
+        "Body": "{\r\n    var instance = Activator.CreateInstance(source);\r\n    _mapper.Map(instance, source, destination);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "AuthorsControllerTests",
+    "Message": null,
+    "ProjectName": "UnitTests",
+    "Methods": [
+      {
+        "Name": "Index_Return_ViewResult",
+        "Body": "{\r\n    // Arrange\r\n    var mediatorMock = new Mock\u003CIMediator\u003E();\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CGetAuthorsQuery\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(GetAuthors()));\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CGetPostsByAuthorIdQuery\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(GetPosts()));\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CGetCommentsByAuthorIdQuery\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(GetComments()));\r\n    var identityMock = new Mock\u003CIIdentityService\u003E();\r\n    identityMock.Setup(identity =\u003E identity.GetEmailByIdAsync(It.IsAny\u003Cstring\u003E())).Returns(Task.FromResult(\u0022some@email.com\u0022));\r\n    var context = GetFakeContext();\r\n    var mapperMock = new Mock\u003CIMapper\u003E();\r\n    mapperMock.Setup(mapper =\u003E mapper.Map\u003CIEnumerable\u003CAuthorDTO\u003E, ICollection\u003CAuthorViewModel\u003E\u003E(It.IsAny\u003CIEnumerable\u003CAuthorDTO\u003E\u003E())).Returns(GetAuthorVieModels());\r\n    var controller = new AuthorsController(identityMock.Object, mediatorMock.Object, mapperMock.Object);\r\n    controller.ControllerContext = context;\r\n    // Act\r\n    var result = controller.Index().GetAwaiter().GetResult();\r\n    // Assert\r\n    var viewResult = Assert.IsType\u003CViewResult\u003E(result);\r\n    var models = Assert.IsAssignableFrom\u003CAuthorsViewModel\u003E(viewResult.ViewData.Model);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "HomeControllerTests",
+    "Message": null,
+    "ProjectName": "UnitTests",
+    "Methods": [
+      {
+        "Name": "Index_Return_ViewResult",
+        "Body": "{\r\n    // Arrange\r\n    var mock = new Mock\u003CILogger\u003CHomeController\u003E\u003E();\r\n    var controller = new HomeController(mock.Object);\r\n    // Act\r\n    var result = controller.Index();\r\n    // Assert\r\n    Assert.IsType\u003CViewResult\u003E(result);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "PostsControllerTests",
+    "Message": null,
+    "ProjectName": "UnitTests",
+    "Methods": [
+      {
+        "Name": "Index_WithoutId_Return_ViewResultWithAllPosts",
+        "Body": "{\r\n    // Arrange\r\n    var mediatorMock = new Mock\u003CIMediator\u003E();\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CGetPostsQuery\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(GetPosts()));\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CGetAuthorQuery\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(GetAuthor()));\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CGetTopicQuery\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(GetTopic()));\r\n    var identityMock = new Mock\u003CIIdentityService\u003E();\r\n    var mapperMock = new Mock\u003CIMapper\u003E();\r\n    mapperMock.Setup(mapper =\u003E mapper.Map\u003CIEnumerable\u003CPostDTO\u003E, IEnumerable\u003CPostViewModel\u003E\u003E(It.IsAny\u003CIEnumerable\u003CPostDTO\u003E\u003E())).Returns(GetPostViewModels());\r\n    var controller = new PostsController(mediatorMock.Object, identityMock.Object, mapperMock.Object);\r\n    // Act\r\n    var result = controller.Index().GetAwaiter().GetResult();\r\n    // Assert\r\n    var viewResult = Assert.IsType\u003CViewResult\u003E(result);\r\n    var models = Assert.IsAssignableFrom\u003CIEnumerable\u003CPostViewModel\u003E\u003E(viewResult.ViewData.Model);\r\n    var modelsCount = 0;\r\n    foreach (var model in models)\r\n        modelsCount\u002B\u002B;\r\n    Assert.Equal(2, modelsCount);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Index_WhenIdIsNotNull_Return_ViewResultWithPostsOfSingleAuthor",
+        "Body": "{\r\n    // Arrange\r\n    var mediatorMock = new Mock\u003CIMediator\u003E();\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CGetPostsByAuthorIdQuery\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(GetPosts()));\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CGetAuthorQuery\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(GetAuthor()));\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CGetTopicQuery\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(GetTopic()));\r\n    var identityMock = new Mock\u003CIIdentityService\u003E();\r\n    var mapperMock = new Mock\u003CIMapper\u003E();\r\n    mapperMock.Setup(mapper =\u003E mapper.Map\u003CIEnumerable\u003CPostDTO\u003E, IEnumerable\u003CPostViewModel\u003E\u003E(It.IsAny\u003CIEnumerable\u003CPostDTO\u003E\u003E())).Returns(GetPostViewModels());\r\n    var controller = new PostsController(mediatorMock.Object, identityMock.Object, mapperMock.Object);\r\n    // Act\r\n    var result = controller.Index(id: 1).GetAwaiter().GetResult();\r\n    // Assert\r\n    var viewResult = Assert.IsType\u003CViewResult\u003E(result);\r\n    var models = Assert.IsAssignableFrom\u003CIEnumerable\u003CPostViewModel\u003E\u003E(viewResult.ViewData.Model);\r\n    var modelsCount = 0;\r\n    foreach (var model in models)\r\n        modelsCount\u002B\u002B;\r\n    Assert.Equal(2, modelsCount);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Read_WhenIdIsNull_Return_NotFoundResult",
+        "Body": "{\r\n    // Arrange\r\n    var mediatorMock = new Mock\u003CIMediator\u003E();\r\n    var identityMock = new Mock\u003CIIdentityService\u003E();\r\n    var mapperMock = new Mock\u003CIMapper\u003E();\r\n    var controller = new PostsController(mediatorMock.Object, identityMock.Object, mapperMock.Object);\r\n    // Act\r\n    var result = controller.Read(default).GetAwaiter().GetResult();\r\n    // Assert\r\n    Assert.IsType\u003CNotFoundResult\u003E(result);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Read_WhenIdIsNotNull_Return_ViewResultWithPost",
+        "Body": "{\r\n    // Arrange\r\n    var mediatorMock = new Mock\u003CIMediator\u003E();\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CGetPostQuery\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(GetPost()));\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CGetAuthorQuery\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(GetAuthor()));\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CGetTopicQuery\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(GetTopic()));\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CGetCommentsByPostIdQuery\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(GetComments()));\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CGetAuthorByUserIdQuery\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(GetAuthor()));\r\n    var context = GetFakeContext();\r\n    var identityMock = new Mock\u003CIIdentityService\u003E();\r\n    identityMock.Setup(identity =\u003E identity.GetUserIdByNameAsync(It.IsAny\u003Cstring\u003E())).Returns(Task.FromResult(\u0022someId\u0022));\r\n    var mapperMock = new Mock\u003CIMapper\u003E();\r\n    mapperMock.Setup(mapper =\u003E mapper.Map\u003CPostDTO, PostViewModel\u003E(It.IsAny\u003CPostDTO\u003E())).Returns(GetPostViewModel());\r\n    mapperMock.Setup(mapper =\u003E mapper.Map\u003CIEnumerable\u003CCommentDTO\u003E, IEnumerable\u003CCommentViewModel\u003E\u003E(It.IsAny\u003CIEnumerable\u003CCommentDTO\u003E\u003E())).Returns(GetCommentViewModels());\r\n    var controller = new PostsController(mediatorMock.Object, identityMock.Object, mapperMock.Object);\r\n    controller.ControllerContext = context;\r\n    // Act\r\n    var result = controller.Read(id: 1).GetAwaiter().GetResult();\r\n    // Arrange\r\n    var viewResult = Assert.IsType\u003CViewResult\u003E(result);\r\n    var models = Assert.IsAssignableFrom\u003CPostViewModel\u003E(viewResult.ViewData.Model);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Create_Return_ViewResultToCreatePost",
+        "Body": "{\r\n    // Arrange\r\n    var mediatorMock = new Mock\u003CIMediator\u003E();\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CGetTopicsQuery\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(GetTopics()));\r\n    var identityMock = new Mock\u003CIIdentityService\u003E();\r\n    var mapperMock = new Mock\u003CIMapper\u003E();\r\n    mapperMock.Setup(mapper =\u003E mapper.Map\u003CIEnumerable\u003CTopicDTO\u003E, IEnumerable\u003CTopicViewModel\u003E\u003E(It.IsAny\u003CIEnumerable\u003CTopicDTO\u003E\u003E())).Returns(GetTopicViewModels());\r\n    var controller = new PostsController(mediatorMock.Object, identityMock.Object, mapperMock.Object);\r\n    // Act\r\n    var result = controller.Create().GetAwaiter().GetResult();\r\n    // Arrange\r\n    var viewResult = Assert.IsType\u003CViewResult\u003E(result);\r\n    var models = Assert.IsAssignableFrom\u003CCreatePostViewModel\u003E(viewResult.ViewData.Model);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "CreatePost_WithInvalidModel_Return_CreateViewAgain",
+        "Body": "{\r\n    // Arrange\r\n    var mediatorMock = new Mock\u003CIMediator\u003E();\r\n    var identityMock = new Mock\u003CIIdentityService\u003E();\r\n    var mapperMock = new Mock\u003CIMapper\u003E();\r\n    var controller = new PostsController(mediatorMock.Object, identityMock.Object, mapperMock.Object);\r\n    controller.ModelState.AddModelError(\u0022Title\u0022, \u0022TitleRequired\u0022);\r\n    var model = new CreatePostViewModel\r\n    {\r\n    };\r\n    // Act\r\n    var result = controller.Create(model).GetAwaiter().GetResult();\r\n    // Assert\r\n    var viewResult = Assert.IsType\u003CViewResult\u003E(result);\r\n    Assert.IsAssignableFrom\u003CCreatePostViewModel\u003E(viewResult.ViewData.Model);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "CreatePost_WithValidModel_Return_RedirectToReadAction",
+        "Body": "{\r\n    // Arrange\r\n    var mediatorMock = new Mock\u003CIMediator\u003E();\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CCreateTopicCommand\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(1));\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CGetAuthorByUserIdQuery\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(GetAuthor()));\r\n    var identityMock = new Mock\u003CIIdentityService\u003E();\r\n    var mapperMock = new Mock\u003CIMapper\u003E();\r\n    var context = GetFakeContext();\r\n    var controller = new PostsController(mediatorMock.Object, identityMock.Object, mapperMock.Object);\r\n    controller.ControllerContext = context;\r\n    var model = new CreatePostViewModel\r\n    {\r\n        Text = \u0022PostPostPostPostPostPostPostPostPostPostPostPost\u0022,\r\n        Title = \u0022Title\u0022,\r\n        Topic = \u0022Topic\u0022,\r\n    };\r\n    // Act\r\n    var result = controller.Create(model).GetAwaiter().GetResult();\r\n    // Assert\r\n    var redirectToActionResult = Assert.IsType\u003CRedirectToActionResult\u003E(result);\r\n    Assert.Equal(\u0022Read\u0022, redirectToActionResult.ActionName);\r\n    Assert.Equal(\u0022Posts\u0022, redirectToActionResult.ControllerName);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Edit_WithInvaliId_Return_NotFoundResult",
+        "Body": "{\r\n    // Arrange\r\n    var mediatorMock = new Mock\u003CIMediator\u003E();\r\n    PostDTO post = null;\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CGetPostQuery\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(post));\r\n    var identityMock = new Mock\u003CIIdentityService\u003E();\r\n    var mapperMock = new Mock\u003CIMapper\u003E();\r\n    var controller = new PostsController(mediatorMock.Object, identityMock.Object, mapperMock.Object);\r\n    var testId = 0;\r\n    // Act\r\n    var result = controller.Edit(testId).GetAwaiter().GetResult();\r\n    // Arrange\r\n    var notFoundObjectResult = Assert.IsType\u003CNotFoundObjectResult\u003E(result);\r\n    Assert.Equal(testId, notFoundObjectResult.Value);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Edit_WithValiId_Return_ViewResult",
+        "Body": "{\r\n    // Arrange\r\n    var mediatorMock = new Mock\u003CIMediator\u003E();\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CGetPostQuery\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(GetPost()));\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CGetTopicQuery\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(GetTopic()));\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CGetTopicsQuery\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(GetTopics()));\r\n    var identityMock = new Mock\u003CIIdentityService\u003E();\r\n    var mapperMock = new Mock\u003CIMapper\u003E();\r\n    mapperMock.Setup(mapper =\u003E mapper.Map\u003CPostDTO, EditPostViewModel\u003E(It.IsAny\u003CPostDTO\u003E())).Returns(GetEditPostViewModel());\r\n    mapperMock.Setup(mapper =\u003E mapper.Map\u003CIEnumerable\u003CTopicDTO\u003E, ICollection\u003CTopicViewModel\u003E\u003E(It.IsAny\u003CIEnumerable\u003CTopicDTO\u003E\u003E())).Returns(GetTopicViewModels());\r\n    var controller = new PostsController(mediatorMock.Object, identityMock.Object, mapperMock.Object);\r\n    var testId = 1;\r\n    // Act\r\n    var result = controller.Edit(testId).GetAwaiter().GetResult();\r\n    // Arrange\r\n    var viewResult = Assert.IsType\u003CViewResult\u003E(result);\r\n    Assert.IsAssignableFrom\u003CEditPostViewModel\u003E(viewResult.ViewData.Model);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "EditPost_WithInvalidModel_Return_EditViewAgain",
+        "Body": "{\r\n    // Arrange\r\n    var mediatorMock = new Mock\u003CIMediator\u003E();\r\n    var identityMock = new Mock\u003CIIdentityService\u003E();\r\n    var mapperMock = new Mock\u003CIMapper\u003E();\r\n    var controller = new PostsController(mediatorMock.Object, identityMock.Object, mapperMock.Object);\r\n    controller.ModelState.AddModelError(\u0022Title\u0022, \u0022TitleRequired\u0022);\r\n    var model = new EditPostViewModel\r\n    {\r\n    };\r\n    // Act\r\n    var result = controller.Edit(model).GetAwaiter().GetResult();\r\n    // Assert\r\n    var viewResult = Assert.IsType\u003CViewResult\u003E(result);\r\n    Assert.IsAssignableFrom\u003CEditPostViewModel\u003E(viewResult.ViewData.Model);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "EditPost_WithValidModel_Return_RedirectToReadAction",
+        "Body": "{\r\n    // Arrange\r\n    var mediatorMock = new Mock\u003CIMediator\u003E();\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CCreateTopicCommand\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(1));\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CGetAuthorByUserIdQuery\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(GetAuthor()));\r\n    var identityMock = new Mock\u003CIIdentityService\u003E();\r\n    var mapperMock = new Mock\u003CIMapper\u003E();\r\n    mapperMock.Setup(mapper =\u003E mapper.Map\u003CEditPostViewModel, PostDTO\u003E(It.IsAny\u003CEditPostViewModel\u003E())).Returns(GetPost());\r\n    var controller = new PostsController(mediatorMock.Object, identityMock.Object, mapperMock.Object);\r\n    var postId = 1;\r\n    var model = new EditPostViewModel\r\n    {\r\n        Id = postId,\r\n        TopicId = 1,\r\n        Text = \u0022PostPostPostPostPostPostPostPostPostPostPostPost\u0022,\r\n        Title = \u0022Title\u0022,\r\n        Topic = \u0022Topic\u0022,\r\n    };\r\n    // Act\r\n    var result = controller.Edit(model).GetAwaiter().GetResult();\r\n    // Assert\r\n    var redirectToActionResult = Assert.IsType\u003CRedirectToActionResult\u003E(result);\r\n    Assert.Equal(\u0022Read\u0022, redirectToActionResult.ActionName);\r\n    Assert.Equal(\u0022Posts\u0022, redirectToActionResult.ControllerName);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Delete_WithInvalidReturnUrl_Return_RedirectToPostsAction",
+        "Body": "{\r\n    // Arrange\r\n    var mediatorMock = new Mock\u003CIMediator\u003E();\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CDeletePostCommand\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(Unit.Value));\r\n    var identityMock = new Mock\u003CIIdentityService\u003E();\r\n    var mapperMock = new Mock\u003CIMapper\u003E();\r\n    var controller = new PostsController(mediatorMock.Object, identityMock.Object, mapperMock.Object);\r\n    var postId = 1;\r\n    // Act\r\n    var result = controller.Delete(postId).GetAwaiter().GetResult();\r\n    // Assert\r\n    var redirectToActionResult = Assert.IsType\u003CRedirectToActionResult\u003E(result);\r\n    Assert.Equal(\u0022Index\u0022, redirectToActionResult.ActionName);\r\n    Assert.Equal(\u0022Posts\u0022, redirectToActionResult.ControllerName);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "ProfileControllerTests",
+    "Message": null,
+    "ProjectName": "UnitTests",
+    "Methods": [
+      {
+        "Name": "Index_WithValidId_Returns_ViewResult",
+        "Body": "{\r\n    // Arrange\r\n    var mediatorMock = new Mock\u003CIMediator\u003E();\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CGetAuthorQuery\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(GetAuthor()));\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CGetPostsByAuthorIdQuery\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(GetPosts()));\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CGetCommentsByAuthorIdQuery\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(GetComments()));\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CGetAuthorByUserIdQuery\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(GetAuthor()));\r\n    var identityMock = new Mock\u003CIIdentityService\u003E();\r\n    identityMock.Setup(identity =\u003E identity.GetUserIdByNameAsync(It.IsAny\u003Cstring\u003E())).Returns(Task.FromResult(\u0022someId\u0022));\r\n    var mapperMock = new Mock\u003CIMapper\u003E();\r\n    mapperMock.Setup(mapper =\u003E mapper.Map\u003CAuthorDTO, ProfileViewModel\u003E(It.IsAny\u003CAuthorDTO\u003E())).Returns(GetProfileViewModel());\r\n    var controller = new ProfileController(identityMock.Object, mediatorMock.Object, mapperMock.Object);\r\n    controller.ControllerContext = GetFakeContext();\r\n    var authorId = 1;\r\n    // Act\r\n    var result = controller.Index(authorId).GetAwaiter().GetResult();\r\n    // Assert\r\n    var viewResult = Assert.IsType\u003CViewResult\u003E(result);\r\n    Assert.IsAssignableFrom\u003CProfileViewModel\u003E(viewResult.ViewData.Model);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Index_WithInvalidId_Returns_RedirectToHomePageResult",
+        "Body": "{\r\n    // Arrange\r\n    var mediatorMock = new Mock\u003CIMediator\u003E();\r\n    var identityMock = new Mock\u003CIIdentityService\u003E();\r\n    var mapperMock = new Mock\u003CIMapper\u003E();\r\n    var controller = new ProfileController(identityMock.Object, mediatorMock.Object, mapperMock.Object);\r\n    var authorId = -1;\r\n    // Act\r\n    var result = controller.Index(authorId).GetAwaiter().GetResult();\r\n    // Assert\r\n    var redirectToActionResult = Assert.IsType\u003CRedirectToActionResult\u003E(result);\r\n    Assert.Equal(\u0022Index\u0022, redirectToActionResult.ActionName);\r\n    Assert.Equal(\u0022Home\u0022, redirectToActionResult.ControllerName);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Edit_WithInvalidId_Returns_RedirectToHomePageResult",
+        "Body": "{\r\n    // Arrange\r\n    var mediatorMock = new Mock\u003CIMediator\u003E();\r\n    var identityMock = new Mock\u003CIIdentityService\u003E();\r\n    var mapperMock = new Mock\u003CIMapper\u003E();\r\n    var controller = new ProfileController(identityMock.Object, mediatorMock.Object, mapperMock.Object);\r\n    var authorId = -1;\r\n    // Act\r\n    var result = controller.Edit(authorId).GetAwaiter().GetResult();\r\n    // Assert\r\n    var redirectToActionResult = Assert.IsType\u003CRedirectToActionResult\u003E(result);\r\n    Assert.Equal(\u0022Index\u0022, redirectToActionResult.ActionName);\r\n    Assert.Equal(\u0022Home\u0022, redirectToActionResult.ControllerName);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Edit_WithValidId_Returns_ViewResult",
+        "Body": "{\r\n    // Arrange\r\n    var mediatorMock = new Mock\u003CIMediator\u003E();\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CGetAuthorQuery\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(GetAuthor()));\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CGetPostsByAuthorIdQuery\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(GetPosts()));\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CGetCommentsByAuthorIdQuery\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(GetComments()));\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CGetAuthorByUserIdQuery\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(GetAuthor()));\r\n    var identityMock = new Mock\u003CIIdentityService\u003E();\r\n    identityMock.Setup(identity =\u003E identity.GetUserIdByNameAsync(It.IsAny\u003Cstring\u003E())).Returns(Task.FromResult(\u0022someId\u0022));\r\n    var mapperMock = new Mock\u003CIMapper\u003E();\r\n    mapperMock.Setup(mapper =\u003E mapper.Map\u003CAuthorDTO, ProfileViewModel\u003E(It.IsAny\u003CAuthorDTO\u003E())).Returns(GetProfileViewModel());\r\n    var controller = new ProfileController(identityMock.Object, mediatorMock.Object, mapperMock.Object);\r\n    controller.ControllerContext = GetFakeContext();\r\n    var authorId = 1;\r\n    // Act\r\n    var result = controller.Edit(authorId).GetAwaiter().GetResult();\r\n    // Assert\r\n    var viewResult = Assert.IsType\u003CViewResult\u003E(result);\r\n    Assert.IsAssignableFrom\u003CProfileViewModel\u003E(viewResult.ViewData.Model);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "EditPost_WithInvalidModel_Return_EditViewAgain",
+        "Body": "{\r\n    // Arrange\r\n    var mediatorMock = new Mock\u003CIMediator\u003E();\r\n    var identityMock = new Mock\u003CIIdentityService\u003E();\r\n    var mapperMock = new Mock\u003CIMapper\u003E();\r\n    var controller = new ProfileController(identityMock.Object, mediatorMock.Object, mapperMock.Object);\r\n    controller.ModelState.AddModelError(\u0022FirstName\u0022, \u0022FirstNameRequired\u0022);\r\n    var model = new ProfileViewModel\r\n    {\r\n    };\r\n    // Act\r\n    var result = controller.Edit(model).GetAwaiter().GetResult();\r\n    // Assert\r\n    var viewResult = Assert.IsType\u003CViewResult\u003E(result);\r\n    Assert.IsAssignableFrom\u003CProfileViewModel\u003E(viewResult.ViewData.Model);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "EditPost_WithValidModel_Return_RedirectToReadAction",
+        "Body": "{\r\n    // Arrange\r\n    var mediatorMock = new Mock\u003CIMediator\u003E();\r\n    mediatorMock.Setup(mediator =\u003E mediator.Send(It.IsAny\u003CUpdateAuthorCommand\u003E(), It.IsAny\u003CCancellationToken\u003E())).Returns(Task.FromResult(Unit.Value));\r\n    var identityMock = new Mock\u003CIIdentityService\u003E();\r\n    var mapperMock = new Mock\u003CIMapper\u003E();\r\n    mapperMock.Setup(mapper =\u003E mapper.Map\u003CProfileViewModel, AuthorDTO\u003E(It.IsAny\u003CProfileViewModel\u003E())).Returns(GetAuthor());\r\n    var controller = new ProfileController(identityMock.Object, mediatorMock.Object, mapperMock.Object);\r\n    var uploadDataMock = new Mock\u003CIFormFile\u003E();\r\n    uploadDataMock.SetupGet(upload =\u003E upload.Name).Returns(\u0022UploadData\u0022);\r\n    uploadDataMock.SetupGet(upload =\u003E upload.Length).Returns(4096);\r\n    uploadDataMock.Setup(upload =\u003E upload.OpenReadStream()).Returns(new MemoryStream());\r\n    var binaryReaderMock = new Mock\u003CBinaryReader\u003E();\r\n    byte[] image =\r\n    {\r\n        0,\r\n        0,\r\n        0,\r\n        25\r\n    };\r\n    binaryReaderMock.Setup(mapper =\u003E mapper.ReadBytes(It.IsAny\u003Cint\u003E())).Returns(image);\r\n    var model = GetProfileViewModel();\r\n    model.UploadedData = uploadDataMock.Object;\r\n    // Act\r\n    var result = controller.Edit(model).GetAwaiter().GetResult();\r\n    // Assert\r\n    var redirectToActionResult = Assert.IsType\u003CRedirectToActionResult\u003E(result);\r\n    Assert.Equal(\u0022Index\u0022, redirectToActionResult.ActionName);\r\n    Assert.Equal(\u0022Profile\u0022, redirectToActionResult.ControllerName);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GetAuthorByUserIdQueryTests",
+    "Message": null,
+    "ProjectName": "UnitTests",
+    "Methods": [
+      {
+        "Name": "Handle_GivenValidUserId_ReturnsAuthorDTO",
+        "Body": "{\r\n    // Arrange\r\n    var author = new AuthorDTO\r\n    {\r\n        Id = 1,\r\n        UserId = \u0022QWERTY1234567890_One\u0022,\r\n        FirstName = \u0022FirstName_One\u0022,\r\n        LastName = \u0022LastName_One\u0022,\r\n        BirthDate = new DateTime(1988, 01, 01),\r\n    };\r\n    var query = new GetAuthorByUserIdQuery\r\n    {\r\n        UserId = \u0022QWERTY1234567890_One\u0022\r\n    };\r\n    // Act\r\n    var handler = new GetAuthorByUserIdQuery.GetAuthorByUserIdQueryHandler(Context, Mapper);\r\n    var result = await handler.Handle(query, CancellationToken.None);\r\n    // Assert\r\n    result.ShouldBeOfType\u003CAuthorDTO\u003E();\r\n    result.ShouldNotBeNull();\r\n    result.Id.ShouldBe(author.Id);\r\n    result.UserId.ShouldBe(author.UserId);\r\n    result.FirstName.ShouldBe(author.FirstName);\r\n    result.LastName.ShouldBe(author.LastName);\r\n    result.BirthDate.ShouldBe(author.BirthDate);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_GivenInvalidUserId_ReturnsNull",
+        "Body": "{\r\n    // Arrange\r\n    var query = new GetAuthorByUserIdQuery\r\n    {\r\n        UserId = \u0022InvalidUserId\u0022\r\n    };\r\n    // Act\r\n    var handler = new GetAuthorByUserIdQuery.GetAuthorByUserIdQueryHandler(Context, Mapper);\r\n    var result = await handler.Handle(query, CancellationToken.None);\r\n    // Assert\r\n    result.ShouldBeNull();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GetAuthorQueryTests",
+    "Message": null,
+    "ProjectName": "UnitTests",
+    "Methods": [
+      {
+        "Name": "Handle_GivenValidId_ReturnsAuthorDTO",
+        "Body": "{\r\n    // Arrange\r\n    var author = new AuthorDTO\r\n    {\r\n        Id = 1,\r\n        UserId = \u0022QWERTY1234567890_One\u0022,\r\n        FirstName = \u0022FirstName_One\u0022,\r\n        LastName = \u0022LastName_One\u0022,\r\n        BirthDate = new DateTime(1988, 01, 01),\r\n    };\r\n    var query = new GetAuthorQuery\r\n    {\r\n        Id = 1\r\n    };\r\n    // Act\r\n    var handler = new GetAuthorQuery.GetAuthorQueryHandler(Context, Mapper);\r\n    var result = await handler.Handle(query, CancellationToken.None);\r\n    // Assert\r\n    result.ShouldBeOfType\u003CAuthorDTO\u003E();\r\n    result.ShouldNotBeNull();\r\n    result.Id.ShouldBe(author.Id);\r\n    result.UserId.ShouldBe(author.UserId);\r\n    result.FirstName.ShouldBe(author.FirstName);\r\n    result.LastName.ShouldBe(author.LastName);\r\n    result.BirthDate.ShouldBe(author.BirthDate);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_GivenInvalidId_ReturnsNull",
+        "Body": "{\r\n    // Arrange\r\n    var query = new GetAuthorQuery\r\n    {\r\n        Id = 99\r\n    };\r\n    // Act\r\n    var handler = new GetAuthorQuery.GetAuthorQueryHandler(Context, Mapper);\r\n    var result = await handler.Handle(query, CancellationToken.None);\r\n    // Assert\r\n    result.ShouldBeNull();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GetAuthorsQueryTests",
+    "Message": null,
+    "ProjectName": "UnitTests",
+    "Methods": [
+      {
+        "Name": "Handler_ReturnsAuthorDTOCollection",
+        "Body": "{\r\n    // Arrange\r\n    var query = new GetAuthorsQuery();\r\n    // Act\r\n    var handler = new GetAuthorsQuery.GetAuthorsQueryHandler(Context, Mapper);\r\n    var result = await handler.Handle(query, CancellationToken.None);\r\n    // Assert\r\n    result.ShouldBeOfType\u003CList\u003CAuthorDTO\u003E\u003E();\r\n    result.ShouldNotBeNull();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GetCommentQueryTests",
+    "Message": null,
+    "ProjectName": "UnitTests",
+    "Methods": [
+      {
+        "Name": "Handle_GivenValidId_ReturnsCommentDTO",
+        "Body": "{\r\n    // Arrange\r\n    var comment = new CommentDTO\r\n    {\r\n        Id = 1,\r\n        AuthorId = 1,\r\n        Date = new DateTime(2020, 02, 01),\r\n        PostId = 4,\r\n        Text = \u0022Comment_One\u0022,\r\n    };\r\n    var query = new GetCommentQuery\r\n    {\r\n        Id = 1\r\n    };\r\n    // Act\r\n    var handler = new GetCommentQuery.GetCommentQueryHandler(Context, Mapper);\r\n    var result = await handler.Handle(query, CancellationToken.None);\r\n    // Assert\r\n    result.ShouldBeOfType\u003CCommentDTO\u003E();\r\n    result.ShouldNotBeNull();\r\n    result.Id.ShouldBe(comment.Id);\r\n    result.AuthorId.ShouldBe(comment.AuthorId);\r\n    result.Date.ShouldBe(comment.Date);\r\n    result.PostId.ShouldBe(comment.PostId);\r\n    result.Text.ShouldBe(comment.Text);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_GivenInvalidId_ReturnsNull",
+        "Body": "{\r\n    // Arrange\r\n    var query = new GetCommentQuery\r\n    {\r\n        Id = 99\r\n    };\r\n    // Act\r\n    var handler = new GetCommentQuery.GetCommentQueryHandler(Context, Mapper);\r\n    var result = await handler.Handle(query, CancellationToken.None);\r\n    // Assert\r\n    result.ShouldBeNull();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GetCommentsByAuthorIdQueryTests",
+    "Message": null,
+    "ProjectName": "UnitTests",
+    "Methods": [
+      {
+        "Name": "Handler_GivenValidAuthorId_ReturnsNotEmptyCommentsDTOCollection",
+        "Body": "{\r\n    // Arrange\r\n    var query = new GetCommentsByAuthorIdQuery\r\n    {\r\n        AuthorId = 1\r\n    };\r\n    // Act\r\n    var handler = new GetCommentsByAuthorIdQuery.GetCommentsByAuthorIdQueryHandler(Context, Mapper);\r\n    var result = await handler.Handle(query, CancellationToken.None);\r\n    // Assert\r\n    result.ShouldBeOfType\u003CList\u003CCommentDTO\u003E\u003E();\r\n    result.ShouldNotBeNull();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handler_GivenInvalidAuthorId_ReturnsEmptyCommentsDTOCollection",
+        "Body": "{\r\n    // Arrange\r\n    var query = new GetCommentsByAuthorIdQuery\r\n    {\r\n        AuthorId = 99\r\n    };\r\n    // Act\r\n    var handler = new GetCommentsByAuthorIdQuery.GetCommentsByAuthorIdQueryHandler(Context, Mapper);\r\n    var result = await handler.Handle(query, CancellationToken.None);\r\n    // Assert\r\n    result.ShouldBeEmpty();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GetCommentsByPostIdQueryTests",
+    "Message": null,
+    "ProjectName": "UnitTests",
+    "Methods": [
+      {
+        "Name": "Handler_GivenValidPostId_ReturnsNotEmptyCommentsDTOCollection",
+        "Body": "{\r\n    // Arrange\r\n    var query = new GetCommentsByPostIdQuery\r\n    {\r\n        PostId = 1\r\n    };\r\n    // Act\r\n    var handler = new GetCommentsByPostIdQuery.GetCommentsByPostIdQueryHandler(Context, Mapper);\r\n    var result = await handler.Handle(query, CancellationToken.None);\r\n    // Assert\r\n    result.ShouldBeOfType\u003CList\u003CCommentDTO\u003E\u003E();\r\n    result.ShouldNotBeNull();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handler_GivenInvalidPostId_ReturnsEmptyCommentsDTOCollection",
+        "Body": "{\r\n    // Arrange\r\n    var query = new GetCommentsByPostIdQuery\r\n    {\r\n        PostId = 99\r\n    };\r\n    // Act\r\n    var handler = new GetCommentsByPostIdQuery.GetCommentsByPostIdQueryHandler(Context, Mapper);\r\n    var result = await handler.Handle(query, CancellationToken.None);\r\n    // Assert\r\n    result.ShouldBeEmpty();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GetPostQueryTests",
+    "Message": null,
+    "ProjectName": "UnitTests",
+    "Methods": [
+      {
+        "Name": "Handle_GivenValidId_ReturnsPostDTO",
+        "Body": "{\r\n    // Arrange\r\n    var post = new PostDTO\r\n    {\r\n        Id = 1,\r\n        AuthorId = 1,\r\n        Date = new DateTime(2020, 01, 01),\r\n        Title = \u0022Title_One\u0022,\r\n        Text = \u0022Test_Two\u0022,\r\n        TopicId = 1,\r\n    };\r\n    var query = new GetPostQuery\r\n    {\r\n        Id = 1\r\n    };\r\n    // Act\r\n    var handler = new GetPostQuery.GetPostQueryHandler(Context, Mapper);\r\n    var result = await handler.Handle(query, CancellationToken.None);\r\n    // Assert\r\n    result.ShouldBeOfType\u003CPostDTO\u003E();\r\n    result.ShouldNotBeNull();\r\n    result.Id.ShouldBe(post.Id);\r\n    result.AuthorId.ShouldBe(post.AuthorId);\r\n    result.Date.ShouldBe(post.Date);\r\n    result.Title.ShouldBe(post.Title);\r\n    result.Text.ShouldBe(post.Text);\r\n    result.TopicId.ShouldBe(post.TopicId);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_GivenInvalidId_ReturnsNull",
+        "Body": "{\r\n    // Arrange\r\n    var query = new GetPostQuery\r\n    {\r\n        Id = 99\r\n    };\r\n    // Act\r\n    var handler = new GetPostQuery.GetPostQueryHandler(Context, Mapper);\r\n    var result = await handler.Handle(query, CancellationToken.None);\r\n    // Assert\r\n    result.ShouldBeNull();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GetPostsByAuthorIdQueryTests",
+    "Message": null,
+    "ProjectName": "UnitTests",
+    "Methods": [
+      {
+        "Name": "Handler_GivenValidAuthorId_ReturnsNotEmptyPostsDTOCollection",
+        "Body": "{\r\n    // Arrange\r\n    var query = new GetPostsByAuthorIdQuery\r\n    {\r\n        AuthorId = 1\r\n    };\r\n    // Act\r\n    var handler = new GetPostsByAuthorIdQuery.GetPostsByAuthorIdQueryHandler(Context, Mapper);\r\n    var result = await handler.Handle(query, CancellationToken.None);\r\n    // Assert\r\n    result.ShouldBeOfType\u003CList\u003CPostDTO\u003E\u003E();\r\n    result.ShouldNotBeNull();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handler_GivenInvalidAuthorId_ReturnsEmptyCommentsDTOCollection",
+        "Body": "{\r\n    // Arrange\r\n    var query = new GetPostsByAuthorIdQuery\r\n    {\r\n        AuthorId = 99\r\n    };\r\n    // Act\r\n    var handler = new GetPostsByAuthorIdQuery.GetPostsByAuthorIdQueryHandler(Context, Mapper);\r\n    var result = await handler.Handle(query, CancellationToken.None);\r\n    // Assert\r\n    result.ShouldBeEmpty();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GetPostsQueryTests",
+    "Message": null,
+    "ProjectName": "UnitTests",
+    "Methods": [
+      {
+        "Name": "Handler_ReturnsPostDTOCollection",
+        "Body": "{\r\n    // Arrange\r\n    var query = new GetPostsQuery();\r\n    // Act\r\n    var handler = new GetPostsQuery.GetPostsQueryHandler(Context, Mapper);\r\n    var result = await handler.Handle(query, CancellationToken.None);\r\n    // Assert\r\n    result.ShouldBeOfType\u003CList\u003CPostDTO\u003E\u003E();\r\n    result.ShouldNotBeNull();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GetTopicQueryTests",
+    "Message": null,
+    "ProjectName": "UnitTests",
+    "Methods": [
+      {
+        "Name": "Handle_GivenValidId_ReturnsTopicDTO",
+        "Body": "{\r\n    // Arrange\r\n    var topic = new TopicDTO\r\n    {\r\n        Id = 1,\r\n        Text = \u0022Topic_One\u0022,\r\n    };\r\n    var query = new GetTopicQuery\r\n    {\r\n        Id = 1\r\n    };\r\n    // Act\r\n    var handler = new GetTopicQuery.GetTopicQueryHandler(Context, Mapper);\r\n    var result = await handler.Handle(query, CancellationToken.None);\r\n    // Assert\r\n    result.ShouldBeOfType\u003CTopicDTO\u003E();\r\n    result.ShouldNotBeNull();\r\n    result.Id.ShouldBe(topic.Id);\r\n    result.Text.ShouldBe(topic.Text);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handle_GivenInvalidId_ReturnsNull",
+        "Body": "{\r\n    // Arrange\r\n    var query = new GetCommentQuery\r\n    {\r\n        Id = 99\r\n    };\r\n    // Act\r\n    var handler = new GetCommentQuery.GetCommentQueryHandler(Context, Mapper);\r\n    var result = await handler.Handle(query, CancellationToken.None);\r\n    // Assert\r\n    result.ShouldBeNull();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GetTopicsQueryTests",
+    "Message": null,
+    "ProjectName": "UnitTests",
+    "Methods": [
+      {
+        "Name": "Handler_ReturnsPostDTOCollection",
+        "Body": "{\r\n    // Arrange\r\n    var query = new GetTopicsQuery();\r\n    // Act\r\n    var handler = new GetTopicsQuery.GetTopicsQueryHandler(Context, Mapper);\r\n    var result = await handler.Handle(query, CancellationToken.None);\r\n    // Assert\r\n    result.ShouldBeOfType\u003CList\u003CTopicDTO\u003E\u003E();\r\n    result.ShouldNotBeNull();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,386 @@
+[
+  {
+    "Name": "CategoryEndpointTest",
+    "Message": null,
+    "ProjectName": "Product.Api.Test",
+    "Methods": [
+      {
+        "Name": "GetCategories_ShouldReturnSuccessStatusCode",
+        "Body": "{\r\n    // Arrange\r\n    var scope = _factory.Services.CreateScope();\r\n    var scopedServices = scope.ServiceProvider;\r\n    var db = scopedServices.GetRequiredService\u003CProductDBContext\u003E();\r\n    await db.Database.EnsureCreatedAsync();\r\n    var response = await _client.GetAsync(\u0022/category\u0022);\r\n    // Assert\r\n    Assert.Equal(HttpStatusCode.OK, response.StatusCode);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GetCategory_ShouldReturnSuccessStatusCode",
+        "Body": "{\r\n    // Arrange\r\n    var scope = _factory.Services.CreateScope();\r\n    var scopedServices = scope.ServiceProvider;\r\n    var db = scopedServices.GetRequiredService\u003CProductDBContext\u003E();\r\n    await db.Database.EnsureCreatedAsync();\r\n    // Arrange\r\n    var categoryId = 1;\r\n    // Act\r\n    var response = await _client.GetAsync($\u0022/category/{categoryId}\u0022);\r\n    // Assert\r\n    Assert.Equal(HttpStatusCode.OK, response.StatusCode);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "AddCategory_ReturnsCreatedProduct",
+        "Body": "{\r\n    // Arrange\r\n    var scope = _factory.Services.CreateScope();\r\n    var scopedServices = scope.ServiceProvider;\r\n    var db = scopedServices.GetRequiredService\u003CProductDBContext\u003E();\r\n    await db.Database.EnsureCreatedAsync();\r\n    var command = new AddCategoryCommand\r\n    {\r\n        Name = \u0022Test Category 111\u0022,\r\n        MinimumStock = 100\r\n    };\r\n    var content = new StringContent(JsonSerializer.Serialize(command), Encoding.UTF8, \u0022application/json\u0022);\r\n    // Act\r\n    var response = await _client.PostAsync(\u0022/category\u0022, content);\r\n    var entity = db.Category.FirstOrDefault(x =\u003E x.Name == \u0022Test Category 111\u0022);\r\n    // Assert\r\n    response.EnsureSuccessStatusCode();\r\n    Assert.Equal(command.Name, entity?.Name);\r\n    Assert.Equal(command.MinimumStock, entity?.MinimumStock);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "ProductEndpointTest",
+    "Message": null,
+    "ProjectName": "Product.Api.Test",
+    "Methods": [
+      {
+        "Name": "GetProduct_ShouldReturnSuccessStatusCode",
+        "Body": "{\r\n    // Arrange\r\n    var productId = 1;\r\n    // Act\r\n    var response = await _client.GetAsync($\u0022/product/{productId}\u0022);\r\n    // Assert\r\n    Assert.Equal(HttpStatusCode.OK, response.StatusCode);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "AddProduct_ReturnsCreatedProduct",
+        "Body": "{\r\n    // Arrange\r\n    var scope = _factory.Services.CreateScope();\r\n    var scopedServices = scope.ServiceProvider;\r\n    var db = scopedServices.GetRequiredService\u003CProductDBContext\u003E();\r\n    await db.Database.EnsureCreatedAsync();\r\n    var command = new AddProductCommand\r\n    {\r\n        Title = \u0022Test Product 111\u0022,\r\n        Description = \u0022This is a test product\u0022,\r\n        CategoryId = 1,\r\n        Stock = 10,\r\n        Price = 1,\r\n    };\r\n    var content = new StringContent(JsonSerializer.Serialize(command), Encoding.UTF8, \u0022application/json\u0022);\r\n    // Act\r\n    var response = await _client.PostAsync(\u0022/product\u0022, content);\r\n    var entity = db.Products.FirstOrDefault(x =\u003E x.Title == \u0022Test Product 111\u0022);\r\n    // Assert\r\n    response.EnsureSuccessStatusCode();\r\n    Assert.Equal(command.Title, entity?.Title);\r\n    Assert.Equal(command.Description, entity?.Description);\r\n    Assert.Equal(command.CategoryId, entity?.CategoryId);\r\n    Assert.Equal(command.Stock, entity?.Stock);\r\n    Assert.Equal(command.Price, entity?.Price);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

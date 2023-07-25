@@ -1,0 +1,3358 @@
+[
+  {
+    "Name": "BondUnitTest",
+    "Message": null,
+    "ProjectName": "SerializerUnitTest",
+    "Methods": [
+      {
+        "Name": "TestBinaryConvert",
+        "Body": "{\r\n    var convert = Factory.GetConvertProvider(BondCompactBinaryConvertProvider.PROVIDER_NAME);\r\n    var res = new BondCacheItem\r\n    {\r\n        Key = \u0022test\u0022,\r\n        Value = \u0022value\u0022\r\n    };\r\n    var str = convert.Serialize(res);\r\n    Assert.NotNull(str);\r\n    Assert.Equal(\u0022)\\u0004testI\\u0005value\\0\u0022, str);\r\n    var obj = convert.Deserialize\u003CBondCacheItem\u003E(str);\r\n    Assert.NotNull(obj);\r\n    Assert.Equal(\u0022test\u0022, obj.Key);\r\n    Assert.Equal(\u0022value\u0022, obj.Value);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TestBinaryConvertAsync",
+        "Body": "{\r\n    var convert = Factory.GetConvertProvider(BondCompactBinaryConvertProvider.PROVIDER_NAME);\r\n    var res = new BondCacheItem\r\n    {\r\n        Key = \u0022test\u0022,\r\n        Value = \u0022value\u0022\r\n    };\r\n    var str = await convert.SerializeAsync(res);\r\n    Assert.NotNull(str);\r\n    Assert.Equal(\u0022)\\u0004testI\\u0005value\\0\u0022, str);\r\n    var obj = await convert.DeserializeAsync\u003CBondCacheItem\u003E(str);\r\n    Assert.NotNull(obj);\r\n    Assert.Equal(\u0022test\u0022, obj.Key);\r\n    Assert.Equal(\u0022value\u0022, obj.Value);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TestFastBinaryConvert",
+        "Body": "{\r\n    var convert = Factory.GetConvertProvider(BondFastBinaryConvertProvider.PROVIDER_NAME);\r\n    var res = new BondCacheItem\r\n    {\r\n        Key = \u0022test\u0022,\r\n        Value = \u0022value\u0022\r\n    };\r\n    var str = convert.Serialize(res);\r\n    Assert.NotNull(str);\r\n    Assert.Equal(\u0022\\t\\u0001\\0\\u0004test\\t\\u0002\\0\\u0005value\\0\u0022, str);\r\n    var obj = convert.Deserialize\u003CBondCacheItem\u003E(str);\r\n    Assert.NotNull(obj);\r\n    Assert.Equal(\u0022test\u0022, obj.Key);\r\n    Assert.Equal(\u0022value\u0022, obj.Value);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TestFastBinaryConvertAsync",
+        "Body": "{\r\n    var convert = Factory.GetConvertProvider(BondFastBinaryConvertProvider.PROVIDER_NAME);\r\n    var res = new BondCacheItem\r\n    {\r\n        Key = \u0022test\u0022,\r\n        Value = \u0022value\u0022\r\n    };\r\n    var str = await convert.SerializeAsync(res);\r\n    Assert.NotNull(str);\r\n    Assert.Equal(\u0022\\t\\u0001\\0\\u0004test\\t\\u0002\\0\\u0005value\\0\u0022, str);\r\n    var obj = await convert.DeserializeAsync\u003CBondCacheItem\u003E(str);\r\n    Assert.NotNull(obj);\r\n    Assert.Equal(\u0022test\u0022, obj.Key);\r\n    Assert.Equal(\u0022value\u0022, obj.Value);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TestSimpleJsonConvert",
+        "Body": "{\r\n    var convert = Factory.GetConvertProvider(BondSimpleJsonConvertProvider.PROVIDER_NAME);\r\n    var res = new BondCacheItem\r\n    {\r\n        Key = \u0022test\u0022,\r\n        Value = \u0022value\u0022\r\n    };\r\n    var str = convert.Serialize(res);\r\n    Assert.NotNull(str);\r\n    Assert.Equal(\u0022{\\\u0022Key\\\u0022:\\\u0022test\\\u0022,\\\u0022Value\\\u0022:\\\u0022value\\\u0022}\u0022, str);\r\n    var obj = convert.Deserialize\u003CBondCacheItem\u003E(str);\r\n    Assert.NotNull(obj);\r\n    Assert.Equal(\u0022test\u0022, obj.Key);\r\n    Assert.Equal(\u0022value\u0022, obj.Value);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TestSimpleJsonConvertAsync",
+        "Body": "{\r\n    var convert = Factory.GetConvertProvider(BondSimpleJsonConvertProvider.PROVIDER_NAME);\r\n    var res = new BondCacheItem\r\n    {\r\n        Key = \u0022test\u0022,\r\n        Value = \u0022value\u0022\r\n    };\r\n    var str = await convert.SerializeAsync(res);\r\n    Assert.NotNull(str);\r\n    Assert.Equal(\u0022{\\\u0022Key\\\u0022:\\\u0022test\\\u0022,\\\u0022Value\\\u0022:\\\u0022value\\\u0022}\u0022, str);\r\n    var obj = await convert.DeserializeAsync\u003CBondCacheItem\u003E(str);\r\n    Assert.NotNull(obj);\r\n    Assert.Equal(\u0022test\u0022, obj.Key);\r\n    Assert.Equal(\u0022value\u0022, obj.Value);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "DataContractUnitTest",
+    "Message": null,
+    "ProjectName": "SerializerUnitTest",
+    "Methods": [
+      {
+        "Name": "TestDataContractBinaryConvert",
+        "Body": "{\r\n    var convert = Factory.GetConvertProvider(DataContractBinaryConvertProvider.PROVIDER_NAME);\r\n    var res = new DataContractCacheItem\r\n    {\r\n        Key = \u0022test\u0022,\r\n        Value = \u0022value\u0022\r\n    };\r\n    var bytes = convert.SerializeByte(res);\r\n    Assert.NotNull(bytes);\r\n    Assert.Equal(164, bytes.Length);\r\n    var obj = convert.DeserializeByte\u003CDataContractCacheItem\u003E(bytes);\r\n    Assert.NotNull(obj);\r\n    Assert.Equal(\u0022test\u0022, obj.Key);\r\n    Assert.Equal(\u0022value\u0022, obj.Value);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TestDataContractBinaryConvertAsync",
+        "Body": "{\r\n    var convert = Factory.GetConvertProvider(DataContractBinaryConvertProvider.PROVIDER_NAME);\r\n    var res = new DataContractCacheItem\r\n    {\r\n        Key = \u0022test\u0022,\r\n        Value = \u0022value\u0022\r\n    };\r\n    var bytes = await convert.SerializeByteAsync(res);\r\n    Assert.NotNull(bytes);\r\n    Assert.Equal(164, bytes.Length);\r\n    var obj = await convert.DeserializeByteAsync\u003CDataContractCacheItem\u003E(bytes);\r\n    Assert.NotNull(obj);\r\n    Assert.Equal(\u0022test\u0022, obj.Key);\r\n    Assert.Equal(\u0022value\u0022, obj.Value);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TestDataContractConvert",
+        "Body": "{\r\n    var convert = Factory.GetConvertProvider(DataContractConvertProvider.PROVIDER_NAME);\r\n    var res = new DataContractCacheItem\r\n    {\r\n        Key = \u0022test\u0022,\r\n        Value = \u0022value\u0022\r\n    };\r\n    var str = convert.Serialize(res);\r\n    Assert.NotNull(str);\r\n    Assert.Equal(\u0022\u003CDataContractCacheItem xmlns=\\\u0022http://schemas.datacontract.org/2004/07/Sino.Serializer.DataContract\\\u0022 xmlns:i=\\\u0022http://www.w3.org/2001/XMLSchema-instance\\\u0022\u003E\u003Ckey\u003Etest\u003C/key\u003E\u003Cvalue\u003Evalue\u003C/value\u003E\u003C/DataContractCacheItem\u003E\u0022, str);\r\n    var obj = convert.Deserialize\u003CDataContractCacheItem\u003E(str);\r\n    Assert.NotNull(obj);\r\n    Assert.Equal(\u0022test\u0022, obj.Key);\r\n    Assert.Equal(\u0022value\u0022, obj.Value);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TestDataContractConvertTest",
+        "Body": "{\r\n    var convert = Factory.GetConvertProvider(DataContractConvertProvider.PROVIDER_NAME);\r\n    var res = new DataContractCacheItem\r\n    {\r\n        Key = \u0022test\u0022,\r\n        Value = \u0022value\u0022\r\n    };\r\n    var str = await convert.SerializeAsync(res);\r\n    Assert.NotNull(str);\r\n    Assert.Equal(\u0022\u003CDataContractCacheItem xmlns=\\\u0022http://schemas.datacontract.org/2004/07/Sino.Serializer.DataContract\\\u0022 xmlns:i=\\\u0022http://www.w3.org/2001/XMLSchema-instance\\\u0022\u003E\u003Ckey\u003Etest\u003C/key\u003E\u003Cvalue\u003Evalue\u003C/value\u003E\u003C/DataContractCacheItem\u003E\u0022, str);\r\n    var obj = await convert.DeserializeAsync\u003CDataContractCacheItem\u003E(str);\r\n    Assert.NotNull(obj);\r\n    Assert.Equal(\u0022test\u0022, obj.Key);\r\n    Assert.Equal(\u0022value\u0022, obj.Value);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TestDataContractJsonConvert",
+        "Body": "{\r\n    var convert = Factory.GetConvertProvider(DataContractJsonConvertProvider.PROVIDER_NAME);\r\n    var res = new DataContractCacheItem\r\n    {\r\n        Key = \u0022test\u0022,\r\n        Value = \u0022value\u0022\r\n    };\r\n    var str = convert.Serialize(res);\r\n    Assert.NotNull(str);\r\n    Assert.Equal(\u0022{\\\u0022key\\\u0022:\\\u0022test\\\u0022,\\\u0022value\\\u0022:\\\u0022value\\\u0022}\u0022, str);\r\n    var obj = convert.Deserialize\u003CDataContractCacheItem\u003E(str);\r\n    Assert.NotNull(obj);\r\n    Assert.Equal(\u0022test\u0022, obj.Key);\r\n    Assert.Equal(\u0022value\u0022, obj.Value);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TestDataContractJsonConvertAsync",
+        "Body": "{\r\n    var convert = Factory.GetConvertProvider(DataContractJsonConvertProvider.PROVIDER_NAME);\r\n    var res = new DataContractCacheItem\r\n    {\r\n        Key = \u0022test\u0022,\r\n        Value = \u0022value\u0022\r\n    };\r\n    var str = await convert.SerializeAsync(res);\r\n    Assert.NotNull(str);\r\n    Assert.Equal(\u0022{\\\u0022key\\\u0022:\\\u0022test\\\u0022,\\\u0022value\\\u0022:\\\u0022value\\\u0022}\u0022, str);\r\n    var obj = await convert.DeserializeAsync\u003CDataContractCacheItem\u003E(str);\r\n    Assert.NotNull(obj);\r\n    Assert.Equal(\u0022test\u0022, obj.Key);\r\n    Assert.Equal(\u0022value\u0022, obj.Value);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TestDataContractGzJsonConvert",
+        "Body": "{\r\n    var convert = Factory.GetConvertProvider(DataContractGzJsonConvertProvider.PROVIDER_NAME);\r\n    var res = new DataContractCacheItem\r\n    {\r\n        Key = \u0022test\u0022,\r\n        Value = \u0022value\u0022\r\n    };\r\n    var bytes = convert.SerializeByte(res);\r\n    Assert.NotNull(bytes);\r\n    Assert.Equal(50, bytes.Length);\r\n    var obj = convert.DeserializeByte\u003CDataContractCacheItem\u003E(bytes);\r\n    Assert.NotNull(obj);\r\n    Assert.Equal(\u0022test\u0022, obj.Key);\r\n    Assert.Equal(\u0022value\u0022, obj.Value);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TestDataContractGzJsonConvertAsync",
+        "Body": "{\r\n    var convert = Factory.GetConvertProvider(DataContractGzJsonConvertProvider.PROVIDER_NAME);\r\n    var res = new DataContractCacheItem\r\n    {\r\n        Key = \u0022test\u0022,\r\n        Value = \u0022value\u0022\r\n    };\r\n    var bytes = await convert.SerializeByteAsync(res);\r\n    Assert.NotNull(bytes);\r\n    Assert.Equal(50, bytes.Length);\r\n    var obj = await convert.DeserializeByteAsync\u003CDataContractCacheItem\u003E(bytes);\r\n    Assert.NotNull(obj);\r\n    Assert.Equal(\u0022test\u0022, obj.Key);\r\n    Assert.Equal(\u0022value\u0022, obj.Value);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "JsonUnitTest",
+    "Message": null,
+    "ProjectName": "SerializerUnitTest",
+    "Methods": [
+      {
+        "Name": "TestJsonConvert",
+        "Body": "{\r\n    var convert = Factory.GetConvertProvider(JsonConvertProvider.PROVIDER_NAME);\r\n    var res = new TestResponse\r\n    {\r\n        Field = \u0022test\u0022,\r\n        Field2 = 12,\r\n        Fiedl3 = 1234L,\r\n        Field4 = 1,\r\n        Field5 = DateTime.Parse(\u00222019-05-21T09:02:33.7544554\u002B08:00\u0022),\r\n        Field6 = 123.213f,\r\n        Field7 = 123.123123,\r\n        Field8 = new List\u003Cstring\u003E\r\n        {\r\n            \u00221\u0022,\r\n            \u00222\u0022\r\n        },\r\n        Field9 = new List\u003Cint\u003E\r\n        {\r\n            1,\r\n            2\r\n        },\r\n        Field10 = new Child\r\n        {\r\n            Field = \u0022123213\u0022\r\n        }\r\n    };\r\n    var str = convert.Serialize(res);\r\n    Assert.NotNull(str);\r\n    Assert.Equal(\u0022{\\\u0022Field\\\u0022:\\\u0022test\\\u0022,\\\u0022Field2\\\u0022:12,\\\u0022Fiedl3\\\u0022:1234,\\\u0022Field4\\\u0022:1,\\\u0022Field5\\\u0022:\\\u00222019-05-21T09:02:33.7544554\u002B08:00\\\u0022,\\\u0022Field6\\\u0022:123.213,\\\u0022Field7\\\u0022:123.123123,\\\u0022Field8\\\u0022:[\\\u00221\\\u0022,\\\u00222\\\u0022],\\\u0022Field9\\\u0022:[1,2],\\\u0022Field10\\\u0022:{\\\u0022Field\\\u0022:\\\u0022123213\\\u0022}}\u0022, str);\r\n    var obj = convert.Deserialize\u003CTestResponse\u003E(str);\r\n    Assert.NotNull(obj);\r\n    Assert.Equal(\u0022test\u0022, obj.Field);\r\n    Assert.Equal(12, obj.Field2);\r\n    Assert.Equal(1234L, obj.Fiedl3);\r\n    Assert.Equal(1, obj.Field4);\r\n    Assert.Equal(123.213f, obj.Field6);\r\n    Assert.Equal(123.123123, obj.Field7);\r\n    Assert.Equal(2, obj.Field8.Count);\r\n    Assert.Equal(2, obj.Field9.Count);\r\n    Assert.Equal(\u0022123213\u0022, obj.Field10.Field);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TestGzJsonConvert",
+        "Body": "{\r\n    var convert = Factory.GetConvertProvider(GzJsonConvertProvider.PROVIDER_NAME);\r\n    var res = new TestResponse\r\n    {\r\n        Field = \u0022test\u0022,\r\n        Field2 = 12,\r\n        Fiedl3 = 1234L,\r\n        Field4 = 1,\r\n        Field5 = DateTime.Parse(\u00222019-05-21T09:02:33.7544554\u002B08:00\u0022),\r\n        Field6 = 123.213f,\r\n        Field7 = 123.123123,\r\n        Field8 = new List\u003Cstring\u003E\r\n        {\r\n            \u00221\u0022,\r\n            \u00222\u0022\r\n        },\r\n        Field9 = new List\u003Cint\u003E\r\n        {\r\n            1,\r\n            2\r\n        },\r\n        Field10 = new Child\r\n        {\r\n            Field = \u0022123213\u0022\r\n        }\r\n    };\r\n    var bytes = convert.SerializeByte(res);\r\n    Assert.NotNull(bytes);\r\n    Assert.Equal(137, bytes.Length);\r\n    var obj = convert.DeserializeByte\u003CTestResponse\u003E(bytes);\r\n    Assert.NotNull(obj);\r\n    Assert.Equal(\u0022test\u0022, obj.Field);\r\n    Assert.Equal(12, obj.Field2);\r\n    Assert.Equal(1234L, obj.Fiedl3);\r\n    Assert.Equal(1, obj.Field4);\r\n    Assert.Equal(123.213f, obj.Field6);\r\n    Assert.Equal(123.123123, obj.Field7);\r\n    Assert.Equal(2, obj.Field8.Count);\r\n    Assert.Equal(2, obj.Field9.Count);\r\n    Assert.Equal(\u0022123213\u0022, obj.Field10.Field);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TestJsonConvertAsync",
+        "Body": "{\r\n    var convert = Factory.GetConvertProvider(JsonConvertProvider.PROVIDER_NAME);\r\n    var res = new TestResponse\r\n    {\r\n        Field = \u0022test\u0022,\r\n        Field2 = 12,\r\n        Fiedl3 = 1234L,\r\n        Field4 = 1,\r\n        Field5 = DateTime.Parse(\u00222019-05-21T09:02:33.7544554\u002B08:00\u0022),\r\n        Field6 = 123.213f,\r\n        Field7 = 123.123123,\r\n        Field8 = new List\u003Cstring\u003E\r\n        {\r\n            \u00221\u0022,\r\n            \u00222\u0022\r\n        },\r\n        Field9 = new List\u003Cint\u003E\r\n        {\r\n            1,\r\n            2\r\n        },\r\n        Field10 = new Child\r\n        {\r\n            Field = \u0022123213\u0022\r\n        }\r\n    };\r\n    var str = await convert.SerializeAsync(res);\r\n    Assert.NotNull(str);\r\n    Assert.Equal(\u0022{\\\u0022Field\\\u0022:\\\u0022test\\\u0022,\\\u0022Field2\\\u0022:12,\\\u0022Fiedl3\\\u0022:1234,\\\u0022Field4\\\u0022:1,\\\u0022Field5\\\u0022:\\\u00222019-05-21T09:02:33.7544554\u002B08:00\\\u0022,\\\u0022Field6\\\u0022:123.213,\\\u0022Field7\\\u0022:123.123123,\\\u0022Field8\\\u0022:[\\\u00221\\\u0022,\\\u00222\\\u0022],\\\u0022Field9\\\u0022:[1,2],\\\u0022Field10\\\u0022:{\\\u0022Field\\\u0022:\\\u0022123213\\\u0022}}\u0022, str);\r\n    var obj = await convert.DeserializeAsync\u003CTestResponse\u003E(str);\r\n    Assert.NotNull(obj);\r\n    Assert.Equal(\u0022test\u0022, obj.Field);\r\n    Assert.Equal(12, obj.Field2);\r\n    Assert.Equal(1234L, obj.Fiedl3);\r\n    Assert.Equal(1, obj.Field4);\r\n    Assert.Equal(123.213f, obj.Field6);\r\n    Assert.Equal(123.123123, obj.Field7);\r\n    Assert.Equal(2, obj.Field8.Count);\r\n    Assert.Equal(2, obj.Field9.Count);\r\n    Assert.Equal(\u0022123213\u0022, obj.Field10.Field);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "TestGzJsonConvertAsync",
+        "Body": "{\r\n    var convert = Factory.GetConvertProvider(GzJsonConvertProvider.PROVIDER_NAME);\r\n    var res = new TestResponse\r\n    {\r\n        Field = \u0022test\u0022,\r\n        Field2 = 12,\r\n        Fiedl3 = 1234L,\r\n        Field4 = 1,\r\n        Field5 = DateTime.Parse(\u00222019-05-21T09:02:33.7544554\u002B08:00\u0022),\r\n        Field6 = 123.213f,\r\n        Field7 = 123.123123,\r\n        Field8 = new List\u003Cstring\u003E\r\n        {\r\n            \u00221\u0022,\r\n            \u00222\u0022\r\n        },\r\n        Field9 = new List\u003Cint\u003E\r\n        {\r\n            1,\r\n            2\r\n        },\r\n        Field10 = new Child\r\n        {\r\n            Field = \u0022123213\u0022\r\n        }\r\n    };\r\n    var bytes = await convert.SerializeByteAsync(res);\r\n    Assert.NotNull(bytes);\r\n    Assert.Equal(137, bytes.Length);\r\n    var obj = await convert.DeserializeByteAsync\u003CTestResponse\u003E(bytes);\r\n    Assert.NotNull(obj);\r\n    Assert.Equal(\u0022test\u0022, obj.Field);\r\n    Assert.Equal(12, obj.Field2);\r\n    Assert.Equal(1234L, obj.Fiedl3);\r\n    Assert.Equal(1, obj.Field4);\r\n    Assert.Equal(123.213f, obj.Field6);\r\n    Assert.Equal(123.123123, obj.Field7);\r\n    Assert.Equal(2, obj.Field8.Count);\r\n    Assert.Equal(2, obj.Field9.Count);\r\n    Assert.Equal(\u0022123213\u0022, obj.Field10.Field);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "BitAndNumberTest",
+    "Message": null,
+    "ProjectName": "CacheStoreUnitTest",
+    "Methods": [
+      {
+        "Name": "BitCountTest",
+        "Body": "{\r\n    await Test(\u0022:10\\r\\n\u0022, x =\u003E x.BitCount(\u0022key\u0022), x =\u003E x.BitCountAsync(\u0022key\u0022), (x, r) =\u003E\r\n    {\r\n        Assert.Equal(10, r);\r\n        Assert.Equal(\u0022*2\\r\\n$8\\r\\nBITCOUNT\\r\\n$3\\r\\nkey\\r\\n\u0022, x.RequestString);\r\n    });\r\n    await Test(\u0022:4\\r\\n\u0022, x =\u003E x.BitCount(\u0022key\u0022, 0, 1), x =\u003E x.BitCountAsync(\u0022key\u0022, 0, 1), (x, r) =\u003E\r\n    {\r\n        Assert.Equal(4, r);\r\n        Assert.Equal(\u0022*4\\r\\n$8\\r\\nBITCOUNT\\r\\n$3\\r\\nkey\\r\\n$1\\r\\n0\\r\\n$1\\r\\n1\\r\\n\u0022, x.RequestString);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "SetBitTest",
+        "Body": "{\r\n    await Test(\u0022:1\\r\\n\u0022, x =\u003E x.SetBit(\u0022key\u0022, 5, true), x =\u003E x.SetBitAsync(\u0022key\u0022, 5, true), (x, r) =\u003E\r\n    {\r\n        Assert.True(r);\r\n        Assert.Equal(\u0022*4\\r\\n$6\\r\\nSETBIT\\r\\n$3\\r\\nkey\\r\\n$1\\r\\n5\\r\\n$1\\r\\n1\\r\\n\u0022, x.RequestString);\r\n    });\r\n    await Test(\u0022:0\\r\\n\u0022, x =\u003E x.SetBit(\u0022key\u0022, 5, false), x =\u003E x.SetBitAsync(\u0022key\u0022, 5, false), (x, r) =\u003E\r\n    {\r\n        Assert.False(r);\r\n        Assert.Equal(\u0022*4\\r\\n$6\\r\\nSETBIT\\r\\n$3\\r\\nkey\\r\\n$1\\r\\n5\\r\\n$1\\r\\n0\\r\\n\u0022, x.RequestString);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GetBitTest",
+        "Body": "{\r\n    await Test(\u0022:1\\r\\n\u0022, x =\u003E x.GetBit(\u0022key\u0022, 10), x =\u003E x.GetBitAsync(\u0022key\u0022, 10), (x, r) =\u003E\r\n    {\r\n        Assert.True(r);\r\n        Assert.Equal(\u0022*3\\r\\n$6\\r\\nGETBIT\\r\\n$3\\r\\nkey\\r\\n$2\\r\\n10\\r\\n\u0022, x.RequestString);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "DecrTest",
+        "Body": "{\r\n    await Test(\u0022:10\\r\\n\u0022, x =\u003E x.Decr(\u0022key\u0022), x =\u003E x.DecrAsync(\u0022key\u0022), (x, r) =\u003E\r\n    {\r\n        Assert.Equal(10, r);\r\n        Assert.Equal(\u0022*2\\r\\n$4\\r\\nDECR\\r\\n$3\\r\\nkey\\r\\n\u0022, x.RequestString);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "DecrByTest",
+        "Body": "{\r\n    await Test(\u0022:10\\r\\n\u0022, x =\u003E x.DecrBy(\u0022key\u0022, 5), x =\u003E x.DecrByAsync(\u0022key\u0022, 5), (x, r) =\u003E\r\n    {\r\n        Assert.Equal(10, r);\r\n        Assert.Equal(\u0022*3\\r\\n$6\\r\\nDECRBY\\r\\n$3\\r\\nkey\\r\\n$1\\r\\n5\\r\\n\u0022, x.RequestString);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "IncrTest",
+        "Body": "{\r\n    await Test(\u0022:5\\r\\n\u0022, x =\u003E x.Incr(\u0022key\u0022), x =\u003E x.IncrAsync(\u0022key\u0022), (x, r) =\u003E\r\n    {\r\n        Assert.Equal(5, r);\r\n        Assert.Equal(\u0022*2\\r\\n$4\\r\\nINCR\\r\\n$3\\r\\nkey\\r\\n\u0022, x.RequestString);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "IncrByTest",
+        "Body": "{\r\n    await Test(\u0022:5\\r\\n\u0022, x =\u003E x.IncrBy(\u0022key\u0022, 2), x =\u003E x.IncrByAsync(\u0022key\u0022, 2), (x, r) =\u003E\r\n    {\r\n        Assert.Equal(5, r);\r\n        Assert.Equal(\u0022*3\\r\\n$6\\r\\nINCRBY\\r\\n$3\\r\\nkey\\r\\n$1\\r\\n2\\r\\n\u0022, x.RequestString);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "ConnectionTest",
+    "Message": null,
+    "ProjectName": "CacheStoreUnitTest",
+    "Methods": [
+      {
+        "Name": "PingTest",
+        "Body": "{\r\n    await Test(\u0022\u002BPONG\\r\\n\u0022, x =\u003E x.Ping(), x =\u003E x.PingAsync(), (x, r) =\u003E\r\n    {\r\n        Assert.Equal(\u0022PONG\u0022, r);\r\n        Assert.Equal(\u0022*1\\r\\n$4\\r\\nPING\\r\\n\u0022, x.RequestString);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "QuitTest",
+        "Body": "{\r\n    await Test(\u0022\u002BOK\\r\\n\u0022, x =\u003E x.Quit(), x =\u003E x.QuitAsync(), (x, r) =\u003E\r\n    {\r\n        Assert.Equal(\u0022OK\u0022, r);\r\n        Assert.Equal(\u0022*1\\r\\n$4\\r\\nQUIT\\r\\n\u0022, x.RequestString);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "SelectTest",
+        "Body": "{\r\n    await Test(\u0022\u002BOK\\r\\n\u0022, x =\u003E x.Select(\u00222\u0022), x =\u003E x.SelectAsync(\u00222\u0022), (x, r) =\u003E\r\n    {\r\n        Assert.Equal(\u0022OK\u0022, r);\r\n        Assert.Equal(\u0022*2\\r\\n$6\\r\\nSELECT\\r\\n$1\\r\\n2\\r\\n\u0022, x.RequestString);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "HashTest",
+    "Message": null,
+    "ProjectName": "CacheStoreUnitTest",
+    "Methods": [
+      {
+        "Name": "HDelTest",
+        "Body": "{\r\n    await Test(\u0022:2\\r\\n\u0022, x =\u003E x.HDel(\u0022test\u0022, \u0022test1\u0022, \u0022test2\u0022), x =\u003E x.HDelAsync(\u0022test\u0022, \u0022test1\u0022, \u0022test2\u0022), (x, r) =\u003E\r\n    {\r\n        Assert.Equal(2, r);\r\n        Assert.Equal(\u0022*4\\r\\n$4\\r\\nHDEL\\r\\n$4\\r\\ntest\\r\\n$5\\r\\ntest1\\r\\n$5\\r\\ntest2\\r\\n\u0022, x.RequestString);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "HExistsTest",
+        "Body": "{\r\n    await Test(\u0022:1\\r\\n\u0022, x =\u003E x.HExists(\u0022test\u0022, \u0022field\u0022), x =\u003E x.HExistsAsync(\u0022test\u0022, \u0022field\u0022), (x, r) =\u003E\r\n    {\r\n        Assert.True(r);\r\n        Assert.Equal(\u0022*3\\r\\n$7\\r\\nHEXISTS\\r\\n$4\\r\\ntest\\r\\n$5\\r\\nfield\\r\\n\u0022, x.RequestString);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "HGetTest",
+        "Body": "{\r\n    var body = new ConvertBody\r\n    {\r\n        Key = \u0022test\u0022,\r\n        Value = \u0022testv\u0022,\r\n        Number = 24\r\n    };\r\n    var bodyStr = JsonConvert.SerializeObject(body);\r\n    await Test(\u0022$4\\r\\ntest\\r\\n\u0022, x =\u003E x.HGetBytes(\u0022test\u0022, \u0022field\u0022), x =\u003E x.HGetBytesAsync(\u0022test\u0022, \u0022field\u0022), (x, r) =\u003E\r\n    {\r\n        var str = Encoding.UTF8.GetString(r);\r\n        Assert.Equal(\u0022test\u0022, str);\r\n        Assert.Equal(\u0022*3\\r\\n$4\\r\\nHGET\\r\\n$4\\r\\ntest\\r\\n$5\\r\\nfield\\r\\n\u0022, x.RequestString);\r\n    });\r\n    await Test($\u0022${bodyStr.Length}\\r\\n{bodyStr}\\r\\n\u0022, x =\u003E x.HGet\u003CConvertBody\u003E(\u0022test\u0022, \u0022field\u0022), x =\u003E x.HGetAsync\u003CConvertBody\u003E(\u0022test\u0022, \u0022field\u0022), (x, r) =\u003E\r\n    {\r\n        Assert.NotNull(r);\r\n        Assert.Equal(body.Key, r.Key);\r\n        Assert.Equal(body.Value, r.Value);\r\n        Assert.Equal(body.Number, r.Number);\r\n        Assert.Equal($\u0022*3\\r\\n$4\\r\\nHGET\\r\\n$4\\r\\ntest\\r\\n$5\\r\\nfield\\r\\n\u0022, x.RequestString);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "HLenTest",
+        "Body": "{\r\n    await Test(\u0022:5\\r\\n\u0022, x =\u003E x.HLen(\u0022test\u0022), x =\u003E x.HLenAsync(\u0022test\u0022), (x, r) =\u003E\r\n    {\r\n        Assert.Equal(5, r);\r\n        Assert.Equal(\u0022*2\\r\\n$4\\r\\nHLEN\\r\\n$4\\r\\ntest\\r\\n\u0022, x.RequestString);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "HSetTest",
+        "Body": "{\r\n    var value = Encoding.UTF8.GetBytes(\u0022test1\u0022);\r\n    var body = new ConvertBody\r\n    {\r\n        Key = \u0022test\u0022,\r\n        Value = \u0022testv\u0022,\r\n        Number = 24\r\n    };\r\n    var bodyStr = JsonConvert.SerializeObject(body);\r\n    await Test(\u0022:1\\r\\n\u0022, x =\u003E x.HSetBytes(\u0022test\u0022, \u0022field1\u0022, value), x =\u003E x.HSetBytesAsync(\u0022test\u0022, \u0022field1\u0022, value), (x, r) =\u003E\r\n    {\r\n        Assert.True(r);\r\n        Assert.Equal(\u0022*4\\r\\n$4\\r\\nHSET\\r\\n$4\\r\\ntest\\r\\n$6\\r\\nfield1\\r\\n$5\\r\\ntest1\\r\\n\u0022, x.RequestString);\r\n    });\r\n    await Test(\u0022:1\\r\\n\u0022, x =\u003E x.HSet(\u0022test\u0022, \u0022field1\u0022, body), x =\u003E x.HSetAsync(\u0022test\u0022, \u0022field1\u0022, body), (x, r) =\u003E\r\n    {\r\n        Assert.True(r);\r\n        Assert.Equal($\u0022*4\\r\\n$4\\r\\nHSET\\r\\n$4\\r\\ntest\\r\\n$6\\r\\nfield1\\r\\n${bodyStr.Length}\\r\\n{bodyStr}\\r\\n\u0022, x.RequestString);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "HSetWithNoExistedTest",
+        "Body": "{\r\n    var value = Encoding.UTF8.GetBytes(\u0022test1\u0022);\r\n    var body = new ConvertBody\r\n    {\r\n        Key = \u0022test\u0022,\r\n        Value = \u0022testv\u0022,\r\n        Number = 24\r\n    };\r\n    var bodyStr = JsonConvert.SerializeObject(body);\r\n    await Test(\u0022:1\\r\\n\u0022, x =\u003E x.HSetWithNoExistedBytes(\u0022test\u0022, \u0022field1\u0022, value), x =\u003E x.HSetWithNoExistedBytesAsync(\u0022test\u0022, \u0022field1\u0022, value), (x, r) =\u003E\r\n    {\r\n        Assert.True(r);\r\n        Assert.Equal(\u0022*4\\r\\n$6\\r\\nHSETNX\\r\\n$4\\r\\ntest\\r\\n$6\\r\\nfield1\\r\\n$5\\r\\ntest1\\r\\n\u0022, x.RequestString);\r\n    });\r\n    await Test(\u0022:1\\r\\n\u0022, x =\u003E x.HSetWithNoExisted(\u0022test\u0022, \u0022field1\u0022, body), x =\u003E x.HSetWithNoExistedAsync(\u0022test\u0022, \u0022field1\u0022, body), (x, r) =\u003E\r\n    {\r\n        Assert.True(r);\r\n        Assert.Equal($\u0022*4\\r\\n$6\\r\\nHSETNX\\r\\n$4\\r\\ntest\\r\\n$6\\r\\nfield1\\r\\n${bodyStr.Length}\\r\\n{bodyStr}\\r\\n\u0022, x.RequestString);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "KeyTest",
+    "Message": null,
+    "ProjectName": "CacheStoreUnitTest",
+    "Methods": [
+      {
+        "Name": "ExistsTest",
+        "Body": "{\r\n    await Test(\u0022:1\\r\\n\u0022, x =\u003E x.Exists(\u0022test1\u0022), x =\u003E x.ExistsAsync(\u0022test1\u0022), (x, r) =\u003E\r\n    {\r\n        Assert.True(r);\r\n        Assert.Equal(\u0022*2\\r\\n$6\\r\\nEXISTS\\r\\n$5\\r\\ntest1\\r\\n\u0022, x.RequestString);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GetTest",
+        "Body": "{\r\n    var body = new ConvertBody\r\n    {\r\n        Key = \u0022test\u0022,\r\n        Value = \u0022testv\u0022,\r\n        Number = 24\r\n    };\r\n    var bodyStr = JsonConvert.SerializeObject(body);\r\n    await Test(\u0022$5\\r\\nhello\\r\\n\u0022, x =\u003E x.GetBytes(\u0022key\u0022), x =\u003E x.GetBytesAsync(\u0022key\u0022), (x, r) =\u003E\r\n    {\r\n        var key = Encoding.UTF8.GetString(r);\r\n        Assert.Equal(\u0022hello\u0022, key);\r\n        Assert.Equal(\u0022*2\\r\\n$3\\r\\nGET\\r\\n$3\\r\\nkey\\r\\n\u0022, x.RequestString);\r\n    });\r\n    await Test($\u0022${bodyStr.Length}\\r\\n{bodyStr}\\r\\n\u0022, x =\u003E x.Get\u003CConvertBody\u003E(\u0022key1\u0022), x =\u003E x.GetAsync\u003CConvertBody\u003E(\u0022key1\u0022), (x, r) =\u003E\r\n    {\r\n        Assert.NotNull(r);\r\n        Assert.Equal(body.Key, r.Key);\r\n        Assert.Equal(body.Value, r.Value);\r\n        Assert.Equal(body.Number, r.Number);\r\n        Assert.Equal(\u0022*2\\r\\n$3\\r\\nGET\\r\\n$4\\r\\nkey1\\r\\n\u0022, x.RequestString);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "SetTest",
+        "Body": "{\r\n    var value = Encoding.UTF8.GetBytes(\u0022value\u0022);\r\n    var body = new ConvertBody\r\n    {\r\n        Key = \u0022test\u0022,\r\n        Value = \u0022testv\u0022,\r\n        Number = 24\r\n    };\r\n    var bodyStr = JsonConvert.SerializeObject(body);\r\n    await Test(\u0022\u002BOK\\r\\n\u0022, x =\u003E x.SetBytes(\u0022key\u0022, value), x =\u003E x.SetBytesAsync(\u0022key\u0022, value), (x, r) =\u003E\r\n    {\r\n        Assert.Equal(\u0022OK\u0022, r);\r\n        Assert.Equal(\u0022*3\\r\\n$3\\r\\nSET\\r\\n$3\\r\\nkey\\r\\n$5\\r\\nvalue\\r\\n\u0022, x.RequestString);\r\n    });\r\n    await Test(\u0022\u002BOK\\r\\n\u0022, x =\u003E x.Set(\u0022key\u0022, body), x =\u003E x.SetAsync(\u0022key\u0022, body), (x, r) =\u003E\r\n    {\r\n        Assert.Equal(\u0022OK\u0022, r);\r\n        Assert.Equal($\u0022*3\\r\\n$3\\r\\nSET\\r\\n$3\\r\\nkey\\r\\n${bodyStr.Length}\\r\\n{bodyStr}\\r\\n\u0022, x.RequestString);\r\n    });\r\n    await Test(\u0022\u002BOK\\r\\n\u0022, x =\u003E x.SetBytes(\u0022key\u0022, value, 1), x =\u003E x.SetBytesAsync(\u0022key\u0022, value, 1), (x, r) =\u003E\r\n    {\r\n        Assert.Equal(\u0022OK\u0022, r);\r\n        Assert.Equal(\u0022*5\\r\\n$3\\r\\nSET\\r\\n$3\\r\\nkey\\r\\n$5\\r\\nvalue\\r\\n$2\\r\\nEX\\r\\n$1\\r\\n1\\r\\n\u0022, x.RequestString);\r\n    });\r\n    await Test(\u0022\u002BOK\\r\\n\u0022, x =\u003E x.Set(\u0022key\u0022, body, 1), x =\u003E x.SetAsync(\u0022key\u0022, body, 1), (x, r) =\u003E\r\n    {\r\n        Assert.Equal(\u0022OK\u0022, r);\r\n        Assert.Equal($\u0022*5\\r\\n$3\\r\\nSET\\r\\n$3\\r\\nkey\\r\\n${bodyStr.Length}\\r\\n{bodyStr}\\r\\n$2\\r\\nEX\\r\\n$1\\r\\n1\\r\\n\u0022, x.RequestString);\r\n    });\r\n    await Test(\u0022$-1\\r\\n\u0022, x =\u003E x.SetBytes(\u0022key\u0022, value, null, 1), x =\u003E x.SetBytesAsync(\u0022key\u0022, value, null, 1), (x, r) =\u003E\r\n    {\r\n        Assert.Null(r);\r\n        Assert.Equal(\u0022*5\\r\\n$3\\r\\nSET\\r\\n$3\\r\\nkey\\r\\n$5\\r\\nvalue\\r\\n$2\\r\\nPX\\r\\n$1\\r\\n1\\r\\n\u0022, x.RequestString);\r\n    });\r\n    await Test(\u0022$-1\\r\\n\u0022, x =\u003E x.Set(\u0022key\u0022, body, null, 1), x =\u003E x.SetAsync(\u0022key\u0022, body, null, 1), (x, r) =\u003E\r\n    {\r\n        Assert.Null(r);\r\n        Assert.Equal($\u0022*5\\r\\n$3\\r\\nSET\\r\\n$3\\r\\nkey\\r\\n${bodyStr.Length}\\r\\n{bodyStr}\\r\\n$2\\r\\nPX\\r\\n$1\\r\\n1\\r\\n\u0022, x.RequestString);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "SetWithNoExistedTest",
+        "Body": "{\r\n    var value = Encoding.UTF8.GetBytes(\u0022value\u0022);\r\n    var body = new ConvertBody\r\n    {\r\n        Key = \u0022test\u0022,\r\n        Value = \u0022testv\u0022,\r\n        Number = 24\r\n    };\r\n    var bodyStr = JsonConvert.SerializeObject(body);\r\n    await Test(\u0022\u002BOK\\r\\n\u0022, x =\u003E x.SetWithNoExistedBytes(\u0022key\u0022, value, 1), x =\u003E x.SetWithNoExistedBytesAsync(\u0022key\u0022, value, 1), (x, r) =\u003E\r\n    {\r\n        Assert.Equal(\u0022OK\u0022, r);\r\n        Assert.Equal(\u0022*6\\r\\n$3\\r\\nSET\\r\\n$3\\r\\nkey\\r\\n$5\\r\\nvalue\\r\\n$2\\r\\nEX\\r\\n$1\\r\\n1\\r\\n$2\\r\\nNX\\r\\n\u0022, x.RequestString);\r\n    });\r\n    await Test(\u0022\u002BOK\\r\\n\u0022, x =\u003E x.SetWithNoExisted(\u0022key\u0022, body, 1), x =\u003E x.SetWithNoExistedAsync(\u0022key\u0022, body, 1), (x, r) =\u003E\r\n    {\r\n        Assert.Equal(\u0022OK\u0022, r);\r\n        Assert.Equal($\u0022*6\\r\\n$3\\r\\nSET\\r\\n$3\\r\\nkey\\r\\n${bodyStr.Length}\\r\\n{bodyStr}\\r\\n$2\\r\\nEX\\r\\n$1\\r\\n1\\r\\n$2\\r\\nNX\\r\\n\u0022, x.RequestString);\r\n    });\r\n    await Test(\u0022$-1\\r\\n\u0022, x =\u003E x.SetWithNoExistedBytes(\u0022key\u0022, value, null, 1), x =\u003E x.SetWithNoExistedBytesAsync(\u0022key\u0022, value, null, 1), (x, r) =\u003E\r\n    {\r\n        Assert.Null(r);\r\n        Assert.Equal(\u0022*6\\r\\n$3\\r\\nSET\\r\\n$3\\r\\nkey\\r\\n$5\\r\\nvalue\\r\\n$2\\r\\nPX\\r\\n$1\\r\\n1\\r\\n$2\\r\\nNX\\r\\n\u0022, x.RequestString);\r\n    });\r\n    await Test(\u0022$-1\\r\\n\u0022, x =\u003E x.SetWithNoExisted(\u0022key\u0022, body, null, 1), x =\u003E x.SetWithNoExistedAsync(\u0022key\u0022, body, null, 1), (x, r) =\u003E\r\n    {\r\n        Assert.Null(r);\r\n        Assert.Equal($\u0022*6\\r\\n$3\\r\\nSET\\r\\n$3\\r\\nkey\\r\\n${bodyStr.Length}\\r\\n{bodyStr}\\r\\n$2\\r\\nPX\\r\\n$1\\r\\n1\\r\\n$2\\r\\nNX\\r\\n\u0022, x.RequestString);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ExpireTest",
+        "Body": "{\r\n    await Test(\u0022:1\\r\\n\u0022, x =\u003E x.Expire(\u0022test1\u0022, (long)TimeSpan.FromSeconds(10).TotalSeconds), x =\u003E x.ExpireAsync(\u0022test1\u0022, (long)TimeSpan.FromSeconds(10).TotalSeconds), (x, r) =\u003E\r\n    {\r\n        Assert.True(r);\r\n        Assert.Equal(\u0022*3\\r\\n$6\\r\\nEXPIRE\\r\\n$5\\r\\ntest1\\r\\n$2\\r\\n10\\r\\n\u0022, x.RequestString);\r\n    });\r\n    await Test(\u0022:0\\r\\n\u0022, x =\u003E x.Expire(\u0022test2\u0022, 20L), x =\u003E x.ExpireAsync(\u0022test2\u0022, 20L), (x, r) =\u003E\r\n    {\r\n        Assert.False(r);\r\n        Assert.Equal(\u0022*3\\r\\n$6\\r\\nEXPIRE\\r\\n$5\\r\\ntest2\\r\\n$2\\r\\n20\\r\\n\u0022, x.RequestString);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "RemoveTest",
+        "Body": "{\r\n    await Test(\u0022:3\\r\\n\u0022, x =\u003E x.Remove(\u0022test\u0022), x =\u003E x.RemoveAsync(\u0022test\u0022), (x, r) =\u003E\r\n    {\r\n        Assert.Equal(3, r);\r\n        Assert.Equal(\u0022*2\\r\\n$3\\r\\nDEL\\r\\n$4\\r\\ntest\\r\\n\u0022, x.RequestString);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "ListTest",
+    "Message": null,
+    "ProjectName": "CacheStoreUnitTest",
+    "Methods": [
+      {
+        "Name": "LPopTest",
+        "Body": "{\r\n    var body = new ConvertBody\r\n    {\r\n        Key = \u0022test\u0022,\r\n        Value = \u0022testv\u0022,\r\n        Number = 24\r\n    };\r\n    var bodyStr = JsonConvert.SerializeObject(body);\r\n    await Test(\u0022$5\\r\\ntest1\\r\\n\u0022, x =\u003E x.LPopBytes(\u0022test\u0022), x =\u003E x.LPopBytesAsync(\u0022test\u0022), (x, r) =\u003E\r\n    {\r\n        var str = Encoding.UTF8.GetString(r);\r\n        Assert.Equal(\u0022test1\u0022, str);\r\n        Assert.Equal(\u0022*2\\r\\n$4\\r\\nLPOP\\r\\n$4\\r\\ntest\\r\\n\u0022, x.RequestString);\r\n    });\r\n    await Test($\u0022${bodyStr.Length}\\r\\n{bodyStr}\\r\\n\u0022, x =\u003E x.LPop\u003CConvertBody\u003E(\u0022test\u0022), x =\u003E x.LPopAsync\u003CConvertBody\u003E(\u0022test\u0022), (x, r) =\u003E\r\n    {\r\n        Assert.NotNull(r);\r\n        Assert.Equal(body.Key, r.Key);\r\n        Assert.Equal(body.Value, r.Value);\r\n        Assert.Equal(body.Number, r.Number);\r\n        Assert.Equal(\u0022*2\\r\\n$4\\r\\nLPOP\\r\\n$4\\r\\ntest\\r\\n\u0022, x.RequestString);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LIndexTest",
+        "Body": "{\r\n    var body = new ConvertBody\r\n    {\r\n        Key = \u0022test\u0022,\r\n        Value = \u0022testv\u0022,\r\n        Number = 24\r\n    };\r\n    var bodyStr = JsonConvert.SerializeObject(body);\r\n    await Test(\u0022$5\\r\\ntest1\\r\\n\u0022, x =\u003E x.LIndexBytes(\u0022test\u0022, 0), x =\u003E x.LIndexBytesAsync(\u0022test\u0022, 0), (x, r) =\u003E\r\n    {\r\n        var str = Encoding.UTF8.GetString(r);\r\n        Assert.Equal(\u0022test1\u0022, str);\r\n        Assert.Equal(\u0022*3\\r\\n$6\\r\\nLINDEX\\r\\n$4\\r\\ntest\\r\\n$1\\r\\n0\\r\\n\u0022, x.RequestString);\r\n    });\r\n    await Test($\u0022${bodyStr.Length}\\r\\n{bodyStr}\\r\\n\u0022, x =\u003E x.LIndex\u003CConvertBody\u003E(\u0022test\u0022, 0), x =\u003E x.LIndexAsync\u003CConvertBody\u003E(\u0022test\u0022, 0), (x, r) =\u003E\r\n    {\r\n        Assert.NotNull(r);\r\n        Assert.Equal(body.Key, r.Key);\r\n        Assert.Equal(body.Value, r.Value);\r\n        Assert.Equal(body.Number, r.Number);\r\n        Assert.Equal(\u0022*3\\r\\n$6\\r\\nLINDEX\\r\\n$4\\r\\ntest\\r\\n$1\\r\\n0\\r\\n\u0022, x.RequestString);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LLenTest",
+        "Body": "{\r\n    await Test(\u0022:3\\r\\n\u0022, x =\u003E x.LLen(\u0022test\u0022), x =\u003E x.LLenAsync(\u0022test\u0022), (x, r) =\u003E\r\n    {\r\n        Assert.Equal(3, r);\r\n        Assert.Equal(\u0022*2\\r\\n$4\\r\\nLLEN\\r\\n$4\\r\\ntest\\r\\n\u0022, x.RequestString);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LPushTest",
+        "Body": "{\r\n    var value = Encoding.UTF8.GetBytes(\u0022test1\u0022);\r\n    var body = new ConvertBody\r\n    {\r\n        Key = \u0022test\u0022,\r\n        Value = \u0022testv\u0022,\r\n        Number = 24\r\n    };\r\n    var bodyStr = JsonConvert.SerializeObject(body);\r\n    await Test(\u0022:1\\r\\n\u0022, x =\u003E x.LPushBytes(\u0022test\u0022, value), x =\u003E x.LPushBytesAsync(\u0022test\u0022, value), (x, r) =\u003E\r\n    {\r\n        Assert.Equal(1, r);\r\n        Assert.Equal(\u0022*3\\r\\n$5\\r\\nLPUSH\\r\\n$4\\r\\ntest\\r\\n$5\\r\\ntest1\\r\\n\u0022, x.RequestString);\r\n    });\r\n    await Test(\u0022:1\\r\\n\u0022, x =\u003E x.LPush(\u0022test\u0022, body), x =\u003E x.LPushAsync(\u0022test\u0022, body), (x, r) =\u003E\r\n    {\r\n        Assert.Equal(1, r);\r\n        Assert.Equal($\u0022*3\\r\\n$5\\r\\nLPUSH\\r\\n$4\\r\\ntest\\r\\n${bodyStr.Length}\\r\\n{bodyStr}\\r\\n\u0022, x.RequestString);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "RPopTest",
+        "Body": "{\r\n    var body = new ConvertBody\r\n    {\r\n        Key = \u0022test\u0022,\r\n        Value = \u0022testv\u0022,\r\n        Number = 24\r\n    };\r\n    var bodyStr = JsonConvert.SerializeObject(body);\r\n    await Test(\u0022$5\\r\\ntest1\\r\\n\u0022, x =\u003E x.RPopBytes(\u0022test\u0022), x =\u003E x.RPopBytesAsync(\u0022test\u0022), (x, r) =\u003E\r\n    {\r\n        var str = Encoding.UTF8.GetString(r);\r\n        Assert.Equal(\u0022test1\u0022, str);\r\n        Assert.Equal(\u0022*2\\r\\n$4\\r\\nRPOP\\r\\n$4\\r\\ntest\\r\\n\u0022, x.RequestString);\r\n    });\r\n    await Test($\u0022${bodyStr.Length}\\r\\n{bodyStr}\\r\\n\u0022, x =\u003E x.RPop\u003CConvertBody\u003E(\u0022test\u0022), x =\u003E x.RPopAsync\u003CConvertBody\u003E(\u0022test\u0022), (x, r) =\u003E\r\n    {\r\n        Assert.NotNull(r);\r\n        Assert.Equal(body.Key, r.Key);\r\n        Assert.Equal(body.Value, r.Value);\r\n        Assert.Equal(body.Number, r.Number);\r\n        Assert.Equal(\u0022*2\\r\\n$4\\r\\nRPOP\\r\\n$4\\r\\ntest\\r\\n\u0022, x.RequestString);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "RPushTest",
+        "Body": "{\r\n    var value = Encoding.UTF8.GetBytes(\u0022test1\u0022);\r\n    var body = new ConvertBody\r\n    {\r\n        Key = \u0022test\u0022,\r\n        Value = \u0022testv\u0022,\r\n        Number = 24\r\n    };\r\n    var bodyStr = JsonConvert.SerializeObject(body);\r\n    await Test(\u0022:3\\r\\n\u0022, x =\u003E x.RPushBytes(\u0022test\u0022, value), x =\u003E x.RPushBytesAsync(\u0022test\u0022, value), (x, r) =\u003E\r\n    {\r\n        Assert.Equal(3, r);\r\n        Assert.Equal(\u0022*3\\r\\n$5\\r\\nRPUSH\\r\\n$4\\r\\ntest\\r\\n$5\\r\\ntest1\\r\\n\u0022, x.RequestString);\r\n    });\r\n    await Test(\u0022:3\\r\\n\u0022, x =\u003E x.RPush(\u0022test\u0022, body), x =\u003E x.RPushAsync(\u0022test\u0022, body), (x, r) =\u003E\r\n    {\r\n        Assert.Equal(3, r);\r\n        Assert.Equal($\u0022*3\\r\\n$5\\r\\nRPUSH\\r\\n$4\\r\\ntest\\r\\n${bodyStr.Length}\\r\\n{bodyStr}\\r\\n\u0022, x.RequestString);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,2060 @@
+[
+  {
+    "Name": "CreateFoodCommandTests",
+    "Message": null,
+    "ProjectName": "VictoryRestaurant.Foods.Tests",
+    "Methods": [
+      {
+        "Name": "Handle",
+        "Body": "{\r\n    // Arrange\r\n    await using var context = DbContextFactory.BuildApplicationContext();\r\n    var repository = new FoodEntityRepository(context);\r\n    var handler = new CreateFoodCommand.Handler(repository);\r\n    var generatedFood = FoodEntityGenerator.Generate();\r\n    var command = new CreateFoodCommand(food: generatedFood);\r\n    // Act\r\n    await handler.Handle(request: command, cancellationToken: default);\r\n    // Assert\r\n    var foodFromStorage = await context.Foods.SingleOrDefaultAsync(predicate: entity =\u003E entity.Id == generatedFood.Id \u0026\u0026 entity.CreatedDate == generatedFood.CreatedDate \u0026\u0026 entity.Cost == generatedFood.Cost \u0026\u0026 entity.ImagePath == generatedFood.ImagePath \u0026\u0026 entity.Description == generatedFood.Description \u0026\u0026 entity.FoodTypeId == generatedFood.FoodTypeId \u0026\u0026 entity.FoodType == generatedFood.FoodType \u0026\u0026 entity.Name == generatedFood.Name);\r\n    foodFromStorage.Should().BeEquivalentTo(expectation: generatedFood);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "DeleteFoodCommandTests",
+    "Message": null,
+    "ProjectName": "VictoryRestaurant.Foods.Tests",
+    "Methods": [
+      {
+        "Name": "Handle",
+        "Body": "{\r\n    // Arrange\r\n    await using var context = DbContextFactory.BuildApplicationContext();\r\n    var repository = new FoodEntityRepository(context);\r\n    var handler = new DeleteFoodCommand.Handler(repository);\r\n    var generatedFood = FoodEntityGenerator.Generate();\r\n    await context.Foods.AddAsync(entity: generatedFood);\r\n    await context.SaveChangesAsync();\r\n    var command = new DeleteFoodCommand(id: generatedFood.Id);\r\n    // Act\r\n    await handler.Handle(request: command, cancellationToken: default);\r\n    // Assert\r\n    var foodFromStorage = await context.Foods.SingleOrDefaultAsync(predicate: entity =\u003E entity.Id == generatedFood.Id \u0026\u0026 entity.CreatedDate == generatedFood.CreatedDate \u0026\u0026 entity.Cost == generatedFood.Cost \u0026\u0026 entity.ImagePath == generatedFood.ImagePath \u0026\u0026 entity.Description == generatedFood.Description \u0026\u0026 entity.FoodTypeId == generatedFood.FoodTypeId \u0026\u0026 entity.FoodType == generatedFood.FoodType \u0026\u0026 entity.Name == generatedFood.Name);\r\n    foodFromStorage.Should().BeNull();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "UpdateFoodCommandTests",
+    "Message": null,
+    "ProjectName": "VictoryRestaurant.Foods.Tests",
+    "Methods": [
+      {
+        "Name": "Handle",
+        "Body": "{\r\n    // Arrange\r\n    await using var context = DbContextFactory.BuildApplicationContext();\r\n    var repository = new FoodEntityRepository(context);\r\n    var handler = new UpdateFoodCommand.Handler(repository);\r\n    var generatedFood = FoodEntityGenerator.Generate();\r\n    await context.Foods.AddAsync(entity: generatedFood);\r\n    await context.SaveChangesAsync();\r\n    context.Entry(entity: generatedFood).State = EntityState.Detached;\r\n    generatedFood.Name = \u0022Updated!\u0022;\r\n    var command = new UpdateFoodCommand(food: generatedFood);\r\n    // Act\r\n    await handler.Handle(request: command, cancellationToken: default);\r\n    // Assert\r\n    var foodFromStorage = await context.Foods.SingleOrDefaultAsync(predicate: entity =\u003E entity.Id == generatedFood.Id \u0026\u0026 entity.CreatedDate == generatedFood.CreatedDate \u0026\u0026 entity.Cost == generatedFood.Cost \u0026\u0026 entity.ImagePath == generatedFood.ImagePath \u0026\u0026 entity.Description == generatedFood.Description \u0026\u0026 entity.FoodTypeId == generatedFood.FoodTypeId \u0026\u0026 entity.FoodType == generatedFood.FoodType \u0026\u0026 entity.Name == \u0022Updated!\u0022);\r\n    foodFromStorage.Should().NotBeNull();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "CreateFoodTypeCommandTests",
+    "Message": null,
+    "ProjectName": "VictoryRestaurant.Foods.Tests",
+    "Methods": [
+      {
+        "Name": "Handle",
+        "Body": "{\r\n    // Arrange\r\n    await using var context = DbContextFactory.BuildApplicationContext();\r\n    var repository = new FoodTypeEntityRepository(context);\r\n    var handler = new CreateFoodTypeCommand.Handler(repository);\r\n    var generatedFoodType = FoodTypeEntityGenerator.Generate();\r\n    var command = new CreateFoodTypeCommand(foodType: generatedFoodType);\r\n    // Act\r\n    await handler.Handle(request: command, cancellationToken: default);\r\n    // Assert\r\n    var foodTypeFromStorage = await context.Foods.SingleOrDefaultAsync(predicate: entity =\u003E entity.Id == generatedFoodType.Id \u0026\u0026 entity.Name == generatedFoodType.Name);\r\n    foodTypeFromStorage.Should().BeEquivalentTo(expectation: generatedFoodType);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "DeleteFoodTypeCommandTests",
+    "Message": null,
+    "ProjectName": "VictoryRestaurant.Foods.Tests",
+    "Methods": [
+      {
+        "Name": "Handle",
+        "Body": "{\r\n    // Arrange\r\n    await using var context = DbContextFactory.BuildApplicationContext();\r\n    var repository = new FoodTypeEntityRepository(context);\r\n    var handler = new DeleteFoodTypeCommand.Handler(repository);\r\n    var generatedFoodType = FoodTypeEntityGenerator.Generate();\r\n    await context.FoodTypes.AddAsync(entity: generatedFoodType);\r\n    await context.SaveChangesAsync();\r\n    var command = new DeleteFoodTypeCommand(id: generatedFoodType.Id);\r\n    // Act\r\n    await handler.Handle(request: command, cancellationToken: default);\r\n    // Assert\r\n    var foodTypeFromStorage = await context.FoodTypes.SingleOrDefaultAsync(predicate: entity =\u003E entity.Id == generatedFoodType.Id \u0026\u0026 entity.Name == generatedFoodType.Name);\r\n    foodTypeFromStorage.Should().BeNull();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "UpdateFoodTypeCommandTests",
+    "Message": null,
+    "ProjectName": "VictoryRestaurant.Foods.Tests",
+    "Methods": [
+      {
+        "Name": "Handle",
+        "Body": "{\r\n    // Arrange\r\n    await using var context = DbContextFactory.BuildApplicationContext();\r\n    var repository = new FoodTypeEntityRepository(context);\r\n    var handler = new UpdateFoodTypeCommand.Handler(repository);\r\n    var generatedFoodType = FoodTypeEntityGenerator.Generate();\r\n    await context.FoodTypes.AddAsync(entity: generatedFoodType);\r\n    await context.SaveChangesAsync();\r\n    context.Entry(entity: generatedFoodType).State = EntityState.Detached;\r\n    generatedFoodType.Name = \u0022Updated!\u0022;\r\n    var command = new UpdateFoodTypeCommand(foodType: generatedFoodType);\r\n    // Act\r\n    await handler.Handle(request: command, cancellationToken: default);\r\n    // Assert\r\n    var foodTypeFromStorage = await context.FoodTypes.SingleOrDefaultAsync(predicate: entity =\u003E entity.Id == generatedFoodType.Id \u0026\u0026 entity.Name == \u0022Updated!\u0022);\r\n    foodTypeFromStorage.Should().NotBeNull();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GetAllFoodListQueryTests",
+    "Message": null,
+    "ProjectName": "VictoryRestaurant.Foods.Tests",
+    "Methods": [
+      {
+        "Name": "Handle",
+        "Body": "{\r\n    // Arrange\r\n    await using var context = DbContextFactory.BuildApplicationContext();\r\n    var repository = new FoodEntityRepository(context);\r\n    var handler = new GetAllFoodListQuery.Handler(repository);\r\n    var generatedFood = FoodEntityGenerator.Generate();\r\n    await context.Foods.AddAsync(entity: generatedFood);\r\n    await context.SaveChangesAsync();\r\n    var query = new GetAllFoodListQuery();\r\n    // Act\r\n    var foods = await handler.Handle(request: query, cancellationToken: default);\r\n    // Assert\r\n    foods.Should().Contain(expected: generatedFood);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GetFoodByConditionQueryTests",
+    "Message": null,
+    "ProjectName": "VictoryRestaurant.Foods.Tests",
+    "Methods": [
+      {
+        "Name": "Handle",
+        "Body": "{\r\n    // Arrange\r\n    await using var context = DbContextFactory.BuildApplicationContext();\r\n    var repository = new FoodEntityRepository(context);\r\n    var handler = new GetFoodByConditionQuery.Handler(repository);\r\n    var generatedFood = FoodEntityGenerator.Generate();\r\n    await context.Foods.AddAsync(entity: generatedFood);\r\n    await context.SaveChangesAsync();\r\n    Expression\u003CFunc\u003CFoodEntity, bool\u003E\u003E condition = food =\u003E food.Equals(generatedFood);\r\n    var query = new GetFoodByConditionQuery(predicate: condition);\r\n    // Act\r\n    var food = await handler.Handle(request: query, cancellationToken: default);\r\n    // Assert\r\n    food.Should().BeEquivalentTo(expectation: generatedFood);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GetFoodListByConditionQueryTests",
+    "Message": null,
+    "ProjectName": "VictoryRestaurant.Foods.Tests",
+    "Methods": [
+      {
+        "Name": "Handle",
+        "Body": "{\r\n    // Arrange\r\n    await using var context = DbContextFactory.BuildApplicationContext();\r\n    var repository = new FoodEntityRepository(context);\r\n    var handler = new GetFoodListByConditionQuery.Handler(repository);\r\n    var generatedFood = FoodEntityGenerator.Generate();\r\n    await context.Foods.AddAsync(entity: generatedFood);\r\n    await context.SaveChangesAsync();\r\n    Func\u003CFoodEntity, bool\u003E condition = food =\u003E food.Equals(obj: generatedFood);\r\n    var query = new GetFoodListByConditionQuery(predicate: condition);\r\n    // Act\r\n    var foods = await handler.Handle(request: query, cancellationToken: default);\r\n    // Assert\r\n    foods.Should().Contain(expected: generatedFood);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GetAllFoodTypeListQueryTests",
+    "Message": null,
+    "ProjectName": "VictoryRestaurant.Foods.Tests",
+    "Methods": [
+      {
+        "Name": "Handle",
+        "Body": "{\r\n    // Arrange\r\n    await using var context = DbContextFactory.BuildApplicationContext();\r\n    var repository = new FoodTypeEntityRepository(context);\r\n    var handler = new GetAllFoodTypeListQuery.Handler(repository);\r\n    var generatedFoodType = FoodTypeEntityGenerator.Generate();\r\n    await context.FoodTypes.AddAsync(entity: generatedFoodType);\r\n    await context.SaveChangesAsync();\r\n    var query = new GetAllFoodTypeListQuery();\r\n    // Act\r\n    var foodTypes = await handler.Handle(request: query, cancellationToken: default);\r\n    // Assert\r\n    foodTypes.Should().Contain(expected: generatedFoodType);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GetFoodListByConditionQueryTests",
+    "Message": null,
+    "ProjectName": "VictoryRestaurant.Foods.Tests",
+    "Methods": [
+      {
+        "Name": "Handle",
+        "Body": "{\r\n    // Arrange\r\n    await using var context = DbContextFactory.BuildApplicationContext();\r\n    var repository = new FoodTypeEntityRepository(context);\r\n    var handler = new GetFoodTypeListByConditionQuery.Handler(repository);\r\n    var generatedFoodType = FoodTypeEntityGenerator.Generate();\r\n    await context.FoodTypes.AddAsync(entity: generatedFoodType);\r\n    await context.SaveChangesAsync();\r\n    Func\u003CFoodTypeEntity, bool\u003E condition = foodType =\u003E foodType.Equals(obj: generatedFoodType);\r\n    var query = new GetFoodTypeListByConditionQuery(predicate: condition);\r\n    // Act\r\n    var foodTypes = await handler.Handle(request: query, cancellationToken: default);\r\n    // Assert\r\n    foodTypes.Should().Contain(expected: generatedFoodType);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GetFoodTypeByConditionQueryTests",
+    "Message": null,
+    "ProjectName": "VictoryRestaurant.Foods.Tests",
+    "Methods": [
+      {
+        "Name": "Handle",
+        "Body": "{\r\n    // Arrange\r\n    await using var context = DbContextFactory.BuildApplicationContext();\r\n    var repository = new FoodTypeEntityRepository(context);\r\n    var handler = new GetFoodTypeByConditionQuery.Handler(repository);\r\n    var generatedFoodType = FoodTypeEntityGenerator.Generate();\r\n    await context.FoodTypes.AddAsync(entity: generatedFoodType);\r\n    await context.SaveChangesAsync();\r\n    Expression\u003CFunc\u003CFoodTypeEntity, bool\u003E\u003E condition = foodType =\u003E foodType.Equals(generatedFoodType);\r\n    var query = new GetFoodTypeByConditionQuery(predicate: condition);\r\n    // Act\r\n    var foodType = await handler.Handle(request: query, cancellationToken: default);\r\n    // Assert\r\n    foodType.Should().BeEquivalentTo(expectation: generatedFoodType);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "FoodEntityRepositoryTests",
+    "Message": null,
+    "ProjectName": "VictoryRestaurant.Foods.Tests",
+    "Methods": [
+      {
+        "Name": "GetAllAsync",
+        "Body": "{\r\n    // Arrange\r\n    using var context = DbContextFactory.BuildApplicationContext();\r\n    var repository = new FoodEntityRepository(context);\r\n    var generatedFood = FoodEntityGenerator.Generate();\r\n    await repository.CreateAsync(entity: generatedFood);\r\n    // Act\r\n    var foodsFromStorage = await repository.GetAllAsync();\r\n    // Assert\r\n    foodsFromStorage.Should().HaveCount(expected: 1);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GetAllAsync_Predicate",
+        "Body": "{\r\n    // Arrange\r\n    using var context = DbContextFactory.BuildApplicationContext();\r\n    var repository = new FoodEntityRepository(context);\r\n    var generatedFood = FoodEntityGenerator.Generate();\r\n    await repository.CreateAsync(entity: generatedFood);\r\n    // Act\r\n    var foodsFromStorage = await repository.GetAllAsync(predicate: food =\u003E food.Id == generatedFood.Id \u0026\u0026 food.CreatedDate == generatedFood.CreatedDate \u0026\u0026 food.Name == generatedFood.Name \u0026\u0026 food.Description == generatedFood.Description \u0026\u0026 food.Cost == generatedFood.Cost \u0026\u0026 food.ImagePath == generatedFood.ImagePath \u0026\u0026 food.FoodTypeId == generatedFood.FoodTypeId \u0026\u0026 food.FoodType == generatedFood.FoodType);\r\n    // Assert\r\n    foodsFromStorage.Should().HaveCount(expected: 1);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GetAsync_Id",
+        "Body": "{\r\n    // Arrange\r\n    using var context = DbContextFactory.BuildApplicationContext();\r\n    var repository = new FoodEntityRepository(context);\r\n    var generatedFood = FoodEntityGenerator.Generate();\r\n    await repository.CreateAsync(entity: generatedFood);\r\n    // Act\r\n    var foodFromStorage = await repository.FirstOrDefaultAsync(id: generatedFood.Id);\r\n    // Assert\r\n    foodFromStorage.Should().NotBeNull().And.BeEquivalentTo(expectation: generatedFood);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GetAsync_Predicate",
+        "Body": "{\r\n    // Arrange\r\n    using var context = DbContextFactory.BuildApplicationContext();\r\n    var repository = new FoodEntityRepository(context);\r\n    var generatedFood = FoodEntityGenerator.Generate();\r\n    await repository.CreateAsync(entity: generatedFood);\r\n    // Act\r\n    var foodFromStorage = await repository.FirstOrDefaultAsync(predicate: food =\u003E food.Id == generatedFood.Id \u0026\u0026 food.CreatedDate == generatedFood.CreatedDate \u0026\u0026 food.Name == generatedFood.Name \u0026\u0026 food.Description == generatedFood.Description \u0026\u0026 food.Cost == generatedFood.Cost \u0026\u0026 food.ImagePath == generatedFood.ImagePath \u0026\u0026 food.FoodTypeId == generatedFood.FoodTypeId \u0026\u0026 food.FoodType == generatedFood.FoodType);\r\n    // Assert\r\n    foodFromStorage.Should().NotBeNull().And.BeEquivalentTo(expectation: generatedFood);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "CreateAsync",
+        "Body": "{\r\n    // Arrange\r\n    using var context = DbContextFactory.BuildApplicationContext();\r\n    var repository = new FoodEntityRepository(context);\r\n    var generatedFood = FoodEntityGenerator.Generate();\r\n    // Act\r\n    var createdFood = await repository.CreateAsync(entity: generatedFood);\r\n    // Assert\r\n    createdFood.Should().NotBeNull();\r\n    var foodFromStorage = context.Foods.SingleOrDefaultAsync(predicate: food =\u003E food.Id == createdFood!.Id);\r\n    createdFood.Should().BeEquivalentTo(expectation: foodFromStorage);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "UpdateAsync",
+        "Body": "{\r\n    // Arrange\r\n    using var context = DbContextFactory.BuildApplicationContext();\r\n    var repository = new FoodEntityRepository(context);\r\n    var generatedFood = FoodEntityGenerator.Generate();\r\n    var createdFood = await repository.CreateAsync(entity: generatedFood);\r\n    // Act\r\n    createdFood!.Description = \u0022Updated!\u0022;\r\n    await repository.UpdateAsync(entity: createdFood);\r\n    // Assert\r\n    var foodFromStorage = await repository.FirstOrDefaultAsync(predicate: food =\u003E food.Description == \u0022Updated!\u0022);\r\n    foodFromStorage.Should().NotBeNull().And.BeEquivalentTo(expectation: createdFood);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "DeleteAsync",
+        "Body": "{\r\n    // Arrange\r\n    using var context = DbContextFactory.BuildApplicationContext();\r\n    var repository = new FoodEntityRepository(context);\r\n    var generatedFood = FoodEntityGenerator.Generate();\r\n    var createdFood = await repository.CreateAsync(entity: generatedFood);\r\n    // Act\r\n    await repository.DeleteAsync(id: createdFood!.Id);\r\n    // Assert\r\n    createdFood.Should().BeNull();\r\n    var foodsFromStorage = await repository.GetAllAsync();\r\n    foodsFromStorage.Should().NotBeNull().And.BeEmpty();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "FoodTypeEntityRepositoryTests",
+    "Message": null,
+    "ProjectName": "VictoryRestaurant.Foods.Tests",
+    "Methods": [
+      {
+        "Name": "GetAllAsync",
+        "Body": "{\r\n    // Arrange\r\n    using var context = DbContextFactory.BuildApplicationContext();\r\n    var repository = new FoodTypeEntityRepository(context);\r\n    var generatedFoodType = FoodTypeEntityGenerator.Generate();\r\n    await repository.CreateAsync(entity: generatedFoodType);\r\n    // Act\r\n    var foodTypesFromStorage = await repository.GetAllAsync();\r\n    // Assert\r\n    foodTypesFromStorage.Should().HaveCount(expected: 1);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GetAllAsync_Predicate",
+        "Body": "{\r\n    // Arrange\r\n    using var context = DbContextFactory.BuildApplicationContext();\r\n    var repository = new FoodTypeEntityRepository(context);\r\n    var generatedFoodType = FoodTypeEntityGenerator.Generate();\r\n    await repository.CreateAsync(entity: generatedFoodType);\r\n    // Act\r\n    var foodTypesFromStorage = await repository.GetAllAsync(predicate: foodType =\u003E foodType.Id == generatedFoodType.Id \u0026\u0026 foodType.Name == generatedFoodType.Name);\r\n    // Assert\r\n    foodTypesFromStorage.Should().HaveCount(expected: 1);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GetAsync_Id",
+        "Body": "{\r\n    // Arrange\r\n    using var context = DbContextFactory.BuildApplicationContext();\r\n    var repository = new FoodTypeEntityRepository(context);\r\n    var generatedFoodType = FoodTypeEntityGenerator.Generate();\r\n    await repository.CreateAsync(entity: generatedFoodType);\r\n    // Act\r\n    var foodTypeFromStorage = await repository.FirstOrDefaultAsync(id: generatedFoodType.Id);\r\n    // Assert\r\n    foodTypeFromStorage.Should().NotBeNull().And.BeEquivalentTo(expectation: generatedFoodType);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GetAsync_Predicate",
+        "Body": "{\r\n    // Arrange\r\n    using var context = DbContextFactory.BuildApplicationContext();\r\n    var repository = new FoodTypeEntityRepository(context);\r\n    var generatedFoodType = FoodTypeEntityGenerator.Generate();\r\n    await repository.CreateAsync(entity: generatedFoodType);\r\n    // Act\r\n    var foodTypeFromStorage = await repository.FirstOrDefaultAsync(predicate: foodType =\u003E foodType.Id == generatedFoodType.Id \u0026\u0026 foodType.Name == generatedFoodType.Name);\r\n    // Assert\r\n    foodTypeFromStorage.Should().NotBeNull().And.BeEquivalentTo(expectation: generatedFoodType);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "CreateAsync",
+        "Body": "{\r\n    // Arrange\r\n    using var context = DbContextFactory.BuildApplicationContext();\r\n    var repository = new FoodTypeEntityRepository(context);\r\n    var generatedFoodType = FoodTypeEntityGenerator.Generate();\r\n    // Act\r\n    var createdFoodType = await repository.CreateAsync(entity: generatedFoodType);\r\n    // Assert\r\n    createdFoodType.Should().NotBeNull();\r\n    var foodTypeFromStorage = context.FoodTypes.SingleOrDefaultAsync(predicate: food =\u003E food.Id == createdFoodType!.Id);\r\n    createdFoodType.Should().BeEquivalentTo(expectation: foodTypeFromStorage);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "UpdateAsync",
+        "Body": "{\r\n    // Arrange\r\n    using var context = DbContextFactory.BuildApplicationContext();\r\n    var repository = new FoodTypeEntityRepository(context);\r\n    var generatedFoodType = FoodTypeEntityGenerator.Generate();\r\n    var createdFoodType = await repository.CreateAsync(entity: generatedFoodType);\r\n    // Act\r\n    createdFoodType!.Name = \u0022Updated!\u0022;\r\n    await repository.UpdateAsync(entity: createdFoodType);\r\n    // Assert\r\n    var foodTypeFromStorage = await repository.FirstOrDefaultAsync(predicate: food =\u003E food.Name == \u0022Updated!\u0022);\r\n    foodTypeFromStorage.Should().NotBeNull().And.BeEquivalentTo(expectation: createdFoodType);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "DeleteAsync",
+        "Body": "{\r\n    // Arrange\r\n    using var context = DbContextFactory.BuildApplicationContext();\r\n    var repository = new FoodTypeEntityRepository(context);\r\n    var generatedFoodType = FoodTypeEntityGenerator.Generate();\r\n    var createdFoodType = await repository.CreateAsync(entity: generatedFoodType);\r\n    // Act\r\n    await repository.DeleteAsync(id: createdFoodType!.Id);\r\n    // Assert\r\n    createdFoodType.Should().BeNull();\r\n    var foodTypesFromStorage = await repository.GetAllAsync();\r\n    foodTypesFromStorage.Should().NotBeNull().And.BeEmpty();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

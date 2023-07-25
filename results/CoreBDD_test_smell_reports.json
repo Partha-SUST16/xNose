@@ -1,0 +1,229 @@
+[
+  {
+    "Name": "CodeGenerationTests",
+    "Message": null,
+    "ProjectName": "CoreBDD.Tests",
+    "Methods": [
+      {
+        "Name": "ScaffoldFeature",
+        "Body": "{\r\n    var feature = \u0022Calculator\u0022;\r\n    var targetFolder = $\u0022{baseFolder}{feature}\u0022;\r\n    if (!Directory.Exists(targetFolder))\r\n        Directory.CreateDirectory(targetFolder);\r\n    var featureBuilder = CodeGenerationBuilder.BuildFeature(Path.GetFullPath(targetFolder), feature, \u0022CoreBDD.Tests.Features\u0022);\r\n    CodeGeneration.Generate(featureBuilder);\r\n    Assert.True(File.Exists($@\u0022{targetFolder}\\{feature}Feature.cs\u0022));\r\n    Teardown();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ScaffoldScenario",
+        "Body": "{\r\n    var feature = \u0022Calculator\u0022;\r\n    var scenario = \u0022AdvancedCalculator\u0022;\r\n    var featureFolder = $@\u0022{baseFolder}{feature}\u0022;\r\n    var scenarioFolder = $@\u0022{featureFolder}\\Scenarios\u0022;\r\n    if (!Directory.Exists(scenarioFolder))\r\n        Directory.CreateDirectory(scenarioFolder);\r\n    //Feature.cs file\r\n    var featureBuilder = CodeGenerationBuilder.BuildFeature(Path.GetFullPath(featureFolder), feature, \u0022CoreBDD.Tests.Features\u0022);\r\n    CodeGeneration.Generate(featureBuilder);\r\n    var scenarioBuilder = CodeGenerationBuilder.BuildScenario(Path.GetFullPath(scenarioFolder), scenario, feature, \u0022CoreBDD.Tests.Features\u0022);\r\n    CodeGeneration.Generate(scenarioBuilder);\r\n    Assert.True(File.Exists($@\u0022{scenarioFolder}\\{scenario}.cs\u0022));\r\n    Teardown();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ScaffoldTestFromGherkin",
+        "Body": "{\r\n    var @namespace = \u0022CoreBDD.Tests.Features\u0022;\r\n    var gherkinDocuments = $@\u0022{Directory.GetParent(Assembly.GetExecutingAssembly().Location)}..\\..\\..\\..\\Input\u0022;\r\n    var testBuilder = CodeGenerationBuilder.BuildTests(gherkinDocuments, Path.Combine(baseFolder, \u0022Calculator\u0022), @namespace);\r\n    CodeGeneration.Generate(testBuilder);\r\n    Assert.True(File.Exists($@\u0022{baseFolder}\\Calculator\\CalculatorFeature.cs\u0022));\r\n    Assert.True(File.Exists($@\u0022{baseFolder}\\Calculator\\Scenarios\\Calculator.cs\u0022));\r\n    Teardown();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

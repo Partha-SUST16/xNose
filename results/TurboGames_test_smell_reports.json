@@ -1,0 +1,1258 @@
+[
+  {
+    "Name": "AddressesTests",
+    "Message": null,
+    "ProjectName": "GameStore.AutomatedUITests",
+    "Methods": [
+      {
+        "Name": "Address_WhenEnterValidAddress_ReturnsSuccessMessage",
+        "Body": "{\r\n    _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);\r\n    _loginHelper.LoginAdmin();\r\n    // Populate the elements and submit form\r\n    _page.PopulateAddressCountry(\u0022Canada\u0022);\r\n    _page.PopulateAddressFullName(\u0022John Doe\u0022);\r\n    _page.PopulateAddressStreetAddress(\u0022372 Random Road\u0022);\r\n    _page.PopulateAddressCity(\u0022Waterloo\u0022);\r\n    _page.PopulateAddressStateProvinceRegion(\u0022Ontario\u0022);\r\n    _page.PopulateAddressPostalCode(\u0022N1P1H1\u0022);\r\n    _page.ClickCreate();\r\n    Assert.Equal(\u0022Your addresses\u0022, _page.Title);\r\n    Assert.Contains(\u0022Canada\u0022, _page.Source);\r\n    Assert.Contains(\u0022John Doe\u0022, _page.Source);\r\n    Assert.Contains(\u0022372 Random Road\u0022, _page.Source);\r\n    Assert.Contains(\u0022Waterloo\u0022, _page.Source);\r\n    Assert.Contains(\u0022Ontario\u0022, _page.Source);\r\n    Assert.Contains(\u0022N1P1H1\u0022, _page.Source);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Address_WhenEnterNoValues_ReturnsFormValidationErrorMessages",
+        "Body": "{\r\n    _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);\r\n    _loginHelper.LoginAdmin();\r\n    // submit form\r\n    _page.ClickCreate();\r\n    Assert.Equal(\u0022Add a new address\u0022, _page.Title);\r\n    Assert.Contains(\u0022The Full name field is required.\u0022, _page.Source);\r\n    Assert.Contains(\u0022The Street address field is required.\u0022, _page.Source);\r\n    Assert.Contains(\u0022The City field is required.\u0022, _page.Source);\r\n    Assert.Contains(\u0022The State/province/region field is required.\u0022, _page.Source);\r\n    Assert.Contains(\u0022The Postal/zip code field is required.\u0022, _page.Source);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "DownloadGamesTests",
+    "Message": "This class has Lack of Cohesion of Test Cases",
+    "ProjectName": "GameStore.AutomatedUITests",
+    "Methods": [
+      {
+        "Name": "Library_WheneverUserHitsDownload_DownloadJson",
+        "Body": "{\r\n    _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);\r\n    // Login as a regular user\r\n    _loginHelper.LoginUser();\r\n    // Find\u0027s the download button\r\n    _page.FindDownloadButton();\r\n    // Accept cookies so the status message will appear\r\n    _page.ClickAcceptCookies();\r\n    // Clicks the download button\r\n    _page.ClickDownload();\r\n    Assert.Equal(\u0022Your games\u0022, _page.Title);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Library_AfterDownload_CheckIfFileExist",
+        "Body": "{\r\n    // Checks if the file exists\r\n    Assert.True(CheckFile(\u0022Apex.json\u0022));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "EventTests",
+    "Message": null,
+    "ProjectName": "GameStore.AutomatedUITests",
+    "Methods": [
+      {
+        "Name": "Events_WhenSuccessfullyExecuted_ReturnsEventOnManageEventsPage",
+        "Body": "{\r\n    _addPage.Navigate();\r\n    _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);\r\n    _loginHelper.LoginAdmin();\r\n    _addPage.FindEventTitleElement();\r\n    string title = \u0022Test title\u0022;\r\n    string details = \u0022Test details\u0022;\r\n    _addPage.PopulateEventTitle(title);\r\n    _addPage.PopulateEventDate(DateTime.UtcNow.ToString());\r\n    _addPage.PopulateEventDetails(details);\r\n    _addPage.PopulateEventClassification(\u0022Web\u0022);\r\n    _addPage.ClickSubmit();\r\n    _addPage.FindAddEventButton();\r\n    Assert.Equal(\u0022Manage Events\u0022, _addPage.Title);\r\n    Assert.Contains(title, _addPage.Source);\r\n    Assert.Contains(details, _addPage.Source);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Events_WhenSuccessfullyExecuted_ReturnsEventGoneFromManageEventsPage",
+        "Body": "{\r\n    //Adding the event to be deleted\r\n    _addPage.Navigate();\r\n    _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);\r\n    _loginHelper.LoginAdmin();\r\n    _addPage.FindEventTitleElement();\r\n    string title = \u0022Testtitle2\u0022;\r\n    string details = \u0022Testdetails2\u0022;\r\n    _addPage.PopulateEventTitle(title);\r\n    _addPage.PopulateEventDate(DateTime.UtcNow.ToString());\r\n    _addPage.PopulateEventDetails(details);\r\n    _addPage.PopulateEventClassification(\u0022Web\u0022);\r\n    _addPage.ClickSubmit();\r\n    _addPage.FindAddEventButton();\r\n    //Deleting \r\n    _deletePage.Navigate();\r\n    _deletePage.FindDeleteEventButton(title);\r\n    _deletePage.ClickDelete(title);\r\n    _deletePage.FindDeleteEventButtonActual();\r\n    _deletePage.ClickDeleteEventButton();\r\n    _driver.FindElement(By.Id(\u0022add-event-button\u0022));\r\n    Assert.Equal(\u0022Manage Events\u0022, _driver.Title);\r\n    Assert.DoesNotContain(title, _driver.PageSource);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "LoginTests",
+    "Message": null,
+    "ProjectName": "GameStore.AutomatedUITests",
+    "Methods": [
+      {
+        "Name": "Login_CorrectUser_ReturnsHomePageWithRegisteredUserMenu",
+        "Body": "{\r\n    _loginpage.PopulateUserName(\u0022User\u0022);\r\n    _loginpage.PopulatePassword(\u0022User123!\u0022);\r\n    _loginpage.ClickLogin();\r\n    _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);\r\n    _loginpage.FindRegisteredUserMenu();\r\n    Assert.Equal(\u0022Home\u0022, _driver.Title);\r\n    Assert.Contains(\u0022Welcome back,\u0022, _loginpage.Source);\r\n    Assert.Contains(\u0022User\u0022, _loginpage.Source);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Login_WhenWrongPassword_ReturnsLoginPage",
+        "Body": "{\r\n    _loginpage.PopulateUserName(\u0022User\u0022);\r\n    _loginpage.PopulatePassword(\u0022UsersPassword123!\u0022);\r\n    _loginpage.ClickLogin();\r\n    _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);\r\n    Assert.Equal(\u0022Please sign in\u0022, _loginpage.Title);\r\n    Assert.Contains(\u0022Error: Invalid login attempt.\u0022, _loginpage.Source);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "PaymentTests",
+    "Message": null,
+    "ProjectName": "GameStore.AutomatedUITests",
+    "Methods": [
+      {
+        "Name": "Payment_EnterCreditCardInformation_ReturnsSuccessMessage",
+        "Body": "{\r\n    _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);\r\n    _loginHelper.LoginUser();\r\n    // Make sure we find the preferences save button\r\n    _page.FindSaveButton();\r\n    // Accept cookies so the status message will appear\r\n    _page.ClickAcceptCookies();\r\n    string creditCard = \u00224123450131003313\u0022;\r\n    string exp = \u002212/23\u0022;\r\n    string cvc = \u0022343\u0022;\r\n    string name = \u0022Lucas Winkler\u0022;\r\n    // Populate the elements and submit form\r\n    _page.ClearCreditCard();\r\n    _page.ClearCreditCardName();\r\n    _page.ClearCVC();\r\n    _page.ClearExpiryDate();\r\n    _page.PopulateCreditCard(creditCard.Replace(\u00224123450131003313\u0022, \u00224123450131003312\u0022));\r\n    _page.PopulateExpiryDate(exp.Replace(\u002212/23\u0022, \u002201/19\u0022));\r\n    _page.PopulateCVC(cvc.Replace(\u0022343\u0022, \u0022312\u0022));\r\n    _page.PopulateCreditCardName(name.Replace(\u0022Lucas Winkler\u0022, \u0022Bob Smith\u0022));\r\n    _page.ClickSave();\r\n    // Checks to see if the status message exists\r\n    _page.FindStatusMessage();\r\n    // Make sure we\u0027re on the preferences page and check the source for the StatusMessage text\r\n    Assert.Equal(\u0022Payment information\u0022, _page.Title);\r\n    Assert.Contains(\u0022Your payment information has been updated\u0022, _page.Source);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "PreferencesTests",
+    "Message": null,
+    "ProjectName": "GameStore.AutomatedUITests",
+    "Methods": [
+      {
+        "Name": "Preferences_WhenEnterNoFavourites_ReturnsSuccessMessage",
+        "Body": "{\r\n    _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);\r\n    _loginHelper.LoginAdmin();\r\n    // Make sure we find the preferences save button\r\n    _page.FindSaveButton();\r\n    // Accept cookies so the status message will appear\r\n    _page.ClickAcceptCookies();\r\n    // Populate the elements and submit form\r\n    _page.PopulateSelectPlatform(\u0022Select platform\u0022);\r\n    _page.PopulateSelectCategory(\u0022Select category\u0022);\r\n    _page.ClickSave();\r\n    // Checks to see if the status message exists\r\n    _page.FindStatusMessage();\r\n    // Make sure we\u0027re on the preferences page and check the source for the StatusMessage text\r\n    Assert.Equal(\u0022Preferences\u0022, _page.Title);\r\n    Assert.Contains(\u0022Your preferences has been updated\u0022, _page.Source);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Preferences_WhenSuccessfullyExecuted_ReturnsSuccessMessage",
+        "Body": "{\r\n    _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);\r\n    _loginHelper.LoginAdmin();\r\n    _page.FindSaveButton();\r\n    _page.ClickAcceptCookies();\r\n    _page.PopulateSelectPlatform(\u0022Steam\u0022);\r\n    _page.PopulateSelectCategory(\u0022FPS\u0022);\r\n    _page.ClickSave();\r\n    _page.FindStatusMessage();\r\n    Assert.Equal(\u0022Preferences\u0022, _page.Title);\r\n    Assert.Contains(\u0022Your preferences has been updated\u0022, _page.Source);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Preferences_EnterOnlyPlatform_ReturnsSuccessMessage",
+        "Body": "{\r\n    _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);\r\n    _loginHelper.LoginAdmin();\r\n    _page.FindSaveButton();\r\n    _page.ClickAcceptCookies();\r\n    _page.PopulateSelectPlatform(\u0022Origin\u0022);\r\n    _page.PopulateSelectCategory(\u0022Select category\u0022);\r\n    _page.ClickSave();\r\n    _page.FindStatusMessage();\r\n    Assert.Equal(\u0022Preferences\u0022, _page.Title);\r\n    Assert.Contains(\u0022Your preferences has been updated\u0022, _page.Source);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Preferences_EnterOnlyCategory_ReturnsSuccessMessage",
+        "Body": "{\r\n    _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);\r\n    _loginHelper.LoginAdmin();\r\n    _page.FindSaveButton();\r\n    _page.ClickAcceptCookies();\r\n    _page.PopulateSelectPlatform(\u0022Select platform\u0022);\r\n    _page.PopulateSelectCategory(\u0022MMO\u0022);\r\n    _page.ClickSave();\r\n    _page.FindStatusMessage();\r\n    Assert.Equal(\u0022Preferences\u0022, _page.Title);\r\n    Assert.Contains(\u0022Your preferences has been updated\u0022, _page.Source);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "RegisterTests",
+    "Message": null,
+    "ProjectName": "GameStore.AutomatedUITests",
+    "Methods": [
+      {
+        "Name": "Register_WrongEmailData_ReturnsErrorMessage",
+        "Body": "{\r\n    _page.PopulateUserName(\u0022TurboUser\u0022);\r\n    _page.PopulateFirstName(\u0022Turbo\u0022);\r\n    _page.PopulateLastName(\u0022User\u0022);\r\n    _page.PopulateEmail(\u0022turbouser.com\u0022);\r\n    _page.PopulateGender(\u0022Other\u0022);\r\n    _page.PopulateDOB(\u00221999-06-04\u0022);\r\n    _page.PopulatePassword(\u0022Turbo123!\u0022);\r\n    _page.PopulateConfirmPassword(\u0022Turbo123!\u0022);\r\n    _page.ClickCreate();\r\n    Assert.Equal(\u0022Please enter a valid email address.\u0022, _page.EmailErrorMessage);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Register_WhenSuccessfullyExecuted_ReturnsHomePageWithRegisteredUserMenu",
+        "Body": "{\r\n    _page.PopulateUserName(\u0022TurboUser\u0022);\r\n    _page.PopulateFirstName(\u0022Turbo\u0022);\r\n    _page.PopulateLastName(\u0022User\u0022);\r\n    _page.PopulateEmail(\u0022turbouser@myemail.com\u0022);\r\n    _page.PopulateGender(\u0022Other\u0022);\r\n    _page.PopulateDOB(\u00221999-06-04\u0022);\r\n    _page.PopulatePassword(\u0022Turbo123!\u0022);\r\n    _page.PopulateConfirmPassword(\u0022Turbo123!\u0022);\r\n    _page.ClickCreate();\r\n    // Tells the chrome driver to wait for x amount of seconds \r\n    // when it can not find a specific element.\r\n    // This is to give the server time to validate the form and load the next page.\r\n    _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);\r\n    // Look for the element that a registered user would see (waits to ensure page has loaded)\r\n    _page.FindRegisteredUserMenu();\r\n    // Confirms that the home page has loaded after clicking create which means it was successful\r\n    Assert.Equal(\u0022Home\u0022, _page.Title);\r\n    // Confirms that the page contains the welcome back message and the new users username from the registered user dropdown\r\n    Assert.Contains(\u0022Welcome back,\u0022, _page.Source);\r\n    Assert.Contains(\u0022TurboUser\u0022, _page.Source);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "ReportTests",
+    "Message": null,
+    "ProjectName": "GameStore.AutomatedUITests",
+    "Methods": [
+      {
+        "Name": "Report_WhenClickGameReport_ShowGameReport",
+        "Body": "{\r\n    _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);\r\n    _loginHelper.LoginAdmin();\r\n    _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);\r\n    _page.ClickGames();\r\n    Assert.Equal(\u0022Games Report\u0022, _page.Title);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,1084 @@
+[
+  {
+    "Name": "ClientCreateUpdateDeleteTests",
+    "Message": null,
+    "ProjectName": "Domain.Tests",
+    "Methods": [
+      {
+        "Name": "Create_Client_Works",
+        "Body": "{\r\n    // GIVEN empty DB\r\n    // WHEN create a new client\r\n    var(clientId, result) = await ClientCommandService.Create(new CreateUpdateClientRequest(\u0022Test\u0022));\r\n    // THEN client appears in the DB\r\n    Assert.True(result.IsSuccess);\r\n    var client = await DataContext.Clients.FindAsync(clientId);\r\n    Assert.NotNull(client);\r\n    Assert.Equal(\u0022Test\u0022, client.Name);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Update_Client_Works",
+        "Body": "{\r\n    // GIVEN a DB with a client\r\n    var clientId = await SeedClient(\u0022Name\u0022);\r\n    // WHEN update name of the client\r\n    var result = await ClientCommandService.Update(clientId, new CreateUpdateClientRequest(\u0022XYZ\u0022));\r\n    // THEN the name is updated\r\n    Assert.True(result.IsSuccess);\r\n    var client = await DataContext.Clients.FindAsync(clientId);\r\n    Assert.NotNull(client);\r\n    Assert.Equal(\u0022XYZ\u0022, client.Name);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Delete_Client_Works",
+        "Body": "{\r\n    // GIVEN a DB with a client\r\n    var clientId = await SeedClient();\r\n    // WHEN delete the client\r\n    var result = await ClientCommandService.Delete(clientId);\r\n    // THEN the client cease to exist\r\n    Assert.True(result.IsSuccess);\r\n    var client = await DataContext.Clients.FindAsync(clientId);\r\n    Assert.Null(client);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "ClientQueryTests",
+    "Message": null,
+    "ProjectName": "Domain.Tests",
+    "Methods": [
+      {
+        "Name": "Get_Client_By_Id_Works",
+        "Body": "{\r\n    // GIVEN a DB with a client\r\n    var clientId = await SeedClient(\u0022Name\u0022);\r\n    // WHEN get client by ID\r\n    var(client, result) = await ClientQueryService.GetById(clientId);\r\n    // THEN client gets resolved\r\n    Assert.True(result.IsSuccess);\r\n    Assert.Equal(\u0022Name\u0022, client.Name);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Get_Clients_List_Works",
+        "Body": "{\r\n    // GIVEN a DB with 2 clients\r\n    await SeedClient(\u0022Name1\u0022);\r\n    await SeedClient(\u0022Name2\u0022);\r\n    // WHEN get a list of clients\r\n    var clients = await ClientQueryService.GetList(new GetClientListRequest());\r\n    // THEN get 2 clients\r\n    Assert.Equal(2, clients.Length);\r\n    Assert.True(new[] { \u0022Name1\u0022, \u0022Name2\u0022 }.SequenceEqual(clients.OrderBy(c =\u003E c.Name).Select(c =\u003E c.Name)));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "ClientUniqueNameOnCreateUpdateTests",
+    "Message": null,
+    "ProjectName": "Domain.Tests",
+    "Methods": [
+      {
+        "Name": "Create_Client_With_Non_Unique_Name_Fails",
+        "Body": "{\r\n    // GIVEN a DB with a client\r\n    await SeedClient(\u0022Name\u0022);\r\n    // WHEN create a new client with the same name\r\n    var(_, result) = await ClientCommandService.Create(new CreateUpdateClientRequest(\u0022Name\u0022));\r\n    // THEN operation fails\r\n    Assert.False(result.IsSuccess);\r\n    var clientCount = await DataContext.Clients.CountAsync();\r\n    Assert.Equal(1, clientCount);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Update_Client_With_Existing_Name_Fails",
+        "Body": "{\r\n    // GIVEN a DB with a client\r\n    await SeedClient(\u0022Name1\u0022);\r\n    var clientId = await SeedClient(\u0022Name2\u0022);\r\n    // WHEN rename client \u0027Name2\u0027 to \u0027Name1\u0027\r\n    var result = await ClientCommandService.Update(clientId, new CreateUpdateClientRequest(\u0022Name1\u0022));\r\n    // THEN operation fails\r\n    Assert.False(result.IsSuccess);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "InvoiceCreateUpdateDeleteTests",
+    "Message": null,
+    "ProjectName": "Domain.Tests",
+    "Methods": [
+      {
+        "Name": "Create_Invoice_Works",
+        "Body": "{\r\n    // GIVEN a client\r\n    var clientId = await SeedClient(\u0022Name\u0022);\r\n    // WHEN create a new invoice for the client\r\n    var(invoiceId, result) = await InvoiceCommandService.Create(new CreateInvoiceRequest(\u0022INV-01\u0022, DateOnly.Parse(\u00222020-07-07\u0022), clientId, 20));\r\n    // THEN client appears in the DB\r\n    Assert.True(result.IsSuccess);\r\n    var invoice = (await DataContext.Invoices.FindAsync(invoiceId))!;\r\n    Assert.NotNull(invoice);\r\n    Assert.Equal(\u0022INV-01\u0022, invoice.Number);\r\n    Assert.Equal(DateOnly.Parse(\u00222020-07-07\u0022), invoice.Date);\r\n    Assert.Equal(clientId, invoice.ClientId);\r\n    Assert.Equal(20, invoice.Amount);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Update_Invoice_Works",
+        "Body": "{\r\n    // GIVEN a client \u0026 an invoice\r\n    var clientId = await SeedClient(\u0022Name\u0022);\r\n    var(invoiceId, _) = await InvoiceCommandService.Create(new CreateInvoiceRequest(\u0022INV-01\u0022, DateOnly.Parse(\u00222020-07-07\u0022), clientId, 20));\r\n    // WHEN update amount of the invoice\r\n    var result = await InvoiceCommandService.Update(invoiceId, new UpdateInvoiceRequest(DateOnly.Parse(\u00222020-07-07\u0022), 30));\r\n    // THEN the amount is updated\r\n    Assert.True(result.IsSuccess);\r\n    var invoice = (await DataContext.Invoices.FindAsync(invoiceId))!;\r\n    Assert.NotNull(invoice);\r\n    Assert.Equal(30, invoice.Amount);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Delete_Invoice_Works",
+        "Body": "{\r\n    // GIVEN a client \u0026 an invoice\r\n    var clientId = await SeedClient(\u0022Name\u0022);\r\n    var(invoiceId, _) = await InvoiceCommandService.Create(new CreateInvoiceRequest(\u0022INV-01\u0022, DateOnly.Parse(\u00222020-07-07\u0022), clientId, 20));\r\n    // WHEN delete the invoice\r\n    var result = await InvoiceCommandService.Delete(invoiceId);\r\n    // THEN the invoice cease to exist\r\n    Assert.True(result.IsSuccess);\r\n    var client = await DataContext.Invoices.FindAsync(invoiceId);\r\n    Assert.Null(client);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "InvoiceQueryTests",
+    "Message": null,
+    "ProjectName": "Domain.Tests",
+    "Methods": [
+      {
+        "Name": "Get_Invoice_By_Number_Works",
+        "Body": "{\r\n    // GIVEN a client \u0026 an invoice\r\n    var clientId = await SeedClient(\u0022Name\u0022);\r\n    var(invoiceId, _) = await InvoiceCommandService.Create(new CreateInvoiceRequest(\u0022INV-01\u0022, DateOnly.Parse(\u00222020-07-07\u0022), clientId, 20));\r\n    // WHEN get invoice by number\r\n    var(invoice, result) = await InvoiceQueryService.GetByNumber(invoiceId);\r\n    // THEN invoice gets resolved\r\n    Assert.True(result.IsSuccess);\r\n    Assert.Equal(20, invoice.Amount);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Get_Invoice_List_Works",
+        "Body": "{\r\n    // GIVEN a client \u0026 2 invoices\r\n    var clientId = await SeedClient(\u0022Name\u0022);\r\n    await InvoiceCommandService.Create(new CreateInvoiceRequest(\u0022INV-01\u0022, DateOnly.Parse(\u00222020-07-07\u0022), clientId, 10));\r\n    await InvoiceCommandService.Create(new CreateInvoiceRequest(\u0022INV-02\u0022, DateOnly.Parse(\u00222020-08-07\u0022), clientId, 20));\r\n    // WHEN get a list of invoices\r\n    var invoices = await InvoiceQueryService.GetList(new GetInvoiceListRequest());\r\n    // THEN get 2 invoices\r\n    Assert.Equal(2, invoices.Length);\r\n    var orderedList = invoices.OrderBy(c =\u003E c.Number).ToArray();\r\n    Assert.True(new[] { \u0022INV-01\u0022, \u0022INV-02\u0022 }.SequenceEqual(orderedList.Select(c =\u003E c.Number)));\r\n    Assert.True(new[] { DateOnly.Parse(\u00222020-07-07\u0022), DateOnly.Parse(\u00222020-08-07\u0022) }.SequenceEqual(orderedList.Select(c =\u003E c.Date)));\r\n    Assert.True(new[] { 10m, 20m }.SequenceEqual(orderedList.Select(c =\u003E c.Amount)));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Get_Invoice_List_Filtered_By_Client_Works",
+        "Body": "{\r\n    // GIVEN a client 1 with an invoice\r\n    var client1Id = await SeedClient(\u0022Homer Simpson\u0022);\r\n    await InvoiceCommandService.Create(new CreateInvoiceRequest(\u0022INV-01\u0022, DateOnly.Parse(\u00222020-07-07\u0022), client1Id, 10));\r\n    // and a client 2 with an invoice\r\n    var client2Id = await SeedClient(\u0022Marge Simpson\u0022);\r\n    await InvoiceCommandService.Create(new CreateInvoiceRequest(\u0022INV-02\u0022, DateOnly.Parse(\u00222020-08-07\u0022), client2Id, 20));\r\n    // WHEN get a list of invoices for client 1\r\n    var invoices = await InvoiceQueryService.GetList(new GetInvoiceListRequest(client1Id));\r\n    // THEN get 1 invoice\r\n    Assert.Single(invoices);\r\n    var invoice = invoices.Single();\r\n    Assert.Equal(\u0022INV-01\u0022, invoice.Number);\r\n    Assert.Equal(DateOnly.Parse(\u00222020-07-07\u0022), invoice.Date);\r\n    Assert.Equal(10, invoice.Amount);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "InvoiceUniqueNameOnCreateUpdateTests",
+    "Message": null,
+    "ProjectName": "Domain.Tests",
+    "Methods": [
+      {
+        "Name": "Create_Invoice_With_Non_Unique_Number_Fails",
+        "Body": "{\r\n    // GIVEN a client \u0026 an invoice\r\n    var clientId = await SeedClient(\u0022Name\u0022);\r\n    await InvoiceCommandService.Create(new CreateInvoiceRequest(\u0022INV-01\u0022, DateOnly.Parse(\u00222020-07-07\u0022), clientId, 20));\r\n    // WHEN create a new invoice with the same number\r\n    var(_, result) = await InvoiceCommandService.Create(new CreateInvoiceRequest(\u0022INV-01\u0022, DateOnly.Parse(\u00222020-08-01\u0022), clientId, 10));\r\n    // THEN operation fails\r\n    Assert.False(result.IsSuccess);\r\n    var invoiceCount = await DataContext.Invoices.CountAsync();\r\n    Assert.Equal(1, invoiceCount);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,2618 @@
+[
+  {
+    "Name": "AuditLogProcessorTests",
+    "Message": null,
+    "ProjectName": "atmps.domain.appServices.tests",
+    "Methods": [
+      {
+        "Name": "Process_ShouldWorkWithCorrectParameters",
+        "Body": "{\r\n    var auditLogs = (new List\u003CAuditLog\u003E()).AsQueryable();\r\n    var auditLogsDbSet = new Mock\u003CDbSet\u003CAuditLog\u003E\u003E();\r\n    auditLogsDbSet.As\u003CIQueryable\u003CAuditLog\u003E\u003E().Setup(m =\u003E m.Provider).Returns(auditLogs.Provider);\r\n    auditLogsDbSet.As\u003CIQueryable\u003CAuditLog\u003E\u003E().Setup(m =\u003E m.Expression).Returns(auditLogs.Expression);\r\n    auditLogsDbSet.As\u003CIQueryable\u003CAuditLog\u003E\u003E().Setup(m =\u003E m.ElementType).Returns(auditLogs.ElementType);\r\n    auditLogsDbSet.As\u003CIQueryable\u003CAuditLog\u003E\u003E().Setup(m =\u003E m.GetEnumerator()).Returns(auditLogs.GetEnumerator());\r\n    _appDbContext.Setup(m =\u003E m.AuditLogs).Returns(auditLogsDbSet.Object);\r\n    var auditLogProcessor = new AuditLogProcessor(_appDbContext.Object);\r\n    auditLogProcessor.Process(It.IsAny\u003Cstring\u003E(), It.IsAny\u003COperationType\u003E(), It.IsAny\u003Cbool\u003E());\r\n    auditLogsDbSet.Verify(x =\u003E x.Add(It.IsAny\u003CAuditLog\u003E()), Times.Once);\r\n    _appDbContext.Verify(x =\u003E x.SaveChanges(), Times.Once);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "BalanceQueryHandlerTests",
+    "Message": null,
+    "ProjectName": "atmps.domain.appServices.tests",
+    "Methods": [
+      {
+        "Name": "Handler_ShouldProcessTransactionAndAudit",
+        "Body": "{\r\n    var card = FakeData.FakeCardInfoMasterCard;\r\n    decimal expectedResult = 20;\r\n    _balanceCommunication.Setup(x =\u003E x.GetBalance(It.IsAny\u003Cstring\u003E(), It.IsAny\u003Cstring\u003E())).Returns(Result.Ok\u003Cdecimal\u003E(expectedResult));\r\n    _cardNumberValidationService.Setup(x =\u003E x.PopulateCardInfo(It.IsAny\u003Cstring\u003E())).Returns(card);\r\n    var queryHandler = new BalanceQueryHandler(_appDbContext.Object, _auditLogProcessor.Object, _balanceCommunication.Object, _cardNumberValidationService.Object, _transactionProcessor.Object);\r\n    var query = new BalanceQuery(card.Number);\r\n    var result = queryHandler.Handle(query);\r\n    _transactionProcessor.Verify(x =\u003E x.Process(It.IsAny\u003CTransaction\u003E()), Times.Once);\r\n    _auditLogProcessor.Verify(x =\u003E x.Process(It.IsAny\u003Cstring\u003E(), It.IsAny\u003COperationType\u003E(), It.IsAny\u003Cbool\u003E()), Times.Once);\r\n    result.Should().NotBeNull();\r\n    result.IsSuccess.Should().BeTrue();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handler_ShouldNotBeOkWithEmptyCard",
+        "Body": "{\r\n    var card = FakeData.EmptyCardInfo;\r\n    _balanceCommunication.Setup(x =\u003E x.GetBalance(It.IsAny\u003Cstring\u003E(), It.IsAny\u003Cstring\u003E())).Returns(Result.Ok\u003Cdecimal\u003E(20));\r\n    _cardNumberValidationService.Setup(x =\u003E x.PopulateCardInfo(It.IsAny\u003Cstring\u003E())).Returns(card);\r\n    var queryHandler = new BalanceQueryHandler(_appDbContext.Object, _auditLogProcessor.Object, _balanceCommunication.Object, _cardNumberValidationService.Object, _transactionProcessor.Object);\r\n    var query = new BalanceQuery(card.Number);\r\n    var result = queryHandler.Handle(query);\r\n    _auditLogProcessor.Verify(x =\u003E x.Process(It.IsAny\u003Cstring\u003E(), It.IsAny\u003COperationType\u003E(), It.IsAny\u003Cbool\u003E()), Times.Once);\r\n    result.Should().NotBeNull();\r\n    result.IsSuccess.Should().BeFalse();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "CardNumberHelperTests",
+    "Message": null,
+    "ProjectName": "atmps.domain.appServices.tests",
+    "Methods": [
+      {
+        "Name": "CheckChardNumberIsValid_ShouldReturnTrueWhenCardNumberIsCorrect",
+        "Body": "{\r\n    var fakeCard = FakeData.FakeCardInfoMasterCard;\r\n    var cardNumberHelper = new CardNumberHelper();\r\n    var result = cardNumberHelper.CheckChardNumberIsValid(fakeCard.Number);\r\n    result.Should().BeTrue();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "CheckChardNumberIsValid_ShouldReturnFalseWhenCardNumberIsWrong",
+        "Body": "{\r\n    var fakeCard = FakeData.WrongCardInfo;\r\n    var cardNumberHelper = new CardNumberHelper();\r\n    var result = cardNumberHelper.CheckChardNumberIsValid(fakeCard.Number);\r\n    result.Should().BeFalse();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "CheckChardNumberIsValid_ShouldReturnFalseWhenCardNumberIsEmpty",
+        "Body": "{\r\n    var fakeCard = FakeData.EmptyCardInfo;\r\n    var cardNumberHelper = new CardNumberHelper();\r\n    var result = cardNumberHelper.CheckChardNumberIsValid(fakeCard.Number);\r\n    result.Should().BeFalse();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GetBIN_ShouldReturnBinNumberForCardNumber",
+        "Body": "{\r\n    var fakeCard = FakeData.FakeCardInfoMasterCard;\r\n    var cardNumberHelper = new CardNumberHelper();\r\n    var result = cardNumberHelper.GetBIN(fakeCard.Number);\r\n    result.Should().NotBeNull();\r\n    result.Length.Should().Be(6);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "CardNumberValidationServiceTests",
+    "Message": null,
+    "ProjectName": "atmps.domain.appServices.tests",
+    "Methods": [
+      {
+        "Name": "PopulateCardInfo_ShouldNotPopulateCardInfoWithWrongCardNumberAndThrowBankIdentificationNumberIsNotFoundException",
+        "Body": "{\r\n    _cardNumberHelper.Setup(x =\u003E x.GetBIN(It.IsAny\u003Cstring\u003E())).Returns(string.Empty);\r\n    var service = new CardNumberValidationService(_appDbContext.Object, _cardNumberHelper.Object, _cardTypeChecker.Object);\r\n    var wrongCardNumber = FakeData.WrongCardInfo.Number;\r\n    BankIdentificationNumberIsNotFoundException ex = Assert.Throws\u003CBankIdentificationNumberIsNotFoundException\u003E(() =\u003E service.PopulateCardInfo(wrongCardNumber));\r\n    ex.Should().NotBeNull();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "PopulateCardInfo_ShouldPopulateCardInfoWithCorrectCardNumber",
+        "Body": "{\r\n    var masterCard = FakeData.FakeCardInfoMasterCard;\r\n    _cardNumberHelper.Setup(x =\u003E x.CheckChardNumberIsValid(It.IsAny\u003Cstring\u003E())).Returns(true);\r\n    _cardNumberHelper.Setup(x =\u003E x.GetBIN(It.IsAny\u003Cstring\u003E())).Returns(masterCard.BankIdentificationNumber.BIN);\r\n    _cardTypeChecker.Setup(x =\u003E x.GetCardType(It.IsAny\u003Cstring\u003E())).Returns(masterCard.CardType);\r\n    var bankIdentifications = new List\u003CBankIdentificationNumber\u003E()\r\n    {\r\n        masterCard.BankIdentificationNumber\r\n    }.AsQueryable();\r\n    var bankIdentificationNumberDbSet = new Mock\u003CDbSet\u003CBankIdentificationNumber\u003E\u003E();\r\n    bankIdentificationNumberDbSet.As\u003CIQueryable\u003CBankIdentificationNumber\u003E\u003E().Setup(m =\u003E m.Provider).Returns(bankIdentifications.Provider);\r\n    bankIdentificationNumberDbSet.As\u003CIQueryable\u003CBankIdentificationNumber\u003E\u003E().Setup(m =\u003E m.Expression).Returns(bankIdentifications.Expression);\r\n    bankIdentificationNumberDbSet.As\u003CIQueryable\u003CBankIdentificationNumber\u003E\u003E().Setup(m =\u003E m.ElementType).Returns(bankIdentifications.ElementType);\r\n    bankIdentificationNumberDbSet.As\u003CIQueryable\u003CBankIdentificationNumber\u003E\u003E().Setup(m =\u003E m.GetEnumerator()).Returns(bankIdentifications.GetEnumerator());\r\n    _appDbContext.Setup(m =\u003E m.BankIdentificationNumbers).Returns(bankIdentificationNumberDbSet.Object);\r\n    var cardNumberValidationService = new CardNumberValidationService(_appDbContext.Object, _cardNumberHelper.Object, _cardTypeChecker.Object);\r\n    var populatedCardInfo = cardNumberValidationService.PopulateCardInfo(masterCard.Number);\r\n    populatedCardInfo.Should().NotBeNull();\r\n    populatedCardInfo.Number.Should().Be(masterCard.Number);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "CardTypeCheckerTests",
+    "Message": null,
+    "ProjectName": "atmps.domain.appServices.tests",
+    "Methods": [
+      {
+        "Name": "GetCardType_ShouldReturnCorrectCardTypeForCardNumber",
+        "Body": "{\r\n    var masterCardNumber = FakeData.FakeCardInfoMasterCard.Number;\r\n    var visaCardNumber = FakeData.FakeCardInfoVisa.Number;\r\n    var amexCardNumber = FakeData.FakeCardInfoAMEX.Number;\r\n    var cardTypeChecker = new CardTypeChecker();\r\n    var amexCardType = cardTypeChecker.GetCardType(amexCardNumber);\r\n    var masterCardType = cardTypeChecker.GetCardType(masterCardNumber);\r\n    var visaCardType = cardTypeChecker.GetCardType(visaCardNumber);\r\n    amexCardType.Should().Be(CardType.AMEX);\r\n    masterCardType.Should().Be(CardType.MASTERCARD);\r\n    visaCardType.Should().Be(CardType.VISA);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GetCardType_ShouldReturnCardTypeNotFoundExceptionForEmptyCardNumber",
+        "Body": "{\r\n    var wrongCardNumber = FakeData.EmptyCardInfo.Number;\r\n    var cardTypeChecker = new CardTypeChecker();\r\n    CardTypeNotFoundException ex = Assert.Throws\u003CCardTypeNotFoundException\u003E(() =\u003E cardTypeChecker.GetCardType(wrongCardNumber));\r\n    ex.Should().NotBeNull();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "DepositCommandHandlerTests",
+    "Message": null,
+    "ProjectName": "atmps.domain.appServices.tests",
+    "Methods": [
+      {
+        "Name": "Handler_ShouldProcessTransactionAndAudit",
+        "Body": "{\r\n    var card = FakeData.FakeCardInfoMasterCard;\r\n    _cardNumberValidationService.Setup(x =\u003E x.PopulateCardInfo(It.IsAny\u003Cstring\u003E())).Returns(card);\r\n    _depositCommunication.Setup(x =\u003E x.LoadMoney(It.IsAny\u003Cstring\u003E(), It.IsAny\u003Cint\u003E(), It.IsAny\u003Cstring\u003E())).Returns(Result.Ok());\r\n    var commandHandler = new DepositCommandHandler(_depositCommunication.Object, _cardNumberValidationService.Object, _auditLogProcessor.Object, _transactionProcessor.Object);\r\n    var command = new DepositCommand(card.Number, 10);\r\n    var result = commandHandler.Handle(command);\r\n    _transactionProcessor.Verify(x =\u003E x.Process(It.IsAny\u003CTransaction\u003E()), Times.Once);\r\n    _auditLogProcessor.Verify(x =\u003E x.Process(It.IsAny\u003Cstring\u003E(), It.IsAny\u003COperationType\u003E(), It.IsAny\u003Cbool\u003E()), Times.Once);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handler_ShouldBeOkForOperatedBanks",
+        "Body": "{\r\n    var card = FakeData.FakeCardInfoMasterCard;\r\n    _cardNumberValidationService.Setup(x =\u003E x.PopulateCardInfo(It.IsAny\u003Cstring\u003E())).Returns(card);\r\n    _depositCommunication.Setup(x =\u003E x.LoadMoney(It.IsAny\u003Cstring\u003E(), It.IsAny\u003Cint\u003E(), It.IsAny\u003Cstring\u003E())).Returns(Result.Ok());\r\n    var commandHandler = new DepositCommandHandler(_depositCommunication.Object, _cardNumberValidationService.Object, _auditLogProcessor.Object, _transactionProcessor.Object);\r\n    var command = new DepositCommand(card.Number, 10);\r\n    var result = commandHandler.Handle(command);\r\n    result.Should().NotBeNull();\r\n    result.IsSuccess.Should().BeTrue();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handler_ShouldNotBeOkForNonOperatedBanks",
+        "Body": "{\r\n    var card = FakeData.FakeCardInfoMasterCardButNotOperated;\r\n    _cardNumberValidationService.Setup(x =\u003E x.PopulateCardInfo(It.IsAny\u003Cstring\u003E())).Returns(card);\r\n    _depositCommunication.Setup(x =\u003E x.LoadMoney(It.IsAny\u003Cstring\u003E(), It.IsAny\u003Cint\u003E(), It.IsAny\u003Cstring\u003E())).Returns(Result.Ok());\r\n    var commandHandler = new DepositCommandHandler(_depositCommunication.Object, _cardNumberValidationService.Object, _auditLogProcessor.Object, _transactionProcessor.Object);\r\n    var command = new DepositCommand(card.Number, 10);\r\n    var result = commandHandler.Handle(command);\r\n    result.Should().NotBeNull();\r\n    result.IsSuccess.Should().BeFalse();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "FeeTransactionListQueryHandlerTests",
+    "Message": null,
+    "ProjectName": "atmps.domain.appServices.tests",
+    "Methods": [
+      {
+        "Name": "Handler_ShouldReturnFeeListInCorrectModel",
+        "Body": "{\r\n    var transaction = new Transaction\r\n    {\r\n        Id = Guid.NewGuid(),\r\n        OperationResult = true,\r\n        TransactionType = TransactionType.WITHDRAW,\r\n        CardNumber = FakeData.FakeCardInfoVisa.Number,\r\n        TransactionDate = DateTime.UtcNow,\r\n        TransactionFee = 1,\r\n        WithdrawAmount = 101\r\n    };\r\n    var transactions = (new List\u003CTransaction\u003E()\r\n    {\r\n        transaction\r\n    }\r\n\r\n    ).AsQueryable();\r\n    var transactionsDbSet = new Mock\u003CDbSet\u003CTransaction\u003E\u003E();\r\n    transactionsDbSet.As\u003CIQueryable\u003CTransaction\u003E\u003E().Setup(m =\u003E m.Provider).Returns(transactions.Provider);\r\n    transactionsDbSet.As\u003CIQueryable\u003CTransaction\u003E\u003E().Setup(m =\u003E m.Expression).Returns(transactions.Expression);\r\n    transactionsDbSet.As\u003CIQueryable\u003CTransaction\u003E\u003E().Setup(m =\u003E m.ElementType).Returns(transactions.ElementType);\r\n    transactionsDbSet.As\u003CIQueryable\u003CTransaction\u003E\u003E().Setup(m =\u003E m.GetEnumerator()).Returns(transactions.GetEnumerator());\r\n    _appDbContext.Setup(m =\u003E m.Transactions).Returns(transactionsDbSet.Object);\r\n    var queryHandler = new FeeTransactionListQueryHandler(_appDbContext.Object);\r\n    var result = queryHandler.Handle(new FeeTransactionListQuery());\r\n    result.Should().NotBeNull();\r\n    result.IsSuccess.Should().BeTrue();\r\n    result.Value.Should().NotBeNull();\r\n    result.Value.Count().Should().Be(1);\r\n    result.Value.First().CardNumber.Should().Be(transaction.CardNumber);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handler_ShouldNotReturnReturnFeeListIfThereIsNoWithDrawTransaction",
+        "Body": "{\r\n    var transaction = new Transaction\r\n    {\r\n        Id = Guid.NewGuid(),\r\n        OperationResult = true,\r\n        TransactionType = TransactionType.DEPOSIT,\r\n        CardNumber = FakeData.FakeCardInfoVisa.Number,\r\n        TransactionDate = DateTime.UtcNow,\r\n        TransactionFee = 1,\r\n        WithdrawAmount = 101\r\n    };\r\n    var transactions = (new List\u003CTransaction\u003E()\r\n    {\r\n        transaction\r\n    }\r\n\r\n    ).AsQueryable();\r\n    var transactionsDbSet = new Mock\u003CDbSet\u003CTransaction\u003E\u003E();\r\n    transactionsDbSet.As\u003CIQueryable\u003CTransaction\u003E\u003E().Setup(m =\u003E m.Provider).Returns(transactions.Provider);\r\n    transactionsDbSet.As\u003CIQueryable\u003CTransaction\u003E\u003E().Setup(m =\u003E m.Expression).Returns(transactions.Expression);\r\n    transactionsDbSet.As\u003CIQueryable\u003CTransaction\u003E\u003E().Setup(m =\u003E m.ElementType).Returns(transactions.ElementType);\r\n    transactionsDbSet.As\u003CIQueryable\u003CTransaction\u003E\u003E().Setup(m =\u003E m.GetEnumerator()).Returns(transactions.GetEnumerator());\r\n    _appDbContext.Setup(m =\u003E m.Transactions).Returns(transactionsDbSet.Object);\r\n    var queryHandler = new FeeTransactionListQueryHandler(_appDbContext.Object);\r\n    var result = queryHandler.Handle(new FeeTransactionListQuery());\r\n    result.Should().NotBeNull();\r\n    result.IsSuccess.Should().BeTrue();\r\n    result.Value.Should().NotBeNull();\r\n    result.Value.Count().Should().Be(0);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "InsertCardCommandHandlerTests",
+    "Message": null,
+    "ProjectName": "atmps.domain.appServices.tests",
+    "Methods": [
+      {
+        "Name": "Handler_ShouldAllowToInsertCardWithCorrectCardNumber",
+        "Body": "{\r\n    var card = FakeData.FakeCardInfoMasterCard;\r\n    _cardNumberValidationService.Setup(x =\u003E x.PopulateCardInfo(It.IsAny\u003Cstring\u003E())).Returns(card);\r\n    var commandHandler = new InsertCardCommandHandler(_auditLogProcessor.Object, _cardNumberValidationService.Object);\r\n    var result = commandHandler.Handle(new InsertCardCommand(card.Number));\r\n    _auditLogProcessor.Verify(x =\u003E x.Process(It.IsAny\u003Cstring\u003E(), It.IsAny\u003COperationType\u003E(), It.IsAny\u003Cbool\u003E()), Times.Once);\r\n    result.IsSuccess.Should().BeTrue();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handler_ShouldNotAllowToInsertCardWithEmptyCardNumber",
+        "Body": "{\r\n    var card = FakeData.EmptyCardInfo;\r\n    _cardNumberValidationService.Setup(x =\u003E x.PopulateCardInfo(It.IsAny\u003Cstring\u003E())).Returns(card);\r\n    var commandHandler = new InsertCardCommandHandler(_auditLogProcessor.Object, _cardNumberValidationService.Object);\r\n    var result = commandHandler.Handle(new InsertCardCommand(card.Number));\r\n    _auditLogProcessor.Verify(x =\u003E x.Process(It.IsAny\u003Cstring\u003E(), It.IsAny\u003COperationType\u003E(), It.IsAny\u003Cbool\u003E()), Times.Once);\r\n    result.IsSuccess.Should().BeFalse();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "ManufacturerQueryHandlerTests",
+    "Message": null,
+    "ProjectName": "atmps.domain.appServices.tests",
+    "Methods": [
+      {
+        "Name": "Handler_ShouldReturnManufacturerFromConfigStore",
+        "Body": "{\r\n    var expectedResult = \u0022test\u0022;\r\n    _configuration.Setup(x =\u003E x[ConfigurationKeys.Manufacturer]).Returns(expectedResult);\r\n    var queryHandler = new ManufacturerQueryHandler(_configuration.Object);\r\n    var result = queryHandler.Handle(new ManufacturerQuery());\r\n    result.Should().BeSameAs(expectedResult);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "MessagesTests",
+    "Message": null,
+    "ProjectName": "atmps.domain.appServices.tests",
+    "Methods": [
+      {
+        "Name": "Dispact_ShouldMatchCorrectTypeAndHandler",
+        "Body": "{\r\n    var messages = new Messages(_serviceProvider);\r\n    var result = messages.Dispatch(new TestCommand());\r\n    result.GetType().Should().Be(typeof(Result));\r\n    result.IsSuccess.Should().BeTrue();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "MessagesFixture",
+    "Message": null,
+    "ProjectName": "atmps.domain.appServices.tests",
+    "Methods": [
+      {
+        "Name": "Dispact_ShouldMatchCorrectTypeAndHandler",
+        "Body": "{\r\n    var messages = new Messages(_serviceProvider);\r\n    var result = messages.Dispatch(new TestCommand());\r\n    result.GetType().Should().Be(typeof(Result));\r\n    result.IsSuccess.Should().BeTrue();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "TestCommand",
+    "Message": null,
+    "ProjectName": "atmps.domain.appServices.tests",
+    "Methods": [
+      {
+        "Name": "Dispact_ShouldMatchCorrectTypeAndHandler",
+        "Body": "{\r\n    var messages = new Messages(_serviceProvider);\r\n    var result = messages.Dispatch(new TestCommand());\r\n    result.GetType().Should().Be(typeof(Result));\r\n    result.IsSuccess.Should().BeTrue();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "TestCommandHandler",
+    "Message": null,
+    "ProjectName": "atmps.domain.appServices.tests",
+    "Methods": [
+      {
+        "Name": "Dispact_ShouldMatchCorrectTypeAndHandler",
+        "Body": "{\r\n    var messages = new Messages(_serviceProvider);\r\n    var result = messages.Dispatch(new TestCommand());\r\n    result.GetType().Should().Be(typeof(Result));\r\n    result.IsSuccess.Should().BeTrue();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "MoneyGeneratorTests",
+    "Message": null,
+    "ProjectName": "atmps.domain.appServices.tests",
+    "Methods": [
+      {
+        "Name": "GenerateMoney_ShouldReturnCorrectMoneySetForCorrectAmount",
+        "Body": "{\r\n    var amount = 85;\r\n    Dictionary\u003CPaperNote, int\u003E expectedNotes = new Dictionary\u003CPaperNote, int\u003E\r\n    {\r\n        {\r\n            PaperNote.Fifty,\r\n            1\r\n        },\r\n        {\r\n            PaperNote.Twenty,\r\n            1\r\n        },\r\n        {\r\n            PaperNote.Ten,\r\n            1\r\n        },\r\n        {\r\n            PaperNote.Five,\r\n            1\r\n        }\r\n    };\r\n    var moneyGenerator = new MoneyGenerator();\r\n    var result = moneyGenerator.GenerateMoney(amount);\r\n    result.Should().NotBeNull();\r\n    result.Notes.Count.Should().Be(expectedNotes.Count);\r\n    result.Amount.Should().Be(amount);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "ReturnCardCommandHandlerTests",
+    "Message": null,
+    "ProjectName": "atmps.domain.appServices.tests",
+    "Methods": [
+      {
+        "Name": "Handler_ShouldAllowToReturnCard",
+        "Body": "{\r\n    var card = FakeData.FakeCardInfoMasterCard;\r\n    _cardNumberValidationService.Setup(x =\u003E x.PopulateCardInfo(It.IsAny\u003Cstring\u003E())).Returns(card);\r\n    var commandHandler = new ReturnCardCommandHandler(_auditLogProcessor.Object);\r\n    var result = commandHandler.Handle(new ReturnCardCommand(card.Number));\r\n    _auditLogProcessor.Verify(x =\u003E x.Process(It.IsAny\u003Cstring\u003E(), It.IsAny\u003COperationType\u003E(), It.IsAny\u003Cbool\u003E()), Times.Once);\r\n    result.IsSuccess.Should().BeTrue();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "SerialNumberQueryHandlerTests",
+    "Message": null,
+    "ProjectName": "atmps.domain.appServices.tests",
+    "Methods": [
+      {
+        "Name": "Handler_ShouldReturnSerialNumberFromConfigStore",
+        "Body": "{\r\n    var expectedResult = \u0022test\u0022;\r\n    _configuration.Setup(x =\u003E x[ConfigurationKeys.SerialNumber]).Returns(expectedResult);\r\n    var queryHandler = new SerialNumberQueryHandler(_configuration.Object);\r\n    var result = queryHandler.Handle(new SerialNumberQuery());\r\n    result.Should().BeSameAs(expectedResult);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "TransactionProcessorTests",
+    "Message": null,
+    "ProjectName": "atmps.domain.appServices.tests",
+    "Methods": [
+      {
+        "Name": "Process_ShouldWorkWithCorrectParameters",
+        "Body": "{\r\n    var transactions = new List\u003CTransaction\u003E();\r\n    var transactionsQueryable = transactions.AsQueryable();\r\n    var transactionsDbSet = new Mock\u003CDbSet\u003CTransaction\u003E\u003E();\r\n    transactionsDbSet.As\u003CIQueryable\u003CTransaction\u003E\u003E().Setup(m =\u003E m.Provider).Returns(transactionsQueryable.Provider);\r\n    transactionsDbSet.As\u003CIQueryable\u003CTransaction\u003E\u003E().Setup(m =\u003E m.Expression).Returns(transactionsQueryable.Expression);\r\n    transactionsDbSet.As\u003CIQueryable\u003CTransaction\u003E\u003E().Setup(m =\u003E m.ElementType).Returns(transactionsQueryable.ElementType);\r\n    transactionsDbSet.As\u003CIQueryable\u003CTransaction\u003E\u003E().Setup(m =\u003E m.GetEnumerator()).Returns(transactionsQueryable.GetEnumerator());\r\n    _appDbContext.Setup(m =\u003E m.Transactions).Returns(transactionsDbSet.Object);\r\n    var transactionProcessor = new TransactionProcessor(_appDbContext.Object);\r\n    transactionProcessor.Process(It.IsAny\u003CTransaction\u003E());\r\n    transactionsDbSet.Verify(x =\u003E x.Add(It.IsAny\u003CTransaction\u003E()), Times.Once);\r\n    _appDbContext.Verify(x =\u003E x.SaveChanges(), Times.Once);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "WithdrawQueryHandlerTests",
+    "Message": null,
+    "ProjectName": "atmps.domain.appServices.tests",
+    "Methods": [
+      {
+        "Name": "Handler_ShouldProcessTransactionAndAudit",
+        "Body": "{\r\n    _withdrawCommunication.Setup(x =\u003E x.WithdrawMoney(It.IsAny\u003Cstring\u003E(), It.IsAny\u003Cint\u003E(), It.IsAny\u003Cstring\u003E())).Returns(Result.Ok());\r\n    _cardNumberValidationService.Setup(x =\u003E x.PopulateCardInfo(It.IsAny\u003Cstring\u003E())).Returns(FakeData.FakeCardInfoMasterCard);\r\n    _moneyGenerator.Setup(x =\u003E x.GenerateMoney(It.IsAny\u003Cint\u003E())).Returns(new Money());\r\n    var queryHandler = new WithdrawQueryHandler(_withdrawCommunication.Object, _cardNumberValidationService.Object, _auditLogProcessor.Object, _transactionProcessor.Object, _moneyGenerator.Object);\r\n    var withDrawQuery = new WithdrawQuery(FakeData.FakeCardInfoMasterCard.Number, 10);\r\n    var result = queryHandler.Handle(withDrawQuery);\r\n    _transactionProcessor.Verify(x =\u003E x.Process(It.IsAny\u003CTransaction\u003E()), Times.Once);\r\n    _auditLogProcessor.Verify(x =\u003E x.Process(It.IsAny\u003Cstring\u003E(), It.IsAny\u003COperationType\u003E(), It.IsAny\u003Cbool\u003E()), Times.Once);\r\n    result.Should().NotBeNull();\r\n    result.IsSuccess.Should().BeTrue();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handler_ShouldReturnMoneySet",
+        "Body": "{\r\n    var amount = 10;\r\n    var moneyGenerator = new MoneyGenerator();\r\n    var moneySet = moneyGenerator.GenerateMoney(amount);\r\n    _withdrawCommunication.Setup(x =\u003E x.WithdrawMoney(It.IsAny\u003Cstring\u003E(), It.IsAny\u003Cint\u003E(), It.IsAny\u003Cstring\u003E())).Returns(Result.Ok());\r\n    _cardNumberValidationService.Setup(x =\u003E x.PopulateCardInfo(It.IsAny\u003Cstring\u003E())).Returns(FakeData.FakeCardInfoMasterCard);\r\n    var queryHandler = new WithdrawQueryHandler(_withdrawCommunication.Object, _cardNumberValidationService.Object, _auditLogProcessor.Object, _transactionProcessor.Object, moneyGenerator);\r\n    var withDrawQuery = new WithdrawQuery(FakeData.FakeCardInfoMasterCard.Number, amount);\r\n    var result = queryHandler.Handle(withDrawQuery);\r\n    result.Should().NotBeNull();\r\n    result.IsSuccess.Should().BeTrue();\r\n    result.Value.Should().NotBeNull();\r\n    result.Value.Amount.Should().Be(moneySet.Amount);\r\n    result.Value.Notes.Count.Should().Be(moneySet.Notes.Count);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handler_ShouldBeOkWithCorrectAmount",
+        "Body": "{\r\n    var amount = 10;\r\n    _withdrawCommunication.Setup(x =\u003E x.WithdrawMoney(It.IsAny\u003Cstring\u003E(), It.IsAny\u003Cint\u003E(), It.IsAny\u003Cstring\u003E())).Returns(Result.Ok());\r\n    _cardNumberValidationService.Setup(x =\u003E x.PopulateCardInfo(It.IsAny\u003Cstring\u003E())).Returns(FakeData.FakeCardInfoMasterCard);\r\n    _moneyGenerator.Setup(x =\u003E x.GenerateMoney(It.IsAny\u003Cint\u003E())).Returns(new Money());\r\n    var queryHandler = new WithdrawQueryHandler(_withdrawCommunication.Object, _cardNumberValidationService.Object, _auditLogProcessor.Object, _transactionProcessor.Object, _moneyGenerator.Object);\r\n    var withDrawQuery = new WithdrawQuery(FakeData.FakeCardInfoMasterCard.Number, amount);\r\n    var result = queryHandler.Handle(withDrawQuery);\r\n    result.Should().NotBeNull();\r\n    result.IsSuccess.Should().BeTrue();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handler_ShouldNotBeOkWithWrongAmount",
+        "Body": "{\r\n    var amount = 13;\r\n    _withdrawCommunication.Setup(x =\u003E x.WithdrawMoney(It.IsAny\u003Cstring\u003E(), It.IsAny\u003Cint\u003E(), It.IsAny\u003Cstring\u003E())).Returns(Result.Ok());\r\n    _cardNumberValidationService.Setup(x =\u003E x.PopulateCardInfo(It.IsAny\u003Cstring\u003E())).Returns(FakeData.FakeCardInfoMasterCard);\r\n    _moneyGenerator.Setup(x =\u003E x.GenerateMoney(It.IsAny\u003Cint\u003E())).Returns(new Money());\r\n    var queryHandler = new WithdrawQueryHandler(_withdrawCommunication.Object, _cardNumberValidationService.Object, _auditLogProcessor.Object, _transactionProcessor.Object, _moneyGenerator.Object);\r\n    var withDrawQuery = new WithdrawQuery(FakeData.FakeCardInfoMasterCard.Number, amount);\r\n    var result = queryHandler.Handle(withDrawQuery);\r\n    result.Should().NotBeNull();\r\n    result.IsSuccess.Should().BeFalse();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handler_ShouldNotBeOkWithWrongAmount_2",
+        "Body": "{\r\n    var amount = -10;\r\n    _withdrawCommunication.Setup(x =\u003E x.WithdrawMoney(It.IsAny\u003Cstring\u003E(), It.IsAny\u003Cint\u003E(), It.IsAny\u003Cstring\u003E())).Returns(Result.Ok());\r\n    _cardNumberValidationService.Setup(x =\u003E x.PopulateCardInfo(It.IsAny\u003Cstring\u003E())).Returns(FakeData.FakeCardInfoMasterCard);\r\n    _moneyGenerator.Setup(x =\u003E x.GenerateMoney(It.IsAny\u003Cint\u003E())).Returns(new Money());\r\n    var queryHandler = new WithdrawQueryHandler(_withdrawCommunication.Object, _cardNumberValidationService.Object, _auditLogProcessor.Object, _transactionProcessor.Object, _moneyGenerator.Object);\r\n    var withDrawQuery = new WithdrawQuery(FakeData.FakeCardInfoMasterCard.Number, amount);\r\n    var result = queryHandler.Handle(withDrawQuery);\r\n    result.Should().NotBeNull();\r\n    result.IsSuccess.Should().BeFalse();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Handler_ShouldReturnOkWithCorrectCardNumberWhenVposReturnsFailedWithResponseCode",
+        "Body": "{\r\n    string responseCode = \u0022A1001\u0022;\r\n    _withdrawCommunication.Setup(x =\u003E x.WithdrawMoney(It.IsAny\u003Cstring\u003E(), It.IsAny\u003Cint\u003E(), It.IsAny\u003Cstring\u003E())).Returns(Result.Fail(responseCode));\r\n    _cardNumberValidationService.Setup(x =\u003E x.PopulateCardInfo(It.IsAny\u003Cstring\u003E())).Returns(FakeData.FakeCardInfoMasterCard);\r\n    _moneyGenerator.Setup(x =\u003E x.GenerateMoney(It.IsAny\u003Cint\u003E())).Returns(new Money());\r\n    var queryHandler = new WithdrawQueryHandler(_withdrawCommunication.Object, _cardNumberValidationService.Object, _auditLogProcessor.Object, _transactionProcessor.Object, _moneyGenerator.Object);\r\n    var withDrawQuery = new WithdrawQuery(FakeData.FakeCardInfoMasterCard.Number, 10);\r\n    var result = queryHandler.Handle(withDrawQuery);\r\n    result.Should().NotBeNull();\r\n    result.IsSuccess.Should().BeFalse();\r\n    result.Error.Should().Be(responseCode);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

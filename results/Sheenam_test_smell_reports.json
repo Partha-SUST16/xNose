@@ -1,0 +1,2355 @@
+[
+  {
+    "Name": "GuestServiceTests",
+    "Message": null,
+    "ProjectName": "Sheenam.Api.Test.Unit",
+    "Methods": [
+      {
+        "Name": "ShouldThrowCriticalDependencyExceptionOnAddIfSqlErrorOccursAndLogItAsync",
+        "Body": "{\r\n    // given\r\n    Guest someGuest = CreateRandomGuest();\r\n    SqlException sqlException = GetSqlError();\r\n    FailedGuestStorageException failedGuestStorageException = new(sqlException);\r\n    GuestDependencyException expectedGuestDependencyException = new(failedGuestStorageException);\r\n    this.storageBrokerMock.Setup(broker =\u003E broker.InsertGuestAsync(someGuest)).ThrowsAsync(sqlException);\r\n    // when\r\n    ValueTask\u003CGuest\u003E AddGuestTask = this.guestService.AddGuestAsync(someGuest);\r\n    // then\r\n    await Assert.ThrowsAsync\u003CGuestDependencyException\u003E(() =\u003E AddGuestTask.AsTask());\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.InsertGuestAsync(someGuest), Times.Once());\r\n    this.loggingBrokerMock.Verify(broker =\u003E broker.LogCritical(It.Is(SameExceptionAs(expectedGuestDependencyException))), Times.Once());\r\n    this.storageBrokerMock.VerifyNoOtherCalls();\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ShouldThrowExceptiononAddIfDuplicateKeyErrorOccurs",
+        "Body": "{\r\n    // given\r\n    Guest someGuest = CreateRandomGuest();\r\n    string someString = GetRandomString();\r\n    var duplicateKeyException = new DuplicateKeyException(someString);\r\n    var alreadyExistGuestException = new AlreadyExistGuestException(duplicateKeyException);\r\n    var guestDependencyValidationException = new GuestDependencyValidationException(alreadyExistGuestException);\r\n    this.storageBrokerMock.Setup(broker =\u003E broker.InsertGuestAsync(someGuest)).ThrowsAsync(duplicateKeyException);\r\n    // when \r\n    ValueTask\u003CGuest\u003E AddGuestTask = this.guestService.AddGuestAsync(someGuest);\r\n    // then\r\n    await Assert.ThrowsAnyAsync\u003CGuestDependencyValidationException\u003E(() =\u003E AddGuestTask.AsTask());\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.InsertGuestAsync(someGuest), Times.Once());\r\n    this.loggingBrokerMock.Verify(broker =\u003E broker.LogError(It.Is(SameExceptionAs(guestDependencyValidationException))), Times.Once());\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n    this.storageBrokerMock.VerifyNoOtherCalls();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ShouldThrowExceptionOnAddIfServiceErrorOccurs",
+        "Body": "{\r\n    // given\r\n    Guest someGuest = CreateRandomGuest();\r\n    var exception = new Exception();\r\n    var failedGuestServiceException = new FailedGuestServiceException(exception);\r\n    var guestDependencyServiceException = new GuestDependencyServiceException(failedGuestServiceException);\r\n    this.storageBrokerMock.Setup(broker =\u003E broker.InsertGuestAsync(someGuest)).ThrowsAsync(exception);\r\n    // when\r\n    ValueTask\u003CGuest\u003E AddGuestTask = this.guestService.AddGuestAsync(someGuest);\r\n    // then\r\n    await Assert.ThrowsAsync\u003CGuestDependencyServiceException\u003E(() =\u003E AddGuestTask.AsTask());\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.InsertGuestAsync(someGuest), Times.Once());\r\n    this.loggingBrokerMock.Verify(broker =\u003E broker.LogCritical(It.Is(SameExceptionAs(guestDependencyServiceException))), Times.Once());\r\n    this.storageBrokerMock.VerifyNoOtherCalls();\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GuestServiceTests",
+    "Message": null,
+    "ProjectName": "Sheenam.Api.Test.Unit",
+    "Methods": [
+      {
+        "Name": "ShouldThrowExceptionOnRetrieveAllIfSqlErrorOccured",
+        "Body": "{\r\n    // given\r\n    SqlException sqlException = GetSqlError();\r\n    var failedGuestStorageException = new FailedGuestStorageException(sqlException);\r\n    var guestDependencyException = new GuestDependencyException(failedGuestStorageException);\r\n    this.storageBrokerMock.Setup(broker =\u003E broker.SelectAllGuests()).Throws(sqlException);\r\n    // when \r\n    Action retrieveAllGuestsAction = () =\u003E this.guestService.RetrieveAllGuests();\r\n    // then\r\n    Assert.Throws\u003CGuestDependencyException\u003E(retrieveAllGuestsAction);\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.SelectAllGuests(), Times.Once());\r\n    this.loggingBrokerMock.Verify(broker =\u003E broker.LogCritical(It.Is(SameExceptionAs(guestDependencyException))), Times.Once());\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n    this.storageBrokerMock.VerifyNoOtherCalls();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ShouldThowExceptionOnRetrieveAllIfServiceErrorOccured",
+        "Body": "{\r\n    // given\r\n    var exception = new Exception();\r\n    var failedGuestServiceException = new FailedGuestServiceException(exception);\r\n    GuestDependencyServiceException guestDependencyServiceException = new GuestDependencyServiceException(failedGuestServiceException);\r\n    this.storageBrokerMock.Setup(broker =\u003E broker.SelectAllGuests()).Throws(exception);\r\n    // when \u0026 then\r\n    Assert.Throws\u003CGuestDependencyServiceException\u003E(() =\u003E this.guestService.RetrieveAllGuests());\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.SelectAllGuests(), Times.Once());\r\n    this.loggingBrokerMock.Verify(broker =\u003E broker.LogCritical(It.Is(SameExceptionAs(guestDependencyServiceException))), Times.Once());\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n    this.storageBrokerMock.VerifyNoOtherCalls();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GuestServiceTests",
+    "Message": null,
+    "ProjectName": "Sheenam.Api.Test.Unit",
+    "Methods": [
+      {
+        "Name": "ShouldThrowExceptionOnRetrieveByIdIfSqlErrorOccurredAndLogItAsync",
+        "Body": "{\r\n    // given\r\n    Guid randomId = Guid.NewGuid();\r\n    SqlException sqlException = GetSqlError();\r\n    var failedGuestStorageException = new FailedGuestStorageException(sqlException);\r\n    var guestDependencyException = new GuestDependencyException(failedGuestStorageException);\r\n    this.storageBrokerMock.Setup(broker =\u003E broker.SelectGuestByIdAsync(It.IsAny\u003CGuid\u003E())).ThrowsAsync(sqlException);\r\n    // when\r\n    ValueTask\u003CGuest\u003E RetrieveGuestByIdTask = this.guestService.RetrieveGuestByIdAsync(randomId);\r\n    // then\r\n    var actualGuestDependencyException = await Assert.ThrowsAsync\u003CGuestDependencyException\u003E(RetrieveGuestByIdTask.AsTask);\r\n    actualGuestDependencyException.Should().BeEquivalentTo(guestDependencyException);\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.SelectGuestByIdAsync(It.IsAny\u003CGuid\u003E()), Times.Once());\r\n    this.loggingBrokerMock.Verify(broker =\u003E broker.LogCritical(It.Is(SameExceptionAs(guestDependencyException))), Times.Once());\r\n    this.storageBrokerMock.VerifyNoOtherCalls();\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GuestServiceTests",
+    "Message": null,
+    "ProjectName": "Sheenam.Api.Test.Unit",
+    "Methods": [
+      {
+        "Name": "ShouldAddGuestAsync",
+        "Body": "{\r\n    // given\r\n    Guest randomGuest = CreateRandomGuest();\r\n    Guest inputGuest = randomGuest;\r\n    Guest storageGuest = inputGuest;\r\n    Guest expectedGuest = storageGuest.DeepClone();\r\n    this.storageBrokerMock.Setup(broker =\u003E broker.InsertGuestAsync(inputGuest)).ReturnsAsync(expectedGuest);\r\n    // when \r\n    Guest actualGuest = await this.guestService.AddGuestAsync(inputGuest);\r\n    // then\r\n    actualGuest.Should().BeEquivalentTo(expectedGuest);\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.InsertGuestAsync(It.IsAny\u003CGuest\u003E()), Times.Once());\r\n    this.storageBrokerMock.VerifyNoOtherCalls();\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GuestServiceTests",
+    "Message": null,
+    "ProjectName": "Sheenam.Api.Test.Unit",
+    "Methods": [
+      {
+        "Name": "ShouldModifyGuestAsync",
+        "Body": "{\r\n    // given\r\n    Guest randomGuest = CreateRandomGuest();\r\n    Guest inputGuest = randomGuest;\r\n    Guest updatedGuest = inputGuest.DeepClone();\r\n    Guest expectedGuest = inputGuest.DeepClone();\r\n    this.storageBrokerMock.Setup(broker =\u003E broker.UpdateGuestAsync(inputGuest)).ReturnsAsync(updatedGuest);\r\n    // when\r\n    Guest actualGuest = await this.guestService.ModifyGuestAsync(inputGuest);\r\n    // then\r\n    actualGuest.Should().BeEquivalentTo(expectedGuest);\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.UpdateGuestAsync(It.IsAny\u003CGuest\u003E()), Times.Once());\r\n    this.storageBrokerMock.VerifyNoOtherCalls();\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GuestServiceTests",
+    "Message": null,
+    "ProjectName": "Sheenam.Api.Test.Unit",
+    "Methods": [
+      {
+        "Name": "ShouldRemoveGuestAsync",
+        "Body": "{\r\n    // given\r\n    Guid randomGuestId = Guid.NewGuid();\r\n    Guest randomGuest = CreateRandomGuest();\r\n    Guest storageGuest = randomGuest.DeepClone();\r\n    Guest deletedGuest = randomGuest.DeepClone();\r\n    Guest expectedDeletedGuest = deletedGuest.DeepClone();\r\n    this.storageBrokerMock.Setup(broker =\u003E broker.SelectGuestByIdAsync(It.IsAny\u003CGuid\u003E())).ReturnsAsync(storageGuest);\r\n    this.storageBrokerMock.Setup(broker =\u003E broker.DeleteGuestAsync(storageGuest)).ReturnsAsync(deletedGuest);\r\n    // when\r\n    Guest actualDeletedGuest = await this.guestService.RemoveGuestAsync(randomGuestId);\r\n    // then\r\n    actualDeletedGuest.Should().BeEquivalentTo(expectedDeletedGuest);\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.SelectGuestByIdAsync(It.IsAny\u003CGuid\u003E()), Times.Once());\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.DeleteGuestAsync(It.IsAny\u003CGuest\u003E()), Times.Once());\r\n    this.storageBrokerMock.VerifyNoOtherCalls();\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GuestServiceTests",
+    "Message": null,
+    "ProjectName": "Sheenam.Api.Test.Unit",
+    "Methods": [
+      {
+        "Name": "ShouldRetrieveAllGuests",
+        "Body": "{\r\n    // given\r\n    IQueryable\u003CGuest\u003E randomGuests = CreateRandomGuests();\r\n    IQueryable\u003CGuest\u003E storageGuests = CreateRandomGuests();\r\n    IQueryable\u003CGuest\u003E expectedGuests = storageGuests.DeepClone();\r\n    this.storageBrokerMock.Setup(broker =\u003E broker.SelectAllGuests()).Returns(storageGuests);\r\n    // when\r\n    IQueryable\u003CGuest\u003E ActualGuests = this.guestService.RetrieveAllGuests();\r\n    // then \r\n    ActualGuests.Should().BeEquivalentTo(expectedGuests);\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.SelectAllGuests(), Times.Once());\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n    this.storageBrokerMock.VerifyNoOtherCalls();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GuestServiceTests",
+    "Message": null,
+    "ProjectName": "Sheenam.Api.Test.Unit",
+    "Methods": [
+      {
+        "Name": "ShouldRetrieveGuestById",
+        "Body": "{\r\n    // given\r\n    Guid randomId = Guid.NewGuid();\r\n    Guest randomGuest = CreateRandomGuest();\r\n    Guest storageGuest = randomGuest;\r\n    Guest expectedGuest = storageGuest.DeepClone();\r\n    this.storageBrokerMock.Setup(broker =\u003E broker.SelectGuestByIdAsync(randomId)).ReturnsAsync(storageGuest);\r\n    // when\r\n    Guest actualGuest = await this.guestService.RetrieveGuestByIdAsync(randomId);\r\n    // then \r\n    actualGuest.Should().BeEquivalentTo(expectedGuest);\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.SelectGuestByIdAsync(It.IsAny\u003CGuid\u003E()), Times.Once());\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n    this.storageBrokerMock.VerifyNoOtherCalls();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GuestServiceTests",
+    "Message": null,
+    "ProjectName": "Sheenam.Api.Test.Unit",
+    "Methods": [
+      {
+        "Name": "ShouldThrowValidationExceptionOnAddIfGuestIsNullAndLogItAsync",
+        "Body": "{\r\n    // given\r\n    Guest nullGuest = null;\r\n    NullGuestException nullGuestException = new();\r\n    GuestValidationException expectedGuestValidationException = new(nullGuestException);\r\n    // when\r\n    ValueTask\u003CGuest\u003E addGuestTask = this.guestService.AddGuestAsync(nullGuest);\r\n    // then\r\n    await Assert.ThrowsAsync\u003CGuestValidationException\u003E(() =\u003E addGuestTask.AsTask());\r\n    this.loggingBrokerMock.Verify(broker =\u003E broker.LogError(It.Is(SameExceptionAs(expectedGuestValidationException))), Times.Once());\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.InsertGuestAsync(It.IsAny\u003CGuest\u003E()), Times.Never);\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n    this.storageBrokerMock.VerifyNoOtherCalls();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ShouldThrowValidationExceptionOnAddIfGuestIsInvalidDataAndLogItAsync",
+        "Body": "{\r\n    // given\r\n    var invalidGuest = new Guest()\r\n    {\r\n        FirstName = invalidData\r\n    };\r\n    InvalidGuestException invalidGuestException = new();\r\n    invalidGuestException.AddData(key: nameof(Guest.Id), values: \u0022Id is required\u0022);\r\n    invalidGuestException.AddData(key: nameof(Guest.FirstName), values: \u0022Text is invalid\u0022);\r\n    invalidGuestException.AddData(key: nameof(Guest.LastName), values: \u0022Text is invalid\u0022);\r\n    invalidGuestException.AddData(key: nameof(Guest.DateOfBirth), values: \u0022Date is invalid\u0022);\r\n    invalidGuestException.AddData(key: nameof(Guest.Password), values: \u0022Text is invalid\u0022);\r\n    invalidGuestException.AddData(key: nameof(Guest.Email), values: \u0022Text is invalid\u0022);\r\n    invalidGuestException.AddData(key: nameof(Guest.Address), values: \u0022Text is invalid\u0022);\r\n    var expectedGuestValidationExpected = new GuestValidationException(invalidGuestException);\r\n    // when\r\n    ValueTask\u003CGuest\u003E addGuestTask = this.guestService.AddGuestAsync(invalidGuest);\r\n    // then\r\n    await Assert.ThrowsAsync\u003CGuestValidationException\u003E(() =\u003E addGuestTask.AsTask());\r\n    this.loggingBrokerMock.Verify(broker =\u003E broker.LogError(It.Is(SameExceptionAs(expectedGuestValidationExpected))), Times.Once());\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.InsertGuestAsync(It.IsAny\u003CGuest\u003E()), Times.Never);\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n    this.storageBrokerMock.VerifyNoOtherCalls();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ShouldThrowExceptionOnAddIfGenderIsInvalidAndLogItAsync",
+        "Body": "{\r\n    // given\r\n    Guest randomGuest = CreateRandomGuest();\r\n    Guest invalidGuest = randomGuest;\r\n    invalidGuest.Gender = GetInvalidEnum\u003CGuestGenderType\u003E();\r\n    var invalidGuestException = new InvalidGuestException();\r\n    invalidGuestException.AddData(key: nameof(Guest.Gender), values: \u0022Value is invalid\u0022);\r\n    var expectedGuestValidationException = new GuestValidationException(invalidGuestException);\r\n    // when\r\n    ValueTask\u003CGuest\u003E AddGuestTask = this.guestService.AddGuestAsync(invalidGuest);\r\n    // then\r\n    await Assert.ThrowsAsync\u003CGuestValidationException\u003E(() =\u003E AddGuestTask.AsTask());\r\n    this.loggingBrokerMock.Verify(broker =\u003E broker.LogError(It.Is(SameExceptionAs(expectedGuestValidationException))), Times.Once());\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.InsertGuestAsync(It.IsAny\u003CGuest\u003E()), Times.Never());\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n    this.storageBrokerMock.VerifyNoOtherCalls();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GuestServiceTests",
+    "Message": null,
+    "ProjectName": "Sheenam.Api.Test.Unit",
+    "Methods": [
+      {
+        "Name": "ShouldThrowExceptionOnRetrieveByIdIfGuestIdIsInvalidAndLogItAsync",
+        "Body": "{\r\n    // given\r\n    Guid invalidGuestId = Guid.Empty;\r\n    var invalidGuestException = new InvalidGuestException();\r\n    invalidGuestException.AddData(key: nameof(Guest.Id), values: \u0022Id is required\u0022);\r\n    var guestValidationException = new GuestValidationException(invalidGuestException);\r\n    // when\r\n    ValueTask\u003CGuest\u003E RetrieveGuestByIdTask = this.guestService.RetrieveGuestByIdAsync(invalidGuestId);\r\n    var actualGuestValidationException = await Assert.ThrowsAsync\u003CGuestValidationException\u003E(RetrieveGuestByIdTask.AsTask);\r\n    // then \r\n    actualGuestValidationException.Should().BeEquivalentTo(guestValidationException);\r\n    this.loggingBrokerMock.Verify(broker =\u003E broker.LogError(It.Is(SameExceptionAs(guestValidationException))), Times.Once());\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.SelectGuestByIdAsync(It.IsAny\u003CGuid\u003E()), Times.Never());\r\n    this.storageBrokerMock.VerifyNoOtherCalls();\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "HostServiceTest",
+    "Message": null,
+    "ProjectName": "Sheenam.Api.Test.Unit",
+    "Methods": [
+      {
+        "Name": "ShouldThrowExceptionOnAddIfDuplicateKeyErrorOccuredAndLogItAsync",
+        "Body": "{\r\n    // given\r\n    Host someHost = CreateRandomHost();\r\n    string someString = GetRandomString();\r\n    DuplicateKeyException duplicateKeyException = new DuplicateKeyException(someString);\r\n    var alreadyExistHostException = new AlreadyExistHostException(duplicateKeyException);\r\n    var hostDependencyValidationException = new HostDependencyValidationException(alreadyExistHostException);\r\n    this.storageBrokerMock.Setup(broker =\u003E broker.InsertHostAsync(someHost)).ThrowsAsync(duplicateKeyException);\r\n    // when\r\n    ValueTask\u003CHost\u003E AddHostTask = this.hostservice.AddHostAsync(someHost);\r\n    // then\r\n    await Assert.ThrowsAsync\u003CHostDependencyValidationException\u003E(() =\u003E AddHostTask.AsTask());\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.InsertHostAsync(someHost), Times.Once());\r\n    this.loggingBrokerMock.Verify(broker =\u003E broker.LogError(It.Is(SameExceptionAs(hostDependencyValidationException))), Times.Once());\r\n    this.storageBrokerMock.VerifyNoOtherCalls();\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ShouldThrowExceptionOnAddIfSqlErrorOccuredAndLogItAsync",
+        "Body": "{\r\n    // given\r\n    Host someHost = CreateRandomHost();\r\n    SqlException sqlException = GetSqlError();\r\n    var failedHostStorageException = new FailedHostStorageException(sqlException);\r\n    var hostDependencyException = new HostDependencyException(failedHostStorageException);\r\n    this.storageBrokerMock.Setup(broker =\u003E broker.InsertHostAsync(someHost)).ThrowsAsync(sqlException);\r\n    // when\r\n    ValueTask\u003CHost\u003E AddHostTask = this.hostservice.AddHostAsync(someHost);\r\n    // then\r\n    await Assert.ThrowsAsync\u003CHostDependencyException\u003E(() =\u003E AddHostTask.AsTask());\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.InsertHostAsync(It.IsAny\u003CHost\u003E()), Times.Once());\r\n    this.loggingBrokerMock.Verify(broker =\u003E broker.LogCritical(It.Is(SameExceptionAs(hostDependencyException))), Times.Once());\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n    this.storageBrokerMock.VerifyNoOtherCalls();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ShouldThrowExceptionIfServiceErrorOccured",
+        "Body": "{\r\n    // given\r\n    Host someHost = CreateRandomHost();\r\n    var exception = new Exception();\r\n    var failedHostServiceException = new FailedHostServiceException(exception);\r\n    var hostDependencyServiceException = new HostDependencyServiceException(failedHostServiceException);\r\n    this.storageBrokerMock.Setup(broker =\u003E broker.InsertHostAsync(someHost)).ThrowsAsync(exception);\r\n    // when \r\n    ValueTask\u003CHost\u003E AddHostTask = this.hostservice.AddHostAsync(someHost);\r\n    // then\r\n    await Assert.ThrowsAsync\u003CHostDependencyServiceException\u003E(() =\u003E AddHostTask.AsTask());\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.InsertHostAsync(It.IsAny\u003CHost\u003E()), Times.Once());\r\n    this.loggingBrokerMock.Verify(broker =\u003E broker.LogCritical(It.Is(SameExceptionAs(hostDependencyServiceException))), Times.Once());\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n    this.storageBrokerMock.VerifyNoOtherCalls();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "HostServiceTest",
+    "Message": null,
+    "ProjectName": "Sheenam.Api.Test.Unit",
+    "Methods": [
+      {
+        "Name": "ShouldThrowExceptionOnRetrieveAllIfSqlErrorOcurred",
+        "Body": "{\r\n    // given\r\n    SqlException sqlException = GetSqlError();\r\n    var failedHostStorageException = new FailedHostStorageException(sqlException);\r\n    var hostDependencyException = new HostDependencyException(failedHostStorageException);\r\n    this.storageBrokerMock.Setup(broker =\u003E broker.SelectAllHosts()).Throws(sqlException);\r\n    // when \u0026 then\r\n    Assert.Throws\u003CHostDependencyException\u003E(() =\u003E this.hostservice.RetrieveAllHosts());\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.SelectAllHosts(), Times.Once());\r\n    this.loggingBrokerMock.Verify(broker =\u003E broker.LogCritical(It.Is(SameExceptionAs(hostDependencyException))), Times.Once());\r\n    this.storageBrokerMock.VerifyNoOtherCalls();\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ShouldThrowExceptionOnRetrieveAllIfServiceErrorOccured",
+        "Body": "{\r\n    // given\r\n    Exception exception = new Exception();\r\n    var failedHostServiceException = new FailedHostServiceException(exception);\r\n    var hostDependencyServiceException = new HostDependencyServiceException(failedHostServiceException);\r\n    this.storageBrokerMock.Setup(broker =\u003E broker.SelectAllHosts()).Throws(exception);\r\n    // when \u0026 then\r\n    Assert.Throws\u003CHostDependencyServiceException\u003E(() =\u003E this.hostservice.RetrieveAllHosts());\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.SelectAllHosts(), Times.Once());\r\n    this.loggingBrokerMock.Verify(broker =\u003E broker.LogCritical(It.Is(SameExceptionAs(hostDependencyServiceException))), Times.Once());\r\n    this.storageBrokerMock.VerifyNoOtherCalls();\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "HostServiceTest",
+    "Message": null,
+    "ProjectName": "Sheenam.Api.Test.Unit",
+    "Methods": [
+      {
+        "Name": "ShouldAddHostAsync",
+        "Body": "{\r\n    // given\r\n    Host randomHost = CreateRandomHost();\r\n    Host inputHost = randomHost;\r\n    Host returnedHost = inputHost;\r\n    Host expectedHost = returnedHost.DeepClone();\r\n    this.storageBrokerMock.Setup(broker =\u003E broker.InsertHostAsync(inputHost)).ReturnsAsync(expectedHost);\r\n    // when\r\n    Host actualHost = await this.hostservice.AddHostAsync(inputHost);\r\n    // then\r\n    actualHost.Should().BeEquivalentTo(expectedHost);\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.InsertHostAsync(inputHost), Times.Once());\r\n    this.storageBrokerMock.VerifyNoOtherCalls();\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "HostServiceTest",
+    "Message": null,
+    "ProjectName": "Sheenam.Api.Test.Unit",
+    "Methods": [
+      {
+        "Name": "ShouldModifyHostAsync",
+        "Body": "{\r\n    // when\r\n    Host randomHost = CreateRandomHost();\r\n    Host inputHost = randomHost;\r\n    Host updatedGuest = inputHost.DeepClone();\r\n    Host expectedGuest = inputHost.DeepClone();\r\n    this.storageBrokerMock.Setup(broker =\u003E broker.UpdateHostAsync(inputHost)).ReturnsAsync(updatedGuest);\r\n    // when \r\n    Host actualHost = await this.hostservice.ModifyHostAsync(inputHost);\r\n    // then\r\n    actualHost.Should().BeEquivalentTo(expectedGuest);\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.UpdateHostAsync(It.IsAny\u003CHost\u003E()), Times.Once());\r\n    this.storageBrokerMock.VerifyNoOtherCalls();\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "HostServiceTest",
+    "Message": null,
+    "ProjectName": "Sheenam.Api.Test.Unit",
+    "Methods": [
+      {
+        "Name": "ShouldRemoveHostAsync",
+        "Body": "{\r\n    // given\r\n    Guid randomHostId = Guid.NewGuid();\r\n    Host randomHost = CreateRandomHost();\r\n    Host storageHost = randomHost.DeepClone();\r\n    Host deletedHost = randomHost.DeepClone();\r\n    Host expectedDeletedHost = deletedHost.DeepClone();\r\n    this.storageBrokerMock.Setup(broker =\u003E broker.SelectHostByIdAsync(It.IsAny\u003CGuid\u003E())).ReturnsAsync(storageHost);\r\n    this.storageBrokerMock.Setup(broker =\u003E broker.DeleteHostAsync(storageHost)).ReturnsAsync(deletedHost);\r\n    // when\r\n    var actualDeletedHost = await this.hostservice.RemoveHostAsync(randomHostId);\r\n    // then\r\n    actualDeletedHost.Should().BeEquivalentTo(expectedDeletedHost);\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.SelectHostByIdAsync(It.IsAny\u003CGuid\u003E()), Times.Once());\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.DeleteHostAsync(It.IsAny\u003CHost\u003E()), Times.Once());\r\n    this.storageBrokerMock.VerifyNoOtherCalls();\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "HostServiceTest",
+    "Message": null,
+    "ProjectName": "Sheenam.Api.Test.Unit",
+    "Methods": [
+      {
+        "Name": "ShouldRetrieveAllHosts",
+        "Body": "{\r\n    // given\r\n    IQueryable\u003CHost\u003E randomHosts = CreateRandomHosts();\r\n    IQueryable\u003CHost\u003E storageHosts = randomHosts;\r\n    IQueryable\u003CHost\u003E expectedHosts = storageHosts.DeepClone();\r\n    this.storageBrokerMock.Setup(broker =\u003E broker.SelectAllHosts()).Returns(storageHosts);\r\n    // when\r\n    IQueryable\u003CHost\u003E actualHosts = this.hostservice.RetrieveAllHosts();\r\n    actualHosts.Should().BeEquivalentTo(expectedHosts);\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.SelectAllHosts(), Times.Once());\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "HostServiceTest",
+    "Message": null,
+    "ProjectName": "Sheenam.Api.Test.Unit",
+    "Methods": [
+      {
+        "Name": "ShouldRetrieveHostByIdAsync",
+        "Body": "{\r\n    // given\r\n    Guid someHostId = Guid.NewGuid();\r\n    Host randomHost = CreateRandomHost();\r\n    Host storageHost = randomHost;\r\n    Host expectedHost = storageHost.DeepClone();\r\n    this.storageBrokerMock.Setup(broker =\u003E broker.SelectHostByIdAsync(It.IsAny\u003CGuid\u003E())).ReturnsAsync(storageHost);\r\n    // when\r\n    Host actualHost = await this.hostservice.RetrieveHostByIdAsync(someHostId);\r\n    // then\r\n    actualHost.Should().BeEquivalentTo(expectedHost);\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.SelectHostByIdAsync(It.IsAny\u003CGuid\u003E()), Times.Once());\r\n    this.storageBrokerMock.VerifyNoOtherCalls();\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "HostServiceTest",
+    "Message": null,
+    "ProjectName": "Sheenam.Api.Test.Unit",
+    "Methods": [
+      {
+        "Name": "ShouldThowExceptionOnAddIfHostIsNullAndLogItAsync",
+        "Body": "{\r\n    // given\r\n    Host nullHost = null;\r\n    var nullHostException = new NullHostException();\r\n    HostValidationException hostValidationException = new HostValidationException(nullHostException);\r\n    // when \r\n    ValueTask\u003CHost\u003E AddHostTask = this.hostservice.AddHostAsync(nullHost);\r\n    // then\r\n    await Assert.ThrowsAsync\u003CHostValidationException\u003E(() =\u003E AddHostTask.AsTask());\r\n    this.loggingBrokerMock.Verify(broker =\u003E broker.LogError(It.Is(SameExceptionAs(hostValidationException))), Times.Once());\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.InsertHostAsync(It.IsAny\u003CHost\u003E()), Times.Never());\r\n    this.storageBrokerMock.VerifyNoOtherCalls();\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ShouldThrowExceptionOnAddIfHostIsInvalidAndLogItAsync",
+        "Body": "{\r\n    // given\r\n    Host invalidHost = new Host()\r\n    {\r\n        LastName = invalidData\r\n    };\r\n    var invalidHostException = new InvalidHostException();\r\n    invalidHostException.AddData(key: nameof(invalidHost.Id), values: \u0022Id is required\u0022);\r\n    invalidHostException.AddData(key: nameof(invalidHost.FirstName), values: \u0022Text is required\u0022);\r\n    invalidHostException.AddData(key: nameof(invalidHost.LastName), values: \u0022Text is required\u0022);\r\n    invalidHostException.AddData(key: nameof(invalidHost.DateOfBirth), values: \u0022Date is required\u0022);\r\n    invalidHostException.AddData(key: nameof(invalidHost.Email), values: \u0022Text is required\u0022);\r\n    invalidHostException.AddData(key: nameof(invalidHost.Password), values: \u0022Text is required\u0022);\r\n    invalidHostException.AddData(key: nameof(invalidHost.PhoneNumber), values: \u0022Text is required\u0022);\r\n    HostValidationException hostValidationException = new HostValidationException(invalidHostException);\r\n    // when\r\n    ValueTask\u003CHost\u003E AddHostTask = this.hostservice.AddHostAsync(invalidHost);\r\n    // then\r\n    await Assert.ThrowsAsync\u003CHostValidationException\u003E(() =\u003E AddHostTask.AsTask());\r\n    this.loggingBrokerMock.Verify(broker =\u003E broker.LogError(It.Is(SameExceptionAs(hostValidationException))), Times.Once());\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.InsertHostAsync(It.IsAny\u003CHost\u003E()), Times.Never());\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n    this.storageBrokerMock.VerifyNoOtherCalls();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "ShouldThrowExceptionOnAddIfGenderTypeIsInvalidAndLogItAsync",
+        "Body": "{\r\n    // given\r\n    Host randomHost = CreateRandomHost();\r\n    randomHost.Gender = GetInvalidEnum\u003CHostGenderType\u003E();\r\n    var invalidHostException = new InvalidHostException();\r\n    invalidHostException.AddData(key: nameof(Host.Gender), values: \u0022Value is invalid\u0022);\r\n    var hostValidationException = new HostValidationException(invalidHostException);\r\n    // when\r\n    ValueTask\u003CHost\u003E AddHostTask = this.hostservice.AddHostAsync(randomHost);\r\n    // then\r\n    await Assert.ThrowsAsync\u003CHostValidationException\u003E(() =\u003E AddHostTask.AsTask());\r\n    this.loggingBrokerMock.Verify(broker =\u003E broker.LogError(It.Is(SameExceptionAs(hostValidationException))), Times.Once());\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.InsertHostAsync(It.IsAny\u003CHost\u003E()), Times.Never());\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n    this.storageBrokerMock.VerifyNoOtherCalls();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "HostServiceTest",
+    "Message": null,
+    "ProjectName": "Sheenam.Api.Test.Unit",
+    "Methods": [
+      {
+        "Name": "ShouldThrowvalidationExceptionOnRetrieveByIdIfHostIdIsInvalidAndLogItAsync",
+        "Body": "{\r\n    // given\r\n    Guid invalidHostId = Guid.Empty;\r\n    var invalidHostException = new InvalidHostException();\r\n    invalidHostException.AddData(key: nameof(Host.Id), values: \u0022Id is required\u0022);\r\n    var hostValidationException = new HostValidationException(invalidHostException);\r\n    // when\r\n    ValueTask\u003CHost\u003E RetrieveHostByIdTask = this.hostservice.RetrieveHostByIdAsync(invalidHostId);\r\n    var actualHostValidationException = await Assert.ThrowsAsync\u003CHostValidationException\u003E(RetrieveHostByIdTask.AsTask);\r\n    // then\r\n    actualHostValidationException.Should().BeEquivalentTo(hostValidationException);\r\n    this.loggingBrokerMock.Verify(broker =\u003E broker.LogError(It.Is(SameExceptionAs(hostValidationException))), Times.Once());\r\n    this.storageBrokerMock.Verify(broker =\u003E broker.SelectHostByIdAsync(It.IsAny\u003CGuid\u003E()), Times.Never());\r\n    this.storageBrokerMock.VerifyNoOtherCalls();\r\n    this.loggingBrokerMock.VerifyNoOtherCalls();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,176 @@
+[
+  {
+    "Name": "TargetFrameworksTheoryData",
+    "Message": null,
+    "ProjectName": "Approval.Tests",
+    "Methods": [
+      {
+        "Name": "ApproveApi",
+        "Body": "{\r\n    string codeBase = Assembly.GetExecutingAssembly().Location;\r\n    var uri = new UriBuilder(new Uri(codeBase));\r\n    string assemblyPath = Uri.UnescapeDataString(uri.Path);\r\n    var containingDirectory = Path.GetDirectoryName(assemblyPath);\r\n    var configurationName = new DirectoryInfo(containingDirectory).Parent.Name;\r\n    var assemblyFile = Path.GetFullPath(Path.Combine(GetSourceDirectory(), Path.Combine(\u0022..\u0022, \u0022..\u0022, \u0022Src\u0022, \u0022FluentAssertions\u0022, \u0022bin\u0022, configurationName, frameworkVersion, \u0022FluentAssertions.dll\u0022)));\r\n    var assembly = Assembly.LoadFile(Path.GetFullPath(assemblyFile));\r\n    var publicApi = assembly.GeneratePublicApi(options: null);\r\n    return Verifier.Verify(publicApi).ScrubLinesContaining(\u0022FrameworkDisplayName\u0022).UseDirectory(Path.Combine(\u0022ApprovedApi\u0022, \u0022FluentAssertions\u0022)).UseStringComparer(OnlyIncludeChanges).UseFileName(frameworkVersion).DisableDiff();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "ApiApproval",
+    "Message": null,
+    "ProjectName": "Approval.Tests",
+    "Methods": [
+      {
+        "Name": "ApproveApi",
+        "Body": "{\r\n    string codeBase = Assembly.GetExecutingAssembly().Location;\r\n    var uri = new UriBuilder(new Uri(codeBase));\r\n    string assemblyPath = Uri.UnescapeDataString(uri.Path);\r\n    var containingDirectory = Path.GetDirectoryName(assemblyPath);\r\n    var configurationName = new DirectoryInfo(containingDirectory).Parent.Name;\r\n    var assemblyFile = Path.GetFullPath(Path.Combine(GetSourceDirectory(), Path.Combine(\u0022..\u0022, \u0022..\u0022, \u0022Src\u0022, \u0022FluentAssertions\u0022, \u0022bin\u0022, configurationName, frameworkVersion, \u0022FluentAssertions.dll\u0022)));\r\n    var assembly = Assembly.LoadFile(Path.GetFullPath(assemblyFile));\r\n    var publicApi = assembly.GeneratePublicApi(options: null);\r\n    return Verifier.Verify(publicApi).ScrubLinesContaining(\u0022FrameworkDisplayName\u0022).UseDirectory(Path.Combine(\u0022ApprovedApi\u0022, \u0022FluentAssertions\u0022)).UseStringComparer(OnlyIncludeChanges).UseFileName(frameworkVersion).DisableDiff();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

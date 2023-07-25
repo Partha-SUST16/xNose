@@ -1,0 +1,246 @@
+[
+  {
+    "Name": "CreateInvoiceCommandHandlerTest",
+    "Message": null,
+    "ProjectName": "Application.UnitTests",
+    "Methods": [
+      {
+        "Name": "CreateInvoice_WithValidObject_ReturnInvoiceId",
+        "Body": "{\r\n    _mapper.Setup(opt =\u003E opt.Map\u003CInvoice\u003E(It.IsAny\u003CCreateInvoiceCommand\u003E())).Returns((Invoice)default);\r\n    _context.Setup(opt =\u003E opt.Invoices.AddAsync(It.IsAny\u003CInvoice\u003E(), default));\r\n    _context.Setup(opt =\u003E opt.SaveChangesAsync(default)).ReturnsAsync(1);\r\n    var mediatR = new Mock\u003CIMediator\u003E();\r\n    mediatR.Setup(opt =\u003E opt.Send(It.IsAny\u003CCreateInvoiceCommand\u003E(), default)).ReturnsAsync(1);\r\n    var result = await mediatR.Object.Send(GetValidInvoiceCommand());\r\n    Assert.IsType\u003Cint\u003E(result);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "CreateInvoice_WithInValidObject_ThrowException",
+        "Body": "{\r\n    _mapper.Setup(opt =\u003E opt.Map\u003CInvoice\u003E(It.IsAny\u003CCreateInvoiceCommand\u003E())).Returns((Invoice)default);\r\n    _context.Setup(opt =\u003E opt.Invoices.AddAsync(It.IsAny\u003CInvoice\u003E(), default));\r\n    _context.Setup(opt =\u003E opt.SaveChangesAsync(default)).ReturnsAsync(-1);\r\n    var mediatR = new Mock\u003CIMediator\u003E();\r\n    mediatR.Setup(opt =\u003E opt.Send(It.IsAny\u003CCreateInvoiceCommand\u003E(), default)).ThrowsAsync(new Exception(\u0022Invalid Exception\u0022));\r\n    await Assert.ThrowsAsync\u003CException\u003E(() =\u003E mediatR.Object.Send(GetInvalidInvoiceCommand()));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "CreateProductCommandTests",
+    "Message": null,
+    "ProjectName": "Application.UnitTests",
+    "Methods": [
+      {
+        "Name": "CreateProduct_WithValidObject_ReturnProductVm",
+        "Body": "{\r\n    _mapper.Setup(opt =\u003E opt.Map\u003CDomain.Entities.Product.Product\u003E(It.IsAny\u003CCreateProductCommand\u003E())).Returns((Domain.Entities.Product.Product)default);\r\n    _context.Setup(opt =\u003E opt.Products.AddAsync(It.IsAny\u003CDomain.Entities.Product.Product\u003E(), default));\r\n    _context.Setup(opt =\u003E opt.SaveChangesAsync(default)).ReturnsAsync(1);\r\n    var mediatR = new Mock\u003CIMediator\u003E();\r\n    mediatR.Setup(opt =\u003E opt.Send(It.IsAny\u003CCreateProductCommand\u003E(), default)).ReturnsAsync(new ProductVm { Id = 1 });\r\n    var result = await mediatR.Object.Send(new CreateProductCommand());\r\n    Assert.IsType\u003CProductVm\u003E(result);\r\n    Assert.IsType\u003Clong\u003E(result.Id);\r\n    Assert.NotNull(result);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

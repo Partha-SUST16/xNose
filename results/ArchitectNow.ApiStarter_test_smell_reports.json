@@ -1,0 +1,89 @@
+[
+  {
+    "Name": "SecurityControllerUnitTests",
+    "Message": null,
+    "ProjectName": "ArchitectNow.ApiStarter.Tests",
+    "Methods": [
+      {
+        "Name": "Login_ThrowsException_WhenUserNotFound",
+        "Body": "{\r\n    using (var mockContainer = AutoMock.GetLoose())\r\n    {\r\n        // Create a reference to the exceptionResult builder so we can assert on it later\r\n        var exceptionResultBuilder = mockContainer.Mock\u003CIExceptionResultBuilder\u003E();\r\n        // Provide a real implementation of ServiceInvoker with it\u0027s dependencies mocked out\r\n        var serviceInvoker = mockContainer.Create\u003CServiceInvoker\u003E();\r\n        mockContainer.Provide\u003CIServiceInvoker\u003E(serviceInvoker);\r\n        // Setup security service to return null for any request to login\r\n        var securityService = mockContainer.Mock\u003CISecurityService\u003E();\r\n        securityService.Setup(service =\u003E service.Login(It.IsAny\u003Cstring\u003E(), It.IsAny\u003Cstring\u003E())).ReturnsAsync((User)null);\r\n        // Create the system controller with all of its dependencies mocked\r\n        var target = mockContainer.Create\u003CSecurityController\u003E();\r\n        await target.Login(new LoginVm());\r\n        exceptionResultBuilder.Verify(builder =\u003E builder.Build(It.Is\u003CApiException\u003Cstring\u003E\u003E(exception =\u003E exception.Message == \u0022Invalid Credentials\u0022)));\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

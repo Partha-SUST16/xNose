@@ -1,0 +1,514 @@
+[
+  {
+    "Name": "EnumerableExtensionsTests",
+    "Message": null,
+    "ProjectName": "Nis.WpfApp.UnitTests",
+    "Methods": [
+      {
+        "Name": "it_should_return_null_when_merging_nulls",
+        "Body": "Could not load the body for function: it_should_return_null_when_merging_nulls in class: EnumerableExtensionsTests",
+        "Smells": []
+      },
+      {
+        "Name": "it_should_merge_empty_dictionaries",
+        "Body": "Could not load the body for function: it_should_merge_empty_dictionaries in class: EnumerableExtensionsTests",
+        "Smells": []
+      },
+      {
+        "Name": "it_should_merge_distinct_dictionaries",
+        "Body": "Could not load the body for function: it_should_merge_distinct_dictionaries in class: EnumerableExtensionsTests",
+        "Smells": []
+      },
+      {
+        "Name": "it_should_not_merge_duplicates",
+        "Body": "Could not load the body for function: it_should_not_merge_duplicates in class: EnumerableExtensionsTests",
+        "Smells": []
+      },
+      {
+        "Name": "it_should_merge_first_if_second_is_null",
+        "Body": "Could not load the body for function: it_should_merge_first_if_second_is_null in class: EnumerableExtensionsTests",
+        "Smells": []
+      },
+      {
+        "Name": "it_should_merge_second_if_first_is_null",
+        "Body": "Could not load the body for function: it_should_merge_second_if_first_is_null in class: EnumerableExtensionsTests",
+        "Smells": []
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "StringExtensionsTests",
+    "Message": null,
+    "ProjectName": "Nis.WpfApp.UnitTests",
+    "Methods": [
+      {
+        "Name": "it_should_return_empty_string_when_invalid_input_is_passed",
+        "Body": "Could not load the body for function: it_should_return_empty_string_when_invalid_input_is_passed in class: StringExtensionsTests",
+        "Smells": []
+      },
+      {
+        "Name": "it_should_return_capitalized_string",
+        "Body": "Could not load the body for function: it_should_return_capitalized_string in class: StringExtensionsTests",
+        "Smells": []
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "MappingProfileTests",
+    "Message": null,
+    "ProjectName": "Nis.WpfApp.UnitTests",
+    "Methods": [
+      {
+        "Name": "it_should_be_valid_if_mapping_exists",
+        "Body": "Could not load the body for function: it_should_be_valid_if_mapping_exists in class: MappingProfileTests",
+        "Smells": []
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "CountdownTests",
+    "Message": null,
+    "ProjectName": "Nis.WpfApp.UnitTests",
+    "Methods": [
+      {
+        "Name": "it_should_throw_if_countdown_has_not_started",
+        "Body": "Could not load the body for function: it_should_throw_if_countdown_has_not_started in class: CountdownTests",
+        "Smells": []
+      },
+      {
+        "Name": "it_should_throw_if_countdown_is_already_running",
+        "Body": "{\r\n    _countdown.Start();\r\n    _countdown.Invoking(countdown =\u003E countdown.Start()).Should().Throw\u003CInvalidOperationException\u003E().WithMessage(\u0022Countdown is already running.\u0022);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "it_should_start_countdown",
+        "Body": "{\r\n    _countdown.Start();\r\n    _countdown.IsRunning.Should().BeTrue();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "it_should_stop_countdown",
+        "Body": "{\r\n    _countdown.Start();\r\n    _countdown.Stop();\r\n    _countdown.IsRunning.Should().BeFalse();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "SignInRequestTests",
+    "Message": null,
+    "ProjectName": "Nis.WpfApp.IntegrationTests",
+    "Methods": [
+      {
+        "Name": "it_should_return_authentication_response_if_credentials_are_valid",
+        "Body": "Could not load the body for function: it_should_return_authentication_response_if_credentials_are_valid in class: SignInRequestTests",
+        "Smells": []
+      },
+      {
+        "Name": "it_should_return_null_if_credentials_are_not_valid",
+        "Body": "Could not load the body for function: it_should_return_null_if_credentials_are_not_valid in class: SignInRequestTests",
+        "Smells": []
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "StudentsControllerTests",
+    "Message": null,
+    "ProjectName": "Nis.Api.IntegrationTests",
+    "Methods": [
+      {
+        "Name": "it_should_get_all_students",
+        "Body": "{\r\n    var token = await GetTokenAsync(Settings.Configuration[\u0022Moodle:Credentials:Username\u0022], Settings.Configuration[\u0022Moodle:Credentials:Password\u0022]);\r\n    var request = new HttpRequestMessage(HttpMethod.Get, $\u0022{Http.BaseAddress}/students\u0022)\r\n    {\r\n        Headers =\r\n        {\r\n            {\r\n                \u0022token\u0022,\r\n                token\r\n            }\r\n        }\r\n    };\r\n    var response = await Http.SendAsync(request);\r\n    response.StatusCode.Should().Be(HttpStatusCode.OK);\r\n    var students = await response.Content.ReadFromJsonAsync\u003CIEnumerable\u003CIDictionary\u003Cstring, object\u003E\u003E\u003E();\r\n    students.Should().NotBeNull();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "it_should_return_unauthorized_if_authorization_header_was_not_supplied",
+        "Body": "{\r\n    var request = new HttpRequestMessage(HttpMethod.Get, $\u0022{Http.BaseAddress}/{segment}\u0022);\r\n    var response = await Http.SendAsync(request);\r\n    response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

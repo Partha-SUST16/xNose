@@ -1,0 +1,4007 @@
+[
+  {
+    "Name": "MsTestProviderExtendedTests",
+    "Message": null,
+    "ProjectName": "SpecFlow.Contrib.Variants.UnitTests",
+    "Methods": [
+      {
+        "Name": "MsTestProviderExtended_ScenarioVariants_CorrectNumberOfMethodsGenerated",
+        "Body": "{\r\n    var document = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithScenarioVariantTags);\r\n    var generatedCode = SetupFeatureGenerator\u003CMsTestProviderExtended\u003E(document);\r\n    var scenario = document.GetScenario\u003CScenario\u003E(scenarioName);\r\n    var expectedNumOfMethods = ExpectedNumOfMethodsForFeatureVariants(scenario);\r\n    var actualNumOfMethods = generatedCode.GetTestMethods(scenario).Count;\r\n    Assert.Equal(expectedNumOfMethods, actualNumOfMethods);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "MsTestProviderExtended_ScenarioVariants_SpecflowGeneratedCodeCompiles",
+        "Body": "{\r\n    var document = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithScenarioVariantTags);\r\n    var generatedCode = SetupFeatureGenerator\u003CMsTestProviderExtended\u003E(document);\r\n    var assemblies = new[]\r\n    {\r\n        \u0022BoDi.dll\u0022,\r\n        \u0022System.Core.dll\u0022,\r\n        \u0022TechTalk.SpecFlow.dll\u0022,\r\n        \u0022System.dll\u0022,\r\n        \u0022System.Runtime.dll\u0022,\r\n        \u0022Microsoft.VisualStudio.TestPlatform.TestFramework.dll\u0022,\r\n        \u0022Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll\u0022\r\n    };\r\n    var compilerResults = GetCompilerResults(generatedCode, assemblies);\r\n    Assert.Empty(compilerResults.Errors);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "MsTestProviderExtended_ScenarioVariants_BaseTestMethodHasCorrectArguments",
+        "Body": "{\r\n    TestSetupForAttributes(out var generatedCode, out var scenario, out _, out var tableHeaders, out _);\r\n    var baseTestMethod = generatedCode.GetRowTestBaseMethod(scenario);\r\n    var methodParams = baseTestMethod.GetMethodParameters();\r\n    for (var i = 0; i \u003C tableHeaders.Count; i\u002B\u002B)\r\n    {\r\n        Assert.Equal(methodParams[i].Name, tableHeaders[i].Value);\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "MsTestProviderExtended_ScenarioVariants_TestMethodsHaveCorrectProperties",
+        "Body": "{\r\n    TestSetupForAttributes(out _, out _, out var testMethods, out var tableHeaders, out var tableBody);\r\n    var rowCounter = 0;\r\n    var variantCounter = 0;\r\n    for (var i = 0; i \u003C testMethods.Count; i\u002B\u002B)\r\n    {\r\n        var attArg = testMethods[i].GetMethodAttributes(\u0022Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute\u0022).ToList();\r\n        // Check first argument is the feature title\r\n        var featureTitleArg = attArg[0];\r\n        var argName = featureTitleArg.Arguments[0].GetArgumentValue() == \u0022FeatureTitle\u0022;\r\n        var argValue = featureTitleArg.Arguments[1].GetArgumentValue() == SampleFeatureFile.FeatureTitle;\r\n        Assert.True(argName);\r\n        Assert.True(argValue);\r\n        var cells = tableBody[rowCounter].Cells.ToList();\r\n        // Check second argument is the variant full name\r\n        var variantArg = attArg[1];\r\n        var variantKey = variantArg.Arguments[0].GetArgumentValue() == \u0022Variant\u0022;\r\n        var variantValue = variantArg.Arguments[1].GetArgumentValue() == $\u0022{SampleFeatureFile.Variants[variantCounter]}\u0022;\r\n        Assert.True(variantKey);\r\n        Assert.True(variantValue);\r\n        // Check third argument is the variant key and value\r\n        var variantNameArg = attArg[2];\r\n        var variantName = variantNameArg.Arguments[0].GetArgumentValue() == \u0022VariantName\u0022;\r\n        var variantFullValue = variantNameArg.Arguments[1].GetArgumentValue() == $\u0022{cells[0].Value}_{SampleFeatureFile.Variants[variantCounter]}\u0022;\r\n        Assert.True(variantName);\r\n        Assert.True(variantFullValue);\r\n        // Check the end arguments are examples table row cells\r\n        for (var k = 0; k \u003C cells.Count; k\u002B\u002B)\r\n        {\r\n            var exampleArg = attArg[k \u002B 3];\r\n            var exampleName = exampleArg.Arguments[0].GetArgumentValue() == $\u0022Parameter:{tableHeaders[k].Value}\u0022;\r\n            var exampleValue = exampleArg.Arguments[1].GetArgumentValue() == $\u0022{cells[k].Value}\u0022;\r\n            Assert.True(exampleName);\r\n            Assert.True(exampleValue);\r\n        }\r\n\r\n        rowCounter\u002B\u002B;\r\n        if (i % 2 != 0)\r\n            variantCounter\u002B\u002B;\r\n        if (rowCounter == tableBody.Count)\r\n            rowCounter = 0;\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Found"
+          }
+        ]
+      },
+      {
+        "Name": "MsTestProviderExtended_ScenarioVariants_TestMethodsHaveCorrectCategories",
+        "Body": "{\r\n    TestSetupForAttributes(out _, out var scenario, out var testMethods, out _, out _);\r\n    var variantCounter = 0;\r\n    for (var i = 0; i \u003C testMethods.Count; i\u002B\u002B)\r\n    {\r\n        var attArg = testMethods[i].GetMethodAttributes(\u0022Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute\u0022).ToList();\r\n        // Check first argument is the variant\r\n        var variantMatches = attArg[0].Arguments[0].GetArgumentValue() == $\u0022{SampleFeatureFile.Variant}:{SampleFeatureFile.Variants[variantCounter]}\u0022;\r\n        Assert.True(variantMatches);\r\n        // Check rest of the categories are non variant tags\r\n        var nonVariantTags = scenario.GetTagsExceptNameStart(SampleFeatureFile.Variant).Select(a =\u003E a.GetNameWithoutAt()).ToList();\r\n        var categoryAttr = attArg.SelectMany(a =\u003E a.Arguments.GetAttributeArguments().Select(b =\u003E b.GetArgumentValue())).ToList();\r\n        Assert.True(!nonVariantTags.Except(categoryAttr).Any());\r\n        if (i % 2 != 0)\r\n            variantCounter\u002B\u002B;\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "MsTestProviderExtended_ScenarioVariants_TestMethodsHaveCorrectDescriptionAndName",
+        "Body": "{\r\n    TestSetupForAttributes(out _, out var scenario, out var testMethods, out _, out var tableBody);\r\n    var rowCounter = 0;\r\n    var variantCounter = 0;\r\n    for (var i = 0; i \u003C testMethods.Count; i\u002B\u002B)\r\n    {\r\n        var cells = tableBody[rowCounter].Cells.ToList();\r\n        var attArg = testMethods[i].GetMethodAttributes(\u0022Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute\u0022).First();\r\n        // Check description attribute value is correct\r\n        var expectedDescription = $\u0022{scenario.Name}: {cells[0].Value}_{SampleFeatureFile.Variants[variantCounter]}\u0022;\r\n        var actualDescription = attArg.Arguments[0].GetArgumentValue();\r\n        // Check test method name is correct\r\n        var expectedMethodName = $\u0022{scenario.Name.Replace(\u0022 \u0022, \u0022\u0022).Replace(\u0022,\u0022, \u0022\u0022)}_{cells[0].Value}_{SampleFeatureFile.Variants[variantCounter]}\u0022;\r\n        var actualMethodName = testMethods[i].Name;\r\n        Assert.Equal(expectedDescription, actualDescription);\r\n        Assert.Equal(expectedMethodName, actualMethodName, StringComparer.InvariantCultureIgnoreCase);\r\n        rowCounter\u002B\u002B;\r\n        if (i % 2 != 0)\r\n            variantCounter\u002B\u002B;\r\n        if (rowCounter == tableBody.Count)\r\n            rowCounter = 0;\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "MsTestProviderExtended_ScenarioVariants_TestMethodHasInjectedVariant",
+        "Body": "{\r\n    var document = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithScenarioVariantTags);\r\n    var generatedCode = SetupFeatureGenerator\u003CMsTestProviderExtended\u003E(document);\r\n    var scenario = document.GetScenario\u003CScenario\u003E(scenarioName);\r\n    if (isoutline)\r\n    {\r\n        var baseMethod = generatedCode.GetRowTestBaseMethod(scenario);\r\n        var expectedStatement = $\u0022testRunner.ScenarioContext.Add(\\\u0022{SampleFeatureFile.Variant}\\\u0022, \\\u0022{SampleFeatureFile.Variant.ToLowerInvariant()}\\\u0022);\u0022;\r\n        var statement = GetScenarioContextVariantStatement(baseMethod, true, lineNum);\r\n        Assert.Equal(expectedStatement, statement);\r\n        var rowMethods = generatedCode.GetRowTestMethods(scenario);\r\n        var rowCounter = 0;\r\n        var variantCounter = 0;\r\n        for (var i = 0; i \u003C rowMethods.Count; i\u002B\u002B)\r\n        {\r\n            var name = GetVariantParameterOfRowMethod(rowMethods[i]);\r\n            Assert.Equal(SampleFeatureFile.Variants[variantCounter], name);\r\n            rowCounter\u002B\u002B;\r\n            if (i % 2 != 0)\r\n                variantCounter\u002B\u002B;\r\n        }\r\n    }\r\n    else\r\n    {\r\n        var testMethods = generatedCode.GetTestMethods(scenario);\r\n        if (hasVariants)\r\n        {\r\n            for (var i = 0; i \u003C testMethods.Count; i\u002B\u002B)\r\n            {\r\n                var expectedStatement = $\u0022testRunner.ScenarioContext.Add(\\\u0022{SampleFeatureFile.Variant}\\\u0022, \\\u0022{SampleFeatureFile.Variants[i]}\\\u0022);\u0022;\r\n                var statement = GetScenarioContextVariantStatement(testMethods[i], false, lineNum);\r\n                Assert.Equal(expectedStatement, statement);\r\n            }\r\n        }\r\n        else\r\n        {\r\n            for (var i = 0; i \u003C testMethods.Count; i\u002B\u002B)\r\n            {\r\n                Assert.Null(GetScenarioContextVariantStatement(testMethods[i], false, lineNum));\r\n            }\r\n        }\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Found"
+          }
+        ]
+      },
+      {
+        "Name": "MsTestProviderExtended_FeatureVariants_CorrectNumberOfMethodsGenerated",
+        "Body": "{\r\n    var document = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithFeatureVariantTags);\r\n    var generatedCode = SetupFeatureGenerator\u003CMsTestProviderExtended\u003E(document);\r\n    foreach (var scenario in document.Feature.Children.Cast\u003CScenario\u003E())\r\n    {\r\n        var expectedNumOfMethods = ExpectedNumOfMethodsForFeatureVariants(document.Feature, scenario);\r\n        var actualNumOfMethods = generatedCode.GetTestMethods(scenario).Count;\r\n        Assert.Equal(expectedNumOfMethods, actualNumOfMethods);\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "MsTestProviderExtended_FeatureVariants_SpecflowGeneratedCodeCompiles",
+        "Body": "{\r\n    var document = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithFeatureVariantTags);\r\n    var generatedCode = SetupFeatureGenerator\u003CMsTestProviderExtended\u003E(document);\r\n    var assemblies = new[]\r\n    {\r\n        \u0022BoDi.dll\u0022,\r\n        \u0022System.Core.dll\u0022,\r\n        \u0022TechTalk.SpecFlow.dll\u0022,\r\n        \u0022System.dll\u0022,\r\n        \u0022System.Runtime.dll\u0022,\r\n        \u0022Microsoft.VisualStudio.TestPlatform.TestFramework.dll\u0022,\r\n        \u0022Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll\u0022\r\n    };\r\n    var compilerResults = GetCompilerResults(generatedCode, assemblies);\r\n    Assert.Empty(compilerResults.Errors);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "MsTestProviderExtended_FeatureVariants_BaseTestMethodHasCorrectArguments",
+        "Body": "{\r\n    TestSetupForAttributesFeature(out var generatedCode, out _, out var scenario, out _, out var tableHeaders, out _);\r\n    var baseTestMethod = generatedCode.GetRowTestBaseMethod(scenario);\r\n    var methodParams = baseTestMethod.GetMethodParameters();\r\n    for (var i = 0; i \u003C tableHeaders.Count; i\u002B\u002B)\r\n    {\r\n        Assert.Equal(methodParams[i].Name, tableHeaders[i].Value);\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "MsTestProviderExtended_FeatureVariants_TestMethodsHaveCorrectProperties",
+        "Body": "{\r\n    TestSetupForAttributesFeature(out _, out _, out _, out var testMethods, out var tableHeaders, out var tableBody);\r\n    var rowCounter = 0;\r\n    var variantCounter = 0;\r\n    for (var i = 0; i \u003C testMethods.Count; i\u002B\u002B)\r\n    {\r\n        var attArg = testMethods[i].GetMethodAttributes(\u0022Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute\u0022).ToList();\r\n        // Check first argument is the feature title\r\n        var featureTitleArg = attArg[0];\r\n        var argName = featureTitleArg.Arguments[0].GetArgumentValue() == \u0022FeatureTitle\u0022;\r\n        var argValue = featureTitleArg.Arguments[1].GetArgumentValue() == SampleFeatureFile.FeatureTitle;\r\n        Assert.True(argName);\r\n        Assert.True(argValue);\r\n        var cells = tableBody[rowCounter].Cells.ToList();\r\n        // Check second argument is the variant full name\r\n        var variantArg = attArg[1];\r\n        var variantKey = variantArg.Arguments[0].GetArgumentValue() == \u0022Variant\u0022;\r\n        var variantValue = variantArg.Arguments[1].GetArgumentValue() == $\u0022{SampleFeatureFile.Variants[variantCounter]}\u0022;\r\n        Assert.True(variantKey);\r\n        Assert.True(variantValue);\r\n        // Check third argument is the variant key and value\r\n        var variantNameArg = attArg[2];\r\n        var variantName = variantNameArg.Arguments[0].GetArgumentValue() == \u0022VariantName\u0022;\r\n        var variantFullValue = variantNameArg.Arguments[1].GetArgumentValue() == $\u0022{cells[0].Value}_{SampleFeatureFile.Variants[variantCounter]}\u0022;\r\n        Assert.True(variantName);\r\n        Assert.True(variantFullValue);\r\n        // Check the end arguments are examples table row cells\r\n        for (var k = 0; k \u003C cells.Count; k\u002B\u002B)\r\n        {\r\n            var exampleArg = attArg[k \u002B 3];\r\n            var exampleName = exampleArg.Arguments[0].GetArgumentValue() == $\u0022Parameter:{tableHeaders[k].Value}\u0022;\r\n            var exampleValue = exampleArg.Arguments[1].GetArgumentValue() == $\u0022{cells[k].Value}\u0022;\r\n            Assert.True(exampleName);\r\n            Assert.True(exampleValue);\r\n        }\r\n\r\n        rowCounter\u002B\u002B;\r\n        if (i % 2 != 0)\r\n            variantCounter\u002B\u002B;\r\n        if (rowCounter == tableBody.Count)\r\n            rowCounter = 0;\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Found"
+          }
+        ]
+      },
+      {
+        "Name": "MsTestProviderExtended_FeatureVariants_TestMethodsHaveCorrectCategories",
+        "Body": "{\r\n    TestSetupForAttributesFeature(out _, out _, out var scenario, out var testMethods, out _, out _);\r\n    var variantCounter = 0;\r\n    for (var i = 0; i \u003C testMethods.Count; i\u002B\u002B)\r\n    {\r\n        var attArg = testMethods[i].GetMethodAttributes(\u0022Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute\u0022).ToList();\r\n        // Check first argument is the variant\r\n        var variantMatches = attArg[0].Arguments[0].GetArgumentValue() == $\u0022{SampleFeatureFile.Variant}:{SampleFeatureFile.Variants[variantCounter]}\u0022;\r\n        Assert.True(variantMatches);\r\n        // Check rest of the categories are non variant tags\r\n        var nonVariantTags = scenario.GetTagsExceptNameStart(SampleFeatureFile.Variant).Select(a =\u003E a.GetNameWithoutAt()).ToList();\r\n        var categoryAttr = attArg.SelectMany(a =\u003E a.Arguments.GetAttributeArguments().Select(b =\u003E b.GetArgumentValue())).ToList();\r\n        Assert.True(!nonVariantTags.Except(categoryAttr).Any());\r\n        if (i % 2 != 0)\r\n            variantCounter\u002B\u002B;\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "MsTestProviderExtended_FeatureVariants_TestMethodsHaveCorrectDescriptionAndName",
+        "Body": "{\r\n    TestSetupForAttributesFeature(out _, out _, out var scenario, out var testMethods, out _, out var tableBody);\r\n    var rowCounter = 0;\r\n    var variantCounter = 0;\r\n    for (var i = 0; i \u003C testMethods.Count; i\u002B\u002B)\r\n    {\r\n        var cells = tableBody[rowCounter].Cells.ToList();\r\n        var attArg = testMethods[i].GetMethodAttributes(\u0022Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute\u0022).First();\r\n        // Check description attribute value is correct\r\n        var expectedDescription = $\u0022{scenario.Name}: {cells[0].Value}_{SampleFeatureFile.Variants[variantCounter]}\u0022;\r\n        var actualDescription = attArg.Arguments[0].GetArgumentValue();\r\n        // Check test method name is correct\r\n        var expectedMethodName = $\u0022{scenario.Name.Replace(\u0022 \u0022, \u0022\u0022).Replace(\u0022,\u0022, \u0022\u0022)}_{cells[0].Value}_{SampleFeatureFile.Variants[variantCounter]}\u0022;\r\n        var actualMethodName = testMethods[i].Name;\r\n        Assert.Equal(expectedDescription, actualDescription);\r\n        Assert.Equal(expectedMethodName, actualMethodName, StringComparer.InvariantCultureIgnoreCase);\r\n        rowCounter\u002B\u002B;\r\n        if (i % 2 != 0)\r\n            variantCounter\u002B\u002B;\r\n        if (rowCounter == tableBody.Count)\r\n            rowCounter = 0;\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "MsTestProviderExtended_FeatureVariants_TestMethodHasInjectedVariant",
+        "Body": "{\r\n    var document = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithFeatureVariantTags);\r\n    var generatedCode = SetupFeatureGenerator\u003CMsTestProviderExtended\u003E(document);\r\n    var scenario = document.GetScenario\u003CScenario\u003E(scenarioName);\r\n    if (isoutline)\r\n    {\r\n        var baseMethod = generatedCode.GetRowTestBaseMethod(scenario);\r\n        var expectedStatement = $\u0022testRunner.ScenarioContext.Add(\\\u0022{SampleFeatureFile.Variant}\\\u0022, \\\u0022{SampleFeatureFile.Variant.ToLowerInvariant()}\\\u0022);\u0022;\r\n        var statement = GetScenarioContextVariantStatement(baseMethod, true, 5);\r\n        Assert.Equal(expectedStatement, statement);\r\n        var rowMethods = generatedCode.GetRowTestMethods(scenario);\r\n        var rowCounter = 0;\r\n        var variantCounter = 0;\r\n        for (var i = 0; i \u003C rowMethods.Count; i\u002B\u002B)\r\n        {\r\n            var name = GetVariantParameterOfRowMethod(rowMethods[i]);\r\n            Assert.Equal(SampleFeatureFile.Variants[variantCounter], name);\r\n            rowCounter\u002B\u002B;\r\n            if (i % 2 != 0)\r\n                variantCounter\u002B\u002B;\r\n        }\r\n    }\r\n    else\r\n    {\r\n        var testMethods = generatedCode.GetTestMethods(scenario);\r\n        for (var i = 0; i \u003C testMethods.Count; i\u002B\u002B)\r\n        {\r\n            var expectedStatement = $\u0022testRunner.ScenarioContext.Add(\\\u0022{SampleFeatureFile.Variant}\\\u0022, \\\u0022{SampleFeatureFile.Variants[i]}\\\u0022);\u0022;\r\n            var statement = GetScenarioContextVariantStatement(testMethods[i], false, 3);\r\n            Assert.Equal(expectedStatement, statement);\r\n        }\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Found"
+          }
+        ]
+      },
+      {
+        "Name": "MsTestProviderExtended_FeatureAndScenarioVariants_SpecflowGeneratedCodeCompileFails",
+        "Body": "{\r\n    var document = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithFeatureAndScenarioVariantTags);\r\n    Action act = () =\u003E SetupFeatureGenerator\u003CMsTestProviderExtended\u003E(document);\r\n    var ex = Assert.Throws\u003CTestGeneratorException\u003E(act);\r\n    Assert.Equal(\u0022Variant tags were detected at feature and scenario level, please specify at one level or the other.\u0022, ex.Message);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "MsTestProviderExtended_Regression_InlineTablesGeneratedCorrectly",
+        "Body": "{\r\n    var document = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithScenarioVariantTags);\r\n    var generatedCode = SetupFeatureGenerator\u003CMsTestProviderExtended\u003E(document);\r\n    var scenario = document.GetScenario\u003CScenarioOutline\u003E(SampleFeatureFile.ScenarioTitle_TagsExamplesAndInlineData);\r\n    var baseMethod = generatedCode.GetRowTestBaseMethod(scenario);\r\n    var tableStep = scenario.Steps.First(a =\u003E a.Argument is DataTable).Argument as DataTable;\r\n    var tableRows = tableStep.Rows.ToList();\r\n    var methodStatements = baseMethod.GetMethodStatements().GetTableStatements(tableRows.Count);\r\n    var expectedHeaders = tableRows[0].Cells.Select(a =\u003E a.Value);\r\n    var headerStatementArgs = methodStatements[0].GetStepTableHeaderArgs();\r\n    Assert.True(expectedHeaders.SequenceEqual(headerStatementArgs));\r\n    for (var i = 1; i \u003C tableRows.Count; i\u002B\u002B)\r\n    {\r\n        var cellValues = tableRows[i].Cells.Select(a =\u003E a.Value);\r\n        var cellStatementArgs = methodStatements[i].GetStepTableCellArgs();\r\n        Assert.True(cellValues.SequenceEqual(cellStatementArgs));\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Found"
+          }
+        ]
+      },
+      {
+        "Name": "MsTestProviderExtended_Generation_CustomGenerationApplied",
+        "Body": "{\r\n    var document = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithFeatureVariantTags);\r\n    var generatedCode = SetupFeatureGenerator\u003CMsTestProviderExtended\u003E(document);\r\n    var document2 = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithScenarioVariantTags);\r\n    var generatedCode2 = SetupFeatureGenerator\u003CMsTestProviderExtended\u003E(document2);\r\n    var customComment = generatedCode.Comments.Cast\u003CCodeCommentStatement\u003E().Count(a =\u003E a.Comment.Text == FeatureGeneratorExtended.CustomGeneratedComment);\r\n    var customComment2 = generatedCode2.Comments.Cast\u003CCodeCommentStatement\u003E().Count(a =\u003E a.Comment.Text == FeatureGeneratorExtended.CustomGeneratedComment);\r\n    Assert.Equal(1, customComment);\r\n    Assert.Equal(1, customComment2);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "NUnitProviderExtendedTests",
+    "Message": null,
+    "ProjectName": "SpecFlow.Contrib.Variants.UnitTests",
+    "Methods": [
+      {
+        "Name": "NUnitProviderExtended_ScenarioVariants_CorrectNumberOfMethodsGenerated",
+        "Body": "{\r\n    var document = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithScenarioVariantTags);\r\n    var generatedCode = SetupFeatureGenerator\u003CNUnitProviderExtended\u003E(document);\r\n    var scenario = document.GetScenario\u003CScenario\u003E(scenarioName);\r\n    var expectedNumOfMethods = ExpectedNumOfMethodsForFeatureVariants(scenario);\r\n    var actualNumOfMethods = generatedCode.GetTestMethods(scenario).Count;\r\n    Assert.Equal(expectedNumOfMethods, actualNumOfMethods);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "NUnitProviderExtended_ScenarioVariants_SpecflowGeneratedCodeCompiles",
+        "Body": "{\r\n    var document = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithScenarioVariantTags);\r\n    var generatedCode = SetupFeatureGenerator\u003CNUnitProviderExtended\u003E(document);\r\n    var assemblies = new[]\r\n    {\r\n        \u0022BoDi.dll\u0022,\r\n        \u0022System.Core.dll\u0022,\r\n        \u0022TechTalk.SpecFlow.dll\u0022,\r\n        \u0022System.dll\u0022,\r\n        \u0022System.Runtime.dll\u0022,\r\n        \u0022nunit.framework.dll\u0022\r\n    };\r\n    var compilerResults = GetCompilerResults(generatedCode, assemblies);\r\n    Assert.Empty(compilerResults.Errors);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "NUnitProviderExtended_ScenarioVariants_CorrectNumberOfTestCaseAttributesForRowTests",
+        "Body": "{\r\n    TestSetupForAttributesForRowTests(out var scenario, out _, out var testCaseAttributes, out _);\r\n    var expectedNumOfTestCaseAttributes = scenario.GetTagsByNameStart(SampleFeatureFile.Variant).Count * scenario.GetExamplesTableBody().Count;\r\n    Assert.Equal(expectedNumOfTestCaseAttributes, testCaseAttributes.Count);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "NUnitProviderExtended_ScenarioVariants_CorrectNumberOfTestCaseAttributesForNonRowTests",
+        "Body": "{\r\n    TestSetupForAttributesForNonRowTests(out _, out var testMethods);\r\n    var result = testMethods.All(a =\u003E\r\n    {\r\n        var attrs = a.GetMethodAttributes(\u0022NUnit.Framework.TestAttribute\u0022);\r\n        return attrs.Count == 1;\r\n    });\r\n    Assert.True(result);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "NUnitProviderExtended_ScenarioVariants_TestCaseAttributesHaveCorrectArguments",
+        "Body": "{\r\n    TestSetupForAttributesForRowTests(out _, out _, out var testCaseAttributes, out var tableBody);\r\n    var attributeCounter = 0;\r\n    for (var i = 0; i \u003C tableBody.Count; i\u002B\u002B)\r\n    {\r\n        var cells = tableBody[i].Cells.ToList();\r\n        for (var j = 0; j \u003C SampleFeatureFile.Variants.Length; j\u002B\u002B)\r\n        {\r\n            var attArg = testCaseAttributes[attributeCounter].Arguments.GetAttributeArguments();\r\n            attributeCounter\u002B\u002B;\r\n            // Check initial arguments are examples table row cells\r\n            for (var k = 0; k \u003C cells.Count; k\u002B\u002B)\r\n            {\r\n                var exampleValueMatches = attArg[k].GetArgumentValue() == cells[k].Value;\r\n                Assert.True(exampleValueMatches);\r\n            }\r\n\r\n            // Check third argument is the variant\r\n            var variantArgumentMatches = attArg[cells.Count].GetArgumentValue() == SampleFeatureFile.Variants[j];\r\n            Assert.True(variantArgumentMatches);\r\n        }\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "NUnitProviderExtended_ScenarioVariants_TestCaseAttributesHaveCorrectCategory",
+        "Body": "{\r\n    TestSetupForAttributesForRowTests(out var scenario, out _, out var testCaseAttributes, out var tableBody);\r\n    var attributeCounter = 0;\r\n    for (var i = 0; i \u003C tableBody.Count; i\u002B\u002B)\r\n    {\r\n        var cells = tableBody[i].Cells.ToList();\r\n        for (var j = 0; j \u003C SampleFeatureFile.Variants.Length; j\u002B\u002B)\r\n        {\r\n            var attArg = testCaseAttributes[attributeCounter].Arguments.GetAttributeArguments();\r\n            attributeCounter\u002B\u002B;\r\n            // Check forth argument is the category with the correct value\r\n            var varantTag = scenario.GetTagsByNameExact($\u0022{SampleFeatureFile.Variant}:{SampleFeatureFile.Variants[j]}\u0022).GetNameWithoutAt();\r\n            var nonVariantTags = scenario.GetTagsExceptNameStart(SampleFeatureFile.Variant).Select(a =\u003E a.GetNameWithoutAt());\r\n            var expCategoryValue = $\u0022{varantTag},{string.Join(\u0022,\u0022, nonVariantTags)}\u0022;\r\n            var categoryAttr = attArg[cells.Count \u002B 2];\r\n            Assert.Equal(\u0022Category\u0022, categoryAttr.Name);\r\n            Assert.Equal(expCategoryValue, categoryAttr.GetArgumentValue());\r\n        }\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "NUnitProviderExtended_ScenarioVariants_TestCaseAttributesHaveCorrectTestName",
+        "Body": "{\r\n    TestSetupForAttributesForRowTests(out var scenario, out var testMethod, out var testCaseAttributes, out var tableBody);\r\n    var attributeCounter = 0;\r\n    for (var i = 0; i \u003C tableBody.Count; i\u002B\u002B)\r\n    {\r\n        var cells = tableBody[i].Cells.Select(a =\u003E a.Value).ToList();\r\n        for (var j = 0; j \u003C SampleFeatureFile.Variants.Length; j\u002B\u002B)\r\n        {\r\n            var attArg = testCaseAttributes[attributeCounter].Arguments.GetAttributeArguments();\r\n            attributeCounter\u002B\u002B;\r\n            // Check forth argument is the category with the correct value\r\n            var currentVariant = SampleFeatureFile.Variants[j];\r\n            var expTestName = $\u0022{testMethod.Name} with {currentVariant} and {string.Join(\u0022, \u0022, cells)}\u0022;\r\n            var testNameAttr = attArg[cells.Count \u002B 3];\r\n            Assert.Equal(\u0022TestName\u0022, testNameAttr.Name);\r\n            Assert.Equal(expTestName, testNameAttr.GetArgumentValue().Replace(\u0022\\\u0022\u0022, \u0022\u0022));\r\n        }\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "NUnitProviderExtended_ScenarioVariants_TestDescriptionAttributesHaveCorrectTestNameForNonRowTests",
+        "Body": "{\r\n    TestSetupForAttributesForNonRowTests(out var scenario, out var testMethods);\r\n    for (var j = 0; j \u003C SampleFeatureFile.Variants.Length; j\u002B\u002B)\r\n    {\r\n        var testMethod = testMethods[j];\r\n        var testCaseAttributes = testMethod.GetMethodAttributes(\u0022NUnit.Framework.DescriptionAttribute\u0022);\r\n        var attArg = testCaseAttributes[0].Arguments.GetAttributeArguments();\r\n        // Check forth argument is the category with the correct value\r\n        var currentVariant = SampleFeatureFile.Variants[j];\r\n        var expTestDesc = $\u0022{scenario.Name}: {currentVariant}\u0022;\r\n        var testDescAttr = attArg[0];\r\n        Assert.Equal(expTestDesc, testDescAttr.GetArgumentValue().Replace(\u0022\\\u0022\u0022, \u0022\u0022));\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "NUnitProviderExtended_ScenarioVariants_TestMethodHasInjectedVariant",
+        "Body": "{\r\n    var document = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithScenarioVariantTags);\r\n    var generatedCode = SetupFeatureGenerator\u003CNUnitProviderExtended\u003E(document);\r\n    var scenario = document.GetScenario\u003CScenario\u003E(scenarioName);\r\n    if (isoutline)\r\n    {\r\n        var rowMethod = generatedCode.GetRowTestMethods(scenario).First();\r\n        var expectedStatement = $\u0022testRunner.ScenarioContext.Add(\\\u0022{SampleFeatureFile.Variant}\\\u0022, \\\u0022{SampleFeatureFile.Variant.ToLowerInvariant()}\\\u0022);\u0022;\r\n        var statement = GetScenarioContextVariantStatement(rowMethod, true, linNum);\r\n        Assert.Equal(expectedStatement, statement);\r\n    }\r\n    else\r\n    {\r\n        var testMethods = generatedCode.GetTestMethods(scenario);\r\n        if (hasVariants)\r\n        {\r\n            for (var i = 0; i \u003C testMethods.Count; i\u002B\u002B)\r\n            {\r\n                var expectedStatement = $\u0022testRunner.ScenarioContext.Add(\\\u0022{SampleFeatureFile.Variant}\\\u0022, \\\u0022{SampleFeatureFile.Variants[i]}\\\u0022);\u0022;\r\n                var statement = GetScenarioContextVariantStatement(testMethods[i], false, linNum);\r\n                Assert.Equal(expectedStatement, statement);\r\n            }\r\n        }\r\n        else\r\n        {\r\n            for (var i = 0; i \u003C testMethods.Count; i\u002B\u002B)\r\n            {\r\n                Assert.Null(GetScenarioContextVariantStatement(testMethods[i]));\r\n            }\r\n        }\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "NUnitProviderExtended_FeatureVariants_SpecflowGeneratedCodeCompiles",
+        "Body": "{\r\n    var document = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithFeatureVariantTags);\r\n    var generatedCode = SetupFeatureGenerator\u003CNUnitProviderExtended\u003E(document);\r\n    var assemblies = new[]\r\n    {\r\n        \u0022BoDi.dll\u0022,\r\n        \u0022System.Core.dll\u0022,\r\n        \u0022TechTalk.SpecFlow.dll\u0022,\r\n        \u0022System.dll\u0022,\r\n        \u0022System.Runtime.dll\u0022,\r\n        \u0022nunit.framework.dll\u0022\r\n    };\r\n    var compilerResults = GetCompilerResults(generatedCode, assemblies);\r\n    Assert.Empty(compilerResults.Errors);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "NUnitProviderExtended_FeatureVariants_CorrectNumberOfMethodsGenerated",
+        "Body": "{\r\n    var document = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithFeatureVariantTags);\r\n    var generatedCode = SetupFeatureGenerator\u003CNUnitProviderExtended\u003E(document);\r\n    var scenario = document.GetScenario\u003CScenario\u003E(scenarioName);\r\n    var expectedNumOfMethods = ExpectedNumOfMethodsForFeatureVariants(scenario, document.Feature);\r\n    var actualNumOfMethods = generatedCode.GetTestMethods(scenario).Count;\r\n    Assert.Equal(expectedNumOfMethods, actualNumOfMethods);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "NUnitProviderExtended_FeautureVariants_CorrectNumberOfTestCaseAttributes",
+        "Body": "{\r\n    TestSetupForAttributesFeature(out var feature, out var scenario, out _, out var testCaseAttributes, out _);\r\n    var expectedNumOfTestCaseAttributes = feature.GetTagsByNameStart(SampleFeatureFile.Variant).Count * scenario.GetExamplesTableBody().Count;\r\n    Assert.Equal(expectedNumOfTestCaseAttributes, testCaseAttributes.Count);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "NUnitProviderExtended_FeatureVariants_TestCaseAttributesHaveCorrectArguments",
+        "Body": "{\r\n    TestSetupForAttributesFeature(out _, out _, out _, out var testCaseAttributes, out var tableBody);\r\n    var attributeCounter = 0;\r\n    for (var i = 0; i \u003C tableBody.Count; i\u002B\u002B)\r\n    {\r\n        var cells = tableBody[i].Cells.ToList();\r\n        for (var j = 0; j \u003C SampleFeatureFile.Variants.Length; j\u002B\u002B)\r\n        {\r\n            var attArg = testCaseAttributes[attributeCounter].Arguments.GetAttributeArguments();\r\n            attributeCounter\u002B\u002B;\r\n            // Check initial arguments are examples table row cells\r\n            for (var k = 0; k \u003C cells.Count; k\u002B\u002B)\r\n            {\r\n                var exampleValueMatches = attArg[k].GetArgumentValue() == cells[k].Value;\r\n                Assert.True(exampleValueMatches);\r\n            }\r\n\r\n            // Check third argument is the variant\r\n            var variantArgumentMatches = attArg[cells.Count].GetArgumentValue() == SampleFeatureFile.Variants[j];\r\n            Assert.True(variantArgumentMatches);\r\n        }\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "NUnitProviderExtended_FeatureVariants_TestCaseAttributesHaveCorrectCategory",
+        "Body": "{\r\n    TestSetupForAttributesFeature(out var feature, out var scenario, out _, out var testCaseAttributes, out var tableBody);\r\n    var attributeCounter = 0;\r\n    for (var i = 0; i \u003C tableBody.Count; i\u002B\u002B)\r\n    {\r\n        var cells = tableBody[i].Cells.ToList();\r\n        for (var j = 0; j \u003C SampleFeatureFile.Variants.Length; j\u002B\u002B)\r\n        {\r\n            var attArg = testCaseAttributes[attributeCounter].Arguments.GetAttributeArguments();\r\n            attributeCounter\u002B\u002B;\r\n            // Check forth argument is the category with the correct value\r\n            var varantTag = feature.GetTagsByNameExact($\u0022{SampleFeatureFile.Variant}:{SampleFeatureFile.Variants[j]}\u0022).GetNameWithoutAt();\r\n            var nonVariantTags = scenario.GetTagsExceptNameStart(SampleFeatureFile.Variant).Select(a =\u003E a.GetNameWithoutAt());\r\n            var expCategoryValue = $\u0022{varantTag},{string.Join(\u0022,\u0022, nonVariantTags)}\u0022;\r\n            var categoryAttr = attArg[cells.Count \u002B 2];\r\n            Assert.Equal(\u0022Category\u0022, categoryAttr.Name);\r\n            Assert.Equal(expCategoryValue, categoryAttr.GetArgumentValue());\r\n        }\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "NUnitProviderExtended_FeatureVariants_TestCaseAttributesHaveCorrectTestName",
+        "Body": "{\r\n    TestSetupForAttributesFeature(out _, out var scenario, out var testMethod, out var testCaseAttributes, out var tableBody);\r\n    var attributeCounter = 0;\r\n    for (var i = 0; i \u003C tableBody.Count; i\u002B\u002B)\r\n    {\r\n        var cells = tableBody[i].Cells.Select(a =\u003E a.Value).ToList();\r\n        for (var j = 0; j \u003C SampleFeatureFile.Variants.Length; j\u002B\u002B)\r\n        {\r\n            var attArg = testCaseAttributes[attributeCounter].Arguments.GetAttributeArguments();\r\n            attributeCounter\u002B\u002B;\r\n            // Check forth argument is the category with the correct value\r\n            var currentVariant = SampleFeatureFile.Variants[j];\r\n            var expTestName = $\u0022{testMethod.Name} with {currentVariant} and {string.Join(\u0022, \u0022, cells)}\u0022;\r\n            var testNameAttr = attArg[cells.Count \u002B 3];\r\n            Assert.Equal(\u0022TestName\u0022, testNameAttr.Name);\r\n            Assert.Equal(expTestName, testNameAttr.GetArgumentValue().Replace(\u0022\\\u0022\u0022, \u0022\u0022));\r\n        }\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "NUnitProviderExtended_FeatureVariants_TestMethodHasInjectedVariant",
+        "Body": "{\r\n    var document = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithFeatureVariantTags);\r\n    var generatedCode = SetupFeatureGenerator\u003CNUnitProviderExtended\u003E(document);\r\n    var scenario = document.GetScenario\u003CScenario\u003E(scenarioName);\r\n    if (isoutline)\r\n    {\r\n        var rowMethod = generatedCode.GetRowTestMethods(scenario).First();\r\n        var expectedStatement = $\u0022testRunner.ScenarioContext.Add(\\\u0022{SampleFeatureFile.Variant}\\\u0022, \\\u0022{SampleFeatureFile.Variant.ToLowerInvariant()}\\\u0022);\u0022;\r\n        var statement = GetScenarioContextVariantStatement(rowMethod, true, 5);\r\n        Assert.Equal(expectedStatement, statement);\r\n    }\r\n    else\r\n    {\r\n        var testMethods = generatedCode.GetTestMethods(scenario);\r\n        for (var i = 0; i \u003C testMethods.Count; i\u002B\u002B)\r\n        {\r\n            var expectedStatement = $\u0022testRunner.ScenarioContext.Add(\\\u0022{SampleFeatureFile.Variant}\\\u0022, \\\u0022{SampleFeatureFile.Variants[i]}\\\u0022);\u0022;\r\n            var statement = GetScenarioContextVariantStatement(testMethods[i], false, 3);\r\n            Assert.Equal(expectedStatement, statement);\r\n        }\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "NUnitProviderExtended_FeatureAndScenarioVariants_SpecflowGeneratedCodeCompileFails",
+        "Body": "{\r\n    var document = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithFeatureAndScenarioVariantTags);\r\n    Action act = () =\u003E SetupFeatureGenerator\u003CNUnitProviderExtended\u003E(document);\r\n    var ex = Assert.Throws\u003CTestGeneratorException\u003E(act);\r\n    Assert.Equal(\u0022Variant tags were detected at feature and scenario level, please specify at one level or the other.\u0022, ex.Message);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "NUnitProviderExtended_Regression_InlineTablesGeneratedCorrectly",
+        "Body": "{\r\n    var document = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithScenarioVariantTags);\r\n    var generatedCode = SetupFeatureGenerator\u003CNUnitProviderExtended\u003E(document);\r\n    var scenario = document.GetScenario\u003CScenarioOutline\u003E(SampleFeatureFile.ScenarioTitle_TagsExamplesAndInlineData);\r\n    var testMethods = generatedCode.GetTestMethods(scenario);\r\n    var tableStep = scenario.Steps.First(a =\u003E a.Argument is DataTable).Argument as DataTable;\r\n    var tableRows = tableStep.Rows.ToList();\r\n    foreach (var method in testMethods)\r\n    {\r\n        var methodStatements = method.GetMethodStatements().GetTableStatements(tableRows.Count);\r\n        var expectedHeaders = tableRows[0].Cells.Select(a =\u003E a.Value);\r\n        var headerStatementArgs = methodStatements[0].GetStepTableHeaderArgs();\r\n        Assert.True(expectedHeaders.SequenceEqual(headerStatementArgs));\r\n        for (var i = 1; i \u003C tableRows.Count; i\u002B\u002B)\r\n        {\r\n            var cellValues = tableRows[i].Cells.Select(a =\u003E a.Value);\r\n            var cellStatementArgs = methodStatements[i].GetStepTableCellArgs();\r\n            Assert.True(cellValues.SequenceEqual(cellStatementArgs));\r\n        }\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Found"
+          }
+        ]
+      },
+      {
+        "Name": "NUnitProviderExtended_Generation_CustomGenerationApplied",
+        "Body": "{\r\n    var document = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithFeatureVariantTags);\r\n    var generatedCode = SetupFeatureGenerator\u003CNUnitProviderExtended\u003E(document);\r\n    var document2 = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithScenarioVariantTags);\r\n    var generatedCode2 = SetupFeatureGenerator\u003CNUnitProviderExtended\u003E(document2);\r\n    var customComment = generatedCode.Comments.Cast\u003CCodeCommentStatement\u003E().Count(a =\u003E a.Comment.Text == FeatureGeneratorExtended.CustomGeneratedComment);\r\n    var customComment2 = generatedCode2.Comments.Cast\u003CCodeCommentStatement\u003E().Count(a =\u003E a.Comment.Text == FeatureGeneratorExtended.CustomGeneratedComment);\r\n    Assert.Equal(1, customComment);\r\n    Assert.Equal(1, customComment2);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "XUnitProviderExtendedTests",
+    "Message": null,
+    "ProjectName": "SpecFlow.Contrib.Variants.UnitTests",
+    "Methods": [
+      {
+        "Name": "XUnitProviderExtended_ScenarioVariants_CorrectNumberOfMethodsGenerated",
+        "Body": "{\r\n    var document = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithScenarioVariantTags);\r\n    var generatedCode = SetupFeatureGenerator\u003CXUnitProviderExtended\u003E(document);\r\n    var scenario = document.GetScenario\u003CScenario\u003E(scenarioName);\r\n    var expectedNumOfMethods = ExpectedNumOfMethodsForFeatureVariants(scenario);\r\n    var actualNumOfMethods = generatedCode.GetTestMethods(scenario).Count;\r\n    Assert.Equal(expectedNumOfMethods, actualNumOfMethods);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "XUnitProviderExtended_ScenarioVariants_SpecflowGeneratedCodeCompiles",
+        "Body": "{\r\n    var document = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithScenarioVariantTags);\r\n    var generatedCode = SetupFeatureGenerator\u003CXUnitProviderExtended\u003E(document);\r\n    var assemblies = new[]\r\n    {\r\n        \u0022BoDi.dll\u0022,\r\n        \u0022System.Core.dll\u0022,\r\n        \u0022TechTalk.SpecFlow.dll\u0022,\r\n        \u0022System.dll\u0022,\r\n        \u0022System.Runtime.dll\u0022,\r\n        \u0022xunit.core.dll\u0022,\r\n        \u0022xunit.abstractions.dll\u0022\r\n    };\r\n    var compilerResults = GetCompilerResults(generatedCode, assemblies);\r\n    Assert.Empty(compilerResults.Errors);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "XUnitProviderExtended_ScenarioVariants_BaseTestMethodHasCorrectArguments",
+        "Body": "{\r\n    TestSetupForAttributes(out var generatedCode, out var scenario, out _, out var tableHeaders, out _);\r\n    var baseTestMethod = generatedCode.GetRowTestBaseMethod(scenario);\r\n    var methodParams = baseTestMethod.GetMethodParameters();\r\n    for (var i = 0; i \u003C tableHeaders.Count; i\u002B\u002B)\r\n    {\r\n        Assert.Equal(methodParams[i].Name, tableHeaders[i].Value);\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "XUnitProviderExtended_ScenarioVariants_TestMethodsHasCorrectFactAttribute",
+        "Body": "{\r\n    TestSetupForAttributes(out _, out _, out var testMethods, out _, out var tableBody);\r\n    var rowCounter = 0;\r\n    var variantCounter = 0;\r\n    for (var i = 0; i \u003C testMethods.Count; i\u002B\u002B)\r\n    {\r\n        var attArg = testMethods[i].GetMethodAttributes(\u0022Xunit.FactAttribute\u0022).FirstOrDefault();\r\n        var cells = tableBody[rowCounter].Cells.ToList();\r\n        var factName = attArg.Arguments[0].Name == \u0022DisplayName\u0022;\r\n        var factValue = attArg.Arguments[0].GetArgumentValue() == $\u0022{SampleFeatureFile.ScenarioTitle_TagsAndExamples}: {cells[0].Value}_{SampleFeatureFile.Variants[variantCounter]}\u0022;\r\n        Assert.True(factName);\r\n        Assert.True(factValue);\r\n        rowCounter\u002B\u002B;\r\n        if (i % 2 != 0)\r\n            variantCounter\u002B\u002B;\r\n        if (rowCounter == tableBody.Count)\r\n            rowCounter = 0;\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "XUnitProviderExtended_ScenarioVariants_TestMethodsHaveCorrectTraits",
+        "Body": "{\r\n    TestSetupForAttributes(out _, out var scenario, out var testMethods, out _, out var tableBody);\r\n    var nonVariantTags = scenario.GetTagsExceptNameStart(SampleFeatureFile.Variant).Select(a =\u003E a.GetNameWithoutAt()).ToList();\r\n    var rowCounter = 0;\r\n    var variantCounter = 0;\r\n    for (var i = 0; i \u003C testMethods.Count; i\u002B\u002B)\r\n    {\r\n        var attArg = testMethods[i].GetMethodAttributes(\u0022Xunit.TraitAttribute\u0022).ToList();\r\n        // Check first argument is the feature title\r\n        var featureTitleArg = attArg[0];\r\n        var argName = featureTitleArg.Arguments[0].GetArgumentValue() == \u0022FeatureTitle\u0022;\r\n        var argValue = featureTitleArg.Arguments[1].GetArgumentValue() == SampleFeatureFile.FeatureTitle;\r\n        Assert.True(argName);\r\n        Assert.True(argValue);\r\n        var cells = tableBody[rowCounter].Cells.ToList();\r\n        // Check second argument is the variant\r\n        var descArg = attArg[1];\r\n        var descName = descArg.Arguments[0].GetArgumentValue() == \u0022Description\u0022;\r\n        var descValue = descArg.Arguments[1].GetArgumentValue() == $\u0022{SampleFeatureFile.ScenarioTitle_TagsAndExamples}: {cells[0].Value}_{SampleFeatureFile.Variants[variantCounter]}\u0022;\r\n        Assert.True(descName);\r\n        Assert.True(descValue);\r\n        // Check third argument is the variant\r\n        var variantArg = attArg[2];\r\n        var variantName = variantArg.Arguments[0].GetArgumentValue() == \u0022Category\u0022;\r\n        var variantValue = variantArg.Arguments[1].GetArgumentValue() == $\u0022{SampleFeatureFile.Variant}:{SampleFeatureFile.Variants[variantCounter]}\u0022;\r\n        Assert.True(variantName);\r\n        Assert.True(variantValue);\r\n        // Check the end arguments are non variant tags\r\n        for (var k = 0; k \u003C nonVariantTags.Count; k\u002B\u002B)\r\n        {\r\n            var catArg = attArg[k \u002B 3];\r\n            var catName = catArg.Arguments[0].GetArgumentValue() == \u0022Category\u0022;\r\n            var catValue = catArg.Arguments[1].GetArgumentValue() == $\u0022{nonVariantTags[k]}\u0022;\r\n            Assert.True(catName);\r\n            Assert.True(catName);\r\n        }\r\n\r\n        rowCounter\u002B\u002B;\r\n        if (i % 2 != 0)\r\n            variantCounter\u002B\u002B;\r\n        if (rowCounter == tableBody.Count)\r\n            rowCounter = 0;\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Found"
+          }
+        ]
+      },
+      {
+        "Name": "XUnitProviderExtended_ScenarioVariants_TestMethodHasInjectedVariant",
+        "Body": "{\r\n    var document = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithScenarioVariantTags);\r\n    var generatedCode = SetupFeatureGenerator\u003CXUnitProviderExtended\u003E(document);\r\n    var scenario = document.GetScenario\u003CScenario\u003E(scenarioName);\r\n    if (isoutline)\r\n    {\r\n        var baseMethod = generatedCode.GetRowTestBaseMethod(scenario);\r\n        var expectedStatement = $\u0022testRunner.ScenarioContext.Add(\\\u0022{SampleFeatureFile.Variant}\\\u0022, \\\u0022{SampleFeatureFile.Variant.ToLowerInvariant()}\\\u0022);\u0022;\r\n        var statement = GetScenarioContextVariantStatement(baseMethod, true, lineNum);\r\n        Assert.Equal(expectedStatement, statement);\r\n        var rowMethods = generatedCode.GetRowTestMethods(scenario);\r\n        var rowCounter = 0;\r\n        var variantCounter = 0;\r\n        for (var i = 0; i \u003C rowMethods.Count; i\u002B\u002B)\r\n        {\r\n            var name = GetVariantParameterOfRowMethod(rowMethods[i]);\r\n            Assert.Equal(SampleFeatureFile.Variants[variantCounter], name);\r\n            rowCounter\u002B\u002B;\r\n            if (i % 2 != 0)\r\n                variantCounter\u002B\u002B;\r\n        }\r\n    }\r\n    else\r\n    {\r\n        var testMethods = generatedCode.GetTestMethods(scenario);\r\n        if (hasVariants)\r\n        {\r\n            for (var i = 0; i \u003C testMethods.Count; i\u002B\u002B)\r\n            {\r\n                var expectedStatement = $\u0022testRunner.ScenarioContext.Add(\\\u0022{SampleFeatureFile.Variant}\\\u0022, \\\u0022{SampleFeatureFile.Variants[i]}\\\u0022);\u0022;\r\n                var statement = GetScenarioContextVariantStatement(testMethods[i], false, lineNum);\r\n                Assert.Equal(expectedStatement, statement);\r\n            }\r\n        }\r\n        else\r\n        {\r\n            for (var i = 0; i \u003C testMethods.Count; i\u002B\u002B)\r\n            {\r\n                Assert.Null(GetScenarioContextVariantStatement(testMethods[i]));\r\n            }\r\n        }\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Found"
+          }
+        ]
+      },
+      {
+        "Name": "XUnitProviderExtended_FeatureVariants_CorrectNumberOfMethodsGenerated",
+        "Body": "{\r\n    var document = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithFeatureVariantTags);\r\n    var generatedCode = SetupFeatureGenerator\u003CXUnitProviderExtended\u003E(document);\r\n    foreach (var scenario in document.Feature.Children.Cast\u003CScenario\u003E())\r\n    {\r\n        var expectedNumOfMethods = ExpectedNumOfMethodsForFeatureVariants(document.Feature, scenario);\r\n        var actualNumOfMethods = generatedCode.GetTestMethods(scenario).Count;\r\n        Assert.Equal(expectedNumOfMethods, actualNumOfMethods);\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "XUnitProviderExtended_FeatureVariants_SpecflowGeneratedCodeCompiles",
+        "Body": "{\r\n    var document = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithFeatureVariantTags);\r\n    var generatedCode = SetupFeatureGenerator\u003CXUnitProviderExtended\u003E(document);\r\n    var assemblies = new[]\r\n    {\r\n        \u0022BoDi.dll\u0022,\r\n        \u0022System.Core.dll\u0022,\r\n        \u0022TechTalk.SpecFlow.dll\u0022,\r\n        \u0022System.dll\u0022,\r\n        \u0022System.Runtime.dll\u0022,\r\n        \u0022xunit.core.dll\u0022,\r\n        \u0022xunit.abstractions.dll\u0022\r\n    };\r\n    var compilerResults = GetCompilerResults(generatedCode, assemblies);\r\n    Assert.Empty(compilerResults.Errors);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "XUnitProviderExtended_FeatureVariants_BaseTestMethodHasCorrectArguments",
+        "Body": "{\r\n    TestSetupForAttributesFeature(out var generatedCode, out _, out var scenario, out _, out var tableHeaders, out _);\r\n    var baseTestMethod = generatedCode.GetRowTestBaseMethod(scenario);\r\n    var methodParams = baseTestMethod.GetMethodParameters();\r\n    for (var i = 0; i \u003C tableHeaders.Count; i\u002B\u002B)\r\n    {\r\n        Assert.Equal(methodParams[i].Name, tableHeaders[i].Value);\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "XUnitProviderExtended_FeatureVariants_TestMethodsHasCorrectFactAttribute",
+        "Body": "{\r\n    TestSetupForAttributesFeature(out _, out _, out _, out var testMethods, out _, out var tableBody);\r\n    var rowCounter = 0;\r\n    var variantCounter = 0;\r\n    for (var i = 0; i \u003C testMethods.Count; i\u002B\u002B)\r\n    {\r\n        var attArg = testMethods[i].GetMethodAttributes(\u0022Xunit.FactAttribute\u0022).FirstOrDefault();\r\n        var cells = tableBody[rowCounter].Cells.ToList();\r\n        var factName = attArg.Arguments[0].Name == \u0022DisplayName\u0022;\r\n        var factValue = attArg.Arguments[0].GetArgumentValue() == $\u0022{SampleFeatureFile.ScenarioTitle_TagsAndExamples}: {cells[0].Value}_{SampleFeatureFile.Variants[variantCounter]}\u0022;\r\n        Assert.True(factName);\r\n        Assert.True(factValue);\r\n        rowCounter\u002B\u002B;\r\n        if (i % 2 != 0)\r\n            variantCounter\u002B\u002B;\r\n        if (rowCounter == tableBody.Count)\r\n            rowCounter = 0;\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "XUnitProviderExtended_FeatureVariants_TestMethodsHaveCorrectTraits",
+        "Body": "{\r\n    TestSetupForAttributesFeature(out _, out _, out var scenario, out var testMethods, out _, out var tableBody);\r\n    var nonVariantTags = scenario.GetTagsExceptNameStart(SampleFeatureFile.Variant).Select(a =\u003E a.GetNameWithoutAt()).ToList();\r\n    var rowCounter = 0;\r\n    var variantCounter = 0;\r\n    for (var i = 0; i \u003C testMethods.Count; i\u002B\u002B)\r\n    {\r\n        var attArg = testMethods[i].GetMethodAttributes(\u0022Xunit.TraitAttribute\u0022).ToList();\r\n        // Check first argument is the feature title\r\n        var featureTitleArg = attArg[0];\r\n        var argName = featureTitleArg.Arguments[0].GetArgumentValue() == \u0022FeatureTitle\u0022;\r\n        var argValue = featureTitleArg.Arguments[1].GetArgumentValue() == SampleFeatureFile.FeatureTitle;\r\n        Assert.True(argName);\r\n        Assert.True(argValue);\r\n        var cells = tableBody[rowCounter].Cells.ToList();\r\n        // Check second argument is the variant\r\n        var descArg = attArg[1];\r\n        var descName = descArg.Arguments[0].GetArgumentValue() == \u0022Description\u0022;\r\n        var descValue = descArg.Arguments[1].GetArgumentValue() == $\u0022{SampleFeatureFile.ScenarioTitle_TagsAndExamples}: {cells[0].Value}_{SampleFeatureFile.Variants[variantCounter]}\u0022;\r\n        Assert.True(descName);\r\n        Assert.True(descValue);\r\n        // Check third argument is the variant\r\n        var variantArg = attArg[2];\r\n        var variantName = variantArg.Arguments[0].GetArgumentValue() == \u0022Category\u0022;\r\n        var variantValue = variantArg.Arguments[1].GetArgumentValue() == $\u0022{SampleFeatureFile.Variant}:{SampleFeatureFile.Variants[variantCounter]}\u0022;\r\n        Assert.True(variantName);\r\n        Assert.True(variantValue);\r\n        // Check the end arguments are non variant tags\r\n        for (var k = 0; k \u003C nonVariantTags.Count; k\u002B\u002B)\r\n        {\r\n            var catArg = attArg[k \u002B 3];\r\n            var catName = catArg.Arguments[0].GetArgumentValue() == \u0022Category\u0022;\r\n            var catValue = catArg.Arguments[1].GetArgumentValue() == $\u0022{nonVariantTags[k]}\u0022;\r\n            Assert.True(catName);\r\n            Assert.True(catName);\r\n        }\r\n\r\n        rowCounter\u002B\u002B;\r\n        if (i % 2 != 0)\r\n            variantCounter\u002B\u002B;\r\n        if (rowCounter == tableBody.Count)\r\n            rowCounter = 0;\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Found"
+          }
+        ]
+      },
+      {
+        "Name": "XUnitProviderExtended_FeatureVariants_TestMethodHasInjectedVariant",
+        "Body": "{\r\n    var document = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithFeatureVariantTags);\r\n    var generatedCode = SetupFeatureGenerator\u003CXUnitProviderExtended\u003E(document);\r\n    var scenario = document.GetScenario\u003CScenario\u003E(scenarioName);\r\n    if (isoutline)\r\n    {\r\n        var baseMethod = generatedCode.GetRowTestBaseMethod(scenario);\r\n        var expectedStatement = $\u0022testRunner.ScenarioContext.Add(\\\u0022{SampleFeatureFile.Variant}\\\u0022, \\\u0022{SampleFeatureFile.Variant.ToLowerInvariant()}\\\u0022);\u0022;\r\n        var statement = GetScenarioContextVariantStatement(baseMethod, true, 5);\r\n        Assert.Equal(expectedStatement, statement);\r\n        var rowMethods = generatedCode.GetRowTestMethods(scenario);\r\n        var rowCounter = 0;\r\n        var variantCounter = 0;\r\n        for (var i = 0; i \u003C rowMethods.Count; i\u002B\u002B)\r\n        {\r\n            var name = GetVariantParameterOfRowMethod(rowMethods[i]);\r\n            Assert.Equal(SampleFeatureFile.Variants[variantCounter], name);\r\n            rowCounter\u002B\u002B;\r\n            if (i % 2 != 0)\r\n                variantCounter\u002B\u002B;\r\n        }\r\n    }\r\n    else\r\n    {\r\n        var testMethods = generatedCode.GetTestMethods(scenario);\r\n        for (var i = 0; i \u003C testMethods.Count; i\u002B\u002B)\r\n        {\r\n            var expectedStatement = $\u0022testRunner.ScenarioContext.Add(\\\u0022{SampleFeatureFile.Variant}\\\u0022, \\\u0022{SampleFeatureFile.Variants[i]}\\\u0022);\u0022;\r\n            var statement = GetScenarioContextVariantStatement(testMethods[i], false, 3);\r\n            Assert.Equal(expectedStatement, statement);\r\n        }\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Found"
+          }
+        ]
+      },
+      {
+        "Name": "XUnitProviderExtended_FeatureAndScenarioVariants_SpecflowGeneratedCodeCompileFails",
+        "Body": "{\r\n    var document = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithFeatureAndScenarioVariantTags);\r\n    Action act = () =\u003E SetupFeatureGenerator\u003CXUnitProviderExtended\u003E(document);\r\n    var ex = Assert.Throws\u003CTestGeneratorException\u003E(act);\r\n    Assert.Equal(\u0022Variant tags were detected at feature and scenario level, please specify at one level or the other.\u0022, ex.Message);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "XUnitProviderExtended_Regression_InlineTablesGeneratedCorrectly",
+        "Body": "{\r\n    var document = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithScenarioVariantTags);\r\n    var generatedCode = SetupFeatureGenerator\u003CXUnitProviderExtended\u003E(document);\r\n    var scenario = document.GetScenario\u003CScenarioOutline\u003E(SampleFeatureFile.ScenarioTitle_TagsExamplesAndInlineData);\r\n    var baseMethod = generatedCode.GetRowTestBaseMethod(scenario);\r\n    var tableStep = scenario.Steps.First(a =\u003E a.Argument is DataTable).Argument as DataTable;\r\n    var tableRows = tableStep.Rows.ToList();\r\n    var methodStatements = baseMethod.GetMethodStatements().GetTableStatements(tableRows.Count);\r\n    var expectedHeaders = tableRows[0].Cells.Select(a =\u003E a.Value);\r\n    var headerStatementArgs = methodStatements[0].GetStepTableHeaderArgs();\r\n    Assert.True(expectedHeaders.SequenceEqual(headerStatementArgs));\r\n    for (var i = 1; i \u003C tableRows.Count; i\u002B\u002B)\r\n    {\r\n        var cellValues = tableRows[i].Cells.Select(a =\u003E a.Value);\r\n        var cellStatementArgs = methodStatements[i].GetStepTableCellArgs();\r\n        Assert.True(cellValues.SequenceEqual(cellStatementArgs));\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Found"
+          }
+        ]
+      },
+      {
+        "Name": "XUnitProviderExtended_Regression_CollectionAttributeAppliedCorrectly",
+        "Body": "{\r\n    var document = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithXunitCollection);\r\n    var generatedCode = SetupFeatureGenerator\u003CXUnitProviderExtended\u003E(document);\r\n    var attr = generatedCode.Types[0].GetMethodAttributes(SampleFeatureFile.XUnitCollectionAttribute.Replace(\u0022:\u0022, \u0022.\u0022)).First();\r\n    var attrValue = attr.Arguments.GetAttributeArguments().First().GetArgumentValue();\r\n    Assert.Equal(SampleFeatureFile.XUnitCollectionAttributeValue, attrValue);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "XUnitProviderExtended_Generation_CustomGenerationApplied",
+        "Body": "{\r\n    var document = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithFeatureVariantTags);\r\n    var generatedCode = SetupFeatureGenerator\u003CXUnitProviderExtended\u003E(document);\r\n    var document2 = CreateSpecFlowDocument(SampleFeatureFile.FeatureFileWithScenarioVariantTags);\r\n    var generatedCode2 = SetupFeatureGenerator\u003CXUnitProviderExtended\u003E(document2);\r\n    var customComment = generatedCode.Comments.Cast\u003CCodeCommentStatement\u003E().Count(a =\u003E a.Comment.Text == FeatureGeneratorExtended.CustomGeneratedComment);\r\n    var customComment2 = generatedCode2.Comments.Cast\u003CCodeCommentStatement\u003E().Count(a =\u003E a.Comment.Text == FeatureGeneratorExtended.CustomGeneratedComment);\r\n    Assert.Equal(1, customComment);\r\n    Assert.Equal(1, customComment2);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GenerationTests",
+    "Message": null,
+    "ProjectName": "SpecFlow.Contrib.Variants.XUnitProvider.IntegrationTests",
+    "Methods": [
+      {
+        "Name": "XUnitTest_FrameworkGeneratedFeatures_CustomGenerationIsApplied",
+        "Body": "{\r\n    var curDir = Directory.GetCurrentDirectory();\r\n    var features = Directory.GetParent(curDir).Parent.GetFiles().Where(a =\u003E a.FullName.EndsWith(\u0022.feature.cs\u0022)).ToList();\r\n    var result = features.All(a =\u003E File.ReadLines(a.FullName).Any(line =\u003E line.Contains(\u0022// Generation customised by SpecFlow.Contrib.Variants\u0022)));\r\n    Assert.True(result);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "XUnit_GeneratedFeatures_NonParallelAttributeIsApplied",
+        "Body": "{\r\n    var curDir = Directory.GetCurrentDirectory();\r\n    var feature = Directory.GetParent(curDir).Parent.GetFiles().First(a =\u003E a.FullName.EndsWith(\u0022XUnitNonParallelTests.feature.cs\u0022));\r\n    var result = File.ReadLines(feature.FullName).Any(line =\u003E line.Contains(\u0022[Xunit.CollectionAttribute(\\\u0022SpecFlowNonParallelizableFeatures\\\u0022)]\u0022));\r\n    Assert.True(result);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "GenerationTests",
+    "Message": null,
+    "ProjectName": "SpecFlow.Contrib.Variants.Core.XUnitTestProvider.IntegrationTests",
+    "Methods": [
+      {
+        "Name": "XUnitTest_GeneratedFeatures_CustomGenerationIsApplied",
+        "Body": "{\r\n    var curDir = Directory.GetCurrentDirectory();\r\n    var features = Directory.GetParent(curDir).Parent.Parent.GetFiles().Where(a =\u003E a.FullName.EndsWith(\u0022.feature.cs\u0022)).ToList();\r\n    var result = features.All(a =\u003E File.ReadLines(a.FullName).Any(line =\u003E line.Contains(\u0022// Generation customised by SpecFlow.Contrib.Variants\u0022)));\r\n    Assert.True(result);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "XUnit_GeneratedFeatures_NonParallelAttributeIsApplied",
+        "Body": "{\r\n    var curDir = Directory.GetCurrentDirectory();\r\n    var feature = Directory.GetParent(curDir).Parent.Parent.GetFiles().First(a =\u003E a.FullName.EndsWith(\u0022XUnitNonParallelTests.feature.cs\u0022));\r\n    var result = File.ReadLines(feature.FullName).Any(line =\u003E line.Contains(\u0022[Xunit.CollectionAttribute(\\\u0022SpecFlowNonParallelizableFeatures\\\u0022)]\u0022));\r\n    Assert.True(result);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

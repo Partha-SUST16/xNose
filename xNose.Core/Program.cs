@@ -37,7 +37,9 @@ namespace xNose.Core
             var results = JsonFileReader.ReadResultFile("E:/workstation/xnose-repo-crawler/results.json");
             var filePaths = GetReportPaths(results);
             var resultAnalyzer = new TestSmellAnalyzer();
-            //resultAnalyzer.AnalyzeTestSmells(filePaths);
+           /* resultAnalyzer.AnalyzeTestSmells(filePaths);
+            resultAnalyzer.AnalyzeTestUniqueSmells(filePaths);*/
+           //await resultAnalyzer.CopyResults(filePaths);
             //await ResultAnalysis.ResultAnalysis.AnalysisResult(filePaths);
             foreach (var result in results)
             {
@@ -185,6 +187,16 @@ namespace xNose.Core
                                     };
                                     methodRe.AddMessage(new MethodReporterMessage
                                         { Name = "LackOfCohesion", Status = "Found" });
+                                    classReporter.AddMethodReport(methodRe);
+                                }
+                                else
+                                {
+                                    var methodRe = new MethodReporter
+                                    {
+                                        Name = "LackOfCohesion"
+                                    };
+                                    methodRe.AddMessage(new MethodReporterMessage
+                                    { Name = "LackOfCohesion", Status = "Not Found" });
                                     classReporter.AddMethodReport(methodRe);
                                 }
 

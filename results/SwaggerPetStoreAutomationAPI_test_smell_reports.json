@@ -1,0 +1,683 @@
+[
+  {
+    "Name": "OrderTests",
+    "Message": null,
+    "ProjectName": "SwaggerPetStoreAutomationTests",
+    "Methods": [
+      {
+        "Name": "VerifyPetInventoryOrderStatus",
+        "Body": "{\r\n    Log.Information(\u0022Verify Order Status are updated on the Pet Inventory endpoint\u0022);\r\n    var pet = SharedSteps.PetsSharedSteps.CreatePet(\u0022Cocoa\u0022, PetStatus.available);\r\n    var orderCreated = SharedSteps.OrderSharedSteps.CreateOrder(pet.Id, DateTime.Now.ToString(\u0022yyyy\u0027-\u0027MM\u0027-\u0027dd\u0027T\u0027HH\u0027:\u0027mm\u0027:\u0027ss.fff\u002B00:00\u0022), OrderStatus.delivered, 1, true);\r\n    orderCreated.Complete.Should().BeTrue();\r\n    var response = Actions.OrderActions.PetInventoryByStatus();\r\n    response.Approved.Should().BeGreaterOrEqualTo(0);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "OrderCRUDTest",
+        "Body": "{\r\n    Log.Information(\u0022Verify Order can be created/Updated/Deleted\u0022);\r\n    var pet = SharedSteps.PetsSharedSteps.CreatePet(\u0022Jelly\u0022, PetStatus.available);\r\n    var orderCreated = SharedSteps.OrderSharedSteps.CreateOrder(pet.Id, DateTime.Now.ToString(\u0022yyyy\u0027-\u0027MM\u0027-\u0027dd\u0027T\u0027HH\u0027:\u0027mm\u0027:\u0027ss.fff\u002B00:00\u0022), OrderStatus.placed, 1, true);\r\n    orderCreated.Complete.Should().BeTrue();\r\n    var order = Actions.OrderActions.FindPurchaseOrderById(orderCreated.Id);\r\n    order.Id.Should().Be(orderCreated.Id);\r\n    Actions.OrderActions.DeletePurchaseOrderById(orderCreated.Id, HttpStatusCode.OK);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "PetsTests",
+    "Message": null,
+    "ProjectName": "SwaggerPetStoreAutomationTests",
+    "Methods": [
+      {
+        "Name": "PetsCRUDTest",
+        "Body": "{\r\n    Log.Information(\u0022Verify pets can be created/Updated/Deleted\u0022);\r\n    var newPetAdded = SharedSteps.PetsSharedSteps.CreatePet(\u0022Cookie\u0022, PetStatus.available);\r\n    var newPetData = Actions.PetsActions.FindPetById(newPetAdded.Id);\r\n    newPetAdded.Name = \u0022My Sweet Cookie\u0022;\r\n    var updatePetData = Actions.PetsActions.UpdateAnExistingPet(newPetAdded);\r\n    var updatePet = Actions.PetsActions.FindPetById(newPetAdded.Id);\r\n    updatePet.Name.Should().Be(updatePetData.Name);\r\n    var deletedPetMessage = Actions.PetsActions.DeleteAPet(newPetAdded.Id);\r\n    AssertMultiple.Multiple(() =\u003E\r\n    {\r\n        newPetData.Id.Should().Be(newPetAdded.Id);\r\n        newPetData.Status.Should().Be(PetStatus.available.ToString());\r\n        deletedPetMessage.Should().NotBeNullOrEmpty();\r\n        deletedPetMessage.Should().Be(\u0022Pet deleted\u0022);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "VerifyFindPetByStatus",
+        "Body": "{\r\n    Log.Information(\u0022Verify pets can be search by status(available,pending and sold)\u0022);\r\n    var responseAvailable = Actions.PetsActions.FindPetByStatus(PetStatus.available);\r\n    var responsePending = Actions.PetsActions.FindPetByStatus(PetStatus.pending);\r\n    var responseSold = Actions.PetsActions.FindPetByStatus(PetStatus.sold);\r\n    AssertMultiple.Multiple(() =\u003E\r\n    {\r\n        responseAvailable.Should().HaveCountGreaterThan(0);\r\n        responsePending.Should().HaveCountGreaterThan(0);\r\n        responseSold.Should().HaveCountGreaterThan(0);\r\n        responseAvailable.ForEach(x =\u003E x.Status.Should().Be(PetStatus.available.ToString()));\r\n        responsePending.ForEach(x =\u003E x.Status.Should().Be(PetStatus.pending.ToString()));\r\n        responseSold.ForEach(x =\u003E x.Status.Should().Be(PetStatus.sold.ToString()));\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "VerifyFindPetByTags",
+        "Body": "{\r\n    Log.Information(\u0022Verify pets can be search by different tags\u0022);\r\n    var petTag = \u0022tag1\u0022;\r\n    var response = Actions.PetsActions.FindPetByTags(petTag);\r\n    AssertMultiple.Multiple(() =\u003E\r\n    {\r\n        response.Should().HaveCountGreaterThan(0);\r\n        response[0].Tags[0].Name.Should().Be(petTag);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "VerifyUploadAnImageToAPet",
+        "Body": "{\r\n    Log.Information(\u0022Verify images can be uploaded to pet entities\u0022);\r\n    var newPet = SharedSteps.PetsSharedSteps.InitializePet(\u0022Cake\u0022, PetStatus.available);\r\n    newPet.PhotoUrls = new List\u003Cstring\u003E\r\n    {\r\n    };\r\n    Actions.PetsActions.AddNewPetToStore(newPet);\r\n    var file = File.ReadAllBytes(\u0022Resources//UploadPhoto.png\u0022);\r\n    var response = Actions.PetsActions.UploadAnImageToAPet(newPet.Id, file);\r\n    response.PhotoUrls[0].Should().NotBeNullOrEmpty();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "UserTests",
+    "Message": null,
+    "ProjectName": "SwaggerPetStoreAutomationTests",
+    "Methods": [
+      {
+        "Name": "VerifyUsersCanLogInAndLogOut",
+        "Body": "{\r\n    Log.Information(\u0022Verify users can logIn/logOut\u0022);\r\n    var user = SharedSteps.UserSharedSteps.CreateUser(\u0022firstName\u0022, \u0022lastName\u0022, \u0022userName\u0022);\r\n    string userLogIn = Actions.UserActions.LogIn(user.Username, user.Password);\r\n    var userLogOut = Actions.UserActions.LogOut();\r\n    AssertMultiple.Multiple(() =\u003E\r\n    {\r\n        userLogIn.Should().NotBeNullOrEmpty();\r\n        userLogOut.Should().NotBeNullOrEmpty();\r\n        userLogIn.Should().Contain(\u0022Logged in user session\u0022);\r\n        userLogOut.Should().Contain(\u0022User logged out\u0022);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "VerifyUserCreation",
+        "Body": "{\r\n    Log.Information(\u0022Verify users can be created\u0022);\r\n    var user = SharedSteps.UserSharedSteps.CreateUser(\u0022firstName\u0022, \u0022lastName\u0022, \u0022userName\u0022);\r\n    var userData = Actions.UserActions.GetUserByUsername(user.Username);\r\n    AssertMultiple.Multiple(() =\u003E\r\n    {\r\n        userData.Should().NotBeNull();\r\n        userData.Id.Should().Be(userData.Id);\r\n        userData.Username.Should().Be(userData.Username);\r\n        userData.FirstName.Should().Be(userData.FirstName);\r\n        userData.LastName.Should().Be(userData.LastName);\r\n        userData.Email.Should().Be(userData.Email);\r\n        userData.Password.Should().Be(userData.Password);\r\n        userData.Phone.Should().Be(userData.Phone);\r\n        userData.UserStatus.Should().Be(userData.UserStatus);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "UserCRUDTest",
+        "Body": "{\r\n    Log.Information(\u0022Verify users can be created/Updated/Deleted\u0022);\r\n    var user = SharedSteps.UserSharedSteps.CreateUser(\u0022firstName\u0022, \u0022lastName\u0022, \u0022userName\u0022);\r\n    var userData = Actions.UserActions.GetUserByUsername(user.Username);\r\n    userData.Id.Should().Be(user.Id);\r\n    user.Password = \u0022MyNewPassword@!\u0022;\r\n    Actions.UserActions.UpdateUser(user, user.Username);\r\n    var updateUser = Actions.UserActions.GetUserByUsername(user.Username);\r\n    updateUser.Password.Should().Be(user.Password);\r\n    Actions.UserActions.DeleteUser(user.Username, HttpStatusCode.OK);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

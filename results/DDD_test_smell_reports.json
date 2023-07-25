@@ -1,0 +1,176 @@
+[
+  {
+    "Name": "CustomerAppServiceTests",
+    "Message": null,
+    "ProjectName": "DDD.Application.UnitTests",
+    "Methods": [
+      {
+        "Name": "GetById",
+        "Body": "{\r\n    // Arrange\r\n    var customer = new Domain.Models.Customer(new Guid(), \u0022Alan\u0022, \u0022alab@test.com\u0022, new DateTime());\r\n    var customerRepositoryMock = new Mock\u003CICustomerRepository\u003E();\r\n    customerRepositoryMock.Setup(x =\u003E x.GetById(customer.Id)).Returns(customer);\r\n    var mapperMock = new Mock\u003CIMapper\u003E();\r\n    mapperMock.Setup(x =\u003E x.Map\u003CCustomerViewModel\u003E(customer)).Returns(new CustomerViewModel { Id = customer.Id, Name = customer.Name, Email = customer.Email, BirthDate = customer.BirthDate, });\r\n    // Act\r\n    var sut = new CustomerAppService(mapperMock.Object, customerRepositoryMock.Object, null, null);\r\n    var result = sut.GetById(customer.Id);\r\n    // Assert\r\n    Assert.Equal(result.Id, customer.Id);\r\n    Assert.Equal(result.Name, customer.Name);\r\n    Assert.Equal(result.Email, customer.Email);\r\n    Assert.Equal(result.BirthDate, customer.BirthDate);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "WeatherForecastControllerIntegrationTests",
+    "Message": null,
+    "ProjectName": "DDD.Services.Api.IntegrationTests",
+    "Methods": [
+      {
+        "Name": "Get_EndpointsReturnSuccessAndCorrectContentType",
+        "Body": "{\r\n    // Arrange\r\n    // Act\r\n    var response = await _client.GetAsync(url);\r\n    // Assert\r\n    response.EnsureSuccessStatusCode(); // Status Code 200-299\r\n    response.Content.Headers.ContentType.ToString().Should().Be(expected);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

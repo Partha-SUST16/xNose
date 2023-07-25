@@ -1,0 +1,5004 @@
+[
+  {
+    "Name": "BitcoinShowFacadeTest",
+    "Message": null,
+    "ProjectName": "BitcoinShow.Test",
+    "Methods": [
+      {
+        "Name": "QuestionService_GetRandom_Question_By_Level",
+        "Body": "{\r\n    Mock\u003CIQuestionService\u003E mockQuestionService = new Mock\u003CIQuestionService\u003E(MockBehavior.Strict);\r\n    mockQuestionService.Setup(s =\u003E s.GetByLevel(LevelEnum.Easy, null)).Returns(new Question());\r\n    mockQuestionService.Setup(s =\u003E s.GetByLevel(LevelEnum.Hard, new[] { 1 })).Returns(new Question());\r\n    IBitcoinShowFacade facade = new BitcoinShowFacade(mockQuestionService.Object, null, null);\r\n    QuestionViewModel question = facade.GetRandomQuestionByLevel(LevelEnum.Easy, null);\r\n    QuestionViewModel question2 = facade.GetRandomQuestionByLevel(LevelEnum.Hard, new[] { 1 });\r\n    Assert.NotNull(question);\r\n    Assert.NotNull(question2);\r\n    mockQuestionService.Verify(s =\u003E s.GetByLevel(LevelEnum.Easy, null), Times.Once());\r\n    mockQuestionService.Verify(s =\u003E s.GetByLevel(LevelEnum.Hard, new[] { 1 }), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "OptionRepositoryTest",
+    "Message": null,
+    "ProjectName": "BitcoinShow.Test",
+    "Methods": [
+      {
+        "Name": "Add_Option_Without_Text_Error",
+        "Body": "{\r\n    var options = new DbContextOptionsBuilder\u003CBitcoinShowDBContext\u003E().UseInMemoryDatabase(System.Guid.NewGuid().ToString()).Options;\r\n    var context = new BitcoinShowDBContext(options);\r\n    OptionRepository repository = new OptionRepository(context);\r\n    Option option = new Option();\r\n    ArgumentNullException ex = Assert.Throws\u003CArgumentNullException\u003E(() =\u003E repository.Add(option));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(nameof(option.Text), ex.ParamName);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Add_Option_With_Text_Greater_Than_Max_Size_Error",
+        "Body": "{\r\n    var options = new DbContextOptionsBuilder\u003CBitcoinShowDBContext\u003E().UseInMemoryDatabase(System.Guid.NewGuid().ToString()).Options;\r\n    var context = new BitcoinShowDBContext(options);\r\n    OptionRepository repository = new OptionRepository(context);\r\n    Option option = new Option();\r\n    option.Text = new String(\u0027A\u0027, 201);\r\n    ArgumentOutOfRangeException ex = Assert.Throws\u003CArgumentOutOfRangeException\u003E(() =\u003E repository.Add(option));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(nameof(option.Text), ex.ParamName);\r\n    Assert.Equal(0, context.Options.Count());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Add_Option_Success",
+        "Body": "{\r\n    string text = \u0022Add_Option_Success\u0022;\r\n    var options2 = new DbContextOptionsBuilder\u003CBitcoinShowDBContext\u003E().UseInMemoryDatabase(\u0022asd\u0022).Options;\r\n    var context2 = new BitcoinShowDBContext(options2);\r\n    OptionRepository repository = new OptionRepository(context2);\r\n    Option actual = new Option();\r\n    actual.Text = text;\r\n    repository.Add(actual);\r\n    Assert.NotNull(actual);\r\n    Assert.True(0 \u003C actual.Id);\r\n    Assert.Equal(text, actual.Text);\r\n    Assert.Equal(1, context2.Options.Count());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Get_Option_By_Id_Not_Found",
+        "Body": "{\r\n    var options = new DbContextOptionsBuilder\u003CBitcoinShowDBContext\u003E().UseInMemoryDatabase(System.Guid.NewGuid().ToString()).Options;\r\n    var context = new BitcoinShowDBContext(options);\r\n    OptionRepository repository = new OptionRepository(context);\r\n    var option = repository.Get(100);\r\n    Assert.Null(option);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Get_Option_By_Id_Success",
+        "Body": "{\r\n    var options = new DbContextOptionsBuilder\u003CBitcoinShowDBContext\u003E().UseInMemoryDatabase(System.Guid.NewGuid().ToString()).Options;\r\n    var context = new BitcoinShowDBContext(options);\r\n    var expected = new Option\r\n    {\r\n        Text = \u0022New option\u0022\r\n    };\r\n    context.Options.Add(expected);\r\n    context.SaveChanges();\r\n    OptionRepository repository = new OptionRepository(context);\r\n    var actual = repository.Get(expected.Id);\r\n    Assert.NotNull(actual);\r\n    Assert.Equal(expected, actual);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Update_Option_Without_Text_Error",
+        "Body": "{\r\n    var options = new DbContextOptionsBuilder\u003CBitcoinShowDBContext\u003E().UseInMemoryDatabase(System.Guid.NewGuid().ToString()).Options;\r\n    var context = new BitcoinShowDBContext(options);\r\n    context.Options.Add(new Option { Text = \u0022New option\u0022 });\r\n    context.SaveChanges();\r\n    OptionRepository repository = new OptionRepository(context);\r\n    Option updatedOption = new Option();\r\n    updatedOption.Id = 1;\r\n    ArgumentNullException ex = Assert.Throws\u003CArgumentNullException\u003E(() =\u003E repository.Update(updatedOption));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(nameof(updatedOption.Text), ex.ParamName);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Update_Option_NonExistent_Error",
+        "Body": "{\r\n    var options = new DbContextOptionsBuilder\u003CBitcoinShowDBContext\u003E().UseInMemoryDatabase(System.Guid.NewGuid().ToString()).Options;\r\n    var context = new BitcoinShowDBContext(options);\r\n    OptionRepository repository = new OptionRepository(context);\r\n    Option updatedOption = new Option();\r\n    updatedOption.Id = 1;\r\n    updatedOption.Text = \u0022Update\u0022;\r\n    Exception ex = Assert.Throws\u003CDbUpdateException\u003E(() =\u003E repository.Update(updatedOption));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u0022The current option does not exists.\u0022, ex.Message);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Update_Option_With_Text_Greater_Than_Max_Size_Error",
+        "Body": "{\r\n    var options = new DbContextOptionsBuilder\u003CBitcoinShowDBContext\u003E().UseInMemoryDatabase(System.Guid.NewGuid().ToString()).Options;\r\n    var context = new BitcoinShowDBContext(options);\r\n    var newOption = new Option\r\n    {\r\n        Text = \u0022New option\u0022\r\n    };\r\n    context.Options.Add(newOption);\r\n    context.SaveChanges();\r\n    OptionRepository repository = new OptionRepository(context);\r\n    Option updatedOption = new Option();\r\n    updatedOption.Id = newOption.Id;\r\n    updatedOption.Text = new String(\u0027B\u0027, 201);\r\n    ArgumentOutOfRangeException ex = Assert.Throws\u003CArgumentOutOfRangeException\u003E(() =\u003E repository.Update(updatedOption));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(nameof(updatedOption.Text), ex.ParamName);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Update_Option_Success",
+        "Body": "{\r\n    var options = new DbContextOptionsBuilder\u003CBitcoinShowDBContext\u003E().UseInMemoryDatabase(System.Guid.NewGuid().ToString()).Options;\r\n    var context = new BitcoinShowDBContext(options);\r\n    var newOption = new Option\r\n    {\r\n        Text = \u0022New option\u0022\r\n    };\r\n    context.Options.Add(newOption);\r\n    context.SaveChanges();\r\n    OptionRepository repository = new OptionRepository(context);\r\n    Option expected = new Option();\r\n    expected.Id = newOption.Id;\r\n    expected.Text = \u0022Update option\u0022;\r\n    Option actual = new Option();\r\n    actual.Id = newOption.Id;\r\n    actual.Text = \u0022Update option\u0022;\r\n    repository.Update(actual);\r\n    Assert.Equal(expected, actual);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Delete_Option_Not_Found_Error",
+        "Body": "{\r\n    var options = new DbContextOptionsBuilder\u003CBitcoinShowDBContext\u003E().UseInMemoryDatabase(System.Guid.NewGuid().ToString()).Options;\r\n    var context = new BitcoinShowDBContext(options);\r\n    OptionRepository repository = new OptionRepository(context);\r\n    Exception ex = Assert.Throws\u003CDbUpdateException\u003E(() =\u003E repository.Delete(1));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u0022The current option does not exists.\u0022, ex.Message);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Delete_Option_Success",
+        "Body": "{\r\n    var options = new DbContextOptionsBuilder\u003CBitcoinShowDBContext\u003E().UseInMemoryDatabase(System.Guid.NewGuid().ToString()).Options;\r\n    var context = new BitcoinShowDBContext(options);\r\n    Option deleteOption = new Option();\r\n    deleteOption.Text = \u0022delete\u0022;\r\n    context.Options.Add(deleteOption);\r\n    context.SaveChanges();\r\n    OptionRepository repository = new OptionRepository(context);\r\n    repository.Delete(deleteOption.Id);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "QuestionRepositoryTest",
+    "Message": null,
+    "ProjectName": "BitcoinShow.Test",
+    "Methods": [
+      {
+        "Name": "Add_Question_Without_Title_Error",
+        "Body": "{\r\n    BitcoinShowDBContext context = DbContextFactory.GetContext();\r\n    QuestionRepository repository = new QuestionRepository(context);\r\n    Question option = new Question();\r\n    ArgumentNullException ex = Assert.Throws\u003CArgumentNullException\u003E(() =\u003E repository.Add(option));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(nameof(option.Title), ex.ParamName);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Add_Question_With_Title_Greater_Than_Max_Error",
+        "Body": "{\r\n    BitcoinShowDBContext context = DbContextFactory.GetContext();\r\n    QuestionRepository repository = new QuestionRepository(context);\r\n    Question option = new Question();\r\n    option.Title = new String(\u0027a\u0027, 201);\r\n    ArgumentOutOfRangeException ex = Assert.Throws\u003CArgumentOutOfRangeException\u003E(() =\u003E repository.Add(option));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(nameof(option.Title), ex.ParamName);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Add_Question_Without_Answer_Error",
+        "Body": "{\r\n    BitcoinShowDBContext context = DbContextFactory.GetContext();\r\n    QuestionRepository repository = new QuestionRepository(context);\r\n    Question question = new Question();\r\n    question.Title = \u0022How many times do you test your code?\u0022;\r\n    ArgumentNullException ex = Assert.Throws\u003CArgumentNullException\u003E(() =\u003E repository.Add(question));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(nameof(question.Answer), ex.ParamName);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Add_Question_Success",
+        "Body": "{\r\n    BitcoinShowDBContext context = DbContextFactory.GetContext();\r\n    var options = RandomOptions(4).ToList();\r\n    options.ForEach(o =\u003E\r\n    {\r\n        context.Options.Add(o);\r\n    });\r\n    context.SaveChanges();\r\n    QuestionRepository repository = new QuestionRepository(context);\r\n    Question question = new Question();\r\n    question.Answer = context.Options.First();\r\n    question.Title = \u0022Test question\u0022;\r\n    question.Level = LevelEnum.Hard;\r\n    repository.Add(question);\r\n    Assert.True(question.Id \u003E 0);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GetAll_Questions_Success",
+        "Body": "{\r\n    BitcoinShowDBContext context = DbContextFactory.GetContext();\r\n    Option option = new Option\r\n    {\r\n        Text = \u0022Option\u0022\r\n    };\r\n    context.Options.Add(option);\r\n    context.SaveChanges();\r\n    List\u003COption\u003E optionsList = new List\u003COption\u003E();\r\n    optionsList.Add(option);\r\n    Question question = new Question\r\n    {\r\n        Title = $\u0022Random Question {1}\u0022,\r\n        Answer = new Option\r\n        {\r\n            Text = $\u0022Random Option {1}\u0022},\r\n        Level = LevelEnum.Medium,\r\n    };\r\n    question.Options = new List\u003COption\u003E();\r\n    optionsList[0].QuestionId = question.Id;\r\n    question.Options.Add(optionsList[0]);\r\n    context.Questions.Add(question);\r\n    context.SaveChanges();\r\n    QuestionRepository repository = new QuestionRepository(context);\r\n    repository.GetAll().ForEach(q =\u003E\r\n    {\r\n        Assert.NotNull(q);\r\n        Assert.True(q.Id \u003E 0);\r\n        Assert.False(String.IsNullOrEmpty(q.Title));\r\n        Assert.NotNull(q.Answer);\r\n        Assert.True(q.Answer.Id \u003E 0);\r\n        Assert.False(String.IsNullOrEmpty(q.Answer.Text));\r\n        Assert.Equal(q.Level, LevelEnum.Medium);\r\n        Assert.Equal(optionsList, q.Options);\r\n    });\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Get_Question_Not_Found_Error",
+        "Body": "{\r\n    BitcoinShowDBContext context = DbContextFactory.GetContext();\r\n    for (int i = 0; i \u003C 10; i\u002B\u002B)\r\n    {\r\n        context.Questions.Add(new Question { Title = $\u0022Random Question {i \u002B 1}\u0022, Answer = new Option { Id = i, Text = $\u0022Random Option {i}\u0022 } });\r\n    }\r\n\r\n    context.SaveChanges();\r\n    QuestionRepository repository = new QuestionRepository(context);\r\n    Question actual = repository.Get(50);\r\n    Assert.Null(actual);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Get_Question_Success",
+        "Body": "{\r\n    BitcoinShowDBContext context = DbContextFactory.GetContext();\r\n    for (int i = 0; i \u003C 98; i\u002B\u002B)\r\n    {\r\n        context.Questions.Add(new Question { Title = $\u0022Random Question {i \u002B 1}\u0022, Answer = new Option { Id = i, Text = $\u0022Random Option {i}\u0022 }, Level = LevelEnum.VeryHard });\r\n    }\r\n\r\n    context.SaveChanges();\r\n    QuestionRepository repository = new QuestionRepository(context);\r\n    Question actual = repository.Get(50);\r\n    Assert.NotNull(actual);\r\n    Assert.NotNull(actual.Answer);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Delete_Question_Not_Found_Error",
+        "Body": "{\r\n    BitcoinShowDBContext context = DbContextFactory.GetContext();\r\n    QuestionRepository repository = new QuestionRepository(context);\r\n    Exception ex = Assert.Throws\u003CException\u003E(() =\u003E repository.Delete(99999999));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u0022The current Question does not exist.\u0022, ex.Message);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Delete_Question_Success",
+        "Body": "{\r\n    var question = new Question\r\n    {\r\n        Title = \u0022Delete_Question_Success\u0022\r\n    };\r\n    BitcoinShowDBContext context = DbContextFactory.GetContext();\r\n    context.Questions.Add(question);\r\n    context.SaveChanges();\r\n    int questionId = question.Id;\r\n    QuestionRepository repository = new QuestionRepository(context);\r\n    repository.Delete(questionId);\r\n    Assert.Null(context.Questions.Find(questionId));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Update_Question_Without_Title_Error",
+        "Body": "{\r\n    var option = new Option\r\n    {\r\n        Text = \u0022Update_Question_Without_Answer_Error Option\u0022\r\n    };\r\n    var question = new Question\r\n    {\r\n        Title = \u0022Update_Question_Without_Title_Error\u0022,\r\n        Answer = option\r\n    };\r\n    BitcoinShowDBContext context = DbContextFactory.GetContext();\r\n    context.Questions.Add(question);\r\n    context.SaveChanges();\r\n    QuestionRepository repository = new QuestionRepository(context);\r\n    question.Title = String.Empty;\r\n    ArgumentNullException ex = Assert.Throws\u003CArgumentNullException\u003E(() =\u003E repository.Update(question));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(nameof(question.Title), ex.ParamName);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Update_Question_With_Title_Greater_Than_Max_Error",
+        "Body": "{\r\n    var option = new Option\r\n    {\r\n        Text = \u0022Update_Question_With_Title_Greater_Than_Max_Error Option\u0022\r\n    };\r\n    var question = new Question\r\n    {\r\n        Title = \u0022Update_Question_With_Title_Greater_Than_Max_Error\u0022,\r\n        Answer = option\r\n    };\r\n    BitcoinShowDBContext context = DbContextFactory.GetContext();\r\n    context.Questions.Add(question);\r\n    context.SaveChanges();\r\n    QuestionRepository repository = new QuestionRepository(context);\r\n    question.Title = new String(\u0027a\u0027, 201);\r\n    ArgumentOutOfRangeException ex = Assert.Throws\u003CArgumentOutOfRangeException\u003E(() =\u003E repository.Update(question));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(nameof(question.Title), ex.ParamName);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Update_Question_Without_Answer_Error",
+        "Body": "{\r\n    var option = new Option\r\n    {\r\n        Text = \u0022Update_Question_Without_Answer_Error Option\u0022\r\n    };\r\n    var question = new Question\r\n    {\r\n        Title = \u0022Update_Question_Without_Answer_Error\u0022,\r\n        Answer = option\r\n    };\r\n    BitcoinShowDBContext context = DbContextFactory.GetContext();\r\n    context.Questions.Add(question);\r\n    context.SaveChanges();\r\n    QuestionRepository repository = new QuestionRepository(context);\r\n    question.Answer = null;\r\n    ArgumentNullException ex = Assert.Throws\u003CArgumentNullException\u003E(() =\u003E repository.Update(question));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(nameof(question.Answer), ex.ParamName);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Update_Question_Success",
+        "Body": "{\r\n    var option = new Option\r\n    {\r\n        Text = \u0022Update_Question_Success Option\u0022\r\n    };\r\n    var option2 = new Option\r\n    {\r\n        Text = \u0022Update_Question_Success Option2\u0022\r\n    };\r\n    var question = new Question\r\n    {\r\n        Title = \u0022Update_Question_Success\u0022,\r\n        Answer = option,\r\n        Level = LevelEnum.Easy\r\n    };\r\n    BitcoinShowDBContext context = DbContextFactory.GetContext();\r\n    context.Questions.Add(question);\r\n    context.Options.Add(option2);\r\n    context.SaveChanges();\r\n    var expected = new Question\r\n    {\r\n        Id = question.Id,\r\n        Title = \u0022Updated\u0022,\r\n        Answer = question.Answer,\r\n        Level = LevelEnum.Hard\r\n    };\r\n    QuestionRepository repository = new QuestionRepository(context);\r\n    question.Title = \u0022Updated\u0022;\r\n    question.Level = LevelEnum.Hard;\r\n    repository.Update(question);\r\n    var actual = context.Questions.Find(question.Id);\r\n    Assert.Equal(expected, actual);\r\n    expected.Answer = option2;\r\n    question.Answer = option2;\r\n    repository.Update(question);\r\n    actual = context.Questions.Find(question.Id);\r\n    Assert.Equal(expected, actual);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Get_Random_Question_By_Level",
+        "Body": "{\r\n    BitcoinShowDBContext context = DbContextFactory.GetContext();\r\n#region mock data\r\n    int[] easyIds = new int[5];\r\n    for (int i = 0; i \u003C 4; i\u002B\u002B)\r\n    {\r\n        Question easyQuestion = new Question();\r\n        easyQuestion.Answer = new Option\r\n        {\r\n            Text = \u0022Option 1 easyQuestion ${easyQuestion.Id}\u0022,\r\n            QuestionId = easyQuestion.Id\r\n        };\r\n        easyQuestion.Title = \u0022Question 1\u0022;\r\n        easyQuestion.Level = LevelEnum.Easy;\r\n        var options = RandomOptions(4).ToList();\r\n        options.ForEach(o =\u003E\r\n        {\r\n            context.Options.Add(o);\r\n        });\r\n        context.SaveChanges();\r\n        easyQuestion.Answer = options[0];\r\n        context.Questions.Add(easyQuestion);\r\n        easyQuestion.Options = options;\r\n        options.ForEach(o =\u003E\r\n        {\r\n            o.Question = easyQuestion;\r\n            context.Options.Update(o);\r\n        });\r\n        context.SaveChanges();\r\n        easyIds[i] = easyQuestion.Id;\r\n    }\r\n\r\n#endregion mock data\r\n    QuestionRepository repository = new QuestionRepository(context);\r\n    Question question = repository.GetByLevel(LevelEnum.Easy, easyIds);\r\n    Assert.Null(question);\r\n    question = repository.GetByLevel(LevelEnum.Easy, new int[] { easyIds[0], easyIds[4] });\r\n    Assert.NotNull(question);\r\n    var filter = easyIds.Select((value, index) =\u003E new { value, index }).Where(item =\u003E item.index == 0 || item.index == 4).Select(item =\u003E item.value);\r\n    Assert.True(easyIds.Contains(question.Id));\r\n    Assert.False(filter.Contains(question.Id));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "AwardServiceTest",
+    "Message": null,
+    "ProjectName": "BitcoinShow.Test",
+    "Methods": [
+      {
+        "Name": "Add_Award_SuccessValue_Minor_or_Equal_Zero_Error",
+        "Body": "{\r\n    Mock\u003CIAwardRepository\u003E mockRepository = new Mock\u003CIAwardRepository\u003E(MockBehavior.Strict);\r\n    IAwardService service = new AwardService(mockRepository.Object);\r\n    ArgumentOutOfRangeException ex = Assert.Throws\u003CArgumentOutOfRangeException\u003E(() =\u003E service.Add(-1, 0, 0, LevelEnum.Easy));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u0022successValue\u0022, ex.ParamName);\r\n    Assert.Equal(-1M, ex.ActualValue);\r\n    Assert.Equal($\u0022The value must be greater than zero.\\r\\nParameter name: {\u0022successValue\u0022}\\r\\nActual value was {-1M}.\u0022, ex.Message);\r\n    ex = Assert.Throws\u003CArgumentOutOfRangeException\u003E(() =\u003E service.Add(0, 0, 0, LevelEnum.Easy));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u0022successValue\u0022, ex.ParamName);\r\n    Assert.Equal(0M, ex.ActualValue);\r\n    Assert.Equal($\u0022The value must be greater than zero.\\r\\nParameter name: {\u0022successValue\u0022}\\r\\nActual value was {0M}.\u0022, ex.Message);\r\n    mockRepository.Verify(r =\u003E r.Add(3, 1, 2, LevelEnum.Easy), Times.Never());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Add_Award_FailValue_Minor_than_Zero_Error",
+        "Body": "{\r\n    Mock\u003CIAwardRepository\u003E mockRepository = new Mock\u003CIAwardRepository\u003E(MockBehavior.Strict);\r\n    IAwardService service = new AwardService(mockRepository.Object);\r\n    ArgumentOutOfRangeException ex = Assert.Throws\u003CArgumentOutOfRangeException\u003E(() =\u003E service.Add(1, -1, 0, LevelEnum.Easy));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u0022failValue\u0022, ex.ParamName);\r\n    Assert.Equal(-1M, ex.ActualValue);\r\n    Assert.Equal($\u0022The value must be greater than or equal to zero.\\r\\nParameter name: {\u0022failValue\u0022}\\r\\nActual value was {-1M}.\u0022, ex.Message);\r\n    mockRepository.Verify(r =\u003E r.Add(3, 1, 2, LevelEnum.Easy), Times.Never());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Add_Award_QuitValue_Minor_than_Zero_Error",
+        "Body": "{\r\n    Mock\u003CIAwardRepository\u003E mockRepository = new Mock\u003CIAwardRepository\u003E(MockBehavior.Strict);\r\n    IAwardService service = new AwardService(mockRepository.Object);\r\n    ArgumentOutOfRangeException ex = Assert.Throws\u003CArgumentOutOfRangeException\u003E(() =\u003E service.Add(1, 1, -1, LevelEnum.Easy));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u0022quitValue\u0022, ex.ParamName);\r\n    Assert.Equal(-1M, ex.ActualValue);\r\n    Assert.Equal($\u0022The value must be greater than or equal to zero.\\r\\nParameter name: {\u0022quitValue\u0022}\\r\\nActual value was {-1M}.\u0022, ex.Message);\r\n    mockRepository.Verify(r =\u003E r.Add(3, 1, 2, LevelEnum.Easy), Times.Never());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Add_Award_SuccessValue_Minor_than_FailValue_Error",
+        "Body": "{\r\n    Mock\u003CIAwardRepository\u003E mockRepository = new Mock\u003CIAwardRepository\u003E(MockBehavior.Strict);\r\n    IAwardService service = new AwardService(mockRepository.Object);\r\n    ArgumentException ex = Assert.Throws\u003CArgumentException\u003E(() =\u003E service.Add(2, 3, 1, LevelEnum.Easy));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u0022successValue can\u0027t be minor than failValue.\u0022, ex.Message);\r\n    mockRepository.Verify(r =\u003E r.Add(3, 1, 2, LevelEnum.Easy), Times.Never());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Add_Award_SuccessValue_Minor_than_QuitValue_Error",
+        "Body": "{\r\n    Mock\u003CIAwardRepository\u003E mockRepository = new Mock\u003CIAwardRepository\u003E(MockBehavior.Strict);\r\n    IAwardService service = new AwardService(mockRepository.Object);\r\n    ArgumentException ex = Assert.Throws\u003CArgumentException\u003E(() =\u003E service.Add(2, 1, 3, LevelEnum.Easy));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u0022successValue can\u0027t be minor than quitValue.\u0022, ex.Message);\r\n    mockRepository.Verify(r =\u003E r.Add(3, 1, 2, LevelEnum.Easy), Times.Never());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Add_Award_Equal_Values_Error",
+        "Body": "{\r\n    Mock\u003CIAwardRepository\u003E mockRepository = new Mock\u003CIAwardRepository\u003E(MockBehavior.Strict);\r\n    IAwardService service = new AwardService(mockRepository.Object);\r\n    ArgumentException ex = Assert.Throws\u003CArgumentException\u003E(() =\u003E service.Add(1, 1, 2, LevelEnum.Easy));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u0022Award values can\u0027t be equal.\u0022, ex.Message);\r\n    ex = Assert.Throws\u003CArgumentException\u003E(() =\u003E service.Add(1, 2, 1, LevelEnum.Easy));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u0022Award values can\u0027t be equal.\u0022, ex.Message);\r\n    ex = Assert.Throws\u003CArgumentException\u003E(() =\u003E service.Add(2, 1, 1, LevelEnum.Easy));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u0022Award values can\u0027t be equal.\u0022, ex.Message);\r\n    mockRepository.Verify(r =\u003E r.Add(3, 1, 2, LevelEnum.Easy), Times.Never());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Add_Award_QuitValue_Minor_than_FailValue_Error",
+        "Body": "{\r\n    Mock\u003CIAwardRepository\u003E mockRepository = new Mock\u003CIAwardRepository\u003E(MockBehavior.Strict);\r\n    IAwardService service = new AwardService(mockRepository.Object);\r\n    ArgumentException ex = Assert.Throws\u003CArgumentException\u003E(() =\u003E service.Add(3, 2, 1, LevelEnum.Easy));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u0022quitValue can\u0027t be minor than failValue.\u0022, ex.Message);\r\n    mockRepository.Verify(r =\u003E r.Add(3, 1, 2, LevelEnum.Easy), Times.Never());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Add_Award_Success",
+        "Body": "{\r\n    var expected = new Award\r\n    {\r\n        Id = 1,\r\n        Success = 3,\r\n        Fail = 1,\r\n        Quit = 2,\r\n        Level = LevelEnum.Easy\r\n    };\r\n    Mock\u003CIAwardRepository\u003E mockRepository = new Mock\u003CIAwardRepository\u003E(MockBehavior.Strict);\r\n    mockRepository.Setup(s =\u003E s.Add(3, 1, 2, LevelEnum.Easy)).Returns(expected);\r\n    IAwardService service = new AwardService(mockRepository.Object);\r\n    Award actual = service.Add(3, 1, 2, LevelEnum.Easy);\r\n    mockRepository.Verify(r =\u003E r.Add(3, 1, 2, LevelEnum.Easy), Times.Once());\r\n    Assert.Equal(expected, actual);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Update_Award_SuccessValue_Minor_or_Equal_Zero_Error",
+        "Body": "{\r\n    Mock\u003CIAwardRepository\u003E mockRepository = new Mock\u003CIAwardRepository\u003E(MockBehavior.Strict);\r\n    IAwardService service = new AwardService(mockRepository.Object);\r\n    var award = new Award\r\n    {\r\n        Id = 1,\r\n        Success = -1,\r\n        Fail = 0,\r\n        Quit = 0,\r\n        Level = LevelEnum.Easy\r\n    };\r\n    ArgumentOutOfRangeException ex = Assert.Throws\u003CArgumentOutOfRangeException\u003E(() =\u003E service.Update(award));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u0022successValue\u0022, ex.ParamName);\r\n    Assert.Equal(-1M, ex.ActualValue);\r\n    Assert.Equal($\u0022The value must be greater than zero.\\r\\nParameter name: {\u0022successValue\u0022}\\r\\nActual value was {-1M}.\u0022, ex.Message);\r\n    award.Success = 0;\r\n    ex = Assert.Throws\u003CArgumentOutOfRangeException\u003E(() =\u003E service.Update(award));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u0022successValue\u0022, ex.ParamName);\r\n    Assert.Equal(0M, ex.ActualValue);\r\n    Assert.Equal($\u0022The value must be greater than zero.\\r\\nParameter name: {\u0022successValue\u0022}\\r\\nActual value was {0M}.\u0022, ex.Message);\r\n    mockRepository.Verify(r =\u003E r.Update(It.IsAny\u003CAward\u003E()), Times.Never());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Update_Award_FailValue_Minor_than_Zero_Error",
+        "Body": "{\r\n    Mock\u003CIAwardRepository\u003E mockRepository = new Mock\u003CIAwardRepository\u003E(MockBehavior.Strict);\r\n    IAwardService service = new AwardService(mockRepository.Object);\r\n    var award = new Award\r\n    {\r\n        Id = 1,\r\n        Success = 1,\r\n        Fail = -1,\r\n        Quit = 0,\r\n        Level = LevelEnum.Easy\r\n    };\r\n    ArgumentOutOfRangeException ex = Assert.Throws\u003CArgumentOutOfRangeException\u003E(() =\u003E service.Update(award));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u0022failValue\u0022, ex.ParamName);\r\n    Assert.Equal(-1M, ex.ActualValue);\r\n    Assert.Equal($\u0022The value must be greater than or equal to zero.\\r\\nParameter name: {\u0022failValue\u0022}\\r\\nActual value was {-1M}.\u0022, ex.Message);\r\n    mockRepository.Verify(r =\u003E r.Update(It.IsAny\u003CAward\u003E()), Times.Never());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Update_Award_QuitValue_Minor_than_Zero_Error",
+        "Body": "{\r\n    Mock\u003CIAwardRepository\u003E mockRepository = new Mock\u003CIAwardRepository\u003E(MockBehavior.Strict);\r\n    IAwardService service = new AwardService(mockRepository.Object);\r\n    var award = new Award\r\n    {\r\n        Id = 1,\r\n        Success = 1,\r\n        Fail = 1,\r\n        Quit = -1,\r\n        Level = LevelEnum.Easy\r\n    };\r\n    ArgumentOutOfRangeException ex = Assert.Throws\u003CArgumentOutOfRangeException\u003E(() =\u003E service.Update(award));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u0022quitValue\u0022, ex.ParamName);\r\n    Assert.Equal(-1M, ex.ActualValue);\r\n    Assert.Equal($\u0022The value must be greater than or equal to zero.\\r\\nParameter name: {\u0022quitValue\u0022}\\r\\nActual value was {-1M}.\u0022, ex.Message);\r\n    mockRepository.Verify(r =\u003E r.Update(It.IsAny\u003CAward\u003E()), Times.Never());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Update_Award_SuccessValue_Minor_than_FailValue_Error",
+        "Body": "{\r\n    Mock\u003CIAwardRepository\u003E mockRepository = new Mock\u003CIAwardRepository\u003E(MockBehavior.Strict);\r\n    IAwardService service = new AwardService(mockRepository.Object);\r\n    var award = new Award\r\n    {\r\n        Id = 1,\r\n        Success = 2,\r\n        Fail = 3,\r\n        Quit = 1,\r\n        Level = LevelEnum.Easy\r\n    };\r\n    ArgumentException ex = Assert.Throws\u003CArgumentException\u003E(() =\u003E service.Update(award));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u0022successValue can\u0027t be minor than failValue.\u0022, ex.Message);\r\n    mockRepository.Verify(r =\u003E r.Update(It.IsAny\u003CAward\u003E()), Times.Never());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Update_Award_SuccessValue_Minor_than_QuitValue_Error",
+        "Body": "{\r\n    Mock\u003CIAwardRepository\u003E mockRepository = new Mock\u003CIAwardRepository\u003E(MockBehavior.Strict);\r\n    IAwardService service = new AwardService(mockRepository.Object);\r\n    var award = new Award\r\n    {\r\n        Id = 1,\r\n        Success = 2,\r\n        Fail = 1,\r\n        Quit = 3,\r\n        Level = LevelEnum.Easy\r\n    };\r\n    ArgumentException ex = Assert.Throws\u003CArgumentException\u003E(() =\u003E service.Update(award));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u0022successValue can\u0027t be minor than quitValue.\u0022, ex.Message);\r\n    mockRepository.Verify(r =\u003E r.Update(It.IsAny\u003CAward\u003E()), Times.Never());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Update_Award_Equal_Values_Error",
+        "Body": "{\r\n    Mock\u003CIAwardRepository\u003E mockRepository = new Mock\u003CIAwardRepository\u003E(MockBehavior.Strict);\r\n    IAwardService service = new AwardService(mockRepository.Object);\r\n    var award = new Award\r\n    {\r\n        Id = 1,\r\n        Success = 1,\r\n        Fail = 1,\r\n        Quit = 2,\r\n        Level = LevelEnum.Easy\r\n    };\r\n    ArgumentException ex = Assert.Throws\u003CArgumentException\u003E(() =\u003E service.Update(award));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u0022Award values can\u0027t be equal.\u0022, ex.Message);\r\n    award.Success = 1;\r\n    award.Fail = 2;\r\n    award.Quit = 1;\r\n    ex = Assert.Throws\u003CArgumentException\u003E(() =\u003E service.Update(award));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u0022Award values can\u0027t be equal.\u0022, ex.Message);\r\n    award.Success = 2;\r\n    award.Fail = 1;\r\n    award.Quit = 1;\r\n    ex = Assert.Throws\u003CArgumentException\u003E(() =\u003E service.Update(award));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u0022Award values can\u0027t be equal.\u0022, ex.Message);\r\n    mockRepository.Verify(r =\u003E r.Add(3, 1, 2, LevelEnum.Easy), Times.Never());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Update_Award_QuitValue_Minor_than_FailValue_Error",
+        "Body": "{\r\n    Mock\u003CIAwardRepository\u003E mockRepository = new Mock\u003CIAwardRepository\u003E(MockBehavior.Strict);\r\n    IAwardService service = new AwardService(mockRepository.Object);\r\n    var award = new Award\r\n    {\r\n        Id = 1,\r\n        Success = 3,\r\n        Fail = 2,\r\n        Quit = 1,\r\n        Level = LevelEnum.Easy\r\n    };\r\n    ArgumentException ex = Assert.Throws\u003CArgumentException\u003E(() =\u003E service.Update(award));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u0022quitValue can\u0027t be minor than failValue.\u0022, ex.Message);\r\n    mockRepository.Verify(r =\u003E r.Update(It.IsAny\u003CAward\u003E()), Times.Never());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Update_Award_Success",
+        "Body": "{\r\n    var award = new Award\r\n    {\r\n        Id = 1,\r\n        Success = 3,\r\n        Fail = 1,\r\n        Quit = 2,\r\n        Level = LevelEnum.Easy\r\n    };\r\n    Mock\u003CIAwardRepository\u003E mockRepository = new Mock\u003CIAwardRepository\u003E(MockBehavior.Strict);\r\n    mockRepository.Setup(s =\u003E s.Update(award));\r\n    IAwardService service = new AwardService(mockRepository.Object);\r\n    service.Update(award);\r\n    mockRepository.Verify(r =\u003E r.Update(It.IsAny\u003CAward\u003E()), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GetAll_Award_Success",
+        "Body": "{\r\n    var expected = new List\u003CAward\u003E\r\n    {\r\n        new Award\r\n        {\r\n            Id = 1,\r\n            Success = 3,\r\n            Fail = 1,\r\n            Quit = 2,\r\n            Level = LevelEnum.Hard\r\n        },\r\n        new Award\r\n        {\r\n            Id = 2,\r\n            Success = 4,\r\n            Fail = 2,\r\n            Quit = 3,\r\n            Level = LevelEnum.Medium\r\n        }\r\n    };\r\n    Mock\u003CIAwardRepository\u003E mockRepository = new Mock\u003CIAwardRepository\u003E(MockBehavior.Strict);\r\n    mockRepository.Setup(s =\u003E s.GetAll()).Returns(expected);\r\n    IAwardService service = new AwardService(mockRepository.Object);\r\n    List\u003CAward\u003E actual = service.GetAll();\r\n    Assert.Equal(expected, actual);\r\n    mockRepository.Verify(r =\u003E r.GetAll(), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Get_Award_Success",
+        "Body": "{\r\n    var expected = new Award\r\n    {\r\n        Id = 1,\r\n        Success = 3,\r\n        Fail = 1,\r\n        Quit = 2,\r\n        Level = LevelEnum.Hard\r\n    };\r\n    Award expectedNull = null;\r\n    Mock\u003CIAwardRepository\u003E mockRepository = new Mock\u003CIAwardRepository\u003E(MockBehavior.Strict);\r\n    mockRepository.Setup(s =\u003E s.Get(1)).Returns(expected);\r\n    mockRepository.Setup(s =\u003E s.Get(0)).Returns(expectedNull);\r\n    IAwardService service = new AwardService(mockRepository.Object);\r\n    Award actual = service.Get(1);\r\n    Assert.Equal(expected, actual);\r\n    Assert.Null(service.Get(0));\r\n    mockRepository.Verify(r =\u003E r.Get(1), Times.Once());\r\n    mockRepository.Verify(r =\u003E r.Get(0), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Delete_Award_Success",
+        "Body": "{\r\n    Award notFoundAward = null;\r\n    Mock\u003CIAwardRepository\u003E mockRepository = new Mock\u003CIAwardRepository\u003E(MockBehavior.Strict);\r\n    mockRepository.Setup(r =\u003E r.Delete(0)).Throws(new InvalidOperationException(\u0022There\u0027s no Award with ID value equal to 0\u0022));\r\n    mockRepository.Setup(r =\u003E r.Delete(1));\r\n    mockRepository.Setup(r =\u003E r.Get(0)).Returns(notFoundAward);\r\n    mockRepository.Setup(r =\u003E r.Get(1)).Returns(new Award());\r\n    IAwardService service = new AwardService(mockRepository.Object);\r\n    service.Delete(1);\r\n    InvalidOperationException ex = Assert.Throws\u003CInvalidOperationException\u003E(() =\u003E service.Delete(0));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(ex.Message, \u0022There\u0027s no Award with ID value equal to 0\u0022);\r\n    mockRepository.Verify(r =\u003E r.Delete(1), Times.Once());\r\n    mockRepository.Verify(r =\u003E r.Get(It.IsAny\u003Cint\u003E()), Times.AtLeast(2));\r\n    mockRepository.Verify(r =\u003E r.Delete(0), Times.Never());\r\n    mockRepository.Verify(r =\u003E r.Delete(1), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "OptionServiceTest",
+    "Message": null,
+    "ProjectName": "BitcoinShow.Test",
+    "Methods": [
+      {
+        "Name": "Add_Option_Without_Text_Error",
+        "Body": "{\r\n    Mock\u003CIOptionRepository\u003E mockRepository = new Mock\u003CIOptionRepository\u003E(MockBehavior.Strict);\r\n    Option option = new Option();\r\n    option.Text = null;\r\n    mockRepository.Setup(s =\u003E s.Add(option)).Throws(new ArgumentNullException(nameof(option.Text)));\r\n    option.Text = String.Empty;\r\n    mockRepository.Setup(s =\u003E s.Add(option)).Throws(new ArgumentNullException(nameof(option.Text)));\r\n    OptionService service = new OptionService(mockRepository.Object);\r\n    ArgumentNullException ex = Assert.Throws\u003CArgumentNullException\u003E(() =\u003E service.Add(null));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(nameof(option.Text), ex.ParamName);\r\n    ex = Assert.Throws\u003CArgumentNullException\u003E(() =\u003E service.Add(String.Empty));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(nameof(option.Text), ex.ParamName);\r\n    mockRepository.Verify(m =\u003E m.Add(It.IsAny\u003COption\u003E()), Times.AtLeast(2));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Add_Option_With_Text_Greater_Than_Max_Size_Error",
+        "Body": "{\r\n    Mock\u003CIOptionRepository\u003E mockRepository = new Mock\u003CIOptionRepository\u003E(MockBehavior.Strict);\r\n    Option option = new Option();\r\n    option.Text = new String(\u0027A\u0027, 201);\r\n    mockRepository.Setup(s =\u003E s.Add(option)).Throws(new ArgumentOutOfRangeException(nameof(option.Text)));\r\n    OptionService service = new OptionService(mockRepository.Object);\r\n    ArgumentOutOfRangeException ex = Assert.Throws\u003CArgumentOutOfRangeException\u003E(() =\u003E service.Add(option.Text));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(nameof(option.Text), ex.ParamName);\r\n    mockRepository.Verify(m =\u003E m.Add(It.IsAny\u003COption\u003E()), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Add_Option_Success",
+        "Body": "{\r\n    string text = \u0022Add_Option_Success\u0022;\r\n    Mock\u003CIOptionRepository\u003E mockRepository = new Mock\u003CIOptionRepository\u003E(MockBehavior.Strict);\r\n    Option newOption = new Option();\r\n    newOption.Text = text;\r\n    mockRepository.Setup(s =\u003E s.Add(newOption)).Callback\u003COption\u003E(o =\u003E o.Id = 1);\r\n    Option expected = new Option();\r\n    expected.Id = 1;\r\n    expected.Text = text;\r\n    OptionService service = new OptionService(mockRepository.Object);\r\n    var actual = service.Add(text);\r\n    Assert.NotNull(actual);\r\n    Assert.Equal(expected, actual);\r\n    mockRepository.Verify(m =\u003E m.Add(It.IsAny\u003COption\u003E()), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Get_Option_By_Id_Not_Found",
+        "Body": "{\r\n    Mock\u003CIOptionRepository\u003E mockRepository = new Mock\u003CIOptionRepository\u003E(MockBehavior.Strict);\r\n    Option option = null;\r\n    mockRepository.Setup(s =\u003E s.Get(1)).Returns(option);\r\n    OptionService service = new OptionService(mockRepository.Object);\r\n    var actual = service.Get(1);\r\n    Assert.Null(actual);\r\n    mockRepository.Verify(m =\u003E m.Get(It.IsAny\u003Cint\u003E()), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Get_Option_By_Id_Success",
+        "Body": "{\r\n    Mock\u003CIOptionRepository\u003E mockRepository = new Mock\u003CIOptionRepository\u003E(MockBehavior.Strict);\r\n    mockRepository.Setup(s =\u003E s.Get(1)).Returns(new Option { Id = 1, Text = \u0022Donald Trump\u0022 });\r\n    OptionService service = new OptionService(mockRepository.Object);\r\n    Option expected = new Option\r\n    {\r\n        Id = 1,\r\n        Text = \u0022Donald Trump\u0022\r\n    };\r\n    var actual = service.Get(1);\r\n    Assert.NotNull(actual);\r\n    Assert.Equal(expected, actual);\r\n    mockRepository.Verify(m =\u003E m.Get(It.IsAny\u003Cint\u003E()), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Update_Option_Without_Text_Error",
+        "Body": "{\r\n    Mock\u003CIOptionRepository\u003E mockRepository = new Mock\u003CIOptionRepository\u003E(MockBehavior.Strict);\r\n    Option option = new Option();\r\n    option.Text = null;\r\n    mockRepository.Setup(s =\u003E s.Update(option)).Throws(new ArgumentNullException(nameof(option.Text)));\r\n    option.Text = String.Empty;\r\n    mockRepository.Setup(s =\u003E s.Update(option)).Throws(new ArgumentNullException(nameof(option.Text)));\r\n    OptionService service = new OptionService(mockRepository.Object);\r\n    Option optionToUpdate = new Option\r\n    {\r\n        Text = String.Empty\r\n    };\r\n    ArgumentNullException ex = Assert.Throws\u003CArgumentNullException\u003E(() =\u003E service.Update(optionToUpdate));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(nameof(option.Text), ex.ParamName);\r\n    optionToUpdate = new Option\r\n    {\r\n        Text = null\r\n    };\r\n    ex = Assert.Throws\u003CArgumentNullException\u003E(() =\u003E service.Update(optionToUpdate));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(nameof(option.Text), ex.ParamName);\r\n    mockRepository.Verify(m =\u003E m.Update(It.IsAny\u003COption\u003E()), Times.AtLeast(2));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Update_Option_NonExistent_Error",
+        "Body": "{\r\n    Mock\u003CIOptionRepository\u003E mockRepository = new Mock\u003CIOptionRepository\u003E(MockBehavior.Strict);\r\n    Option option666 = new Option\r\n    {\r\n        Id = 666,\r\n        Text = \u0022new text. 666\u0022\r\n    };\r\n    mockRepository.Setup(s =\u003E s.Update(option666)).Throws(new DbUpdateException(\u0022The current option does not exist.\u0022, new NullReferenceException()));\r\n    Option option = new Option\r\n    {\r\n        Text = \u0022new text. option without id\u0022\r\n    };\r\n    mockRepository.Setup(s =\u003E s.Update(option)).Throws(new DbUpdateException(\u0022The current option does not exist.\u0022, new NullReferenceException()));\r\n    OptionService service = new OptionService(mockRepository.Object);\r\n    Option optionToUpdate = new Option\r\n    {\r\n        Id = 666,\r\n        Text = \u0022new text. 666\u0022\r\n    };\r\n    DbUpdateException ex = Assert.Throws\u003CDbUpdateException\u003E(() =\u003E service.Update(optionToUpdate));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u0022The current option does not exist.\u0022, ex.Message);\r\n    optionToUpdate = new Option\r\n    {\r\n        Text = \u0022new text. option without id\u0022\r\n    };\r\n    ex = Assert.Throws\u003CDbUpdateException\u003E(() =\u003E service.Update(optionToUpdate));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u0022The current option does not exist.\u0022, ex.Message);\r\n    mockRepository.Verify(m =\u003E m.Update(It.IsAny\u003COption\u003E()), Times.AtLeast(2));\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Update_Option_With_Text_Greater_Than_Max_Size_Error",
+        "Body": "{\r\n    Mock\u003CIOptionRepository\u003E mockRepository = new Mock\u003CIOptionRepository\u003E(MockBehavior.Strict);\r\n    Option option = new Option\r\n    {\r\n        Id = 1,\r\n        Text = new String(\u0027B\u0027, 201)\r\n    };\r\n    mockRepository.Setup(s =\u003E s.Update(option)).Throws(new ArgumentOutOfRangeException(nameof(option.Text)));\r\n    OptionService service = new OptionService(mockRepository.Object);\r\n    Option optionToUpdate = new Option\r\n    {\r\n        Id = 1,\r\n        Text = new String(\u0027B\u0027, 201)\r\n    };\r\n    ArgumentOutOfRangeException ex = Assert.Throws\u003CArgumentOutOfRangeException\u003E(() =\u003E service.Update(optionToUpdate));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(nameof(option.Text), ex.ParamName);\r\n    mockRepository.Verify(m =\u003E m.Update(It.IsAny\u003COption\u003E()), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Update_Option_Success",
+        "Body": "{\r\n    Mock\u003CIOptionRepository\u003E mockRepository = new Mock\u003CIOptionRepository\u003E(MockBehavior.Strict);\r\n    mockRepository.Setup(s =\u003E s.Update(new Option { Id = 1, Text = \u0022Updated\u0022 })).Callback\u003COption\u003E(o =\u003E o.Text = \u0022Updated\u0022);\r\n    OptionService service = new OptionService(mockRepository.Object);\r\n    var expected = new Option\r\n    {\r\n        Id = 1,\r\n        Text = \u0022Updated\u0022\r\n    };\r\n    var actual = service.Update(new Option { Id = 1, Text = \u0022Updated\u0022 });\r\n    Assert.NotNull(actual);\r\n    Assert.Equal(expected, actual);\r\n    mockRepository.Verify(m =\u003E m.Update(It.IsAny\u003COption\u003E()), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Delete_Option_Not_Found_Error",
+        "Body": "{\r\n    Mock\u003CIOptionRepository\u003E mockRepository = new Mock\u003CIOptionRepository\u003E(MockBehavior.Strict);\r\n    mockRepository.Setup(s =\u003E s.Delete(666)).Throws(new DbUpdateException(\u0022The current option does not exist.\u0022, new NullReferenceException()));\r\n    OptionService service = new OptionService(mockRepository.Object);\r\n    DbUpdateException ex = Assert.Throws\u003CDbUpdateException\u003E(() =\u003E service.Delete(666));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u0022The current option does not exist.\u0022, ex.Message);\r\n    mockRepository.Verify(m =\u003E m.Delete(It.IsAny\u003Cint\u003E()), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Delete_Option_Success",
+        "Body": "{\r\n    Mock\u003CIOptionRepository\u003E mockRepository = new Mock\u003CIOptionRepository\u003E(MockBehavior.Loose);\r\n    mockRepository.Setup(s =\u003E s.Delete(1));\r\n    OptionService service = new OptionService(mockRepository.Object);\r\n    service.Delete(1);\r\n    mockRepository.Verify(m =\u003E m.Delete(It.IsAny\u003Cint\u003E()), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "QuestionServiceTest",
+    "Message": null,
+    "ProjectName": "BitcoinShow.Test",
+    "Methods": [
+      {
+        "Name": "Add_Question_Without_Title_Error",
+        "Body": "{\r\n    Mock\u003CIQuestionRepository\u003E mockRepository = new Mock\u003CIQuestionRepository\u003E(MockBehavior.Strict);\r\n    Question newQuestion = new Question();\r\n    mockRepository.Setup(s =\u003E s.Add(newQuestion)).Throws(new ArgumentNullException(nameof(newQuestion.Title)));\r\n    IQuestionService service = new QuestionService(mockRepository.Object);\r\n    ArgumentNullException ex = Assert.Throws\u003CArgumentNullException\u003E(() =\u003E service.Add(newQuestion));\r\n    Assert.Equal(nameof(newQuestion.Title), ex.ParamName);\r\n    mockRepository.Verify(m =\u003E m.Add(It.IsAny\u003CQuestion\u003E()), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Add_Question_Wit_Title_Greater_Than_Max_Error",
+        "Body": "{\r\n    Mock\u003CIQuestionRepository\u003E mockRepository = new Mock\u003CIQuestionRepository\u003E(MockBehavior.Strict);\r\n    Question newQuestion = new Question();\r\n    newQuestion.Title = new String(\u0027a\u0027, 201);\r\n    mockRepository.Setup(s =\u003E s.Add(newQuestion)).Throws(new ArgumentOutOfRangeException(nameof(newQuestion.Title)));\r\n    IQuestionService service = new QuestionService(mockRepository.Object);\r\n    ArgumentOutOfRangeException ex = Assert.Throws\u003CArgumentOutOfRangeException\u003E(() =\u003E service.Add(newQuestion));\r\n    Assert.Equal(nameof(newQuestion.Title), ex.ParamName);\r\n    mockRepository.Verify(m =\u003E m.Add(It.IsAny\u003CQuestion\u003E()), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Add_Question_Success",
+        "Body": "{\r\n    List\u003COption\u003E options = new List\u003COption\u003E\r\n    {\r\n        new Option\r\n        {\r\n            Id = 1,\r\n            Text = \u0022Option A\u0022\r\n        },\r\n        new Option\r\n        {\r\n            Id = 2,\r\n            Text = \u0022Option B\u0022\r\n        },\r\n        new Option\r\n        {\r\n            Id = 3,\r\n            Text = \u0022Option C\u0022\r\n        },\r\n        new Option\r\n        {\r\n            Id = 4,\r\n            Text = \u0022Option D\u0022\r\n        }\r\n    };\r\n    Option answer = options[2];\r\n    Question newQuestion = new Question(\u0022What was the score of the game?\u0022, answer, options, LevelEnum.Hard);\r\n    Mock\u003CIQuestionRepository\u003E mockRepository = new Mock\u003CIQuestionRepository\u003E(MockBehavior.Strict);\r\n    mockRepository.Setup(s =\u003E s.Add(newQuestion)).Callback\u003CQuestion\u003E(q =\u003E\r\n    {\r\n        q.Id = 1;\r\n        q.Level = LevelEnum.Hard;\r\n        q.Options.ForEach(o =\u003E\r\n        {\r\n            o.QuestionId = q.Id;\r\n            o.Question = q;\r\n        });\r\n    });\r\n    Question expectedQuestion = new Question();\r\n    List\u003COption\u003E expectedOptions = new List\u003COption\u003E\r\n    {\r\n        new Option\r\n        {\r\n            Id = 1,\r\n            Text = \u0022Option A\u0022,\r\n            QuestionId = expectedQuestion.Id,\r\n            Question = expectedQuestion\r\n        },\r\n        new Option\r\n        {\r\n            Id = 2,\r\n            Text = \u0022Option B\u0022,\r\n            QuestionId = expectedQuestion.Id,\r\n            Question = expectedQuestion\r\n        },\r\n        new Option\r\n        {\r\n            Id = 3,\r\n            Text = \u0022Option C\u0022,\r\n            QuestionId = expectedQuestion.Id,\r\n            Question = expectedQuestion\r\n        },\r\n        new Option\r\n        {\r\n            Id = 4,\r\n            Text = \u0022Option D\u0022,\r\n            QuestionId = expectedQuestion.Id,\r\n            Question = expectedQuestion\r\n        }\r\n    };\r\n    Option expectedAnswer = options[2];\r\n    expectedQuestion.Title = \u0022What was the score of the game?\u0022;\r\n    expectedQuestion.Answer = expectedAnswer;\r\n    expectedQuestion.Options = expectedOptions;\r\n    expectedQuestion.Level = LevelEnum.Hard;\r\n    expectedQuestion.Id = 1;\r\n    IQuestionService service = new QuestionService(mockRepository.Object);\r\n    service.Add(newQuestion);\r\n    Assert.Equal(expectedQuestion, newQuestion);\r\n    mockRepository.Verify(m =\u003E m.Add(It.IsAny\u003CQuestion\u003E()), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GetAll_Questions_Empty",
+        "Body": "{\r\n    Mock\u003CIQuestionRepository\u003E mockRepository = new Mock\u003CIQuestionRepository\u003E(MockBehavior.Strict);\r\n    mockRepository.Setup(s =\u003E s.GetAll()).Returns(new List\u003CQuestion\u003E());\r\n    IQuestionService service = new QuestionService(mockRepository.Object);\r\n    var actual = service.GetAll();\r\n    Assert.Equal(new List\u003CQuestion\u003E(), actual);\r\n    mockRepository.Verify(m =\u003E m.GetAll(), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "GetAll_Questions_Success",
+        "Body": "{\r\n    Mock\u003CIQuestionRepository\u003E mockRepository = new Mock\u003CIQuestionRepository\u003E(MockBehavior.Strict);\r\n    mockRepository.Setup(s =\u003E s.GetAll()).Returns(this.RandomQuestions(10));\r\n    var expected = this.RandomQuestions(10);\r\n    IQuestionService service = new QuestionService(mockRepository.Object);\r\n    var actual = service.GetAll();\r\n    Assert.Equal(expected, actual);\r\n    mockRepository.Verify(m =\u003E m.GetAll(), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Get_Question_Not_Found_Error",
+        "Body": "{\r\n    Mock\u003CIQuestionRepository\u003E mockRepository = new Mock\u003CIQuestionRepository\u003E(MockBehavior.Strict);\r\n    Question question = null;\r\n    mockRepository.Setup(s =\u003E s.Get(100)).Returns(question);\r\n    IQuestionService service = new QuestionService(mockRepository.Object);\r\n    Question actual = service.Get(100);\r\n    Assert.Null(actual);\r\n    mockRepository.Verify(m =\u003E m.Get(It.IsAny\u003Cint\u003E()), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Get_Question_Success",
+        "Body": "{\r\n    Mock\u003CIQuestionRepository\u003E mockRepository = new Mock\u003CIQuestionRepository\u003E(MockBehavior.Strict);\r\n    mockRepository.Setup(s =\u003E s.Get(8)).Returns(this.RandomQuestions(10).Find(q =\u003E q.Id == 8));\r\n    Question expected = this.RandomQuestions(10).Find(q =\u003E q.Id == 8);\r\n    IQuestionService service = new QuestionService(mockRepository.Object);\r\n    Question actual = service.Get(8);\r\n    Assert.NotNull(actual);\r\n    Assert.Equal(expected, actual);\r\n    mockRepository.Verify(m =\u003E m.Get(It.IsAny\u003Cint\u003E()), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Delete_Question_Not_Found_Error",
+        "Body": "{\r\n    Mock\u003CIQuestionRepository\u003E mockRepository = new Mock\u003CIQuestionRepository\u003E(MockBehavior.Strict);\r\n    mockRepository.Setup(s =\u003E s.Delete(1)).Throws(new Exception(\u0022The current Question does not exist.\u0022)); //it actually should be DbUpdateConcurrencyException\r\n    IQuestionService service = new QuestionService(mockRepository.Object);\r\n    Exception ex = Assert.Throws\u003CException\u003E(() =\u003E service.Delete(1));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u0022The current Question does not exist.\u0022, ex.Message);\r\n    mockRepository.Verify(m =\u003E m.Delete(It.IsAny\u003Cint\u003E()), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Delete_Question_Success",
+        "Body": "{\r\n    Mock\u003CIQuestionRepository\u003E mockRepository = new Mock\u003CIQuestionRepository\u003E(MockBehavior.Strict);\r\n    mockRepository.Setup(s =\u003E s.Delete(1));\r\n    IQuestionService service = new QuestionService(mockRepository.Object);\r\n    service.Delete(1);\r\n    mockRepository.Verify(m =\u003E m.Delete(It.IsAny\u003Cint\u003E()), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Update_Question_Without_Title_Error",
+        "Body": "{\r\n    Question question = new Question\r\n    {\r\n        Id = 1,\r\n        Title = string.Empty,\r\n        Level = LevelEnum.Hard\r\n    };\r\n    List\u003COption\u003E options = this.RandomOptions(4, question).ToList();\r\n    question.Answer = options[0];\r\n    question.Options = options;\r\n    Mock\u003CIQuestionRepository\u003E mockRepository = new Mock\u003CIQuestionRepository\u003E(MockBehavior.Strict);\r\n    mockRepository.Setup(s =\u003E s.Update(question)).Throws(new ArgumentNullException(nameof(question.Title)));\r\n    IQuestionService service = new QuestionService(mockRepository.Object);\r\n    ArgumentNullException ex = Assert.Throws\u003CArgumentNullException\u003E(() =\u003E service.Update(question));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(nameof(question.Title), ex.ParamName);\r\n    mockRepository.Verify(m =\u003E m.Update(It.IsAny\u003CQuestion\u003E()), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Update_Question_Without_Title_Greater_Than_Max_Error",
+        "Body": "{\r\n    Question question = new Question\r\n    {\r\n        Id = 1,\r\n        Title = new String(\u0027a\u0027, 201),\r\n        Level = LevelEnum.Hard\r\n    };\r\n    List\u003COption\u003E options = this.RandomOptions(4, question).ToList();\r\n    question.Answer = options[0];\r\n    question.Options = options;\r\n    Mock\u003CIQuestionRepository\u003E mockRepository = new Mock\u003CIQuestionRepository\u003E(MockBehavior.Strict);\r\n    mockRepository.Setup(s =\u003E s.Update(question)).Throws(new ArgumentOutOfRangeException(nameof(question.Title)));\r\n    IQuestionService service = new QuestionService(mockRepository.Object);\r\n    ArgumentOutOfRangeException ex = Assert.Throws\u003CArgumentOutOfRangeException\u003E(() =\u003E service.Update(question));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(nameof(question.Title), ex.ParamName);\r\n    mockRepository.Verify(m =\u003E m.Update(It.IsAny\u003CQuestion\u003E()), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Update_Question_Without_Answer_Error",
+        "Body": "{\r\n    Question question = new Question\r\n    {\r\n        Id = 1,\r\n        Title = Guid.NewGuid().ToString(),\r\n        Level = LevelEnum.Hard\r\n    };\r\n    List\u003COption\u003E options = this.RandomOptions(4, question).ToList();\r\n    question.Options = options;\r\n    Mock\u003CIQuestionRepository\u003E mockRepository = new Mock\u003CIQuestionRepository\u003E(MockBehavior.Strict);\r\n    mockRepository.Setup(s =\u003E s.Update(question)).Throws(new ArgumentNullException(nameof(question.Answer)));\r\n    IQuestionService service = new QuestionService(mockRepository.Object);\r\n    ArgumentNullException ex = Assert.Throws\u003CArgumentNullException\u003E(() =\u003E service.Update(question));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(nameof(question.Answer), ex.ParamName);\r\n    mockRepository.Verify(m =\u003E m.Update(It.IsAny\u003CQuestion\u003E()), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Update_Question_With_Answer_Out_Of_Options_Error",
+        "Body": "{\r\n    Question question = new Question\r\n    {\r\n        Id = 1,\r\n        Title = Guid.NewGuid().ToString(),\r\n        Level = LevelEnum.Hard\r\n    };\r\n    List\u003COption\u003E options = this.RandomOptions(4, question).ToList();\r\n    question.Options = options;\r\n    question.Answer = new Option\r\n    {\r\n        Id = 10,\r\n        Text = \u0022Invalid option\u0022,\r\n        Question = question,\r\n        QuestionId = question.Id\r\n    };\r\n    Mock\u003CIQuestionRepository\u003E mockRepository = new Mock\u003CIQuestionRepository\u003E(MockBehavior.Strict);\r\n    mockRepository.Setup(s =\u003E s.Update(question)).Throws(new ArgumentException(\u0022The options list does not contain the current Answer object.\u0022));\r\n    IQuestionService service = new QuestionService(mockRepository.Object);\r\n    ArgumentException ex = Assert.Throws\u003CArgumentException\u003E(() =\u003E service.Update(question));\r\n    Assert.NotNull(ex);\r\n    Assert.Equal(\u0022The options list does not contain the current Answer object.\u0022, ex.Message);\r\n    mockRepository.Verify(m =\u003E m.Update(It.IsAny\u003CQuestion\u003E()), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "Get_Random_Question_By_Level",
+        "Body": "{\r\n    Mock\u003CIQuestionRepository\u003E mockRepository = new Mock\u003CIQuestionRepository\u003E(MockBehavior.Strict);\r\n    mockRepository.Setup(s =\u003E s.GetByLevel(LevelEnum.Easy, new[] { 1 })).Returns(new Question());\r\n    mockRepository.Setup(s =\u003E s.GetByLevel(LevelEnum.Hard, new int[] { })).Returns(new Question());\r\n    IQuestionService service = new QuestionService(mockRepository.Object);\r\n    Question question = service.GetByLevel(LevelEnum.Easy, new[] { 1 });\r\n    Question question2 = service.GetByLevel(LevelEnum.Hard, null);\r\n    Assert.NotNull(question);\r\n    Assert.NotNull(question2);\r\n    mockRepository.Verify(r =\u003E r.GetByLevel(LevelEnum.Easy, new[] { 1 }), Times.Once());\r\n    mockRepository.Verify(r =\u003E r.GetByLevel(LevelEnum.Hard, new int[] { }), Times.Once());\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

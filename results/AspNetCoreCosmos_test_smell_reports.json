@@ -1,0 +1,89 @@
+[
+  {
+    "Name": "MyDataTests",
+    "Message": null,
+    "ProjectName": "AspNetCoreCosmos.DbTests",
+    "Methods": [
+      {
+        "Name": "MyDataCreateAsync",
+        "Body": "{\r\n    using (var scope = _serviceProvider.CreateScope())\r\n    {\r\n        // Arrange\r\n        var myData = new MyData\r\n        {\r\n            Id = Guid.NewGuid().ToString(),\r\n            PartitionKey = \u0022Test\u0022,\r\n            Name = \u0022testData\u0022,\r\n            Description = \u0022test description\u0022\r\n        };\r\n        var myDataService = scope.ServiceProvider.GetService\u003CMyDataService\u003E();\r\n        myDataService.EnsureCreated();\r\n        // Act\r\n        await myDataService.CreateAsync(myData);\r\n        var first = await myDataService.Get(myData.Id);\r\n        // Arrange\r\n        Assert.Equal(myData.Id, first.Id);\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

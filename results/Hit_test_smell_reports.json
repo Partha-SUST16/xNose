@@ -1,0 +1,2266 @@
+[
+  {
+    "Name": "UnitTest1_runningUnitTests",
+    "Message": null,
+    "ProjectName": "HitUnitTests",
+    "Methods": [
+      {
+        "Name": "UnitTestShouldNotFailAsync",
+        "Body": "{\r\n    var result = await _unitTestsSpace.RunUnitTestAsync(unitTest);\r\n    UnitTestsUtil.AssertResult(result, \u0022System1\u0022, string.Empty, unitTest);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "UnitTestShouldFailAsync",
+        "Body": "{\r\n    var result = await _unitTestsSpace.RunUnitTestAsync(unitTest);\r\n    UnitTestsUtil.AssertResult(result, \u0022System1\u0022, string.Empty, unitTest, true);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "SuccessResultStructureShouldBeAsExpected_testA_3_Async",
+        "Body": "{\r\n    var result = await _unitTestsSpace.RunUnitTestAsync(\u0022testA_3\u0022);\r\n    UnitTestsUtil.AssertResult(result, \u0022System1\u0022, string.Empty, \u0022testA_3\u0022);\r\n    result.ResultHead.NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestA\u0022).HasStatus(TestStatus.Success);\r\n    }).GotNextNode().NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestA_3\u0022).HasStatus(TestStatus.Success);\r\n    }).NoNextNode();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "SuccessResultStructureShouldBeAsExpected_testA_1_1_Async",
+        "Body": "{\r\n    var result = await _unitTestsSpace.RunUnitTestAsync(\u0022testA_1_1\u0022);\r\n    UnitTestsUtil.AssertResult(result, \u0022System1\u0022, string.Empty, \u0022testA_1_1\u0022);\r\n    result.ResultHead.NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestA\u0022).HasStatus(TestStatus.Success);\r\n    }).GotNextNode().NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestA_1\u0022).HasStatus(TestStatus.Success);\r\n    }).GotNextNode().NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestA_1_1\u0022).HasStatus(TestStatus.Success);\r\n    }).NoNextNode();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "SuccessResultStructureShouldBeAsExpected_testA_3_1_Async",
+        "Body": "{\r\n    var result = await _unitTestsSpace.RunUnitTestAsync(\u0022testA_3_1\u0022);\r\n    UnitTestsUtil.AssertResult(result, \u0022System1\u0022, string.Empty, \u0022testA_3_1\u0022);\r\n    result.ResultHead.NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestA\u0022).HasStatus(TestStatus.Success);\r\n    }).GotNextNode().NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestA_3\u0022).HasStatus(TestStatus.Success);\r\n    }).GotNextNode().NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestA_3_1\u0022).HasStatus(TestStatus.Success);\r\n    }).NoNextNode();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "FailedResultStructureShouldBeAsExpected_testB_2_Async",
+        "Body": "{\r\n    var result = await _unitTestsSpace.RunUnitTestAsync(\u0022testB_2\u0022);\r\n    UnitTestsUtil.AssertResult(result, \u0022System1\u0022, string.Empty, \u0022testB_2\u0022, true);\r\n    result.ResultHead.NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestB\u0022).HasStatus(TestStatus.Failed);\r\n    }).GotNextNode().NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestB_1\u0022).HasStatus(TestStatus.NotReached);\r\n    }).GotNextNode().NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestB_2\u0022).HasStatus(TestStatus.NotReached);\r\n    }).NoNextNode();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "FailedResultStructureShouldBeAsExpected_testC_2_Async",
+        "Body": "{\r\n    var result = await _unitTestsSpace.RunUnitTestAsync(\u0022testC_2\u0022);\r\n    UnitTestsUtil.AssertResult(result, \u0022System1\u0022, string.Empty, \u0022testC_2\u0022, true);\r\n    result.ResultHead.NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestC\u0022).HasStatus(TestStatus.Success);\r\n    }).GotNextNode().NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestC_1\u0022).HasStatus(TestStatus.Failed);\r\n    }).GotNextNode().NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestC_2\u0022).HasStatus(TestStatus.NotReached);\r\n    }).NoNextNode();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "UnitTest2_runningSyncUnitTests",
+    "Message": null,
+    "ProjectName": "HitUnitTests",
+    "Methods": [
+      {
+        "Name": "UnitTestShouldNotFailAsync",
+        "Body": "{\r\n    var result = await _unitTestsSpace.RunUnitTestAsync(system, unitTest);\r\n    UnitTestsUtil.AssertResult(result, system, string.Empty, unitTest);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "UnitTestShouldFailAsync",
+        "Body": "{\r\n    var result = await _unitTestsSpace.RunUnitTestAsync(system, unitTest);\r\n    UnitTestsUtil.AssertResult(result, system, string.Empty, unitTest, true);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "SuccessResultStructureShouldBeAsExpected_testA_3_Async",
+        "Body": "{\r\n    var result = await _unitTestsSpace.RunUnitTestAsync(system, \u0022testA_3\u0022);\r\n    UnitTestsUtil.AssertResult(result, system, string.Empty, \u0022testA_3\u0022);\r\n    result.ResultHead.NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestA\u0022).HasStatus(TestStatus.Success);\r\n    }).GotNextNode().NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestA_3\u0022).HasStatus(TestStatus.Success);\r\n    }).NoNextNode();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "SuccessResultStructureShouldBeAsExpected_testA_1_1_Async",
+        "Body": "{\r\n    var result = await _unitTestsSpace.RunUnitTestAsync(system, \u0022testA_1_1\u0022);\r\n    UnitTestsUtil.AssertResult(result, system, string.Empty, \u0022testA_1_1\u0022);\r\n    result.ResultHead.NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestA\u0022).HasStatus(TestStatus.Success);\r\n    }).GotNextNode().NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestA_1\u0022).HasStatus(TestStatus.Success);\r\n    }).GotNextNode().NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestA_1_1\u0022).HasStatus(TestStatus.Success);\r\n    }).NoNextNode();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "SuccessResultStructureShouldBeAsExpected_testA_3_1_Async",
+        "Body": "{\r\n    var result = await _unitTestsSpace.RunUnitTestAsync(system, \u0022testA_3_1\u0022);\r\n    UnitTestsUtil.AssertResult(result, system, string.Empty, \u0022testA_3_1\u0022);\r\n    result.ResultHead.NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestA\u0022).HasStatus(TestStatus.Success);\r\n    }).GotNextNode().NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestA_3\u0022).HasStatus(TestStatus.Success);\r\n    }).GotNextNode().NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestA_3_1\u0022).HasStatus(TestStatus.Success);\r\n    }).NoNextNode();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "FailedResultStructureShouldBeAsExpected_testB_2_Async",
+        "Body": "{\r\n    var result = await _unitTestsSpace.RunUnitTestAsync(system, \u0022testB_2\u0022);\r\n    UnitTestsUtil.AssertResult(result, system, string.Empty, \u0022testB_2\u0022, true);\r\n    result.ResultHead.NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestB\u0022).HasStatus(TestStatus.Failed);\r\n    }).GotNextNode().NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestB_1\u0022).HasStatus(TestStatus.NotReached);\r\n    }).GotNextNode().NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestB_2\u0022).HasStatus(TestStatus.NotReached);\r\n    }).NoNextNode();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "FailedResultStructureShouldBeAsExpected_testC_2_Async",
+        "Body": "{\r\n    var result = await _unitTestsSpace.RunUnitTestAsync(system, \u0022testC_2\u0022);\r\n    UnitTestsUtil.AssertResult(result, system, string.Empty, \u0022testC_2\u0022, true);\r\n    result.ResultHead.NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestC\u0022).HasStatus(TestStatus.Success);\r\n    }).GotNextNode().NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestC_1\u0022).HasStatus(TestStatus.Failed);\r\n    }).GotNextNode().NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestC_2\u0022).HasStatus(TestStatus.NotReached);\r\n    }).NoNextNode();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "UnitTest3_runningSyncUnitTests",
+    "Message": null,
+    "ProjectName": "HitUnitTests",
+    "Methods": [
+      {
+        "Name": "UnitTestShouldNotFailAsync",
+        "Body": "{\r\n    var result = await _unitTestsSpace.RunUnitTestAsync(system, layer, unitTest);\r\n    UnitTestsUtil.AssertResult(result, system, layer, unitTest);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "UnitTestShouldFailAsync",
+        "Body": "{\r\n    var result = await _unitTestsSpace.RunUnitTestAsync(system, layer, unitTest);\r\n    UnitTestsUtil.AssertResult(result, system, layer, unitTest, true);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "SuccessResultStructureShouldBeAsExpected_testA_3_Async",
+        "Body": "{\r\n    var result = await _unitTestsSpace.RunUnitTestAsync(system, layer, \u0022testA_3\u0022);\r\n    UnitTestsUtil.AssertResult(result, system, layer, \u0022testA_3\u0022);\r\n    result.ResultHead.NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestA\u0022).HasStatus(TestStatus.Success);\r\n    }).GotNextNode().NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestA_3\u0022).HasStatus(TestStatus.Success);\r\n    }).NoNextNode();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "SuccessResultStructureShouldBeAsExpected_testA_1_1_Async",
+        "Body": "{\r\n    var result = await _unitTestsSpace.RunUnitTestAsync(system, layer, \u0022testA_1_1\u0022);\r\n    UnitTestsUtil.AssertResult(result, system, layer, \u0022testA_1_1\u0022);\r\n    result.ResultHead.NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestA\u0022).HasStatus(TestStatus.Success);\r\n    }).GotNextNode().NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestA_1\u0022).HasStatus(TestStatus.Success);\r\n    }).GotNextNode().NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestA_1_1\u0022).HasStatus(TestStatus.Success);\r\n    }).NoNextNode();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "SuccessResultStructureShouldBeAsExpected_testA_3_1_Async",
+        "Body": "{\r\n    var result = await _unitTestsSpace.RunUnitTestAsync(system, layer, \u0022testA_3_1\u0022);\r\n    UnitTestsUtil.AssertResult(result, system, layer, \u0022testA_3_1\u0022);\r\n    result.ResultHead.NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestA\u0022).HasStatus(TestStatus.Success);\r\n    }).GotNextNode().NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestA_3\u0022).HasStatus(TestStatus.Success);\r\n    }).GotNextNode().NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestA_3_1\u0022).HasStatus(TestStatus.Success);\r\n    }).NoNextNode();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "FailedResultStructureShouldBeAsExpected_testB_2_Async",
+        "Body": "{\r\n    var result = await _unitTestsSpace.RunUnitTestAsync(system, layer, \u0022testB_2\u0022);\r\n    UnitTestsUtil.AssertResult(result, system, layer, \u0022testB_2\u0022, true);\r\n    result.ResultHead.NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestB\u0022).HasStatus(TestStatus.Failed);\r\n    }).GotNextNode().NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestB_1\u0022).HasStatus(TestStatus.NotReached);\r\n    }).GotNextNode().NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestB_2\u0022).HasStatus(TestStatus.NotReached);\r\n    }).NoNextNode();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "FailedResultStructureShouldBeAsExpected_testC_2_Async",
+        "Body": "{\r\n    var result = await _unitTestsSpace.RunUnitTestAsync(system, layer, \u0022testC_2\u0022);\r\n    UnitTestsUtil.AssertResult(result, system, layer, \u0022testC_2\u0022, true);\r\n    result.ResultHead.NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestC\u0022).HasStatus(TestStatus.Success);\r\n    }).GotNextNode().NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestC_1\u0022).HasStatus(TestStatus.Failed);\r\n    }).GotNextNode().NodeGotTestResult(result =\u003E\r\n    {\r\n        result.IsForTest(\u0022TestC_2\u0022).HasStatus(TestStatus.NotReached);\r\n    }).NoNextNode();\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "UnitTests1_space",
+    "Message": null,
+    "ProjectName": "HitUnitTests",
+    "Methods": [
+      {
+        "Name": "ShouldHaveDimensionOne",
+        "Body": "Could not load the body for function: ShouldHaveDimensionOne in class: UnitTests1_space",
+        "Smells": []
+      },
+      {
+        "Name": "NumberOfSystemsShouldBeOne",
+        "Body": "Could not load the body for function: NumberOfSystemsShouldBeOne in class: UnitTests1_space",
+        "Smells": []
+      },
+      {
+        "Name": "NumberOfLayersShouldBeOne",
+        "Body": "Could not load the body for function: NumberOfLayersShouldBeOne in class: UnitTests1_space",
+        "Smells": []
+      },
+      {
+        "Name": "SystemNameShouldBeSystem1",
+        "Body": "Could not load the body for function: SystemNameShouldBeSystem1 in class: UnitTests1_space",
+        "Smells": []
+      },
+      {
+        "Name": "LayerNameShouldBeDefaultTheEmptyString",
+        "Body": "Could not load the body for function: LayerNameShouldBeDefaultTheEmptyString in class: UnitTests1_space",
+        "Smells": []
+      },
+      {
+        "Name": "ShouldBeAbleToGetUnitTests1",
+        "Body": "Could not load the body for function: ShouldBeAbleToGetUnitTests1 in class: UnitTests1_space",
+        "Smells": []
+      },
+      {
+        "Name": "ShouldBeAbleToGetUnitTests2",
+        "Body": "Could not load the body for function: ShouldBeAbleToGetUnitTests2 in class: UnitTests1_space",
+        "Smells": []
+      },
+      {
+        "Name": "ShouldBeAbleToGetUnitTests3",
+        "Body": "Could not load the body for function: ShouldBeAbleToGetUnitTests3 in class: UnitTests1_space",
+        "Smells": []
+      },
+      {
+        "Name": "ShouldBeAbleToGetUnitTests4",
+        "Body": "Could not load the body for function: ShouldBeAbleToGetUnitTests4 in class: UnitTests1_space",
+        "Smells": []
+      },
+      {
+        "Name": "ShouldBeAbleToGetUnitTests5",
+        "Body": "Could not load the body for function: ShouldBeAbleToGetUnitTests5 in class: UnitTests1_space",
+        "Smells": []
+      },
+      {
+        "Name": "OneDimensionalSystemShouldBeNamedSystem1",
+        "Body": "Could not load the body for function: OneDimensionalSystemShouldBeNamedSystem1 in class: UnitTests1_space",
+        "Smells": []
+      },
+      {
+        "Name": "NumberOfUnitTestsShouldBeFive",
+        "Body": "Could not load the body for function: NumberOfUnitTestsShouldBeFive in class: UnitTests1_space",
+        "Smells": []
+      },
+      {
+        "Name": "NumberOfUnitTestCoordinatesShouldBeFive",
+        "Body": "Could not load the body for function: NumberOfUnitTestCoordinatesShouldBeFive in class: UnitTests1_space",
+        "Smells": []
+      },
+      {
+        "Name": "CoordinateForUnitTestShouldBeFound",
+        "Body": "Could not load the body for function: CoordinateForUnitTestShouldBeFound in class: UnitTests1_space",
+        "Smells": []
+      },
+      {
+        "Name": "CoordinateForUnitTestShouldNotBeFound",
+        "Body": "Could not load the body for function: CoordinateForUnitTestShouldNotBeFound in class: UnitTests1_space",
+        "Smells": []
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "UnitTests2_space",
+    "Message": null,
+    "ProjectName": "HitUnitTests",
+    "Methods": [
+      {
+        "Name": "ShouldHaveDimensionTwo",
+        "Body": "Could not load the body for function: ShouldHaveDimensionTwo in class: UnitTests2_space",
+        "Smells": []
+      },
+      {
+        "Name": "NumberOfSystemsShouldBeTwo",
+        "Body": "Could not load the body for function: NumberOfSystemsShouldBeTwo in class: UnitTests2_space",
+        "Smells": []
+      },
+      {
+        "Name": "NumberOfLayersShouldBeOne",
+        "Body": "Could not load the body for function: NumberOfLayersShouldBeOne in class: UnitTests2_space",
+        "Smells": []
+      },
+      {
+        "Name": "SystemNamesShouldContainSystem",
+        "Body": "Could not load the body for function: SystemNamesShouldContainSystem in class: UnitTests2_space",
+        "Smells": []
+      },
+      {
+        "Name": "LayerNamesShouldBeDefaultTheEmptyString",
+        "Body": "Could not load the body for function: LayerNamesShouldBeDefaultTheEmptyString in class: UnitTests2_space",
+        "Smells": []
+      },
+      {
+        "Name": "ShouldBeAbleToGetUnitTests",
+        "Body": "Could not load the body for function: ShouldBeAbleToGetUnitTests in class: UnitTests2_space",
+        "Smells": []
+      },
+      {
+        "Name": "NumberOfUnitTestsShouldBe10",
+        "Body": "Could not load the body for function: NumberOfUnitTestsShouldBe10 in class: UnitTests2_space",
+        "Smells": []
+      },
+      {
+        "Name": "NumberOfUnitTestCoordinatesShouldBeTen",
+        "Body": "Could not load the body for function: NumberOfUnitTestCoordinatesShouldBeTen in class: UnitTests2_space",
+        "Smells": []
+      },
+      {
+        "Name": "CoordinateForUnitTestShouldBeFound",
+        "Body": "Could not load the body for function: CoordinateForUnitTestShouldBeFound in class: UnitTests2_space",
+        "Smells": []
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "UnitTests3_space",
+    "Message": null,
+    "ProjectName": "HitUnitTests",
+    "Methods": [
+      {
+        "Name": "ShouldHaveDimensionThree",
+        "Body": "Could not load the body for function: ShouldHaveDimensionThree in class: UnitTests3_space",
+        "Smells": []
+      },
+      {
+        "Name": "NumberOfSystemsShouldBeTwo",
+        "Body": "Could not load the body for function: NumberOfSystemsShouldBeTwo in class: UnitTests3_space",
+        "Smells": []
+      },
+      {
+        "Name": "NumberOfLayersShouldBeThree",
+        "Body": "Could not load the body for function: NumberOfLayersShouldBeThree in class: UnitTests3_space",
+        "Smells": []
+      },
+      {
+        "Name": "SystemNamesShouldContainSystem",
+        "Body": "Could not load the body for function: SystemNamesShouldContainSystem in class: UnitTests3_space",
+        "Smells": []
+      },
+      {
+        "Name": "LayerNamesShouldContainLayer",
+        "Body": "Could not load the body for function: LayerNamesShouldContainLayer in class: UnitTests3_space",
+        "Smells": []
+      },
+      {
+        "Name": "ShouldBeAbleToGetUnitTests",
+        "Body": "Could not load the body for function: ShouldBeAbleToGetUnitTests in class: UnitTests3_space",
+        "Smells": []
+      },
+      {
+        "Name": "NumberOfUnitTestsShouldBe10",
+        "Body": "Could not load the body for function: NumberOfUnitTestsShouldBe10 in class: UnitTests3_space",
+        "Smells": []
+      },
+      {
+        "Name": "NumberOfUnitTestCoordinatesShouldBeFifteen",
+        "Body": "Could not load the body for function: NumberOfUnitTestCoordinatesShouldBeFifteen in class: UnitTests3_space",
+        "Smells": []
+      },
+      {
+        "Name": "CoordinateForUnitTestShouldBeFound",
+        "Body": "Could not load the body for function: CoordinateForUnitTestShouldBeFound in class: UnitTests3_space",
+        "Smells": []
+      },
+      {
+        "Name": "CoordinateForUnitTestShouldNotBeFound",
+        "Body": "Could not load the body for function: CoordinateForUnitTestShouldNotBeFound in class: UnitTests3_space",
+        "Smells": []
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "UnitTests4",
+    "Message": null,
+    "ProjectName": "HitUnitTests",
+    "Methods": [
+      {
+        "Name": "UnitTestShouldNotFailAsync",
+        "Body": "{\r\n    var result = await _unitTestsSpace.RunUnitTestAsync(system, unitTest);\r\n    UnitTestsUtil.AssertResult(result, system, string.Empty, unitTest);\r\n    UnitTestsUtil.AssertResult(result, system, string.Empty, unitTest);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "UnitTests5",
+    "Message": null,
+    "ProjectName": "HitUnitTests",
+    "Methods": [
+      {
+        "Name": "UnitTestShouldUsingUserSecretNotFailAsync",
+        "Body": "{\r\n    if (UnitTestsUtil.InDevelopment)\r\n    {\r\n        var result = await _unitTestsSpace.RunUnitTestAsync(system, unitTest);\r\n        UnitTestsUtil.AssertResult(result, system, string.Empty, unitTest);\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "UnitTests6",
+    "Message": null,
+    "ProjectName": "HitUnitTests",
+    "Methods": [
+      {
+        "Name": "UnitTestShouldNotFailAsync",
+        "Body": "{\r\n    var result = await _unitTestsSpace.RunUnitTestAsync(system, unitTest);\r\n    UnitTestsUtil.AssertResult(result, system, string.Empty, unitTest);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "UnitTests7",
+    "Message": null,
+    "ProjectName": "HitUnitTests",
+    "Methods": [
+      {
+        "Name": "UnitTestShouldNotFailAsync",
+        "Body": "{\r\n    if (UnitTestsUtil.InDevelopment)\r\n    {\r\n        var result = await _unitTestsSpace.RunUnitTestAsync(system, unitTest);\r\n        UnitTestsUtil.AssertResult(result, system, string.Empty, unitTest);\r\n    }\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "IntegrationUnitTests",
+    "Message": null,
+    "ProjectName": "Items.IntegrationTests",
+    "Methods": [
+      {
+        "Name": "Test1",
+        "Body": "{\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "UnitTests",
+    "Message": null,
+    "ProjectName": "Items.IntegrationTests",
+    "Methods": [
+      {
+        "Name": "UnitTest",
+        "Body": "{\r\n    var result = await _testSpace.RunUnitTestAsync(system, unitTest);\r\n    result.ShouldBeenSuccessful(_testOutput.WriteLine);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]

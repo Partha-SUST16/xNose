@@ -1,0 +1,299 @@
+[
+  {
+    "Name": "BankServiceTests",
+    "Message": null,
+    "ProjectName": "Avanade.PapoDeDev.UnitTest.Domain.Test",
+    "Methods": [
+      {
+        "Name": "AddAccount_WhenIsValid_ShallRequestAddNewAccount",
+        "Body": "{\r\n    //Arrange\r\n    var account = new Account(id: \u0022123\u0022, customer: new Customer(name: \u0022Customer A\u0022, document: new Document(DocumentType.CPF, number: \u00221111111111\u0022)), balance: 100.00m);\r\n    var account2 = new Account(id: \u0022123\u0022, customer: _customerFixture.GenerateValidCustomer(), balance: 100.00m);\r\n    _customerRepositoryMock = new Mock\u003CICustomerRepository\u003E();\r\n    _customerRepositoryMock.Setup(c =\u003E c.FindCustomerByDocumentAsync(It.IsAny\u003CDocument\u003E())).Returns(Task.FromResult((Customer)null));\r\n    //Call the Mock\r\n    _validateCustomerRegistryMock = new Mock\u003CValidateCustomerRegistry\u003E(new[] { _httpClientFactoryMock.Object });\r\n    _validateCustomerRegistryMock.Setup(m =\u003E m.ValidateCustomerAsync(It.Is\u003Cstring\u003E(d =\u003E d == account.Customer.Document.Number))).ReturnsAsync(true);\r\n    //Call the real http\r\n    var _validateCustomerRegistryReal = new ValidateCustomerRegistry(_httpClientFactoryMock.Object);\r\n    //Call the real\r\n    var _validateCustomerRegistryMock2 = new ValidateCustomerRegistry(_httpClientFactoryMock.Object);\r\n    _bankRepositoryMock = new Mock\u003CIBankRepository\u003E();\r\n    _bankRepositoryMock.Setup(b =\u003E b.InsertAccountAsync(account)).Returns(Task.CompletedTask);\r\n    //dont need create a Mock - is not usage\r\n    _accountRepositoryMock = new Mock\u003CIAccountRepository\u003E();\r\n    _bankService = new BankService(_bankRepositoryMock.Object, _customerRepositoryMock.Object, _accountRepositoryMock.Object, _iloogerMock.Object, _validateCustomerRegistryMock.Object); // Change between _validateCustomerRegistryMock.Object and _validateCustomerRegistryReal\r\n    //Act\r\n    var actual = await _bankService.AddAccountAsync(account);\r\n    //Assert\r\n    actual.Should().Contain($\u0022Customer {account.Customer.Name} created\u0022);\r\n    _bankRepositoryMock.Verify(b =\u003E b.InsertAccountAsync(It.IsAny\u003CAccount\u003E()), times: Times.Once);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "AddAccount_WhenIsNotValid_ShallNotRequestAddNewAccount",
+        "Body": "{\r\n    //Arrange\r\n    var account = new Account(id: \u0022123\u0022, customer: new Customer(name: \u0022Customer A\u0022, document: new Document(DocumentType.CPF, number: \u0022222\u0022)), balance: 100.00m);\r\n    var account2 = new Account(id: \u0022123\u0022, customer: _customerFixture.GenerateInvalidCustomer(), balance: 100.00m);\r\n    _customerRepositoryMock = new Mock\u003CICustomerRepository\u003E();\r\n    _customerRepositoryMock.Setup(c =\u003E c.FindCustomerByDocumentAsync(It.IsAny\u003CDocument\u003E())).Returns(Task.FromResult(new Customer(name: \u0022Customer A\u0022, document: new Document(DocumentType.CPF, number: \u0022222\u0022))));\r\n    //Call the Mock\r\n    _validateCustomerRegistryMock = new Mock\u003CValidateCustomerRegistry\u003E(new[] { _httpClientFactoryMock.Object });\r\n    _validateCustomerRegistryMock.Setup(m =\u003E m.ValidateCustomerAsync(It.Is\u003Cstring\u003E(d =\u003E d == account.Customer.Document.Number))).ReturnsAsync(true);\r\n    //Call the real http\r\n    var _validateCustomerRegistryReal = new ValidateCustomerRegistry(_httpClientFactoryMock.Object);\r\n    _bankRepositoryMock = new Mock\u003CIBankRepository\u003E();\r\n    _bankRepositoryMock.Setup(b =\u003E b.InsertAccountAsync(account)).Returns(Task.CompletedTask);\r\n    //dont need create a Mock - is not usage\r\n    _accountRepositoryMock = new Mock\u003CIAccountRepository\u003E();\r\n    _bankService = new BankService(_bankRepositoryMock.Object, _customerRepositoryMock.Object, _accountRepositoryMock.Object, _iloogerMock.Object, _validateCustomerRegistryMock.Object); // Change between _validateCustomerRegistryMock.Object and _validateCustomerRegistryReal\r\n    //Act\r\n    var actual = await _bankService.AddAccountAsync(account);\r\n    //Assert\r\n    actual.Should().Contain($\u0022Customer {account.Customer.Name} exists with document {account.Customer.Document.Number}\u0022);\r\n    _bankRepositoryMock.Verify(b =\u003E b.InsertAccountAsync(It.IsAny\u003CAccount\u003E()), times: Times.Never);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "AddAccount_WhenDocumentIsNotValid_ShallNotRequestAddNewAccount",
+        "Body": "{\r\n    //Arrange\r\n    var account = new Account(id: \u0022123\u0022, customer: new Customer(name: \u0022Customer A\u0022, document: new Document(DocumentType.CPF, number: \u00221111111112\u0022)), //last digit is 2 = invalid\r\n balance: 100.00m);\r\n    _customerRepositoryMock = new Mock\u003CICustomerRepository\u003E();\r\n    _customerRepositoryMock.Setup(c =\u003E c.FindCustomerByDocumentAsync(It.IsAny\u003CDocument\u003E())).ReturnsAsync((Customer)default);\r\n    //Call the Mock\r\n    _validateCustomerRegistryMock = new Mock\u003CValidateCustomerRegistry\u003E(new[] { _httpClientFactoryMock.Object });\r\n    _validateCustomerRegistryMock.Setup(m =\u003E m.ValidateCustomerAsync(It.Is\u003Cstring\u003E(d =\u003E d == account.Customer.Document.Number))).ReturnsAsync(false);\r\n    //Call the real http\r\n    var _validateCustomerRegistryReal = new ValidateCustomerRegistry(_httpClientFactoryMock.Object);\r\n    _bankRepositoryMock = new Mock\u003CIBankRepository\u003E();\r\n    _bankRepositoryMock.Setup(b =\u003E b.InsertAccountAsync(account)).Returns(Task.CompletedTask);\r\n    //dont need create a Setup - is not usage\r\n    _accountRepositoryMock = new Mock\u003CIAccountRepository\u003E();\r\n    _bankService = new BankService(_bankRepositoryMock.Object, _customerRepositoryMock.Object, _accountRepositoryMock.Object, _iloogerMock.Object, _validateCustomerRegistryMock.Object); // Change between _validateCustomerRegistryMock.Object and _validateCustomerRegistryReal\r\n    //Act\r\n    var actual = await _bankService.AddAccountAsync(account);\r\n    //Assert\r\n    actual.Should().Contain($\u0022Customer {account.Customer.Name} is not valid in external document validate\u0022);\r\n    _bankRepositoryMock.Verify(b =\u003E b.InsertAccountAsync(It.IsAny\u003CAccount\u003E()), times: Times.Never);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "AddAccount_WhenDocumentIsValid_ShallNotRequestAddNewAccount",
+        "Body": "{\r\n    //Arrange\r\n    var account = new Account(id: \u0022123\u0022, customer: new Customer(name: \u0022Customer A\u0022, document: new Document(DocumentType.CPF, number: \u00221111111111\u0022)), //last digit is 1 = Valid\r\n balance: 100.00m);\r\n    _customerRepositoryMock = new Mock\u003CICustomerRepository\u003E();\r\n    _customerRepositoryMock.Setup(c =\u003E c.FindCustomerByDocumentAsync(It.IsAny\u003CDocument\u003E())).ReturnsAsync(default(Customer));\r\n    //Call the Mock\r\n    _validateCustomerRegistryMock = new Mock\u003CValidateCustomerRegistry\u003E(new[] { _httpClientFactoryMock.Object });\r\n    _validateCustomerRegistryMock.Setup(m =\u003E m.ValidateCustomerAsync(It.Is\u003Cstring\u003E(d =\u003E d == account.Customer.Document.Number))).ReturnsAsync(true);\r\n    //Call the real http\r\n    var _validateCustomerRegistryReal = new ValidateCustomerRegistry(_httpClientFactoryMock.Object);\r\n    _bankRepositoryMock = new Mock\u003CIBankRepository\u003E();\r\n    _bankRepositoryMock.Setup(b =\u003E b.InsertAccountAsync(account)).Returns(Task.CompletedTask);\r\n    //dont need create a Mock - is not usage\r\n    _accountRepositoryMock = new Mock\u003CIAccountRepository\u003E();\r\n    _bankService = new BankService(_bankRepositoryMock.Object, _customerRepositoryMock.Object, _accountRepositoryMock.Object, _iloogerMock.Object, _validateCustomerRegistryMock.Object); // Change between _validateCustomerRegistryMock.Object and _validateCustomerRegistryReal\r\n    //Act\r\n    var actual = await _bankService.AddAccountAsync(account);\r\n    //Assert\r\n    actual.Should().Contain($\u0022Customer {account.Customer.Name} created\u0022);\r\n    _bankRepositoryMock.Verify(b =\u003E b.InsertAccountAsync(It.IsAny\u003CAccount\u003E()), times: Times.Once);\r\n}",
+        "Smells": [
+          {
+            "Name": "EmptyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConditionalTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ExpectedExceptionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "AssertionRouletteTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "UnknownTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantPrintTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SleepyTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "IgnoreTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "RedundantAssertionTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "DuplicateAssertionTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "MagicNumberTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "EagerTestSmell",
+            "Status": "Found"
+          },
+          {
+            "Name": "InappropriateAssertionsTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "SensitiveEqualitySmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ConstructorInitializationTestSmell",
+            "Status": "Not Found"
+          },
+          {
+            "Name": "ObscureInLineSetUpSmell",
+            "Status": "Not Found"
+          }
+        ]
+      },
+      {
+        "Name": "LackOfCohesion",
+        "Body": null,
+        "Smells": [
+          {
+            "Name": "LackOfCohesion",
+            "Status": "Not Found"
+          }
+        ]
+      }
+    ]
+  }
+]
