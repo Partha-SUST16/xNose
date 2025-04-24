@@ -59,3 +59,24 @@ Otherwise, you can run the `xNose.sln` file with your Visual Studio. You have to
     ...
 ]
 ```
+
+To cite this paper:
+```
+@inproceedings{10.1145/3639478.3643116,
+author = {Paul, Partha Protim and Akanda, Md Tonoy and Ullah, Mohammed Raihan and Mondal, Dipto and Chowdhury, Nazia Sultana and Tawsif, Fazle Mohammed},
+title = {xNose: A Test Smell Detector for C#},
+year = {2024},
+isbn = {9798400705021},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3639478.3643116},
+doi = {10.1145/3639478.3643116},
+abstract = {Test smells, similar to code smells, can negatively impact both the test code and the production code being tested. Despite extensive research on test smells in languages like Java, Scala, and Python, automated tools for detecting test smells in C# are lacking. This paper aims to bridge this gap by extending the study of test smells to C#, and developing a tool (xNose) to identify test smells in this language and analyze their distribution across projects. We identified 16 test smells from prior studies that were language-independent and had equivalent features in C# and evaluated xNose, achieving a precision score of 96.97\% and a recall score of 96.03\%. In addition, we conducted an empirical study to determine the prevalence of test smells in xUnit-based C# projects. This analysis sheds light on the frequency and distribution of test smells, deepening our understanding of their impact on C# projects and test suites. The development of xNose and our analysis of test smells in C# code aim to assist developers in maintaining code quality by addressing potential issues early in the development process.},
+booktitle = {Proceedings of the 2024 IEEE/ACM 46th International Conference on Software Engineering: Companion Proceedings},
+pages = {370–371},
+numpages = {2},
+keywords = {test smell, code smell, empirical studies, C#, abstract syntax tree (AST), rosalyn, static analysis},
+location = {Lisbon, Portugal},
+series = {ICSE-Companion '24}
+}
+```
